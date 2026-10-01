@@ -1,0 +1,1743 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — What to reach for</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/manual/plugin-catalog/recommendations/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#the-house-processors" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The house processors</a></li><li><a href="#for-a-live-show" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">For a live show</a></li><li><a href="#for-studio-mixing" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">For studio mixing</a></li><li><a href="#what-the-console-offers" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">What the console offers</a></li><li><a href="#eq" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">EQ</a></li><li><a href="#compressor" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Compressor</a></li><li><a href="#glue-bus-comp" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Glue Bus Comp</a></li><li><a href="#gate-expander" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Gate / Expander</a></li><li><a href="#de-esser" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">De-esser</a></li><li><a href="#limiter" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Limiter</a></li><li><a href="#reverb" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Reverb</a></li><li><a href="#delay" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Delay</a></li><li><a href="#saturation" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Saturation</a></li><li><a href="#modulation" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Modulation</a></li><li><a href="#filter-hpf" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Filter / HPF</a></li><li><a href="#what-suitable-means" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">What suitable means</a></li><!--]--></ul></aside><div><p data-manual-build-version class="mb-[1rem] font-mono text-micro text-ink-faint">You are reading the manual for build <code>6b99dde</code>.</p><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="what-to-reach-for">What to reach for</h1>
+<p class="my-[0.9rem] leading-base">Governed by: <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md</code></p>
+<p class="my-[0.9rem] leading-base">The catalog is an inventory. This page is the short list: what to put on a channel when you
+have no time to read a table. Two jobs, because they want different things — a show cares
+about latency above almost everything, and a mix does not.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-house-processors">The house processors</h2>
+<p class="my-[0.9rem] leading-base">Two of the desk's most useful processors are not LV2 plugins at all, and so appear in no
+table here: they are built into the console and carry no hosting verdict to earn.</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">FBS</strong>, the feedback suppressor — listens to a channel, recognises a ring and plants a
+narrow cut at its frequency, per channel and off until you arm it. See
+<a href="/docs/manual/fbs" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">feedback suppression</a>.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">HRP</strong>, the harmonic resonance processor — finds unusually strong harmonic components of
+one instrument's material and applies sparse, conservative cuts. Rack it on a channel,
+never on a bus or a sum, where the harmonic model describes nothing. It racks bypassed.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">Both are live tools first. In the studio the harmonic stage earns its place for the opposite
+reason: run the other way it <em>adds</em> harmonics rather than removing them — a colour, not a
+cure.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="for-a-live-show">For a live show</h2>
+<p class="my-[0.9rem] leading-base">100 plugins. Chosen for the live job: measured inside the live latency allowance at
+every rate, from a family with a track record, and with no control that can quietly overrun
+the budget mid-show. Sorted by latency at 96 kHz.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Package</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Kind</th>
+<th style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency at 96 kHz</th>
+<th style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Cost at 96 kHz</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Host</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Offered by the console</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Auto phaser</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.11 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Baxandall</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.34 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">C* Noisegate - Attenuate noise resident in silence</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">caps-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Utility</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">C* Plate - Versatile plate reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">caps-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.26 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">C* PlateX2 - Stereo in/out Versatile plate reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">caps-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.28 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Compressor</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.22 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — wants MIDI in, which an insert never carries</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Deesser</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.17 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — wants MIDI in, which an insert never carries</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Equalizer 8 Band</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.15 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Exciter</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Pitch and spectral</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.33 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Filter</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Filters</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.16 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Flanger</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.13 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Gate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.11 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Mono Compressor</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.26 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — wants MIDI in, which an insert never carries</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Multi Chorus</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.29 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Multiband Compressor</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">2.15 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Phaser</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.32 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.35 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Rotary Speaker</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.39 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — wants MIDI in, which an insert never carries</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Saturator</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.25 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — wants MIDI in, which an insert never carries</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Tape Simulator</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.68 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — wants MIDI in, which an insert never carries</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Vintage Delay</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.16 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Capacitor2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Filters</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.26 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Chebyshev distortion</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.19 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Console7Buss</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation (inferred from the name)</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.40 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Console7Channel</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation (inferred from the name)</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.52 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">DJ EQ</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.08 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">DJ flanger</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">DeBess</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics (inferred from the description)</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.70 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delayorama</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dragonfly Hall Reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-dragonfly-reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.57 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dragonfly Plate Reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-dragonfly-reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.24 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dragonfly Room Reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-dragonfly-reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.53 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Flanger</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.11 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">GLAME Butterworth Highpass</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Filters</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — stability never measured</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">GT10QM</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-eq10q</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.09 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">GVerb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.27 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Giant flange</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.05 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">GxTremolo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-guitarix-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.30 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Gxswitched_tremolo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-guitarix-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.13 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Hard Limiter</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.05 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Interstage</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation (inferred from the description)</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.20 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Karaoke</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Filters</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.03 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LFO Phaser</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.11 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Artistic Delay Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.08 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Chorus Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.43 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Chorus Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.86 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Compressor Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.07 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Compressor Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.12 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Delay Compensator Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.03 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Delay Compensator x2 Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.03 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Expander Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.07 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Expander Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.11 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Filter Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.45 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — cost spikes far above its own median</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Filter Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.43 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — cost spikes far above its own median</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Flanger Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.16 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — its latency changes with its own controls</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Flanger Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.29 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">conditional — its latency changes with its own controls</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Gate Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Gate Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.10 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Graphic Equalizer x16 Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.07 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Graphic Equalizer x16 Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.78 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Impulse Reverb Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.04 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Multiband Compressor Stereo x8</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">2.90 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Parametric Equalizer x16 LeftRight</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.42 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Parametric Equalizer x16 Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.39 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Parametric Equalizer x16 Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.47 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Sidechain Compressor Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.12 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">MDA RoundPan</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-mdala-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Spatial</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.11 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Multivoice Chorus</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Plate reverb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.29 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">PurestDrive</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.26 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverse Delay (5s max)</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.08 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">SC4</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.13 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">StereoCrossDelay</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-stereocrossdelay</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.28 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Tube2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.32 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Valve saturation</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.12 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Verbity</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.28 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamCompX2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.13 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamDelay</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.10 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamGEQ31</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.10 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamGateX2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.61 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamVerb</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">5.73 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">—</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">abGate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-abGate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.02 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">kPlateA</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.61 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42-comp - Dynamic Compressor Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.10 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42-comp - Dynamic Compressor Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.10 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42-eq - Parametric Equalizer Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.26 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42-eq - Parametric Equalizer Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.49 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">C* Saturate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">caps-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.010 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.51 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ClipOnly2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.010 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.04 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Pressure5</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-airwindows</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.010 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.33 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">C* Eq4p - 4-band parametric equaliser</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">caps-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.031 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.07 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">C* EqFA4p - 4-band parametric shelving equalizer</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">caps-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.031 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.07 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Retro Flanger</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Modulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.198 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.19 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamTube</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Saturation and amp simulation</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.333 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">4.57 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — costs more of a core than one insert may</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42-dpl - Digital Peak Limiter Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.333 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42-dpl - Digital Peak Limiter Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.333 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.08 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Limiter</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-calf-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">4.990 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.26 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Fast Lookahead limiter</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">5.000 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">suitable</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Limiter Mono</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">5.000 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.06 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Limiter Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">5.000 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.10 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+</tbody>
+</table>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="for-studio-mixing">For studio mixing</h2>
+<p class="my-[0.9rem] leading-base">The desk is equally a studio mixer, and the studio job lifts the one constraint the live list
+is built around: latency stops disqualifying, and the stakes of an overrun fall. So the studio
+list is the live list plus the 6 recommended plugins the live allowance excludes —
+look-ahead limiters, multiband dynamics, linear-phase and convolution work.</p>
+<p class="my-[0.9rem] leading-base">It is not simply the live list with the limits removed: some entries are the same plugin used
+for a different job, the harmonic processor above being the clearest case.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Package</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Kind</th>
+<th style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency at 96 kHz</th>
+<th style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Cost at 96 kHz</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Host</th>
+<th style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Offered by the console</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Multiband EQ</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">3.927 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.15 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZaMaximX2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">5.000 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">8.72 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — costs more of a core than one insert may</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Multiband Limiter Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lsp-plugins-lv2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamics</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">10.000 ms</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">1.44 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unsuitable — allocates, locks or calls the system inside the audio callback</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Tape Delay Simulation</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-swh-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Delay</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">—</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.07 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not yet racked and unracked a thousand times</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">no</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">ZamEQ2</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-zam-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Equalisers</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">—</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">—</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — not soaked at every rate</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+<tr>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">x42 - Preset Convolver Stereo</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">lv2-x42-plugins</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">Reverb</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">—</td>
+<td style="text-align:right" class="border border-border px-[0.7rem] py-2 text-left align-top">0.02 %</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">unknown — stability never measured</td>
+<td style="text-align:left" class="border border-border px-[0.7rem] py-2 text-left align-top">yes</td>
+</tr>
+</tbody>
+</table>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="what-the-console-offers">What the console offers</h2>
+<p class="my-[0.9rem] leading-base">The picker serves 70 plugins — the curated palette, not everything installed on the
+machine. A plugin you installed by hand will not appear even though the host can load it; the
+palette is a short list you can trust under pressure, and the full matrix is one click away.</p>
+<p class="my-[0.9rem] leading-base">Each role below is one of the picker's groups, ranked the way the picker ranks it: the lowest
+latency class first, the better-known house first within a class, heavy variants last. An
+entry whose plugin is not installed on the machine is left out of the picker rather than
+shown greyed. <strong class="font-semibold text-ink">Width</strong> is the build: a <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">mono</code> one fits a one-channel destination such as a
+wedge or a mono input, a <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">stereo</code> one a stereo strip. <strong class="font-semibold text-ink">Latency</strong> is the curator's class, the
+same <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">zero</code> / <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">low</code> / <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">high</code> the catalog uses.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="eq">EQ</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Parametric EQ x16</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Parametric EQ x16 (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono build of the palette's default parametric.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Parametric EQ x16 (L/R)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Independent left/right curves — minimum-phase, still live-safe.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Graphic EQ x16</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Graphic EQ x16 (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The wedge graphic EQ — one channel, no summing.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 Parametric EQ</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Minimum-phase 4-band + shelves/HPF/LPF.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 Parametric EQ (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono minimum-phase 4-band + shelves/HPF/LPF, and the cheapest measured parametric in the palette — the clean parametric for a wedge.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf EQ 8-Band</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamEQ2</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamGEQ31 (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">31-band mono graphic EQ — the traditional one-third-octave wedge tool, and cheap enough to run on every mix.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">HRP+ (per-instrument)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Harmonic Resonance Processor, live insert form — finds unusually strong harmonic components of ONE instrument's material and applies sparse, conservative cuts through an ordinary bell cascade.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="compressor">Compressor</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Compressor</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Compressor (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono build of the palette's default comp — ~40 % cheaper per instance.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Sidechain Comp</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Sidechain/ducking compressor.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 Compressor</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dynamic compressor — auto-makeup, easy to drive.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 Compressor (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono dynamic compressor — auto-makeup, zero-latency, no look-ahead control to overrun a monitor budget.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Compressor</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Mono Compressor</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf's dedicated mono comp.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamComp</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Airwindows Pressure5</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Airwindows' compressor with ClipOnly2 built in — 13.2 dB of implied gain reduction at pressure=0.7, one frame of delay (0.021 ms @ 48 k), 0.34 % of a core per instance at 96 kHz.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Multiband Comp x8</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">high</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">8-band crossover — measures 0 ms in its default Classic (IIR) mode, but the linear-phase modes add latency.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Multiband Comp</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">high</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Crossover band-split adds latency.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="glue-bus-comp">Glue Bus Comp</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Bus Comp (glue)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">SSL-style glue on a bus — threshold/ratio/attack/release/makeup, stereo.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Bus Comp (glue)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Alternative glue comp — full-featured stereo comp, zero-latency.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="gate-expander">Gate / Expander</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Gate</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Gate (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono build — measures 0 ms and costs ~40 % less per instance than the stereo one.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Expander</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Gentler than a gate — downward expansion.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Expander (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono downward expansion — same sidechain look-ahead caveat as the mono gate.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Gate</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamGate</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">eq10q GT10QM</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono gate with the stage feature set the others lack — sidechain HPF/LPF, key listen, ratio and knee — and still 0 ms at every rate with no latency-bearing control.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">abGate</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono noise gate — threshold / attack / hold / decay / range.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="de-esser">De-esser</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf De-esser</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Sibilance control for vocals — zero-latency.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="limiter">Limiter</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Limiter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Measured 5 ms look-ahead at default settings, at every rate: <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">low</code> by the console's own rule, because 5 ms fits inside one buffer at the rig's canonical rate (operator ruling 2026-09-08: the class follows the rule, never the plugin).</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Multiband Limiter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Multiband look-ahead limiter.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Limiter (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono build — the same measured 5 ms look-ahead as the stereo one and the same class, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">low</code> by the rule (operator ruling 2026-09-08).</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 Digital Peak Limiter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">True-peak limiter, 64-frame look-ahead (measured 1.33 ms @ 48 kHz).</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 Digital Peak Limiter (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono true-peak limiter, same measured 64-frame look-ahead as the stereo build.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Limiter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZaMaxim</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Brickwall look-ahead maximiser.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="reverb">Reverb</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dragonfly Hall</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Algorithmic hall — the live reverb.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dragonfly Room</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Algorithmic room.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dragonfly Plate</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Algorithmic plate — a plate reverb, and the cheapest reverb in the palette: 0.24 % of a core per instance at 96 kHz, 0 ms dry-path latency at all four rates, flat cost in silence.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Reverb</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Algorithmic — the installed live default where Dragonfly is absent.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamVerb</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Airwindows Verbity</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Cheap algorithmic reverb (0.29 % of a core per instance at 96 k) with a clean decay: -51 dB re peak at 200 ms, -99 dB at 1 s at defaults.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Airwindows kPlateA</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">low</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Plate reverb — a character the palette's halls and rooms do not cover.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Convolution Reverb</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">high</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Long-IR convolution — measures 0 ms only because no IR is loaded; the latency arrives with the IR.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">x42 IR Convolver</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">high</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Impulse-response convolver — measures 0 ms only with no IR loaded; real latency depends on the IR/partitioning.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="delay">Delay</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Delay Compensator</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Sample-accurate fixed delay (alignment).</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Delay Compensator (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono sample-accurate fixed delay (alignment) — the cheapest entry in the palette at any width.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Artistic Delay</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Tempo/feedback echo for FX sends.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Vintage Delay</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamDelay</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="saturation">Saturation</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Saturator</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Tape Simulator</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Tape-style colour + soft saturation.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Exciter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Harmonic top-end enhancer.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">ZamTube</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Airwindows PurestDrive</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The subtle saturator: bit-exact identity at drive=0, and at drive=1 still only 0.58 % THD with a flat response (-0.12 dB).</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">C* Saturate (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono waveshaper with selectable transfer modes and a bias control.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Valve Saturation (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono valve-style soft saturation — distortion character and knee, 0 ms at every rate.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="modulation">Modulation</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Chorus</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Chorus (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono chorus — half the measured cost of the stereo build, and nothing to cancel on a one-channel insert.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Flanger</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Flanger (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono flanger — same reasoning as the mono chorus.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Multi Chorus</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Phaser</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Flanger</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Rotary Speaker</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Leslie/rotary cabinet sim.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">GxTremolo (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Tremolo — the hosted route for roster gap 12 until the native stage exists.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Gx Switched Tremolo (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Square-wave (switched, on/off) tremolo — the choppier cousin of GxTremolo.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">MDA RoundPan (auto-pan)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LFO auto-panner — the hosted route for roster gap 12 until the native stage exists.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="filter-hpf">Filter / HPF</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Plugin</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Width</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Latency</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Filter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">LSP Filter (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Mono build for a wedge or a mono input channel — no stereo legs to sum.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Calf Filter</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">stereo</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Butterworth HPF (mono)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mono</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">zero</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Plain mono Butterworth high-pass — cutoff and resonance, nothing else.</td>
+</tr>
+</tbody>
+</table>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="what-suitable-means">What suitable means</h2>
+<p class="my-[0.9rem] leading-base">A plugin marked <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">suitable</code> has earned a place on the console's own audio thread, where there
+is no separate host process between it and the mix. That is worth a buffer in and a buffer out
+per insert, and at 96 kHz an engineer can hear the difference. It is also the most dangerous
+place in the system: one memory allocation inside the audio callback is the whole desk's
+dropout, and one crash is the whole desk's silence. So it is earned, never granted:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Nothing that can block.</strong> No memory allocation, no lock and no system call anywhere in the
+audio callback, measured under a sweep of every parameter — not read from a promise in the
+plugin's documentation.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">A clean soak at all four rates.</strong> 44.1, 48, 96 and 192 kHz, each run long enough to catch
+the plugins that look perfect for a second.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">A thousand rack and unrack cycles</strong> without a leak, a stray thread or a fault.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Affordable, knowable and the right shape</strong> — its cost at 96 kHz under the ceiling, its
+latency resolved, and one-in-one-out or stereo so it fits a strip.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">The verdict is the <em>worst</em> of those, and an absent measurement counts against rather than for:
+<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">unknown</code> keeps a plugin in its own process exactly as <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">unsuitable</code> does. <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">conditional</code> means
+it measured well but one dimension carries a caution worth reading before you lean on it.</p>
+<p class="my-[0.9rem] leading-base">Of the plugins measured, 367 are suitable today. The rest run in a host process of their
+own, which costs a buffer each way and is where the large majority of any LV2 collection will
+always live. Nothing about that makes them worse plugins.</p>
+<p class="my-[0.9rem] leading-base">See <a href="/docs/manual/plugin-catalog" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the catalog</a> for the full matrix.</p>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/manual/plugin-catalog/recommendations/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Fmanual\u002Fplugin-catalog\u002Frecommendations",1790815557871]</script></body></html>

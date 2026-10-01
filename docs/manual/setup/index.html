@@ -1,0 +1,308 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — The Setup panels</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/manual/setup/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#show-setup-assistant" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Show setup assistant</a></li><li><a href="#guided" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Guided</a></li><li><a href="#auto" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Auto</a></li><li><a href="#allocation" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Allocation</a></li><li><a href="#adapters" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Adapters</a></li><li><a href="#control-surfaces" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Control surfaces</a></li><li><a href="#gestures" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Gestures</a></li><li><a href="#interface-takeover" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Interface takeover</a></li><li><a href="#discovery" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Discovery</a></li><li><a href="#stageboxes" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Stageboxes</a></li><li><a href="#rme-totalmix" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">RME TotalMix</a></li><li><a href="#network" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Network</a></li><li><a href="#plugin-analysis" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Plugin analysis</a></li><li><a href="#the-rest-of-setup" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The rest of Setup</a></li><li><a href="#related" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Related</a></li><!--]--></ul></aside><div><p data-manual-build-version class="mb-[1rem] font-mono text-micro text-ink-faint">You are reading the manual for build <code>6b99dde</code>.</p><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="the-setup-panels">The Setup panels</h1>
+<p class="my-[0.9rem] leading-base">Everything behind the header's <strong class="font-semibold text-ink">Setup</strong> menu. These are the between-songs settings —
+what the console is, what hardware it talks to, and how it behaves — as opposed to the
+things you ride during a show.</p>
+<p class="my-[0.9rem] leading-base"><img src="/docs/manual/images/setup-1.png" alt="Setup, Allocation" class="my-[1.1rem] block h-auto w-full rounded-r2 border border-border">
+<em>A Setup panel in the config zone: one panel at a time, in the reserved column at the top right.</em></p>
+<p class="my-[0.9rem] leading-base">They all open in the <strong class="font-semibold text-ink">config zone</strong>, the reserved column at the top right, one at a time.
+On a narrow screen it arrives over the right-hand edge with a dimmed backdrop; tap the
+backdrop to send it away.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="show-setup-assistant">Show setup assistant</h2>
+<p class="my-[0.9rem] leading-base">Open it from <strong class="font-semibold text-ink">Setup ▸ Show setup</strong>. It is a checklist for taking the console from wherever
+it is to a show ready to mix, one numbered step at a time: <strong class="font-semibold text-ink">Session, Stageboxes, Allocation,
+Placement, Outputs, Configs, Save.</strong></p>
+<p class="my-[0.9rem] leading-base">A step is only marked done because the console's own state says so, never because you clicked
+through it. Open the panel on a console that is half set up and it starts you at the first
+step that is not done yet.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="guided">Guided</h3>
+<p class="my-[0.9rem] leading-base">Walk the steps yourself, one at a time:</p>
+<ol class="my-[0.9rem] list-decimal pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Session</strong> — name the show. <strong class="font-semibold text-ink">New session</strong> starts a blank show: it keeps this room's
+output routing, cue setup and REAC segment settings, and drops everything about the
+previous gig — channel names, patch, EQ, sends, all of it. Use it when the hardware is
+already wired the way you want and you are starting a fresh gig on it. If the console
+carries work that has not been saved under a name, you are asked to save it first, or you
+can discard it.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Stageboxes</strong> — choose which of the boxes the console can see belong to this show.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Allocation</strong> — the console proposes a channel and bus count that covers the boxes you
+picked. Some allocation changes only take effect after a restart; the step says so and
+names the command to run.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Placement</strong> — the console patches each included box's inputs onto channels, one box at a
+time, and shows you where each one landed.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Outputs</strong> — confirm MAIN has somewhere to go. The console never leaves MAIN unpatched, so
+this step will not let you skip past it.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Configs</strong> — the console offers any saved channel settings it recognises for the boxes you
+picked. Apply or dismiss each one.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Save</strong> — give the show a name to save it under. The step only turns green once nothing is
+left unsaved.</li>
+</ol>
+<p class="my-[0.9rem] leading-base">Whatever a step refuses, the refusal is shown right there, on that step.</p>
+<p class="my-[0.9rem] leading-base">The steps are drawn as a numbered strip, each number a chip tinted by its state — grey while pending,
+amber for the step you are on, green once done and red where it is blocked — so the whole walk
+reads at a glance. The PA Setup tab draws its own procedure the
+same way (see <a href="/docs/manual/room" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">room</a>). On the <strong class="font-semibold text-ink">Stageboxes</strong> step each box shows its model in a chip,
+green when it is ready and amber when it is not, and an <strong class="font-semibold text-ink">IN</strong> chip once it is included; on
+<strong class="font-semibold text-ink">Configs</strong>, each offer is tagged <strong class="font-semibold text-ink">same box input</strong> in green when it matches a box input by
+identity, or <strong class="font-semibold text-ink">same family</strong> when it only matches by kind of box.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="auto">Auto</h3>
+<p class="my-[0.9rem] leading-base">One button, over the same seven steps, with the console choosing the answers: a blank session
+named after the included boxes and the date, every present box included, the smallest
+allocation that covers them, each box placed in the order it was found, MAIN and cue left
+exactly as they were, and any saved channel settings that match a box leg by identity applied
+without asking (a settings match by family only is proposed, never applied on its own). Auto
+stops at the first step it cannot get through — an allocation that needs a restart, a box the
+console cannot place — and shows why, on that step.
+The step where it halted carries a red <strong class="font-semibold text-ink">STOPPED</strong> chip.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="allocation">Allocation</h2>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Build your console for the gig.</strong> A channel count, and a count of each kind of bus —
+aux, group, matrix, DCA, mix-minus and mains. Every summing bus is then sized to the
+channel count so that every input can reach every bus.</p>
+<p class="my-[0.9rem] leading-base">Presets take you from the minimum, 16 channels and 8 buses, up to 96 and 32. <strong class="font-semibold text-ink">Load
+defaults</strong> puts the form back to what the server starts a fresh console with.</p>
+<p class="my-[0.9rem] leading-base">The panel shows what is left of the path budget as you change the numbers, so you find out
+that an allocation is too big for the machine here rather than during a set.</p>
+<p class="my-[0.9rem] leading-base">The console cannot be made <strong class="font-semibold text-ink">smaller</strong> mid-show. Asking for fewer inputs than the desk is
+holding is refused, and the refusal says how many it holds.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="adapters">Adapters</h2>
+<p class="my-[0.9rem] leading-base">The I/O endpoints the console talks to: a REAC transport, a network audio device, a control
+surface. Each row shows its type, its status and its key settings.</p>
+<p class="my-[0.9rem] leading-base">The add and edit forms are <strong class="font-semibold text-ink">generated from the adapter type itself</strong>, so a type that gains
+a setting shows it here with no change to the surface. A REAC adapter reports its own link
+state — established, probing, unconfigured — rather than a generic running/stopped lamp,
+because &quot;the process is up&quot; and &quot;the wire is carrying audio&quot; are different facts.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="control-surfaces">Control surfaces</h2>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Setup ▸ MIDI Controllers</strong> — the physical control surfaces, an X-Touch first among them.</p>
+<p class="my-[0.9rem] leading-base">Each row carries a <strong class="font-semibold text-ink">presence</strong> lamp, refreshed every couple of seconds by the server
+actually probing the device, and an <strong class="font-semibold text-ink">enabled</strong> switch. The switch is your standing intent:
+an enabled surface connects itself when its device appears and detaches cleanly when it
+vanishes, and it survives a restart. A surface that is configured and unplugged stays in
+the list, unlit — the desk keeps knowing about your control surface between shows.</p>
+<p class="my-[0.9rem] leading-base">Two things make adding one quicker, and neither happens without you:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base">a <strong class="font-semibold text-ink">Preset</strong> picker fills the add form from a template for a known surface;</li>
+<li class="my-[0.35rem] leading-base">a <strong class="font-semibold text-ink">first-run offer</strong>: when a recognised surface is plugged in and nothing is configured
+yet, the panel offers it with an explicit <strong class="font-semibold text-ink">Add</strong> or <strong class="font-semibold text-ink">Not now</strong>. It is never adopted
+silently, and once any surface is configured the offer stops appearing.</li>
+</ul>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="gestures">Gestures</h2>
+<p class="my-[0.9rem] leading-base">Two timings that every attached control surface and the touchscreen read live:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Double-tap window</strong> — how long the desk waits for a second tap before treating the
+first as a single one.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Long-press threshold</strong> — how long a press must be held to count as a hold.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">Raise the double-tap window if your second tap keeps being missed; lower it if two
+deliberate presses are being read as one gesture.</p>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">server has the last word</strong> on the range: type a figure outside it and the field
+re-seeds with what the desk actually kept, so the panel never shows a value the console is
+not using.</p>
+<p class="my-[0.9rem] leading-base">There is also the <strong class="font-semibold text-ink">confirm destructive actions</strong> switch, which governs whether removing
+things asks first. See <a href="/docs/manual/scenes-sessions" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">scenes and sessions</a>.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="interface-takeover">Interface takeover</h2>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Setup ▸ Patchbay</strong> — the exclusive-control switch, named for what it protects rather than
+the panel it opens.</p>
+<p class="my-[0.9rem] leading-base">The console can take exclusive control of the audio interface, severing every other
+application's link to the sound card. On a dedicated rig it removes a whole class of
+contention problems; on a shared desktop it would silently cut every other application's
+audio, which is why it is <strong class="font-semibold text-ink">off by default</strong>.</p>
+<p class="my-[0.9rem] leading-base">The panel keeps two facts apart, deliberately:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">what you want</strong> — the switch;</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">what the console actually holds</strong> — the status line under it.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">So it says <em>holding</em>, or <em>wanted but not held yet</em>, or the reason it was refused. It never
+shows a lit lamp for a hold that is not there.</p>
+<p class="my-[0.9rem] leading-base">See also <a href="/docs/manual/patchbay#exclusive-control" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the patchbay</a>.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="discovery">Discovery</h2>
+<p class="my-[0.9rem] leading-base">The network audio devices the console has seen — REAC, Dante, AES67 — with each one's
+protocol, name, address and channel count, and a <strong class="font-semibold text-ink">Scan</strong> button to look again. Each device's protocol is a chip at the start of its
+row, and the same chip marks each row of the list of places discovery could not look. <strong class="font-semibold text-ink">Add as
+adapter</strong> turns one into a configured adapter in one press.</p>
+<p class="my-[0.9rem] leading-base">The empty state is not one state, and the panel says which one you have:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base">discovery swept the network and found nothing;</li>
+<li class="my-[0.35rem] leading-base">discovery has not looked yet;</li>
+<li class="my-[0.35rem] leading-base">discovery <strong class="font-semibold text-ink">could not</strong> look, and why.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">That last one matters: a stagebox that is busy carrying audio can be too busy to answer a
+probe, and a panel that reported it as &quot;no devices found&quot; would be telling you the opposite
+of the truth. The same facts reach the header's warnings badge, so you do not need this
+panel open to know discovery is blind.</p>
+<p class="my-[0.9rem] leading-base">Below the devices, <strong class="font-semibold text-ink">Patchbay nodes</strong> is the override on what the patchbay shows. A node
+the default filters hide — a video capture card that also carries audio — can be
+<strong class="font-semibold text-ink">included</strong>, and anything you have included or excluded carries a <strong class="font-semibold text-ink">Reset</strong> back to the
+default. Each override is tagged <strong class="font-semibold text-ink">Included</strong> or <strong class="font-semibold text-ink">Excluded</strong>. The console's own internal plumbing is never offered.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="stageboxes">Stageboxes</h2>
+<p class="my-[0.9rem] leading-base">The REAC boxes this console knows: name them, bind them, and <strong class="font-semibold text-ink">build a patch for a box that
+is not here yet</strong>.</p>
+<p class="my-[0.9rem] leading-base">That last part is what the panel exists for. Until a box is plugged in there is nothing to
+patch against, so a show's setup could not begin until the truck arrived. Add the box you
+know is coming, patch the gig against it, and when the real one turns up it takes over the
+row.</p>
+<p class="my-[0.9rem] leading-base">Real and prepared boxes are <strong class="font-semibold text-ink">one list</strong> on purpose: they are the same thing, and the only
+difference is whether a recognition key has turned up yet. A prepared box becoming real is
+one row learning its key, not a move between two collections.</p>
+<p class="my-[0.9rem] leading-base">The models offered come from the console itself, along with each one's input and output
+counts, so the panel can never offer a box the console would refuse.</p>
+<p class="my-[0.9rem] leading-base">See <a href="/docs/manual/head-amp" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">head-amp control</a> for what those boxes do once they are on the wire, and
+<a href="/docs/manual/reac-clock" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the clock</a> for the segment they sit on.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="rme-totalmix">RME TotalMix</h2>
+<p class="my-[0.9rem] leading-base">Where an RME interface is in use, the console <strong class="font-semibold text-ink">owns</strong> its internal routing.</p>
+<p class="my-[0.9rem] leading-base">An RME normally does its own monitoring inside the box, which means audio can reach the
+outputs without passing through the desk. Arming ownership declares a straight-through
+output map at unity and zeroes every hardware-input crosspoint, so the interface stops
+routing around the mix.</p>
+<p class="my-[0.9rem] leading-base">It is <strong class="font-semibold text-ink">off by default and it is a real decision</strong>: turning it on cuts the interface's own
+zero-latency direct monitoring. Turn it on when the console is the mixer and you want one
+signal path; leave it off if you are relying on the box's own monitoring.</p>
+<p class="my-[0.9rem] leading-base">The panel binds to what the console has <strong class="font-semibold text-ink">declared</strong>, not to a reading of the hardware —
+these controls cannot be read back — and re-declares the whole map at boot, whenever the
+interface reconnects, and whenever you press <strong class="font-semibold text-ink">Re-assert routing</strong>.</p>
+<p class="my-[0.9rem] leading-base">Phantom power and pad are not here: they belong to the source. See
+<a href="/docs/manual/head-amp" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">head-amp control</a>. The clock is not here either; see
+<a href="/docs/manual/reac-clock" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the clock</a>.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="network">Network</h2>
+<p class="my-[0.9rem] leading-base">The address and port the server is answering on, each value shown with <strong class="font-semibold text-ink">where it came
+from</strong> — a persisted setting, a command-line flag, an environment variable or the built-in
+default, highest precedence first.</p>
+<p class="my-[0.9rem] leading-base">You can edit the persisted override: fill a field and it is persisted and outranks the
+command line and the environment at the next boot; empty it and the lower layers win again.</p>
+<p class="my-[0.9rem] leading-base">The server does not re-bind a running listener, so a change is flagged <strong class="font-semibold text-ink">takes effect on
+restart</strong> rather than pretending to have applied.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="plugin-analysis">Plugin analysis</h2>
+<p class="my-[0.9rem] leading-base">Plugin cost measured <strong class="font-semibold text-ink">on this machine</strong>, beside the figures the catalog ships.</p>
+<p class="my-[0.9rem] leading-base">Every count on screen is split between the local run and the shipped one, and each run's
+provenance is named — machine, processor, CPU governor and date — so you always know which
+of the two you are reading. A cost figure ranks plugins on one machine and the panel says
+so next to the run it applies to.</p>
+<p class="my-[0.9rem] leading-base">Run it on the rig you are going to use, and the catalog's rankings become your rig's
+rankings. See <a href="/docs/manual/plugin-catalog" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the plugin catalog</a>.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-rest-of-setup">The rest of Setup</h2>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Item</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Documented in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Come-up gain</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><a href="/docs/manual/channel-strip" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">The channel strip</a></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Clock</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><a href="/docs/manual/reac-clock" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">The clock</a></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Sessions</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><a href="/docs/manual/scenes-sessions" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Scenes and sessions</a></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Preferences</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><a href="/docs/manual/personalities-themes" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Personalities and themes</a></td>
+</tr>
+</tbody>
+</table>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="related">Related</h2>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><a href="/docs/manual/menus" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">The console menus</a> — every menu item in one list.</li>
+<li class="my-[0.35rem] leading-base"><a href="/docs/manual/surface" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">The surface</a> — where the config zone sits.</li>
+</ul>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/manual/setup/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Fmanual\u002Fsetup",1790815557734]</script></body></html>

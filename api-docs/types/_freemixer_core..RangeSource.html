@@ -1,0 +1,78 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>RangeSource | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core..html"></a></li>
+<li><a href="" aria-current="page">RangeSource</a></li></ul>
+<h1>Type Alias RangeSource</h1></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">RangeSource</span><span class="tsd-signature-symbol">:</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;headAmpGain&quot;</span> <span class="tsd-signature-symbol">}</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;faderTaper&quot;</span> <span class="tsd-signature-symbol">}</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;trimDb&quot;</span> <span class="tsd-signature-symbol">}</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;catalogLimits&quot;</span> <span class="tsd-signature-symbol">}</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;allocation&quot;</span> <span class="tsd-signature-symbol">}</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;coreLimits&quot;</span> <span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>Where a fact's presentation LIMITS come from — never a hardcoded constant (#66's precedent,
+<code>HeadAmpCapability.gainRange</code> / <code>headAmpGainRangeOf</code>). Each member is a POINTER at the owning
+declaration, never a copied number: the consumer resolves it against the declaration it
+already imports, so the contract cannot hold a second spelling of a travel that then drifts.</p>
+<p>Facts with no <code>range</code> either have no numeric travel at all (a name, a membership set) or
+their limits live in a declaration this column does not point at yet (the EQ's own
+<code>EQ_GAIN_LIMIT_DB</code>/<code>EQ_FREQ_RANGE</code> in <code>eq.ts</code>; delay/reverb, whose params carry no declared
+limit table today) — absences, recorded as such rather than guessed.</p>
+</div>
+<div class="tsd-type-declaration">
+<h4>Type Declaration</h4>
+<ul>
+<li><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;headAmpGain&quot;</span> <span class="tsd-signature-symbol">}</span>
+<div class="tsd-comment tsd-typography"><p>Reads the pad-aware <code>HeadAmpCapability.gainRange</code> (<code>source.ts</code>'s <code>headAmpGainRangeOf</code>) —
+the REAC 0..55 travel by default, an RME mic input's 0..65 when the capability says so.</p>
+</div></li>
+<li><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;faderTaper&quot;</span> <span class="tsd-signature-symbol">}</span>
+<div class="tsd-comment tsd-typography"><p>The per-channel FADER TAPER the topology declares (<code>ChannelCapabilities.faderScaleFor</code>,
+<code>model.ts</code>'s <code>FaderScale</code>) — a position↔dB coupling, not a min/max pair. The server's
+fader row derives <code>db</code> through it and the DCA override shares it; a consumer that couples
+position to dB any other way is the class-D &quot;both must keep the same taper&quot; hazard.</p>
+</div></li>
+<li><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;trimDb&quot;</span> <span class="tsd-signature-symbol">}</span>
+<div class="tsd-comment tsd-typography"><p>The desk's own digital input-TRIM travel — <code>TRIM_RANGE</code> (<code>control-descriptor.ts</code>), the
+declared <code>TRIM_MIN_DB..TRIM_MAX_DB</code> pair the trim row's codec clamps by.</p>
+</div></li>
+<li><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;catalogLimits&quot;</span> <span class="tsd-signature-symbol">}</span>
+<div class="tsd-comment tsd-typography"><p>The processor's limit table in <code>@freemixer/catalog</code> (<code>GATE_LIMITS</code> / <code>COMP_LIMITS</code>),
+which its server controller seeds and clamps by — the desk-independent DSP law.</p>
+</div></li>
+<li><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;allocation&quot;</span> <span class="tsd-signature-symbol">}</span>
+<div class="tsd-comment tsd-typography"><p>The SESSION's allocation: how many of a thing this channel may carry — sends, DCA members,
+insert slots, chain entries, bindable sources. The bound is a COUNT, not a travel in a unit,
+and it is neither a constant nor a device fact: a 32-bus session and an 8-bus session answer
+differently for the same code. Supplied through <a href="../interfaces/_freemixer_core..BoundsContext.html" class="tsd-kind-interface">BoundsContext</a> like <code>catalogLimits</code>,
+and legitimately ABSENT before a session is loaded — an absence to render, never a default
+to substitute (#150).</p>
+</div></li>
+<li><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">kind</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;coreLimits&quot;</span> <span class="tsd-signature-symbol">}</span>
+<div class="tsd-comment tsd-typography"><p>A travel CORE itself declares, per field, in the module that owns the fact — <code>eq.ts</code>'s
+<code>EQ_*_RANGE</code> / <code>HPF</code>/<code>LPF</code>, <code>fbs.ts</code>'s <code>FBS_*_RANGE</code>, <code>strip-fx-limits.ts</code>'s delay and
+reverb travels. Resolvable with NO context at all, which is the point: these are facts of
+the desk's own DSP, one per rig, so nothing has to be handed in to reach them.</p>
+<p>Distinct from <code>catalogLimits</code> only by WHO declares it — catalog depends on core, so its
+tables must be injected while these can simply be read. Same authority class, two homes.</p>
+</div></li></ul></div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

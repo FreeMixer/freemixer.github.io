@@ -1,0 +1,228 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>SurfaceHost | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core..html"></a></li>
+<li><a href="" aria-current="page">SurfaceHost</a></li></ul>
+<h1>Interface SurfaceHost</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The north-side contract a <strong>control surface</strong> (a physical MIDI desk like the
+Behringer X-Touch / a Mackie MCU, an OSC client, or the web UI) binds to. It is
+exactly the slice of <a href="../classes/_freemixer_core..MixerEngine.html" class="tsd-kind-class">MixerEngine</a> a surface needs: push canonical control
+intents in (<a href="#setfader" class="tsd-kind-method">SurfaceHost.setFader</a> …), and subscribe out to canonical state
+changes (<a href="#subscribe" class="tsd-kind-method">SurfaceHost.subscribe</a>) so motor faders, button LEDs, scribble
+strips and meters can track the model. The surface never touches a device
+protocol — it meets every other control source at this canonical boundary.</p>
+<p>This is the <code>ControlSource</code> host promised in <code>adapter.ts</code>'s header: a surface
+adapter depends on this interface, not the concrete engine, so it stays testable
+against a lightweight fake host.</p>
+</div></section>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">SurfaceHost</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#mainformat">mainFormat</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..BusFormat.html" class="tsd-signature-type tsd-kind-type-alias">BusFormat</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#topology">topology</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..MixerTopology.html" class="tsd-signature-type tsd-kind-interface">MixerTopology</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#select-1">select</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setdivergence-1">setDivergence</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">divergence</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setfader-1">setFader</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">level</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..FaderLevel.html" class="tsd-signature-type tsd-kind-interface">FaderLevel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setgain-1">setGain</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">gain</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..GainLevel.html" class="tsd-signature-type tsd-kind-interface">GainLevel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setmute-1">setMute</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">muted</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setpan-1">setPan</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">pan</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setsolo-1">setSolo</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">soloed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#snapshot-1">snapshot</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelStrip.html" class="tsd-signature-type tsd-kind-interface">ChannelStrip</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#strip-1">strip</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelStrip.html" class="tsd-signature-type tsd-kind-interface">ChannelStrip</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#subscribe-1">subscribe</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">listener</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..EngineListener.html" class="tsd-signature-type tsd-kind-type-alias">EngineListener</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel">
+<h4>Implemented by</h4>
+<ul class="tsd-hierarchy">
+<li><a href="../classes/_freemixer_core..MixerEngine.html" class="tsd-signature-type tsd-kind-class">MixerEngine</a></li></ul></section>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#mainformat" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>main<wbr/>Format?</span></a>
+<a href="#topology" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>topology?</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#select" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>select?</span></a>
+<a href="#setdivergence" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Divergence?</span></a>
+<a href="#setfader" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Fader</span></a>
+<a href="#setgain" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Gain</span></a>
+<a href="#setmute" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Mute</span></a>
+<a href="#setpan" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Pan</span></a>
+<a href="#setsolo" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Solo</span></a>
+<a href="#snapshot" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>snapshot</span></a>
+<a href="#strip" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>strip</span></a>
+<a href="#subscribe" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>subscribe</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="mainformat"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>main<wbr/>Format</span><a href="#mainformat" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">mainFormat</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..BusFormat.html" class="tsd-signature-type tsd-kind-type-alias">BusFormat</a></div>
+<div class="tsd-comment tsd-typography"><p>MAIN's discrete-channel format (<code>2026-09-08-lcr-mains.md</code> §4/§8) — <code>undefined</code> where this
+host has no LCR concept at all (a bridge to another hardware desk), <code>'stereo'</code> before the
+row has been read, <code>'lcr'</code> once MAIN carries a discrete centre. Optional and read-only for
+the same reason <code>topology</code> is: a projection of SERVED truth, never a client-side guess —
+phase 1 scopes it to MAIN alone (<code>useBusFormat.ts</code>'s own header: only MAIN can answer
+<code>'lcr'</code>), so one field is the whole surface-facing fact, not a per-channel one.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="topology"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>topology</span><a href="#topology" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">topology</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..MixerTopology.html" class="tsd-signature-type tsd-kind-interface">MixerTopology</a></div>
+<div class="tsd-comment tsd-typography"><p>The bound device topology (undefined until the engine reports <code>connected</code>).</p>
+</div></section></section></details>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="select"><code class="tsd-tag">Optional</code><span>select</span><a href="#select" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="select-1"><span class="tsd-kind-call-signature">select</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#select-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Select a channel — the console's global SEL (one selected strip per mixer, like a
+real desk). Optional: a host without shared selection simply omits it, and the
+surface keeps its selection local (the pre-#97 behaviour). Hosts that implement it
+fan the change back out as a <code>selection</code> event so every surface's SELECT LEDs and
+the web-ui's selected strip converge.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setdivergence"><code class="tsd-tag">Optional</code><span>set<wbr/>Divergence</span><a href="#setdivergence" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setdivergence-1"><span class="tsd-kind-call-signature">setDivergence</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">divergence</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#setdivergence-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>LCR divergence 0..1 (<code>2026-09-08-lcr-mains.md</code> §8) — the strip's own <code>divergence</code> field.
+Optional: a host with no <code>mainFormat</code> concept has nothing meaningful to write here, and a
+surface never calls it without first checking <code>mainFormat === 'lcr'</code> (§8.4's &quot;inert
+elsewhere&quot; rule).</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">divergence</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setfader"><span>set<wbr/>Fader</span><a href="#setfader" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setfader-1"><span class="tsd-kind-call-signature">setFader</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">level</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..FaderLevel.html" class="tsd-signature-type tsd-kind-interface">FaderLevel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#setfader-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">level</span>: <a href="_freemixer_core..FaderLevel.html" class="tsd-signature-type tsd-kind-interface">FaderLevel</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setgain"><span>set<wbr/>Gain</span><a href="#setgain" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setgain-1"><span class="tsd-kind-call-signature">setGain</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">gain</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..GainLevel.html" class="tsd-signature-type tsd-kind-interface">GainLevel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#setgain-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">gain</span>: <a href="_freemixer_core..GainLevel.html" class="tsd-signature-type tsd-kind-interface">GainLevel</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setmute"><span>set<wbr/>Mute</span><a href="#setmute" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setmute-1"><span class="tsd-kind-call-signature">setMute</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">muted</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#setmute-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">muted</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setpan"><span>set<wbr/>Pan</span><a href="#setpan" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setpan-1"><span class="tsd-kind-call-signature">setPan</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">pan</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#setpan-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">pan</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setsolo"><span>set<wbr/>Solo</span><a href="#setsolo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setsolo-1"><span class="tsd-kind-call-signature">setSolo</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">soloed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#setsolo-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">soloed</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="snapshot"><span>snapshot</span><a href="#snapshot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="snapshot-1"><span class="tsd-kind-call-signature">snapshot</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelStrip.html" class="tsd-signature-type tsd-kind-interface">ChannelStrip</a><span class="tsd-signature-symbol">[]</span><a href="#snapshot-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Current canonical strips (for repainting a surface after a bank change).</p>
+</div>
+<h4 class="tsd-returns-title">Returns <a href="_freemixer_core..ChannelStrip.html" class="tsd-signature-type tsd-kind-interface">ChannelStrip</a><span class="tsd-signature-symbol">[]</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="strip"><span>strip</span><a href="#strip" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="strip-1"><span class="tsd-kind-call-signature">strip</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelStrip.html" class="tsd-signature-type tsd-kind-interface">ChannelStrip</a><a href="#strip-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The canonical strip for <code>id</code> (created on first touch).</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_freemixer_core..ChannelStrip.html" class="tsd-signature-type tsd-kind-interface">ChannelStrip</a></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="subscribe"><span>subscribe</span><a href="#subscribe" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="subscribe-1"><span class="tsd-kind-call-signature">subscribe</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">listener</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..EngineListener.html" class="tsd-signature-type tsd-kind-type-alias">EngineListener</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><a href="#subscribe-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Subscribe to canonical state changes; returns an unsubscribe fn.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">listener</span>: <a href="../types/_freemixer_core..EngineListener.html" class="tsd-signature-type tsd-kind-type-alias">EngineListener</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></h4></div></li></ul></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#mainformat"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>main<wbr/>Format</span></a><a href="#topology"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>topology</span></a></div></details>
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
+<div><a href="#select"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>select</span></a><a href="#setdivergence"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Divergence</span></a><a href="#setfader"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Fader</span></a><a href="#setgain"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Gain</span></a><a href="#setmute"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Mute</span></a><a href="#setpan"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Pan</span></a><a href="#setsolo"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Solo</span></a><a href="#snapshot"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>snapshot</span></a><a href="#strip"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>strip</span></a><a href="#subscribe"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>subscribe</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

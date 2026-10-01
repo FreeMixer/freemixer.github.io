@@ -1,0 +1,163 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ChannelConfig | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core..html"></a></li>
+<li><a href="" aria-current="page">ChannelConfig</a></li></ul>
+<h1>Interface ChannelConfig</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>A named, reusable per-channel config as stored on disk.</p>
+</div></section>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelConfig</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#chain">chain</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..PluginSlotJson.html" class="tsd-signature-type tsd-kind-interface">PluginSlotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#comp">comp</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..CompState.html" class="tsd-signature-type tsd-kind-interface">CompState</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#eq">eq</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..EqState.html" class="tsd-signature-type tsd-kind-interface">EqState</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#family">family</a><span class="tsd-signature-symbol">?:</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;keys&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;drums&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;percussion&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bass&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;guitar&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;vocals&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;brass&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;wind&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;strings&quot;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;playback&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#gate">gate</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..GateState.html" class="tsd-signature-type tsd-kind-interface">GateState</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#id">id</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#namekey">nameKey</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#processing">processing</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelConfigProcessing.html" class="tsd-signature-type tsd-kind-interface">ChannelConfigProcessing</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#processors">processors</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ProcessorSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ProcessorSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#savedat">savedAt</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#savedfrom">savedFrom</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..StoredBoxInput.html" class="tsd-signature-type tsd-kind-interface">StoredBoxInput</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#schemaversion">schemaVersion</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#chain" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>chain</span></a>
+<a href="#comp" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>comp?</span></a>
+<a href="#eq" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>eq?</span></a>
+<a href="#family" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>family?</span></a>
+<a href="#gate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>gate?</span></a>
+<a href="#id" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>id</span></a>
+<a href="#name" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>name</span></a>
+<a href="#namekey" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>name<wbr/>Key?</span></a>
+<a href="#processing" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>processing?</span></a>
+<a href="#processors" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>processors?</span></a>
+<a href="#savedat" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>saved<wbr/>At</span></a>
+<a href="#savedfrom" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>saved<wbr/>From?</span></a>
+<a href="#schemaversion" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>schema<wbr/>Version</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="chain"><code class="tsd-tag">Readonly</code><span>chain</span><a href="#chain" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">chain</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..PluginSlotJson.html" class="tsd-signature-type tsd-kind-interface">PluginSlotJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The plugin chain captured from the source channel.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="comp"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>comp</span><a href="#comp" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">comp</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..CompState.html" class="tsd-signature-type tsd-kind-interface">CompState</a></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="eq"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>eq</span><a href="#eq" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">eq</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..EqState.html" class="tsd-signature-type tsd-kind-interface">EqState</a></div>
+<div class="tsd-comment tsd-typography"><p>The built-in EQ/gate/comp, when this config carries them — same typed states a whole
+session snapshot carries per channel (<a href="_freemixer_core..ChannelSnapshotJson.html#eq" class="tsd-kind-property">ChannelSnapshotJson.eq</a> /
+<a href="_freemixer_core..ChannelSnapshotJson.html#gate" class="tsd-kind-property">ChannelSnapshotJson.gate</a> / <a href="_freemixer_core..ChannelSnapshotJson.html#comp" class="tsd-kind-property">ChannelSnapshotJson.comp</a>), applied through
+the SAME doors (<code>ChannelEqStore.setEq</code> / <code>GateController.set</code> / <code>CompController.set</code>).</p>
+<p>Populated on the READ-ONLY factory instrument templates
+(<code>FACTORY_INSTRUMENT_TEMPLATES</code>), which carry no chain/processing at all and exist only
+to seed these three — and, SPARSELY, on an operator's own save: <code>captureChannel</code> reads
+each stage from the store that owns it and writes the field only where that store holds
+something for the channel, so an untouched stage is absent rather than stamped with a
+default. Absence is a fact here: a config silent about a stage leaves the target's own
+where it was.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="family"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>family</span><a href="#family" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">family</span><span class="tsd-signature-symbol">?:</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;keys&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;drums&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;percussion&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;guitar&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;vocals&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;brass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;wind&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;strings&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;playback&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>The <a href="../types/_freemixer_core..InstrumentFamily.html" class="tsd-kind-type-alias">InstrumentFamily</a> this config is filed under — what lets a picker GROUP the
+factory chains instead of showing a flat wall of them.</p>
+<p>Every factory template carries one. An operator's own save carries one when the operator
+ASKED for it at save time (RULED 2026-09-01: &quot;we must be able to keep our own copies&quot;), so
+their kick files beside the factory kicks; absent, the config stays an ungrouped entry, and
+that absence is a choice the operator made rather than a defect.</p>
+<p>A family is a FILING key, never an identity claim: what a channel IS lives on the
+<code>/channel/{kind}/{index}/instrument</code> row, whose vocabulary is the factory ids alone. A
+config filed under <code>drums</code> is not a drum; it is one the operator wants to find among them.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="gate"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>gate</span><a href="#gate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">gate</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..GateState.html" class="tsd-signature-type tsd-kind-interface">GateState</a></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="id"><code class="tsd-tag">Readonly</code><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="namekey"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>name<wbr/>Key</span><a href="#namekey" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">nameKey</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>i18n key for <a href="#name" class="tsd-kind-property">name</a>, present only on a READ-ONLY factory template — an operator's
+own saved name is free text with no key to resolve. A locale-aware client prefers
+<code>t(nameKey)</code> over <code>name</code>; a plain client (or today's REST-only landing) shows <code>name</code>.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="processing"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>processing</span><a href="#processing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">processing</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelConfigProcessing.html" class="tsd-signature-type tsd-kind-interface">ChannelConfigProcessing</a></div>
+<div class="tsd-comment tsd-typography"><p>The strip's OWN facts — the head stage (gain, trim, the head-amp trio, polarity,
+alignment) and pan — as one BLOCK whose presence is the statement (channel-contract spec
+revision 4). An operator's save always carries it, because a capture is a whole statement
+about the strip it read: a fact absent from a present block is fresh. A factory instrument
+template carries NO block: a template describes an instrument, never the strip it lands on,
+and an absent block is &quot;not stated&quot; — the apply neither lands nor clears a fact riding it.
+An empty <code>{}</code> is not the same thing as absence; it says the whole head stage is fresh.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="processors"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>processors</span><a href="#processors" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">processors</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ProcessorSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ProcessorSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The PROCESSING ARRANGEMENT captured from the source channel — its ordered
+<a href="_freemixer_core..Processor.html" class="tsd-kind-interface">Processor</a> chain, the same field a session snapshot carries
+(<a href="_freemixer_core..ChannelSnapshotJson.html#processors" class="tsd-kind-property">ChannelSnapshotJson.processors</a>) and applied through the same engine door.</p>
+<p>A config that carries the insert rack and the EQ/gate/comp values but not the ORDER they run
+in describes a different desk: order is load-bearing (ADR-0006) and reaches audio through
+the native step walk. Absent on the factory instrument templates, which carry no chain at
+all, and on any config whose channel has no chain to read.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="savedat"><code class="tsd-tag">Readonly</code><span>saved<wbr/>At</span><a href="#savedat" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">savedAt</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>ISO-8601 timestamp.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="savedfrom"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>saved<wbr/>From</span><a href="#savedfrom" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">savedFrom</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..StoredBoxInput.html" class="tsd-signature-type tsd-kind-interface">StoredBoxInput</a></div>
+<div class="tsd-comment tsd-typography"><p>The BOX LEG this config was read from — <code>{box, input}</code>, the patch-identity vocabulary
+(<code>2026-08-21-virtual-stageboxes-and-patch-identity.md</code>), stamped at save time from the
+routing graph's leg for the channel captured.</p>
+<p>It is a PROVENANCE, never an address: applying a config does not patch anything, and a
+config carrying a leg may be applied to any channel the operator chooses. What it buys is
+the one question a setup assistant cannot otherwise answer — <em>which of these stored configs
+belong to the box that just arrived</em> (<code>2026-09-16-show-setup-assistant.md</code> §7). Matching on
+<a href="#family" class="tsd-kind-property">family</a> instead would be a guess wearing the word &quot;identity&quot;: a family is a filing
+key, as <a href="#family" class="tsd-kind-property">family</a>'s own note says.</p>
+<p>Absent when the channel carried a PORT rather than a box input (an app stream, a loopback,
+a sound-card input — nothing owns those, so there is no identity to name), when it carried
+nothing at all, and on every factory template, which describes an instrument and was never
+on a box. The absence is a fact, not a gap to fill with a guess.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="schemaversion"><code class="tsd-tag">Readonly</code><span>schema<wbr/>Version</span><a href="#schemaversion" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">schemaVersion</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span></div></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#chain"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>chain</span></a><a href="#comp"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>comp</span></a><a href="#eq"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>eq</span></a><a href="#family"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>family</span></a><a href="#gate"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>gate</span></a><a href="#id"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>id</span></a><a href="#name"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>name</span></a><a href="#namekey"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>name<wbr/>Key</span></a><a href="#processing"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>processing</span></a><a href="#processors"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>processors</span></a><a href="#savedat"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>saved<wbr/>At</span></a><a href="#savedfrom"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>saved<wbr/>From</span></a><a href="#schemaversion"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>schema<wbr/>Version</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

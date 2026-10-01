@@ -1,0 +1,162 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>SurfacePreferencesJson | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core..html"></a></li>
+<li><a href="" aria-current="page">SurfacePreferencesJson</a></li></ul>
+<h1>Interface SurfacePreferencesJson</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>Every operator view selection the console remembers — the LOOK of the desk, as opposed
+to the state of the mix.</p>
+<p>It belongs to the SESSION (operator decision 2026-08-04): until there are users to derive
+per-user defaults from, the show owns its own look, so loading a different session restores
+THAT session's look. It rides <a href="_freemixer_core..ConsoleSnapshot.html" class="tsd-kind-interface">ConsoleSnapshot</a> for exactly that reason, and reaches
+clients as the <code>/surface/preferences</code> entity — no browser storage anywhere, so a browser
+whose policy forbids site data changes nothing and a second screen agrees by construction.</p>
+<p>What is deliberately NOT here: the per-WINDOW dock arrangement (a phone and the FOH screen
+legitimately differ — see the row's doc), genuinely ephemeral modes nobody wants back after
+a reload (the analyzer freeze, which bank layer the bay currently shows), and — moved out by
+issue #658 — the RTA overlay's own display aids: peak hold, meter colour, the pre→post delta
+highlight. Those are what the EQ/analyzer PANEL looks at, not a fact about the show a second
+screen must agree with; a phone glancing at the wall and the FOH engineer buried in a
+channel's EQ are entitled to their own reading habits, same reasoning as the dock. They live
+in the client's own window-local storage (<code>web-ui/app/composables/usePreferences.ts</code>), never
+here. <code>eqTap</code> stays — #658 is not a call to move everything — and RTA ARMING is a per-channel
+desk fact on that channel's own row, not a preference at all.</p>
+</div></section>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">SurfacePreferencesJson</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#baymenuposition">bayMenuPosition</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;left&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;right&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;top&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bottom&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#confirmconfigapply">confirmConfigApply</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#density">density</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;auto&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;compact&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;normal&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;comfortable&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#dismissedmissingkey">dismissedMissingKey</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#eqfillmode">eqFillMode</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;off&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;summed&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bands&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#eqtap">eqTap</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;drive&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;pre&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;post&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;both&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#hideunpatched">hideUnpatched</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#narrowonoverflow">narrowOnOverflow</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#occupiedpatch">occupiedPatch</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;warn&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;unpatch&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#paneltap">panelTap</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;drive&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;pre&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;post&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;both&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sendbus">sendBus</a><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#theme">theme</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;dark&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;hc&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;light&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#tracetoolbar">traceToolbar</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;left&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;right&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;top&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bottom&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#baymenuposition" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>bay<wbr/>Menu<wbr/>Position</span></a>
+<a href="#confirmconfigapply" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>confirm<wbr/>Config<wbr/>Apply</span></a>
+<a href="#density" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>density</span></a>
+<a href="#dismissedmissingkey" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>dismissed<wbr/>Missing<wbr/>Key</span></a>
+<a href="#eqfillmode" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>eq<wbr/>Fill<wbr/>Mode</span></a>
+<a href="#eqtap" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>eq<wbr/>Tap</span></a>
+<a href="#hideunpatched" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>hide<wbr/>Unpatched</span></a>
+<a href="#narrowonoverflow" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>narrow<wbr/>On<wbr/>Overflow</span></a>
+<a href="#occupiedpatch" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>occupied<wbr/>Patch</span></a>
+<a href="#paneltap" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>panel<wbr/>Tap</span></a>
+<a href="#sendbus" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>send<wbr/>Bus</span></a>
+<a href="#theme" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>theme</span></a>
+<a href="#tracetoolbar" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>trace<wbr/>Toolbar</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="baymenuposition"><code class="tsd-tag">Readonly</code><span>bay<wbr/>Menu<wbr/>Position</span><a href="#baymenuposition" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">bayMenuPosition</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;left&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;right&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;top&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bottom&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>Where the bay's display-mode menu sits.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="confirmconfigapply"><code class="tsd-tag">Readonly</code><span>confirm<wbr/>Config<wbr/>Apply</span><a href="#confirmconfigapply" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">confirmConfigApply</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Whether applying a channel config / factory instrument template WARNS first when it would
+move facts the channel currently holds (RULED 2026-09-01, <code>surface-interaction-conventions.md</code>
+§&quot;Whole-state applies warn&quot;). ON until the operator signs off with the dialog's &quot;don't warn
+me again&quot; — the console-wide choice, never a per-panel shortcut.</p>
+<p>Deliberately NOT <code>confirmDestructive</code> on <code>/surface/gestures</code>: that switch governs the
+arm-then-fire gate on REMOVES, and an apply removes nothing — it overwrites, and the
+document it overwrites from survives. One switch meaning two things would make an operator
+who turned off delete-arming lose a warning they never asked to lose.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="density"><code class="tsd-tag">Readonly</code><span>density</span><a href="#density" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">density</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;auto&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;compact&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;normal&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;comfortable&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>The density axis pick; <code>auto</code> lets the window propose from its own real estate.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="dismissedmissingkey"><code class="tsd-tag">Readonly</code><span>dismissed<wbr/>Missing<wbr/>Key</span><a href="#dismissedmissingkey" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">dismissedMissingKey</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>The missing-hardware set whose arrival banner the operator dismissed (sorted
+<code>kind:id</code> pairs joined by <code>|</code>; <code>''</code> = nothing dismissed). Content-keyed so an identical
+replayed set stays dismissed and a CHANGED set re-raises — that is news.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="eqfillmode"><code class="tsd-tag">Readonly</code><span>eq<wbr/>Fill<wbr/>Mode</span><a href="#eqfillmode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">eqFillMode</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;off&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;summed&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bands&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>The EQ curve's fill mode (one summed shape, one shape per band, or none).</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="eqtap"><code class="tsd-tag">Readonly</code><span>eq<wbr/>Tap</span><a href="#eqtap" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">eqTap</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;drive&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;pre&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;post&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;both&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>EQ overlay tap: pre-EQ, post-EQ, or both traces.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="hideunpatched"><code class="tsd-tag">Readonly</code><span>hide<wbr/>Unpatched</span><a href="#hideunpatched" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">hideUnpatched</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Hide input channels with no source patched (a big virtual box shows only its live ones).</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="narrowonoverflow"><code class="tsd-tag">Readonly</code><span>narrow<wbr/>On<wbr/>Overflow</span><a href="#narrowonoverflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">narrowOnOverflow</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>R1 (operator 2026-07-10): on bay overflow the default is stable strip width + more banks;
+narrowing the strips instead is this explicit opt-in — a SEPARATE trigger (strip count)
+from the viewport/pointer tier above, never conflated into one boolean again.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="occupiedpatch"><code class="tsd-tag">Readonly</code><span>occupied<wbr/>Patch</span><a href="#occupiedpatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">occupiedPatch</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;warn&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;unpatch&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>What happens when a physical input is patched onto a channel that already has one. The door
+refuses a second either way; this decides whether the surface warns or re-patches.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="paneltap"><code class="tsd-tag">Readonly</code><span>panel<wbr/>Tap</span><a href="#paneltap" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">panelTap</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;drive&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;pre&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;post&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;both&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>Standalone analyzer panel tap.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="sendbus"><code class="tsd-tag">Readonly</code><span>send<wbr/>Bus</span><a href="#sendbus" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">sendBus</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
+<div class="tsd-comment tsd-typography"><p>Which bus the sends-on-faders flip targets. <code>null</code> = nothing picked yet, and the bay
+snaps to its first live aux — an explicit absence, never a shipped <code>mix/1</code> that may not
+be allocated on this console.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="theme"><code class="tsd-tag">Readonly</code><span>theme</span><a href="#theme" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">theme</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;dark&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;hc&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;light&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>The console theme, high contrast included (<code>hc</code>) — one axis, not a theme plus a flag.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="tracetoolbar"><code class="tsd-tag">Readonly</code><span>trace<wbr/>Toolbar</span><a href="#tracetoolbar" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">traceToolbar</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;left&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;right&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;top&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bottom&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>Which EDGE the processing trace's own control line sits on — the family selector and the
+selected family's toolbar, which belong to the trace and travel with it
+(<code>2026-08-04-processing-view-layout.md</code> Amendment 2026-09-15d). All four edges, because the
+canvas can give up a row or a column on any of them.</p>
+</div></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#baymenuposition"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>bay<wbr/>Menu<wbr/>Position</span></a><a href="#confirmconfigapply"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>confirm<wbr/>Config<wbr/>Apply</span></a><a href="#density"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>density</span></a><a href="#dismissedmissingkey"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>dismissed<wbr/>Missing<wbr/>Key</span></a><a href="#eqfillmode"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>eq<wbr/>Fill<wbr/>Mode</span></a><a href="#eqtap"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>eq<wbr/>Tap</span></a><a href="#hideunpatched"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>hide<wbr/>Unpatched</span></a><a href="#narrowonoverflow"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>narrow<wbr/>On<wbr/>Overflow</span></a><a href="#occupiedpatch"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>occupied<wbr/>Patch</span></a><a href="#paneltap"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>panel<wbr/>Tap</span></a><a href="#sendbus"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>send<wbr/>Bus</span></a><a href="#theme"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>theme</span></a><a href="#tracetoolbar"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>trace<wbr/>Toolbar</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ConsoleResource | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core..html"></a></li>
+<li><a href="" aria-current="page">ConsoleResource</a></li></ul>
+<h1>Interface ConsoleResource&lt;S&gt;</h1></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ConsoleResource</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#carried">carried</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..CarriedSeriesDeclaration.html" class="tsd-signature-type tsd-kind-interface">CarriedSeriesDeclaration</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#confirm">confirm</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..ConfirmGate.html" class="tsd-signature-type tsd-kind-type-alias">ConfirmGate</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#lifecycle">lifecycle</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ResourceLifecycle.html" class="tsd-signature-type tsd-kind-interface">ResourceLifecycle</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#path">path</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#policy">policy</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..ResourcePolicy.html" class="tsd-signature-type tsd-kind-type-alias">ResourcePolicy</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#transient">transient</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#addresses-1">addresses</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#canonicalid-1">canonicalId</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#capabilities-1">capabilities</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <a href="_freemixer_core..FieldCapability.html" class="tsd-signature-type tsd-kind-interface">FieldCapability</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#freshstate-1">freshState</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#instances-1">instances</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><br/>        <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">&gt;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#inversesteps-1">inverseSteps</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">before</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">after</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">delta</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ResourceInverseSteps.html" class="tsd-signature-type tsd-kind-interface">ResourceInverseSteps</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#knownfields-1">knownFields</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReadonlySet</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#patch-1">patch</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">delta</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..PatchOutcome.html" class="tsd-signature-type tsd-kind-type-alias">PatchOutcome</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#project-1">project</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#read-1">read</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#ripples-1">ripples</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">before</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">after</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..RippleTarget.html" class="tsd-signature-type tsd-kind-interface">RippleTarget</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#served-1">served</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">view</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ReadView.html" class="tsd-signature-type tsd-kind-interface">ReadView</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#travels-1">travels</a><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceTravels.html" class="tsd-signature-type tsd-kind-type-alias">ResourceTravels</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameter-list">
+<li><span id="s"><span class="tsd-kind-type-parameter">S</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span></span></li></ul></section>
+<section class="tsd-panel">
+<h4>Implemented by</h4>
+<ul class="tsd-hierarchy">
+<li><a href="../classes/_freemixer_core..ChannelMuteResource.html" class="tsd-signature-type tsd-kind-class">ChannelMuteResource</a></li>
+<li><a href="../classes/_freemixer_core..CollectionResource.html" class="tsd-signature-type tsd-kind-class">CollectionResource</a></li>
+<li><a href="../classes/_freemixer_core..DerivedResource.html" class="tsd-signature-type tsd-kind-class">DerivedResource</a></li>
+<li><a href="../classes/_freemixer_core..OperationResource.html" class="tsd-signature-type tsd-kind-class">OperationResource</a></li>
+<li><a href="../classes/_freemixer_core..ScalarRecordResource.html" class="tsd-signature-type tsd-kind-class">ScalarRecordResource</a></li></ul></section>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#carried" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>carried?</span></a>
+<a href="#confirm" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>confirm?</span></a>
+<a href="#lifecycle" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>lifecycle?</span></a>
+<a href="#path" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>path</span></a>
+<a href="#policy" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>policy?</span></a>
+<a href="#transient" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>transient?</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#addresses" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>addresses?</span></a>
+<a href="#canonicalid" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>canonical<wbr/>Id?</span></a>
+<a href="#capabilities" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>capabilities</span></a>
+<a href="#freshstate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>fresh<wbr/>State?</span></a>
+<a href="#instances" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>instances?</span></a>
+<a href="#inversesteps" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>inverse<wbr/>Steps?</span></a>
+<a href="#knownfields" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>known<wbr/>Fields?</span></a>
+<a href="#patch" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch</span></a>
+<a href="#project" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>project</span></a>
+<a href="#read" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>read</span></a>
+<a href="#ripples" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>ripples?</span></a>
+<a href="#served" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>served?</span></a>
+<a href="#travels" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>travels?</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="carried"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>carried</span><a href="#carried" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">carried</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..CarriedSeriesDeclaration.html" class="tsd-signature-type tsd-kind-interface">CarriedSeriesDeclaration</a></div>
+<div class="tsd-comment tsd-typography"><p>The per-instance row this COLLECTION carries as level series, when it declares one — see
+<code>carried-series.ts</code>. Declared by the mold's config, read by the registry (<code>carrierOf</code>), the
+router (OPTIONS <code>carries</code>/<code>index</code>) and the stream hub (a subscriber that demands a carried
+instance is owed the collection, projected). Absent on every other row.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="confirm"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>confirm</span><a href="#confirm" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">confirm</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..ConfirmGate.html" class="tsd-signature-type tsd-kind-type-alias">ConfirmGate</a></div>
+<div class="tsd-comment tsd-typography"><p>The confirm gate a write here must pass (row grammar, &quot;Confirm: the eighth clause&quot; and &quot;the
+trigger is a declared transition&quot;): the transition it holds, and either the preview row
+that lists what the fire would move with the settings row holding the operator's sign-off,
+or no ask at all. Executed by the registry, once, for every door — a bare transition is
+refused <code>CONFIRM_REQUIRED</code> while the gate holds, and the row's <code>OPTIONS</code> lists <code>confirm</code> as
+the one writable, non-readable argument that answers it. The registry derives the published
+<code>confirms</code> sheet from the rows that declare this. Absent means the row fires
+unconditionally. <code>confirm</code> is the argument's name and no row declares a field by it —
+<code>register()</code> refuses one.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="lifecycle"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>lifecycle</span><a href="#lifecycle" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">lifecycle</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ResourceLifecycle.html" class="tsd-signature-type tsd-kind-interface">ResourceLifecycle</a></div>
+<div class="tsd-comment tsd-typography"><p>The entity's CREATE/DELETE doors, when it has any — the keystone a collection needs to be
+more than a read-only view of somebody else's store.</p>
+<p>Absent means exactly &quot;this entity has no lifecycle&quot;: <code>OPTIONS</code> omits <code>DELETE</code>/<code>POST</code>, and
+the transport answers 405 rather than pretending a removal was refused by the desk. The
+doors write the SAME one store the fields read; the mold builds this from the row's
+declaration and no row implements it by hand.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="path"><code class="tsd-tag">Readonly</code><span>path</span><a href="#path" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>The path template, e.g. <code>/channel/{kind}/{index}/headAmp</code>. Braced segments become
+<a href="../types/_freemixer_core..ResourceId.html" class="tsd-kind-type-alias">ResourceId</a> keys. One template per entity type; instances differ only by id.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="policy"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>policy</span><a href="#policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">policy</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..ResourcePolicy.html" class="tsd-signature-type tsd-kind-type-alias">ResourcePolicy</a></div>
+<div class="tsd-comment tsd-typography"><p>What a committed write here means for the session's dirtiness and the operator's history.
+Absent means <a href="../variables/_freemixer_core..DEFAULT_RESOURCE_POLICY.html" class="tsd-kind-variable">DEFAULT_RESOURCE_POLICY</a> — the write dirties the session, is not
+undoable and is not a barrier.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="transient"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>transient</span><a href="#transient" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">transient</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Whether this entity's state narrates WORK IN FLIGHT rather than the board — an operation
+row's <code>running</code>/<code>startedAt</code>/last-refusal. A transient row's frames still reach every
+watcher, but the convergence instrument neither corrects it nor lets its stamps vouch for
+commit completeness: a run's story belongs to the caller that fired it (who polls or
+awaits the landing), not to the whole-console equality every surface must hold. Declared
+by the MOLD (<a href="../classes/_freemixer_core..OperationResource.html" class="tsd-kind-class">OperationResource</a>), never per row — the classification is what the
+shape means, not a per-instance opinion.</p>
+</div></section></section></details>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="addresses"><code class="tsd-tag">Optional</code><span>addresses</span><a href="#addresses" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="addresses-1"><span class="tsd-kind-call-signature">addresses</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#addresses-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Whether these path variables NAME an instance of this entity at all — regardless of whether
+this console happens to hold it. <code>/patch/output/aux/99</code> addresses (a real channel kind at an
+index the desk lacks); <code>/patch/output/monitor/1</code> does not (<code>monitor</code> is no channel kind, so
+no console could ever answer it).</p>
+<p>The split exists because both read nothing and both are a 404, but they are different facts
+and the operator's next move differs: one is &quot;allocate it / pick another index&quot;, the other is
+&quot;that thing does not exist here at all&quot;. It is the ADDRESS CODEC's answer, never a per-entity
+branch — which is why it belongs beside <a href="#canonicalid" class="tsd-kind-method">canonicalId</a> rather than in a transport.</p>
+<p>Deliberately NOT <code>canonicalId(id) !== undefined</code>: some molds fold existence into the
+canonical spelling (a derived view answers <code>undefined</code> for an address it cannot derive), so
+reusing it would report every missing instance as an unnameable one. An entity that omits
+this is read as &quot;addressable&quot; — the conservative half, <code>NO_INSTANCE</code>.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="canonicalid"><code class="tsd-tag">Optional</code><span>canonical<wbr/>Id</span><a href="#canonicalid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="canonicalid-1"><span class="tsd-kind-call-signature">canonicalId</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#canonicalid-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The canonical spelling of an instance id — the ONE name every broadcast frame carries,
+whichever door (raw wire segments, model values) the write came through. A resource that
+omits this broadcasts the caller's id verbatim.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="capabilities"><span>capabilities</span><a href="#capabilities" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="capabilities-1"><span class="tsd-kind-call-signature">capabilities</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <a href="_freemixer_core..FieldCapability.html" class="tsd-signature-type tsd-kind-interface">FieldCapability</a><span class="tsd-signature-symbol">&gt;</span><a href="#capabilities-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>What may be read and written on THIS instance. Drives <code>OPTIONS</code> and gates <a href="#patch" class="tsd-kind-method">patch</a>.
+Omitted fields are treated as neither readable nor writable.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <a href="_freemixer_core..FieldCapability.html" class="tsd-signature-type tsd-kind-interface">FieldCapability</a><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="freshstate"><code class="tsd-tag">Optional</code><span>fresh<wbr/>State</span><a href="#freshstate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="freshstate-1"><span class="tsd-kind-call-signature">freshState</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#freshstate-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>What a FRESH instance of this row is — the whole state, as one object.</p>
+<p>The row-wide sibling of <a href="#travels" class="tsd-kind-method">travels</a>: that says what a value MAY be, this says what it
+STARTS at. A client needs both and can derive neither. A reset-to-default control, a detent,
+and the numeric a control returns to when it leaves a non-numeric mode are all this fact, and
+a surface that cannot ask for it compiles the number into its bundle instead — which is how
+<code>FBS_DEFAULT_NOTCH_Q</code> came to be imported by a panel, a value the desk declares and the
+client is meant never to resolve.</p>
+<p>ONE OBJECT, not a per-field annotation, because a fresh state is COHERENT: <code>mode: 'off'</code>
+is what makes the rest of an FBS arming irrelevant, and fields carrying separate defaults
+can drift into a combination the row would refuse. It is the same value the row's <code>create</code>
+door starts from, so this publishes an existing declaration rather than adding a second.</p>
+<p>Row-wide by the same discipline as a travel: declared only where a fresh instance does not
+vary BY instance. A row whose default depends on the device behind it declares none here,
+and absence reads as &quot;this row has no desk-wide starting point&quot;, never as &quot;it starts empty&quot;.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="instances"><code class="tsd-tag">Optional</code><span>instances</span><a href="#instances" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="instances-1"><span class="tsd-kind-call-signature">instances</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><br/><span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#instances-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Every instance that exists right now, in the canonical spelling — what a console-wide
+snapshot bursts and what a <code>?watch=1</code> stream's first frame is built from.</p>
+<p>Three answers, and they mean three different things:</p>
+<ul>
+<li>a list — these instances exist, ask each one for its state;</li>
+<li><code>[]</code> — this entity has none right now (no strip seeded, no scene stored);</li>
+<li><code>undefined</code> / not implemented — this entity CANNOT enumerate. An operation resolves every
+parseable id, so listing it would be inventing ids. The registry then probes the empty id
+once, which is exactly what a singleton address parses and every other codec refuses.</li>
+</ul>
+<p>Pure, like <a href="#read" class="tsd-kind-method">read</a>: enumerating may not bind, seed or persist anything.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="inversesteps"><code class="tsd-tag">Optional</code><span>inverse<wbr/>Steps</span><a href="#inversesteps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="inversesteps-1"><span class="tsd-kind-call-signature">inverseSteps</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">before</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">after</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">delta</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ResourceInverseSteps.html" class="tsd-signature-type tsd-kind-interface">ResourceInverseSteps</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#inversesteps-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The patches that put the console back after a write here — declared by a row whose gesture
+changes instances OTHER than the one addressed, which the generic inverse deliberately
+refuses to guess at.</p>
+<p>Called only on an accepted, committed write of an <code>undoable</code> row, with the same two images
+the generic inverse sees. Returning <code>undefined</code> means &quot;not undoable&quot;, never a guess. The
+steps replay through the registry like any other patch, so an undo reaches nothing a live
+gesture could not.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
+<li><span><span class="tsd-kind-parameter">before</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li>
+<li><span><span class="tsd-kind-parameter">after</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li>
+<li><span><span class="tsd-kind-parameter">delta</span>: <a href="../types/_freemixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_freemixer_core..ResourceInverseSteps.html" class="tsd-signature-type tsd-kind-interface">ResourceInverseSteps</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="knownfields"><code class="tsd-tag">Optional</code><span>known<wbr/>Fields</span><a href="#knownfields" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="knownfields-1"><span class="tsd-kind-call-signature">knownFields</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReadonlySet</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#knownfields-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Which of <code>S</code>'s own fields this entity actually KNOWS the value of, for this instance — as
+opposed to a safe floor it is REPORTING because nobody has ever set or read it. <code>undefined</code>
+when the entity does not draw this distinction (every field it reports is equally
+authoritative) or the instance does not resolve.</p>
+<p>Optional and purely REPORTED: the registry carries it alongside a read/broadcast as <code>known</code>
+so a consumer (a REST client, a surface) can tell &quot;operator/fabric set this&quot; from &quot;this is a
+placeholder&quot; — WITHOUT a second store, since it is derived from the same set the entity
+already tracks to decide what <a href="#project" class="tsd-kind-method">project</a> may write. It changes nothing about what may
+be WRITTEN; <a href="#capabilities" class="tsd-kind-method">capabilities</a> still governs that.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReadonlySet</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="patch"><span>patch</span><a href="#patch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="patch-1"><span class="tsd-kind-call-signature">patch</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">delta</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..PatchOutcome.html" class="tsd-signature-type tsd-kind-type-alias">PatchOutcome</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">&gt;</span><a href="#patch-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Apply a wire delta to the one state. The registry has already checked every key against
+<a href="#capabilities" class="tsd-kind-method">capabilities</a>; the implementation narrows every VALUE from unknown before writing.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
+<li><span><span class="tsd-kind-parameter">delta</span>: <a href="../types/_freemixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/_freemixer_core..PatchOutcome.html" class="tsd-signature-type tsd-kind-type-alias">PatchOutcome</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="project"><span>project</span><a href="#project" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="project-1"><span class="tsd-kind-call-signature">project</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a><a href="#project-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Project the state onto the audio — the southbound half. Called by the registry after every
+accepted patch that changed something. The implementation re-reads its own state and drives
+the backend from that read; there is no state argument to trust. A resource whose state has
+no audio consequence returns <a href="../variables/_freemixer_core..PROJECTED.html" class="tsd-kind-variable">PROJECTED</a>; an unwired backend returns
+<a href="../functions/_freemixer_core..notProjected.html" class="tsd-kind-function">notProjected</a> so the refusal is visible on the first attempt.</p>
+<p>Synchronous by contract. Hardware that lands later uses a queued sink: dispatch now, and
+the landing (confirmation or refusal) reaches every client as the next frame of the same
+instance via <code>ResourceRegistry.reproject</code>.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="read"><span>read</span><a href="#read" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="read-1"><span class="tsd-kind-call-signature">read</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#read-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Read the ONE state. <code>undefined</code> when the instance does not exist — the layer turns that
+into a not-found rather than an empty object, so &quot;absent&quot; and &quot;default&quot; stay distinct.
+Pure: a read may not bind, seed, or persist anything.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="ripples"><code class="tsd-tag">Optional</code><span>ripples</span><a href="#ripples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="ripples-1"><span class="tsd-kind-call-signature">ripples</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">before</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">after</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..RippleTarget.html" class="tsd-signature-type tsd-kind-interface">RippleTarget</a><span class="tsd-signature-symbol">[]</span><a href="#ripples-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The instances whose audible/derived state this write changed BESIDE the patched one.
+The registry re-projects and re-broadcasts each after the primary commit.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
+<li><span><span class="tsd-kind-parameter">before</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li>
+<li><span><span class="tsd-kind-parameter">after</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..RippleTarget.html" class="tsd-signature-type tsd-kind-interface">RippleTarget</a><span class="tsd-signature-symbol">[]</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="served"><code class="tsd-tag">Optional</code><span>served</span><a href="#served" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="served-1"><span class="tsd-kind-call-signature">served</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">view</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ReadView.html" class="tsd-signature-type tsd-kind-interface">ReadView</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#served-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>One instance as ONE reader sees it — the row's per-subscriber projection over its own fresh
+read, when it has one: the spectrum at the reader's <code>bands</code>, a carried collection narrowed
+to the instances the reader demands. Takes an id and not a state, like <a href="#project" class="tsd-kind-method">project</a>: the
+row re-reads, so there is no argument to trust and the answer is what a <code>GET</code> at that view
+would say. Declared on the row (the mold's config), asked by the registry (<code>served</code>) for the
+<code>GET</code> door and the stream alike, so <code>GET R</code> and <code>R?watch=1</code> answer one shape by
+construction. <code>undefined</code> where the instance is not there. Absent on a row served as it
+stands. Runs per frame per subscriber, so the unchanged case must stay cheap.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_freemixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
+<li><span><span class="tsd-kind-parameter">view</span>: <a href="_freemixer_core..ReadView.html" class="tsd-signature-type tsd-kind-interface">ReadView</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="travels"><code class="tsd-tag">Optional</code><span>travels</span><a href="#travels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="travels-1"><span class="tsd-kind-call-signature">travels</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourceTravels.html" class="tsd-signature-type tsd-kind-type-alias">ResourceTravels</a><a href="#travels-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The row's travels with NO instance named, for a client that must bind every control it will
+draw before it has drawn one. Optional: a row with no numeric travel to declare simply has
+none, and absence here reads as &quot;ask the instance&quot;, never as &quot;there is no limit&quot;.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <a href="../types/_freemixer_core..ResourceTravels.html" class="tsd-signature-type tsd-kind-type-alias">ResourceTravels</a></h4></div></li></ul></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#carried"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>carried</span></a><a href="#confirm"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>confirm</span></a><a href="#lifecycle"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>lifecycle</span></a><a href="#path"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>path</span></a><a href="#policy"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>policy</span></a><a href="#transient"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>transient</span></a></div></details>
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
+<div><a href="#addresses"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>addresses</span></a><a href="#canonicalid"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>canonical<wbr/>Id</span></a><a href="#capabilities"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>capabilities</span></a><a href="#freshstate"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>fresh<wbr/>State</span></a><a href="#instances"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>instances</span></a><a href="#inversesteps"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>inverse<wbr/>Steps</span></a><a href="#knownfields"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>known<wbr/>Fields</span></a><a href="#patch"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch</span></a><a href="#project"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>project</span></a><a href="#read"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>read</span></a><a href="#ripples"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>ripples</span></a><a href="#served"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>served</span></a><a href="#travels"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>travels</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

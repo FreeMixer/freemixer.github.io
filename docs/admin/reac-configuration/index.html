@@ -1,0 +1,213 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — REAC configuration</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/admin/reac-configuration/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#how-it-is-normally-written" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">How it is normally written</a></li><li><a href="#the-files" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The files</a></li><li><a href="#the-role-is-set-in-the-mixer-not-in-the-file" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The role is set in the mixer, not in the file</a></li><li><a href="#the-mixer-only-writes-files-it-generated" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The mixer only writes files it generated</a></li><li><a href="#verifying-a-change-to-the-reac-or-head-amp-path" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Verifying a change to the REAC or head-amp path</a></li><li><a href="#what-is-deliberately-not-here" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">What is deliberately *not* here</a></li><li><a href="#checking" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Checking</a></li><!--]--></ul></aside><div><!----><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="reac-configuration">REAC configuration</h1>
+<p class="my-[0.9rem] leading-base">The transport reads its configuration from <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">~/.config/reac-pw/</code> — one file saying which NICs
+face REAC, and one file per segment beside it. <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">reac-pw.service</code> is the unit that reads them; it
+passes no interface, no rate and no role on its command line, so those files are the whole
+declaration. The mixer writes them; you rarely need to.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="how-it-is-normally-written">How it is normally written</h2>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Setup → Adapters → REAC</strong> in the mixer. Choose the interface and save, and the mixer declares
+the segment, writes its file and enables and starts the unit for you.</p>
+<p class="my-[0.9rem] leading-base">This is the supported path. It validates what you enter before it writes, which hand-editing does
+not.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-files">The files</h2>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">~/.config/reac-pw/reac-pw.env</code> — the config-once fact, which NICs face REAC on this host:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink language-sh"># generated by openmixer — edits are overwritten
+REAC_IFACES=enp3s0,enp4s0
+</code></pre>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">~/.config/reac-pw/&lt;iface&gt;.env</code> — one per segment, named for the interface that faces it:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink language-sh"># generated by openmixer — edits are overwritten
+REAC_TX=enp3s0
+REAC_ROLE=master
+REAC_MIXER=m5000
+REAC_RATE=96000
+REAC_NAME=seg2
+</code></pre>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Field</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_IFACES</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Comma-separated interface names, exactly as <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">ip -br link</code> spells them. Each one declares a segment and names its file. A NIC that re-enumerates under a new name is a config change, and the daemon exits rather than serving a dead binding.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_TX</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The interface this segment transmits on. Normally the same as the one the file is named for; Setup writes them equal.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_ROLE</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">master</code> (this console owns the clock and drives the handshake) or <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">slave</code> (an external desk does). The <strong class="font-semibold text-ink">launch</strong> role — read once, at start. Do not set it by hand: it is generated from the role you set on the segment, below.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_MIXER</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Which Roland desk the mixer presents itself as: <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">m200</code>, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">m300</code> or <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">m5000</code>. Boxes lock to any of them.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_RATE</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The REAC <strong class="font-semibold text-ink">wire pace</strong> in Hz — <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">44100</code>, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">48000</code> or <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">96000</code>, one setting for the whole REAC side, and independent of <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_MIXER</code>: the mixer generation says which desk is impersonated, never the rate, and neither is ever derived from the other. <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">reac-pw</code> refuses any other rate outright.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_NAME</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">This segment's name, which is the address the console's patches and its <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/reac/segment/{name}</code> row use. A file with no <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_NAME</code> is the <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">default</code> segment. Changing it re-points every patch on that box.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">There is no box model or label in any of these files. <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">reac-pw</code> learns which box is on a segment
+from the box itself and sizes and labels the nodes from that; the console's own expectation of
+which box <em>should</em> be there is a Setup field, stored with the adapter entry in
+<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">adapters.yaml</code>, and it reaches the transport nowhere.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-role-is-set-in-the-mixer-not-in-the-file">The role is set in the mixer, not in the file</h2>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_ROLE</code> is generated. The operator's intent lives on the segment's own row, in the product's
+words:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink language-sh">curl -sX PATCH -H 'content-type: application/json' \
+  -d '{&quot;role&quot;:&quot;mixer&quot;}' http://console.local:8800/api/reac/segment/default
+</code></pre>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">mixer</code> is the master end of the desk↔stagebox pairing, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">recorder</code> the slave end, and <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">auto</code> —
+the default — observes the wire and takes the end it leaves open. The console translates that
+into <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_ROLE</code> for every declared segment and writes it into the file the daemon launches from,
+so a daemon restart comes back as the end you asked for. <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">auto</code> launches as a <strong class="font-semibold text-ink">slave</strong>: a slave
+transmits no master presence and so cannot collide with a desk already holding the wire, and
+<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">auto</code> then resolves for real on the segment's first announce.</p>
+<p class="my-[0.9rem] leading-base">The console never fights another master for the wire. When a rival master appears on a segment,
+the console classifies it: a desk is joined and the console takes the slave end; a stagebox whose
+switch is set to the wrong position is refused, and the refusal is shown as a named warning on
+the segment, so a misconfigured box can be corrected at the box rather than argued with.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-mixer-only-writes-files-it-generated">The mixer only writes files it generated</h2>
+<p class="my-[0.9rem] leading-base">The first line of every file the mixer writes is:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink"># generated by openmixer — edits are overwritten
+</code></pre>
+<p class="my-[0.9rem] leading-base">A file without that line was written by a person, and the mixer leaves it exactly as it is —
+including its <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">REAC_ROLE</code>, which then keeps overriding whatever role you set in the mixer. It
+says so rather than doing it silently: a standing warning on <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/warnings</code>, coded
+<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">reac:config-not-generated</code>, naming the file.</p>
+<p class="my-[0.9rem] leading-base">To hand the file over to the mixer, move yours aside:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink language-sh">mv ~/.config/reac-pw/enp3s0.env ~/.config/reac-pw/enp3s0.env.hand-written
+</code></pre>
+<p class="my-[0.9rem] leading-base">The mixer generates a fresh one on its next projection and the warning clears. There is no button
+that does this, deliberately: a gesture that destroys your own file should be yours.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="verifying-a-change-to-the-reac-or-head-amp-path">Verifying a change to the REAC or head-amp path</h2>
+<p class="my-[0.9rem] leading-base">A soft meter is not proof anything changed at the box — see
+<a href="/docs/manual/head-amp#trusting-what-you-see" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">trusting what you see</a>. Before and after any
+change that touches the transport, the enrolment path, or head-amp control, measure one
+channel on a box you are not experimenting on and confirm its reading did not move. Keep the
+same box, the same input, the same reference level every time, so a single number (a SENS
+ratio, an RMS level) is directly comparable across the change. If that reference channel
+moves, the change reached further than intended and the change stops, not the channel.</p>
+<p class="my-[0.9rem] leading-base">This matters most on a rig with more than one box: an experiment against one box's enrolment
+or clocking can, and has, silently perturbed a segment it was never meant to touch.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="what-is-deliberately-not-here">What is deliberately <em>not</em> here</h2>
+<p class="my-[0.9rem] leading-base">No part of your rig is compiled into any package: interface names, MAC addresses, box
+tables, ports and paths are all configuration. If you find yourself wanting to patch a
+binary to change one of them, the setting exists somewhere and this is the wrong
+approach.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="checking">Checking</h2>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink language-sh">cat ~/.config/reac-pw/reac-pw.env ~/.config/reac-pw/*.env
+systemctl --user status reac-pw
+journalctl --user -u reac-pw -n 100 --no-pager
+curl -s http://console.local:8800/api/warnings
+</code></pre>
+<p class="my-[0.9rem] leading-base">If the box never establishes, work through
+<a href="/docs/troubleshooting/box-not-establishing" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the box is not establishing</a>. The first
+suspects are always the interface (is it the right one, is it up, does it have an
+address it should not have) and whether something else on the segment is already acting
+as master.</p>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/admin/reac-configuration/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Fadmin\u002Freac-configuration",1790815558040]</script></body></html>

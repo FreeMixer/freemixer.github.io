@@ -1,0 +1,1 @@
+function e(e){return e.replace(/([a-z0-9])([A-Z])/g,`$1 $2`).toLowerCase().split(` `).map((e,t)=>t===0?e.charAt(0).toUpperCase()+e.slice(1):e).join(` `)}export{e as t};

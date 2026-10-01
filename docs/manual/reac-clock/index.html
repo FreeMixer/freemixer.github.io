@@ -1,0 +1,401 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — The clock</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/manual/reac-clock/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#the-pipewire-tab-the-graph-clock" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The PipeWire tab — the graph clock</a></li><li><a href="#latency-presets" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Latency presets</a></li><li><a href="#quantum-and-sample-rate" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Quantum and sample rate</a></li><li><a href="#the-clock-reference" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">The clock reference</a></li><li><a href="#clock-pace-master-or-follower" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Clock pace: Master or Follower</a></li><li><a href="#the-reac-tab-the-wire" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The REAC tab — the wire</a></li><li><a href="#reading-a-segment-card" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Reading a segment card</a></li><li><a href="#the-pace-ladder" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">The pace ladder</a></li><li><a href="#setting-a-segment-s-rate" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Setting a segment&#39;s rate</a></li><li><a href="#the-segment-s-role" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">The segment&#39;s role</a></li><li><a href="#when-a-role-is-refused" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">When a role is refused</a></li><li><a href="#which-rate-should-i-run" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Which rate should I run?</a></li><li><a href="#related" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Related</a></li><!--]--></ul></aside><div><p data-manual-build-version class="mb-[1rem] font-mono text-micro text-ink-faint">You are reading the manual for build <code>6b99dde</code>.</p><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="the-clock">The clock</h1>
+<p class="my-[0.9rem] leading-base">There are two clocks on this desk and they are not the same thing.</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">The graph clock</strong> paces the mixer itself: the sample rate everything inside the console
+runs at, and the buffer size that decides how much latency that costs.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">The REAC clock</strong> paces a stagebox wire. Each REAC port is a segment with its own pace,
+and a box on that segment follows it.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">They are independent. A stagebox running at 96 kHz on a console running at 192 kHz is a
+normal, working rig: the bridge converts between them. That is why the panel has two tabs.</p>
+<p class="my-[0.9rem] leading-base"><img src="/docs/manual/images/reac-clock-1.png" alt="Setup, Clock" class="my-[1.1rem] block h-auto w-full rounded-r2 border border-border">
+<em>The clock panel, PipeWire tab: the reference, the latency presets, the quantum and rate, and the buffer latency those two come to.</em></p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Setup ▸ Clock</strong>, in the config zone.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-pipewire-tab-the-graph-clock">The PipeWire tab — the graph clock</h2>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="latency-presets">Latency presets</h3>
+<p class="my-[0.9rem] leading-base">Three named pairs of buffer size and rate, safest first:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Preset</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Buffer</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Safe</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">256 frames</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">48 kHz</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Low</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">128 frames</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">96 kHz</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Ultra</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">64 frames</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">96 kHz</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">One press sets both. <strong class="font-semibold text-ink">Safe</strong> is the between-songs setting; <strong class="font-semibold text-ink">Ultra</strong> is the tightest the
+desk offers. <strong class="font-semibold text-ink">Buffer latency</strong> at the bottom of the tab is what the pair actually costs, in
+milliseconds, so the trade is a number rather than a feeling. Set the quantum or the rate to
+anything that is not one of the three and the preset row reads <strong class="font-semibold text-ink">Custom</strong>.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="quantum-and-sample-rate">Quantum and sample rate</h3>
+<p class="my-[0.9rem] leading-base">Set separately when a preset is not what you want. The rate menu offers what the active
+output card actually supports, read from the card — not a list the desk imagines. The rate
+applies live: nothing restarts and the show keeps running.</p>
+<p class="my-[0.9rem] leading-base">The rate shown is always the rate the driver <strong class="font-semibold text-ink">is</strong> running, not the one you asked for. In
+the rare case a driver refuses a pick, the panel says so — <em>driver kept X kHz</em> — instead of
+displaying a number that is not true.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="the-clock-reference">The clock reference</h3>
+<p class="my-[0.9rem] leading-base">The reference is the device whose clock the console derives its pace from. The menu lists
+what is available, each entry graded:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Grade</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">audio interface</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">A real interface. The best kind of reference.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">onboard codec</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The machine's built-in audio. Usable.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">display audio</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">A clock that comes out of a monitor or a graphics card. Not a reference.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">software driver</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Not hardware at all. Not a reference.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">The menu opens on <strong class="font-semibold text-ink">Automatic — best available</strong>, with the device it settled on named
+underneath. The console picks the highest-graded one by itself and says why — <em>&quot;an audio interface with
+no known disqualifier — designate it explicitly if you know your clock&quot;</em>. Pick one from the
+menu to <strong class="font-semibold text-ink">designate</strong> it, which stops the ranking from changing its mind later. The entry
+that is currently pacing the graph is marked <em>(driving the graph)</em>.</p>
+<p class="my-[0.9rem] leading-base">If nothing worth following is present you can still own the pace, by switching on
+<strong class="font-semibold text-ink">free-running</strong>. That is an emergency configuration and the panel says so: every box locks
+to a rhythm the console invented, with nothing outside checking it.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="clock-pace-master-or-follower">Clock pace: Master or Follower</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink"></th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Master</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">openmixer owns the pace. Every box locks to our grid.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Follower</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Another device owns the pace. openmixer answers on its grid.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">Master is only offered when there is a reference worth propagating, or when you have turned
+on the free-running override.</p>
+<p class="my-[0.9rem] leading-base">As a <strong class="font-semibold text-ink">Follower</strong> the tab stops offering a rate — you are being told the number, not
+choosing it — and reports instead <strong class="font-semibold text-ink">who owns the pace</strong>, <strong class="font-semibold text-ink">the locked rate</strong>, and whether
+the lock is real or the pace is free-running.</p>
+<p class="my-[0.9rem] leading-base">Any clock warning the console raises appears at the bottom of this tab.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-reac-tab-the-wire">The REAC tab — the wire</h2>
+<p class="my-[0.9rem] leading-base">The REAC tab lists the <strong class="font-semibold text-ink">segments</strong>: one per REAC port on this machine. A segment is
+labelled by its port — <strong class="font-semibold text-ink">REAC A</strong>, <strong class="font-semibold text-ink">REAC B</strong> — and by the box on it, if there is one.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="reading-a-segment-card">Reading a segment card</h3>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What you see</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">REAC A · <em>box name</em></strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The port, and the box that is on it.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">A badge: <strong class="font-semibold text-ink">Master clock</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">This console is mastering that wire.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">A badge: <strong class="font-semibold text-ink">Slave clock to …</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Something else is mastering it, and the card shows that device's address.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">A badge: <strong class="font-semibold text-ink">Ready to drive</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Nothing is mastering the wire yet.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">96.0 kHz</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The rate the wire is running at right now.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Pace: …</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Where the timing comes from. See the ladder below.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Show details</strong> opens a popover with the box's model, its firmware version, the master's
+address and its hardware identification. It is a popover on purpose: reading it does not
+move the card, so nothing shifts under your finger mid-show.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="the-pace-ladder">The pace ladder</h3>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Pace</strong> names what is actually timing the wire, best first:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Pace</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">hardware clock</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">A real hardware clock on the network interface. The best answer.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">graph clock, as a reference</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The console's own graph clock, used as the reference the wire is paced from.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">the box's own slope</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The rate is being recovered from the box's own arrival timing.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">the foreign master</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Another desk is mastering this segment and we are following it.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">internal clock</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Free-running: the host's own clock, with nothing outside it.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">It is reported, never hidden. <em>Internal clock</em> is a working state, not a fault — it is what
+you get with no hardware timestamping on the interface — but it is worth knowing that is
+where the timing is coming from.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="setting-a-segment-s-rate">Setting a segment's rate</h3>
+<p class="my-[0.9rem] leading-base">REAC runs at <strong class="font-semibold text-ink">44.1, 48 or 96 kHz</strong>. That is the wire, not the console: the graph can be at
+192 kHz with a segment at 96 and the bridge converts.</p>
+<p class="my-[0.9rem] leading-base">Pick the rate and press <strong class="font-semibold text-ink">Apply</strong>. It is a two-press control — the first press arms it,
+the second fires — because of what it costs:</p>
+<blockquote class="my-[1.3rem] rounded-r-r2 border-l-[3px] border-l-accent bg-surface px-[1.1rem] py-[0.4rem] text-ink-dim">
+<p class="my-[0.9rem] leading-base">Changing the rate re-establishes the segment on the wire: the box's inputs and outputs go
+silent for about six seconds while it re-locks. On a box carrying the PA return, that is
+the whole rig.</p>
+</blockquote>
+<p class="my-[0.9rem] leading-base">While it re-locks the card says <strong class="font-semibold text-ink">Re-locking…</strong> and the rate control waits.</p>
+<p class="my-[0.9rem] leading-base">A few things the card will tell you rather than letting you guess:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">A slave segment has no rate to set.</strong> It follows the foreign master's pace, and the
+card says so instead of offering a control that would do nothing.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Wire <em>x</em> kHz · desired <em>y</em> kHz</strong> means the pace you asked for and the pace on the wire
+disagree. A <strong class="font-semibold text-ink">Re-assert</strong> button pushes it again.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">pending</strong> — the write is in flight. <strong class="font-semibold text-ink">refused: <em>reason</em></strong> — it was not accepted, with
+the reason.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">Capture and playback always follow <strong class="font-semibold text-ink">one</strong> wire rate together. A segment whose inputs and
+outputs claimed different rates would be a fault, not a configuration.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="the-segment-s-role">The segment's role</h3>
+<p class="my-[0.9rem] leading-base">What the console intends to <strong class="font-semibold text-ink">be</strong> on that wire:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Role</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Master (mixer)</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">We are the desk. We master the segment and own its clock.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Slave (recorder)</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">We follow whatever masters the wire — a desk, or a box switched to master — and take its clock.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Auto</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Listen first, then take the end the wire leaves open: master a vacant wire with boxes on it, follow a master that is already there.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">On a Roland desk this is one switch for the whole console. Here it is <strong class="font-semibold text-ink">per segment</strong>: one port
+can master a stagebox while another follows a desk.</p>
+<p class="my-[0.9rem] leading-base">A role change also re-establishes the segment, so it is the same two-press Apply with the
+same warning.</p>
+<p class="my-[0.9rem] leading-base">Beside the menu is the <strong class="font-semibold text-ink">role state</strong> — what the wire actually did, as opposed to what you
+asked for:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">State</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Applied</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">It took.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Re-establishing…</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In progress.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Hunting for a desk…</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">You asked to record and nothing is mastering yet.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Not reported</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">This console's engine does not report role state, so no conflict can be shown here.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="when-a-role-is-refused">When a role is refused</h3>
+<p class="my-[0.9rem] leading-base">REAC allows exactly one master per segment, so the console refuses rather than fighting.
+Each refusal names the remedy:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><em>You asked to be the mixer, but a desk is already mastering this segment.</em> The console is
+holding and has asserted nothing on the wire. Switch to <strong class="font-semibold text-ink">Recorder</strong>, or take the other
+desk off.</li>
+<li class="my-[0.35rem] leading-base"><em>A stagebox on this segment has its REAC Mode switch on M (master).</em> Nothing on the wire
+will fix this. Set the switch to <strong class="font-semibold text-ink">S</strong> and power-cycle the box.</li>
+<li class="my-[0.35rem] leading-base"><em>Something is mastering this segment and the console cannot tell what it is.</em> Check what
+else is plugged into that wire.</li>
+<li class="my-[0.35rem] leading-base"><em>You asked to record, but nothing is mastering this segment.</em> The role was asserted and
+the console is hunting; until a desk appears there is nothing to record.</li>
+<li class="my-[0.35rem] leading-base"><em>A box is on this segment but has not joined.</em> It only connects when its link comes up,
+so waiting will not help — unplug and replug the cable at the box.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">Where the conflict has a one-gesture answer, the card offers it as a <strong class="font-semibold text-ink">Switch to <em>role</em></strong>
+button.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="which-rate-should-i-run">Which rate should I run?</h2>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">The graph</strong> at the highest rate your interface and your plugin load are comfortable at.
+The desk runs happily at 192 kHz.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">A REAC segment</strong> at 96 kHz unless you have a reason. That is the top of what REAC
+carries.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Matching them</strong> avoids a conversion at the bridge. When they differ the rate picker says
+so in one line — <em>192 kHz resamples at the REAC bridge (the box runs ≤ 96 kHz) — still
+fine to use</em> — and offers to align the graph. It is advice, never a block: running
+converted on purpose is allowed and is what this rig does.</li>
+</ul>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="related">Related</h2>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><a href="/docs/manual/metering-latency" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Metering and latency</a> — what the buffer size costs, measured.</li>
+<li class="my-[0.35rem] leading-base"><a href="/docs/manual/head-amp" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Head-amp control</a> — the boxes on those segments.</li>
+<li class="my-[0.35rem] leading-base"><a href="/docs/manual/menus" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">The console menus</a> — where the panel lives.</li>
+</ul>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/manual/reac-clock/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Fmanual\u002Freac-clock",1790815557678]</script></body></html>

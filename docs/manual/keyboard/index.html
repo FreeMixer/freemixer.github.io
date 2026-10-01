@@ -1,0 +1,172 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — Keyboard reference</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/manual/keyboard/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#controls" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Controls</a></li><li><a href="#shortcuts" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Shortcuts</a></li><li><a href="#quick-answers" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Quick answers</a></li><!--]--></ul></aside><div><p data-manual-build-version class="mb-[1rem] font-mono text-micro text-ink-faint">You are reading the manual for build <code>6b99dde</code>.</p><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="keyboard-reference">Keyboard reference</h1>
+<p class="my-[0.9rem] leading-base">Every control on the surface is reachable by keyboard, with a visible focus ring.</p>
+<p class="my-[0.9rem] leading-base"><img src="/docs/manual/images/keyboard-1.png" alt="The fader bay after Tab" class="my-[1.1rem] block h-auto w-full rounded-r2 border border-border">
+<em>Keyboard focus in the bay: a control shows a visible ring before it takes an arrow key.</em></p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="controls">Controls</h2>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base">Faders and knobs take <strong class="font-semibold text-ink">drag</strong>, <strong class="font-semibold text-ink">wheel</strong> and <strong class="font-semibold text-ink">arrow keys</strong>; hold <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Shift</code> for coarse
+steps.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Double-click</strong> or <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Enter</code> resets a control to its default — unity for a fader, centre
+for pan.</li>
+<li class="my-[0.35rem] leading-base">In the EQ curve, arrows nudge the selected band and <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Enter</code> toggles a filter.</li>
+</ul>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="shortcuts">Shortcuts</h2>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Key</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">←</code> / <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">→</code> (or <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">[</code> / <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">]</code>)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">select the previous / next channel</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">M</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">mute the selected channel</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">S</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">solo the selected channel</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">F</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">flip the bay to sends-on-faders, and back</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">,</code> / <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">.</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">page the bank left / right</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">1</code>–<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">8</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">recall a saved snapshot</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Ctrl</code>/<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">⌘</code> + <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">S</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">save the session</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Ctrl</code>/<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">⌘</code> + <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Z</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">undo</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Ctrl</code>/<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">⌘</code> + <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Shift</code> + <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Z</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">redo</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Ctrl</code> + <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Y</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">redo (the Windows-style alias)</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">Shortcuts are suppressed while you are typing in a text field, so renaming a channel <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">M</code>
+does not mute it.</p>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">M</code> and <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">S</code> act on the <strong class="font-semibold text-ink">selected</strong> channel. Select with the arrow keys or by tapping a
+strip.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="quick-answers">Quick answers</h2>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">A screen looks stale.</strong> It has probably lost its connection. Reload it and it
+re-hydrates from the server.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">A control is greyed out or absent.</strong> The bound device does not offer that feature — the
+surface honours each adapter's and each console profile's capabilities rather than
+offering a control that would do nothing.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">The surface says Demo (offline).</strong> It cannot reach a server. See
+<a href="/docs/troubleshooting/web-ui-cannot-reach-server" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the web UI cannot reach the server</a>.</p>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/manual/keyboard/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Fmanual\u002Fkeyboard",1790815557626]</script></body></html>

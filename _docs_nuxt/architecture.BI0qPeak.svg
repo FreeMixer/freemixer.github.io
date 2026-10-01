@@ -1,0 +1,98 @@
+<svg width="960" height="560" viewBox="0 0 960 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="openmixer architecture diagram">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#28c8e6"/>
+    </marker>
+    <!-- SVG-internal styling: this file is served as a standalone image (<img src>),
+         so no page stylesheet or utility class ever reaches it and the text roles
+         have to carry their own type and fill. Values mirror assets/tokens.css. -->
+    <style>
+      .t  { font-family: 'Space Grotesk','Helvetica Neue',Arial,sans-serif; font-weight: 600; fill: #eaf0f4; }
+      .pkg{ font-family: 'JetBrains Mono',ui-monospace,monospace; fill: #28c8e6; }
+      .ln { font-family: 'JetBrains Mono',ui-monospace,monospace; fill: #8a97a3; }
+      .cap{ font-family: 'JetBrains Mono',ui-monospace,monospace; fill: #5a6571; letter-spacing: .12em; }
+      .hd { font-family: 'JetBrains Mono',ui-monospace,monospace; fill: #5a6571; letter-spacing: .26em; }
+    </style>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="959" height="559" rx="22" fill="#0b0e11" stroke="#2a323b"/>
+
+  <text x="40" y="50" class="hd" font-size="13">OPENMIXER — ONE MODEL, MANY BACKENDS</text>
+
+  <!-- connectors (drawn first, behind the boxes) -->
+  <g stroke="#28c8e6" stroke-width="2" fill="none" opacity="0.8">
+    <!-- model <-> server (bidirectional) -->
+    <path d="M260 290 L322 290" marker-start="url(#arr)" marker-end="url(#arr)"/>
+    <!-- server -> surfaces (bidirectional, up) -->
+    <path d="M510 268 C560 268 560 150 588 150" marker-start="url(#arr)" marker-end="url(#arr)"/>
+    <!-- server -> engine -->
+    <path d="M510 290 L588 290" marker-end="url(#arr)"/>
+    <!-- server -> adapters (down) -->
+    <path d="M510 312 C560 312 560 430 588 430" marker-end="url(#arr)"/>
+  </g>
+  <g stroke="#2a323b" stroke-width="2" fill="none">
+    <!-- engine -> I/O -->
+    <path d="M748 290 L772 290" marker-end="url(#arr)" stroke="#28c8e6" opacity="0.6"/>
+    <!-- adapters -> consoles -->
+    <path d="M748 430 L772 430" marker-end="url(#arr)" stroke="#28c8e6" opacity="0.6"/>
+  </g>
+
+  <!-- CANONICAL MODEL -->
+  <g>
+    <rect x="40" y="222" width="220" height="136" rx="12" fill="#15191e" stroke="#28c8e6"/>
+    <text x="60" y="258" class="t" font-size="17">Canonical model</text>
+    <text x="60" y="280" class="pkg" font-size="12">@freemixer/core</text>
+    <text x="60" y="306" class="ln" font-size="12">channels · aux · matrix</text>
+    <text x="60" y="324" class="ln" font-size="12">DCA/VCA · per-ch sends</text>
+    <text x="60" y="342" class="ln" font-size="12">fader law · neutral vocab</text>
+  </g>
+
+  <!-- SERVER -->
+  <g>
+    <rect x="330" y="244" width="180" height="92" rx="12" fill="#15191e" stroke="#28c8e6"/>
+    <text x="350" y="278" class="t" font-size="17">Server</text>
+    <text x="350" y="300" class="ln" font-size="12">single source of truth</text>
+    <text x="350" y="320" class="pkg" font-size="12">WS · broadcast</text>
+  </g>
+
+  <!-- SURFACES -->
+  <g>
+    <rect x="588" y="104" width="332" height="92" rx="12" fill="#15191e" stroke="#28c8e6"/>
+    <text x="608" y="138" class="t" font-size="17">Surfaces — thin clients</text>
+    <text x="608" y="160" class="ln" font-size="12">web-ui touch · keyboard · mouse</text>
+    <text x="608" y="180" class="ln" font-size="12">MCU / X-Touch · multi-window, multi-screen</text>
+  </g>
+
+  <!-- MIX ENGINE -->
+  <g>
+    <rect x="588" y="244" width="160" height="92" rx="12" fill="#15191e" stroke="#28c8e6"/>
+    <text x="606" y="278" class="t" font-size="16">Mix engine</text>
+    <text x="606" y="300" class="pkg" font-size="11">audio-engine</text>
+    <text x="606" y="320" class="ln" font-size="11">sum + LV2 inserts</text>
+  </g>
+  <!-- engine leaf: I/O -->
+  <g>
+    <rect x="772" y="244" width="148" height="92" rx="12" fill="#1c2127" stroke="#2a323b"/>
+    <text x="790" y="276" class="t" font-size="15">PipeWire + REAC</text>
+    <text x="790" y="297" class="ln" font-size="11">mod-host · pw-link</text>
+    <text x="790" y="316" class="ln" font-size="11">reac:capture/playback</text>
+    <text x="790" y="332" class="cap" font-size="10">C HOT PATH</text>
+  </g>
+
+  <!-- ADAPTERS -->
+  <g>
+    <rect x="588" y="384" width="160" height="92" rx="12" fill="#15191e" stroke="#28c8e6"/>
+    <text x="606" y="418" class="t" font-size="16">Adapters</text>
+    <text x="606" y="440" class="ln" font-size="11">translate per console</text>
+    <text x="606" y="460" class="ln" font-size="11">+ network discovery</text>
+  </g>
+  <!-- adapter leaf: consoles -->
+  <g>
+    <rect x="772" y="384" width="148" height="92" rx="12" fill="#1c2127" stroke="#2a323b"/>
+    <text x="790" y="416" class="t" font-size="15">Midas · X32</text>
+    <text x="790" y="436" class="t" font-size="15">Roland</text>
+    <text x="790" y="458" class="ln" font-size="11">REAC · Dante · AES67</text>
+  </g>
+
+  <text x="40" y="524" class="cap" font-size="11">SINGLE SOURCE OF TRUTH&#160;&#160;·&#160;&#160;SURFACES + WINDOWS ARE THIN CLIENTS&#160;&#160;·&#160;&#160;ADD A CONSOLE = ADD AN ADAPTER</text>
+</svg>

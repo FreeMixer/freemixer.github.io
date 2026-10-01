@@ -1,0 +1,152 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>BuiltinDspMirror | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_server.html">@freemixer/server</a></li>
+<li><a href="../modules/_freemixer_server..html"></a></li>
+<li><a href="" aria-current="page">BuiltinDspMirror</a></li></ul>
+<h1>Interface BuiltinDspMirror</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The handle <a href="../functions/_freemixer_server..installBuiltinDspNativeMixerMirror.html" class="tsd-kind-function">installBuiltinDspNativeMixerMirror</a> returns (task #125).</p>
+</div></section>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">BuiltinDspMirror</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#insertpoints">insertPoints</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NativeInsertPointControl</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#assertall-1">assertAll</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#pollsamplerate-1">pollSampleRate</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#pushchainorder-1">pushChainOrder</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">chain</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#pushstageorder-1">pushStageOrder</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#insertpoints" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>insert<wbr/>Points</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#assertall" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>assert<wbr/>All</span></a>
+<a href="#pollsamplerate" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>poll<wbr/>Sample<wbr/>Rate</span></a>
+<a href="#pushchainorder" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>push<wbr/>Chain<wbr/>Order</span></a>
+<a href="#pushstageorder" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>push<wbr/>Stage<wbr/>Order</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="insertpoints"><code class="tsd-tag">Readonly</code><span>insert<wbr/>Points</span><a href="#insertpoints" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">insertPoints</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NativeInsertPointControl</span></div>
+<div class="tsd-comment tsd-typography"><p>The native node's INSERT POINT door, in the shape the engine takes it
+(import('@freemixer/audio-engine').NativeInsertPointControl) — arm a strip's
+send/return port pair at a declared place, and say whether a chain is LIVE between them.</p>
+<p>It lives HERE, beside <a href="#pushchainorder" class="tsd-kind-method">pushChainOrder</a>, because both answer the same question about
+the same strip: the order says WHERE in the walk the detour sits, this says what the detour
+is made of. The lane resolver is the one both use, so the two can never address different
+slots.</p>
+</div></section></section></details>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="assertall"><span>assert<wbr/>All</span><a href="#assertall" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="assertall-1"><span class="tsd-kind-call-signature">assertAll</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#assertall-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Push EVERY channel this node carries a lane for — every input strip AND <code>main/1</code> — onto
+that lane, from the state the store RESOLVES (its stored value, or the console default it
+would seed with). Absence in a store means &quot;the default&quot;, and the default is PUSHED, never
+assumed. The same law the head-amp arrival re-assert already follows (southbound actuator
+contract §6c), applied to the built-in DSP.</p>
+<p>WHY (rig, 2026-08-05). Audio cut on quiet passages for an hour. PipeWire reported 0 xruns
+and 0 graph events, and every dynamics row — MAIN's included — read <code>{ on: false }</code>; the
+operator's ear named it (&quot;it sounds like a gate is activated&quot;) and toggling MAIN's gate ON
+then OFF stopped it, because that toggle's ONLY effect is a push. A lane was running a
+value no row claimed, and nothing in the console would ever have corrected it: every push
+was TOUCH-driven — this installer swept <code>gate.snapshot()</code> / <code>eq.entries()</code>, which hold only
+channels an operator has moved, and a session restore drove only the channels whose stored
+snapshot carried an <code>eq</code>/<code>gate</code>/<code>comp</code> block. MAIN is the channel most likely to be
+untouched, and a lane outlives every session load, so a divergence once introduced was
+permanent AND invisible. Asserting the whole console at boot and after every restore closes
+it: the lanes are MADE to say what the rows say instead of being trusted to.</p>
+<p>Cheap and idempotent — one push per processor per lane, the same calls a <code>PATCH</code> makes.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pollsamplerate"><span>poll<wbr/>Sample<wbr/>Rate</span><a href="#pollsamplerate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="pollsamplerate-1"><span class="tsd-kind-call-signature">pollSampleRate</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#pollsamplerate-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Compare the live-rate provider's CURRENT reading with the rate the strips' EQ cascades
+were last swept at and, on a change (the RME flipping 48 kHz → 192 kHz mid-session),
+re-push EVERY input strip's EQ with freshly designed coefficients. Cheap when the rate
+is stable (one provider read + one compare), so it rides an EXISTING periodic path —
+the adapter's meter poll via <a href="../classes/_freemixer_server..RateWatchingNativeMeterSource.html" class="tsd-kind-class">RateWatchingNativeMeterSource</a> — never a new timer.
+Gate/comp are deliberately NOT re-pushed: their attack/release cross to the native side
+as milliseconds and mixer.c's <code>resolve_dyn</code> converts ms → per-sample coefficients at
+the LIVE rate inside every RT cycle, so they can never hold a stale-rate coefficient.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pushchainorder"><span>push<wbr/>Chain<wbr/>Order</span><a href="#pushchainorder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="pushchainorder-1"><span class="tsd-kind-call-signature">pushChainOrder</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">chain</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#pushchainorder-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Push one strip's CHAIN ORDER onto its lane — the reorderable built-ins in the order the
+chain declares them (<a href="../functions/_freemixer_core..deriveStageOrder.html" class="tsd-kind-function">deriveStageOrder</a>). Called by the chain row after a committed
+order write, and by <a href="#assertall" class="tsd-kind-method">assertAll</a> for the boot/restore sweep.</p>
+<p>Until this existed the path was built and joined at every point but one: core derived the
+step list, the addon published it torn-free, the RT walked it — and nothing in the server or
+the engine ever called it, so every lane ran <code>omx_order_default()</code> for ever and a reorder
+changed only what the surface drew (audit D11).</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">chain</span>: <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">[]</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pushstageorder"><span>push<wbr/>Stage<wbr/>Order</span><a href="#pushstageorder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="pushstageorder-1"><span class="tsd-kind-call-signature">pushStageOrder</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#pushstageorder-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Re-publish one strip's walk after an ORDER write — the same push, with the chain the strip
+currently declares read off the engine rather than handed in. The stage-order row's station
+calls this and nothing else, so the order fact reaches the lane through the SAME door the
+chain's arrangement does (southbound actuator contract: one path to audio).</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="_freemixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#insertpoints"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>insert<wbr/>Points</span></a></div></details>
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
+<div><a href="#assertall"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>assert<wbr/>All</span></a><a href="#pollsamplerate"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>poll<wbr/>Sample<wbr/>Rate</span></a><a href="#pushchainorder"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>push<wbr/>Chain<wbr/>Order</span></a><a href="#pushstageorder"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>push<wbr/>Stage<wbr/>Order</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

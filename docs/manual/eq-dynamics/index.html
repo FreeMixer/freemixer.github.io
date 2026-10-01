@@ -1,0 +1,607 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — EQ and dynamics</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/manual/eq-dynamics/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#the-interactive-eq" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The interactive EQ</a></li><li><a href="#the-band-chips" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">The band chips</a></li><li><a href="#gate" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Gate</a></li><li><a href="#keyed-detection" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">Keyed detection</a></li><li><a href="#compressor" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Compressor</a></li><li><a href="#native-fx" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Native FX</a></li><li><a href="#delay" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Delay</a></li><li><a href="#reverb" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Reverb</a></li><li><a href="#drive" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Drive</a></li><li><a href="#what-the-three-shapes-sound-like" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[1.7rem] text-ink-faint">What the three shapes sound like</a></li><li><a href="#chorus" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Chorus</a></li><li><a href="#flanger" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Flanger</a></li><li><a href="#de-esser" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">De-esser</a></li><li><a href="#alignment" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Alignment</a></li><li><a href="#native-not-plugins" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Native, not plugins</a></li><li><a href="#feedback-suppression-lives-here" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Feedback suppression lives here</a></li><li><a href="#presets-for-one-stage" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Presets for one stage</a></li><li><a href="#copying-a-sound-between-channels" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Copying a sound between channels</a></li><!--]--></ul></aside><div><p data-manual-build-version class="mb-[1rem] font-mono text-micro text-ink-faint">You are reading the manual for build <code>6b99dde</code>.</p><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="eq-and-dynamics">EQ and dynamics</h1>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-interactive-eq">The interactive EQ</h2>
+<p class="my-[0.9rem] leading-base"><img src="/docs/manual/images/eq-dynamics-1.png" alt="Layouts, Processing, EQ" class="my-[1.1rem] block h-auto w-full rounded-r2 border border-border">
+<em>The interactive EQ: drag a band on the curve, or use the encoder bank beside it.</em></p>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">EQ</strong> tab draws the channel's frequency response as one curve and lets you shape it
+by hand. It is touch-first:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">drag a band point</strong> left and right for frequency, up and down for gain;</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">roll the wheel</strong> over a band point to tighten or widen its Q;</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">double-click the open curve</strong> to add a band at that frequency; select a band and press
+<strong class="font-semibold text-ink">Delete</strong> (or Backspace) to remove it;</li>
+<li class="my-[0.35rem] leading-base">the <strong class="font-semibold text-ink">high-pass</strong> and <strong class="font-semibold text-ink">low-pass</strong> points sit at each end of the same curve — drag them
+to set the cutoff, tap one to switch the filter on or off.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">A live readout under the curve shows each band's exact frequency, gain and Q as you drag,
+and an encoder bank below does the same job for fine numeric work. The curve and the
+encoders edit one shared state, so moving either moves the other.</p>
+<p class="my-[0.9rem] leading-base">Every control is keyboard-reachable: arrows nudge, Enter toggles a filter.</p>
+<p class="my-[0.9rem] leading-base">The curve is drawn from what is actually shaping the signal — the EQ in the channel's EQ
+stage plus the built-in high-pass and low-pass — not from a generic picture.</p>
+<p class="my-[0.9rem] leading-base">This is a <strong class="font-semibold text-ink">dynamic-band</strong> EQ, not a fixed-band one: a channel opens with a handful of
+starter bands, and from there you add, drag and remove bands freely — bands sort by
+frequency and renumber as you go, so there is no &quot;band 3&quot; that stays band 3. That differs
+from a desk with a fixed set of named bands (Bass/LoMid/HiMid/Treble and the like) in the
+way that matters on a real show: no band sits unused because the mix didn't need it, no
+problem frequency goes untreated because every named slot is already spoken for, and each
+band is a decision the operator made, not a slot the desk handed out. A restrictive
+<a href="/docs/manual/personalities-themes" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">console profile</a> may offer a different EQ character (a fixed
+musical set, for instance), and will say so by simply not presenting the dynamic controls.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="the-band-chips">The band chips</h3>
+<p class="my-[0.9rem] leading-base">Under the graph, a row of chips picks what the encoders edit:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base">one chip per <strong class="font-semibold text-ink">parametric band</strong>, dimmed while the band is off, and marked when it is a
+notch the feedback suppressor planted;</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">HPF</strong> and <strong class="font-semibold text-ink">LPF</strong> for the two filters;</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">＋</strong> adds a band, greyed when the EQ has no room for another;</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">⇅</strong> sorts the bands by frequency, which renumbers them.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">With a band selected, <strong class="font-semibold text-ink">DEL</strong> at the end of its row removes it.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="gate">Gate</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Gate</strong> tab has its own live curve and the usual controls: threshold, range, attack,
+hold and release.</p>
+<p class="my-[0.9rem] leading-base">The gate sits <strong class="font-semibold text-ink">before</strong> the EQ in the default signal order, so it keys off the raw input
+rather than off whatever the EQ has just done. Some console profiles enforce
+gate-before-compressor; the openmixer profile does not force an order.</p>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="keyed-detection">Keyed detection</h3>
+<p class="my-[0.9rem] leading-base">By default the gate's detector listens to the same signal it gates. The <strong class="font-semibold text-ink">Key</strong> block below
+the gate controls lets it listen to something else instead:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Key source</strong> picks what the detector hears — another channel, or <strong class="font-semibold text-ink">Self</strong>. The channel's
+own fader always carries its own full-range audio; only what the <em>detector</em> listens to
+changes.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Key HP</strong> / <strong class="font-semibold text-ink">Key LP</strong> filter the detector only, never the audio itself. Set with both
+edges together, they make a band: a <strong class="font-semibold text-ink">Voice band</strong> button sets them to a vocal's
+fundamental-and-presence window (120 Hz high-pass, 8 kHz low-pass) in one tap — useful on a
+self-keyed mic so it opens on its own voice and ignores bleed sitting outside that band.
+Left at 0, an edge is off.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Key listen</strong> feeds the filtered detector to the cue bus, the same way PFL lets you hear a
+channel pre-fader, so you can hear exactly what the gate is reacting to before trusting it.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">Typical uses: a bass channel keyed by the kick so the low end stays tight to the kick's own
+timing; a snare-bottom mic keyed by the snare-top mic so hi-hat bleed does not open it; a
+vocal mic self-keyed through the voice band so a neighbouring vocalist's spill does not open
+it.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample. This stage never adds gain — its output level never exceeds what came in. At its default settings, this stage passes audio through unchanged in level.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="compressor">Compressor</h2>
+<p class="my-[0.9rem] leading-base"><img src="/docs/manual/images/eq-dynamics-2.png" alt="Layouts, Processing, Compressor" class="my-[1.1rem] block h-auto w-full rounded-r2 border border-border">
+<em>The compressor: the transfer curve, with threshold, ratio and the live gain-reduction readouts beside it.</em></p>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Compressor</strong> tab likewise draws its transfer curve: threshold, ratio, knee, attack,
+release and make-up gain, with the curve showing the result as you move them.</p>
+<p class="my-[0.9rem] leading-base">The default profile makes several dynamics types available in the two dynamics stages —
+gate, expander, compressor, limiter, ducker, de-esser and multiband compressor. A stage
+takes one of them.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample. Output level never exceeds input level by more than the makeup gain you set — this bounds level, never a sample's peak. At its default settings, this stage passes audio through unchanged in level.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="native-fx">Native FX</h2>
+<p class="my-[0.9rem] leading-base">The channel's own send-type effects — <strong class="font-semibold text-ink">Delay</strong> and <strong class="font-semibold text-ink">Reverb</strong> today, and chorus or flanger when
+those land — share one chip, <strong class="font-semibold text-ink">Native FX</strong>, in the processing view's channel block beside
+<strong class="font-semibold text-ink">Analysis</strong>. It is built the same way: one row per effect, always listed whether it is on or off,
+each showing its name and its own on/off switch. Hover a name to see its current settings.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">An effect's name</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Opens that effect's controls.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">An effect's switch</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Turns that effect on or off without leaving what you are looking at.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">An effect that is on also appears in the channel's processing chain as a stage of its own, where
+you drag it to a new place like any other stage; switched off, it leaves the chain but keeps its
+place in the processing order. This chip is a stand-in until a better way of laying out the native effects arrives.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="delay">Delay</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Delay</strong> tab is the channel's own effect delay — the musical one, not an alignment.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">On</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In or out.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Time</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Up to 2000 ms, in milliseconds.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Sync</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Follow the console's tempo instead of a figure in milliseconds.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Division</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">With sync on, the note the delay lands on — quarter, eighth, dotted eighth, eighth triplet. The resolved milliseconds are shown live beside it.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Feedback</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How much of the output goes back in. It stops short of 1, so it cannot run away.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Mix</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dry to wet.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Tone</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Darkens the repeats.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Ping-pong</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Alternates the repeats between the two sides.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">The console's tempo is set from the header's tap-tempo control, so a delay on sync follows
+the song rather than a number you worked out once.</p>
+<p class="my-[0.9rem] leading-base">The Delay tab is offered where the console has native effects and the console profile ships
+a delay section. A profile modelled on a desk that has no delay strip does not show it.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. Bypassed, this stage's output is identical to its input, sample for sample. The output is an exact copy of the input, delayed by the reported number of samples.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="reverb">Reverb</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Reverb</strong> tab is the channel's own reverb. Five algorithms — <strong class="font-semibold text-ink">room</strong>, <strong class="font-semibold text-ink">plate</strong>, <strong class="font-semibold text-ink">hall</strong>,
+<strong class="font-semibold text-ink">reverse</strong> and <strong class="font-semibold text-ink">gated</strong> — share one set of controls.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">On</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In or out.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Algorithm</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Room, plate, hall, reverse or gated.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Size</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How big the space is.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Damping</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How fast the top end dies away in it. The same setting is the same filter whatever rate the desk is clocked at, so a session moved between a 44.1 or 48 kHz stage box and the desk's 96 kHz keeps its sound.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Pre-delay</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Up to 100 ms of gap before the tail starts. A little of it separates the reverb from the source and keeps words intelligible.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Width</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How wide the tail is.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Mix</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dry to wet.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Low cut</strong> / <strong class="font-semibold text-ink">High cut</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Keep the tail out of the bottom and the top of the mix.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">Three things about these reverbs are worth knowing before you reach for them.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Damping means one filter, at any clock.</strong> Set damping where you want it and it stays there: the
+tail is the same length and the same brightness at 44.1, 48, 96 and 192 kHz. A room does not get
+brighter or longer because a stage box brought a different clock with it.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">The plate does not ring.</strong> Its tank drifts slowly — about a second per cycle, too slow to hear
+as movement — and that is what keeps the end of a plate's tail from settling into the faint
+metallic flutter plates are known for. A plate's tail runs about as long as its size says; if you
+want more of it, turn <strong class="font-semibold text-ink">Size</strong> up.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">A gated reverb re-opens without a click.</strong> Hit it again while the previous tail is still closing
+and the gate opens over a millisecond and a half instead of instantly, so the second hit arrives
+clean. The bite on a snare is unchanged — a millisecond and a half is well inside the stick.</p>
+<p class="my-[0.9rem] leading-base">A per-channel reverb is convenient and it is not the only way: an aux feeding a reverb on a
+bus gives one tail that several channels share, which is usually what a mix wants. See
+<a href="/docs/manual/sends-buses-dcas" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">sends, buses, groups and DCAs</a>.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample. The reverb tail always decays to silence — it never sustains or grows on its own.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="drive">Drive</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Drive</strong> tab is the channel's saturator — the one control on the strip that is there to
+add colour rather than to correct something. It sits after the compressor and before the
+delay and reverb, so what it colours is the channel as you have already shaped it.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">The picture beside the controls is the curve the desk is running.</strong> Input along the bottom,
+output up the side, and the straight diagonal is what the channel would do if the stage did
+nothing. The further the curve leaves that line, the harder the signal is being squeezed — turn
+<strong class="font-semibold text-ink">Drive</strong> up and you watch it bend. A curve that has stopped being a straight line is a sound
+that has stopped being clean, which is the whole point of the section.</p>
+<p class="my-[0.9rem] leading-base">The picture draws the shape, the mix and the trim. It does not draw <strong class="font-semibold text-ink">auto gain</strong>, because that
+is measured from the signal as it plays rather than being a property of the curve, and it does
+not draw <strong class="font-semibold text-ink">band</strong> or <strong class="font-semibold text-ink">HF roll-off</strong>, because those are choices about frequency and this picture
+has no frequency axis — this chapter is where that is written down, not a line under the curve:
+move <strong class="font-semibold text-ink">Character</strong> or <strong class="font-semibold text-ink">Band</strong> and watch the picture stay still, and it will be obvious why.</p>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">?</strong> button in the DRIVE header opens this chapter over the desk, without leaving the mix.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">On</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In or out. Off, it costs nothing at all.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Curve</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The shape of the knee. <strong class="font-semibold text-ink">Soft</strong> is the firmest and cleanest, <strong class="font-semibold text-ink">tape</strong> is gentler, <strong class="font-semibold text-ink">tube</strong> is the widest and richest. <strong class="font-semibold text-ink">Exciter</strong> is different: instead of fading between the clean and driven sounds it ADDS the driven band on top of the whole channel, which is what an enhancer does.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Drive</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How hard the signal is pushed into the curve. At 0 dB it barely does anything; turn it up until you hear it.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Character</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Which harmonics you get. All the way down is the plain curve: odd harmonics only, the hard, edgy kind. Turning it up shifts the signal off centre inside the curve, so the two halves of the wave are treated differently and even harmonics appear — the warm, thick kind. All the way up they lead by a good margin at normal drive settings; push Drive past about 15 dB and the clipping's own odd harmonics take over again whatever this knob says.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Even bias bar</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Reads Character back as one number: how far up its travel the even-harmonic bias is set, 0 to 100 %. It follows the knob; it is not something you set, and it is not a measurement of what came out — how much even harmonic you actually get depends on how hard you are driving the curve.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Band</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Which part of the sound is driven. <strong class="font-semibold text-ink">Full</strong> is everything, <strong class="font-semibold text-ink">low</strong> is below the band frequency, <strong class="font-semibold text-ink">high</strong> is above it, and <strong class="font-semibold text-ink">tilt</strong> drives the top harder than the bottom without changing the tone.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Band</strong> (frequency)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Where that split sits.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Mix</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How much of the driven sound you hear against the clean one. At 0 % the channel passes through exactly as it came in.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Trim</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Level after the stage, so you can switch it in and out against the same loudness.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Auto gain</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">On by default. The desk measures the level going in and coming out and matches them, so turning Drive up changes the colour and not the loudness.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Stereo link</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">On a stereo channel, one gain path for both sides, so nothing can pull the image off centre.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">HF roll-off</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Off, 12 kHz or 16 kHz. Tames the fizz an exciter can put on top.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Oversampling</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">1×, 2× or 4×, and 4× is the default. Higher settings run the saturator at a multiple of the console's rate so the harmonics it makes stay where they belong instead of folding back down into the music. Leave it at 4× unless you are short of CPU.</td>
+</tr>
+</tbody>
+</table>
+<h3 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[1.8rem] mb-[0.6rem] text-lg text-ink" id="what-the-three-shapes-sound-like">What the three shapes sound like</h3>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Soft</strong> is the firmest knee: it holds the level down close to where it was and lets go of the
+extra harmonics quickly, so it reads as clean loudness — the most &quot;console&quot; of the three.
+<strong class="font-semibold text-ink">Tape</strong> bends earlier and more slowly, so you hear the thickening before you hear the limit.
+<strong class="font-semibold text-ink">Tube</strong> has the widest knee of all: it is audibly working long before anything reaches a
+ceiling, and it is the richest of the three because its harmonics carry furthest up the series.
+All three are ODD-symmetric shapes on their own; the <strong class="font-semibold text-ink">Character</strong> knob is what puts even
+harmonics in, on any of them — and it does it the way valve stages do, by sitting the
+signal off centre on the curve rather than by adding a second kind of distortion. Turned up, it
+also makes the channel quieter — the curve is flatter away from its centre — and <strong class="font-semibold text-ink">auto gain</strong>
+is what puts that back. If you have switched auto gain off, expect to find the trim.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Exciter</strong> is not a fourth knee — it is soft's shape wired differently, added on top of the
+whole channel instead of fading against it, which is what an enhancer does. It comes up aimed at
+the top of the spectrum and at a low mix for that reason.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What Band leaves alone.</strong> At <strong class="font-semibold text-ink">low</strong> and <strong class="font-semibold text-ink">high</strong> the half the curve does not see bypasses the
+stage untouched and is added back exactly as it came in, so setting Mix to 0 gives you back the
+channel bit for bit whichever band you picked. <strong class="font-semibold text-ink">Tilt</strong> is different: it drives the whole signal
+but tips the balance with a shelf, and then takes the same shelf back out afterwards — so what
+tilts is how hard each octave hits the knee, not the tone of what comes out.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Why auto gain is measured and not a table.</strong> A saturator gets louder as you drive it, and how
+much louder depends on the material, not only on the setting. The desk therefore measures the
+level going into the stage and the level coming out of it over the same short window and matches
+them. Below about −90 dBFS it holds the last figure instead of tracking, because a ratio taken on
+silence is not a measurement. That is why turning Drive up changes the colour and not the
+loudness, and why the correction follows a fader move.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">It costs a little latency while it is on</strong> — 0.75 ms at 4× and 0.50 ms at 2×, and the panel
+shows the exact number in samples. That is normal for any oversampled processor; it means a channel with
+Drive on is a fraction of a millisecond behind one without it, which matters if the two are
+two microphones on the same source. It is zero while the stage is off.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. Bypassed, this stage's output is identical to its input, sample for sample. At its default settings, this stage passes audio through unchanged in level.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="chorus">Chorus</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Chorus</strong> tab thickens a channel by mixing it with copies of itself whose delay is swept
+slowly up and down — a few milliseconds of wobble that the ear hears as several performers
+instead of one. It runs after the drive and before the delay, and it arrives switched off.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">On</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In or out. Off, it costs nothing at all.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Rate</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How fast the copies sweep, 0.05 to 8 Hz. Well under 1 Hz is a gentle shimmer; push past about 3 Hz and it stops sounding like a chorus and starts sounding like vibrato.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Depth</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How far the delay swings above its 10 ms base, 0 to 12 ms. More depth is a wider, more obvious detune.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Voices</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How many swept copies run at once, spread evenly around the sweep, 1 to 4. More voices is a smoother, denser ensemble.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Mix</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dry to wet, 0 to 100 %.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN,
+never infinite. Bypassed, this stage's output is identical to its input, sample for sample.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="flanger">Flanger</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">Flanger</strong> tab is the jet-plane sweep: one copy of the channel at a very short, moving
+delay, mixed back with the original so a comb of notches glides up and down the spectrum. It
+runs after the chorus and before the delay, and it arrives switched off.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">On</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In or out. Off, it costs nothing at all.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Rate</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How fast the sweep travels, 0.05 to 5 Hz.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Depth</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How far the delay swings above its 0.5 ms base, 0 to 5 ms — how much of the spectrum the notches cross.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Feedback</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Signed, −0.95 to 0.95. Positive values sharpen the peaks into a metallic ring; negative values hollow the sound out. Near either end it rings hard.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Mix</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">Dry to wet, 0 to 100 %.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN,
+never infinite. Bypassed, this stage's output is identical to its input, sample for sample.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="de-esser">De-esser</h2>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">De-esser</strong> tab turns down the hard &quot;s&quot;, &quot;sh&quot; and &quot;t&quot; sounds of a voice — and only while
+they are there. It listens to the band where sibilance lives, and when that band gets louder than
+you asked for it pulls it down; the rest of the time it does nothing at all. It sits after the EQ
+and before the compressor, so the compressor never reacts to an &quot;s&quot; the de-esser has already
+dealt with.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">The GR bar is what it is doing right now.</strong> It reads the reduction the engine is actually
+applying, measured in the stage, and it is drawn against the deepest cut the <strong class="font-semibold text-ink">Range</strong> control
+can make — a full bar is the stage at its floor. While no sibilant is crossing the threshold it
+sits empty, which is the normal state. If the channel has no measurement it reads <strong class="font-semibold text-ink">—</strong>, never a
+made-up 0.</p>
+<p class="my-[0.9rem] leading-base">The <strong class="font-semibold text-ink">?</strong> button in the DE-ESSER header opens this chapter over the desk, without leaving the mix.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Control</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">On</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">In or out. Off, the channel passes through exactly as it came in.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Mode</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Split</strong> cuts only the sibilant band and leaves the rest of the voice alone — the default, and the one to reach for first. <strong class="font-semibold text-ink">Wideband</strong> turns the whole channel down while the &quot;s&quot; lasts, the older broadcast behaviour; some operators prefer it on a shouted vocal.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Frequency</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The centre of the band the de-esser listens to, from 2 kHz to 16 kHz; it comes up at 7 kHz. Sweep it while the singer says &quot;s&quot; and stop where the reduction bites hardest.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Width</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How wide that band is, in octaves (0.25 to 4, default 1). Narrow catches a single whistle; wide catches a whole spread of hiss.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Threshold</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The sibilant level, −60 to 0 dB, above which reduction starts. Default −30 dB.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Ratio</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How hard it bites once the band is over the threshold, 1:1 to 20:1. Default 4:1.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Range</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The deepest cut it may ever make, −24 to 0 dB, however loud the &quot;s&quot;. Default −12 dB. This is what keeps a de-esser from lisping.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Attack</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How quickly the reduction arrives when an &quot;s&quot; starts, 0.1 to 50 ms. Default 1 ms — sibilance is fast.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">Release</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">How quickly the channel recovers after the &quot;s&quot; ends, 5 to 500 ms. Default 60 ms.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">If it does not seem to do anything:</strong> turn <strong class="font-semibold text-ink">On</strong> on, ask for an &quot;s&quot;, and watch the GR bar.
+Empty bar — the threshold is above the sibilant, or the frequency is off the voice's &quot;s&quot;; lower
+the threshold or sweep the frequency. Bar pinned full and the voice sounds lispy — raise the
+threshold or bring <strong class="font-semibold text-ink">Range</strong> up towards 0.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">What this stage guarantees:</strong> Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample. This stage never adds gain — its output level never exceeds what came in.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="alignment">Alignment</h2>
+<p class="my-[0.9rem] leading-base">Two more tabs — <strong class="font-semibold text-ink">Align</strong> and <strong class="font-semibold text-ink">Speakers</strong> — are the time-alignment instruments, and they
+are a different job from the Delay above. See <a href="/docs/manual/alignment" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">alignment</a>.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="native-not-plugins">Native, not plugins</h2>
+<p class="my-[0.9rem] leading-base">The EQ, gate and compressor are the mixer's <strong class="font-semibold text-ink">own</strong> processing, not LV2 plugins loaded
+into a chain. They are always there, they cost no plugin slot, and they do not depend on
+anything being installed.</p>
+<p class="my-[0.9rem] leading-base">Plugin inserts are a separate, ordered chain on the same channel — see
+<a href="/docs/manual/plugins" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">plugins and the rack</a>. The two are never the same thing, and a plugin EQ in
+an insert does not replace or duplicate the channel EQ; it is extra processing at a
+different point in the signal path.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="feedback-suppression-lives-here">Feedback suppression lives here</h2>
+<p class="my-[0.9rem] leading-base">Beside the curve, the EQ tab carries four panels: <strong class="font-semibold text-ink">RTA</strong>, <strong class="font-semibold text-ink">EQ</strong>, <strong class="font-semibold text-ink">FBS</strong> and <strong class="font-semibold text-ink">HRP</strong>.
+Pick one from the bar above the panel; the curve stays where it is.</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">Panel</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">RTA</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The live spectrum behind the curve. See <a href="/docs/manual/rta" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the analyser</a>.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">EQ</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The band editor — the encoder bank described above.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">FBS</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The automatic feedback corrector, which plants its cuts as ordinary bands in this same EQ. See <a href="/docs/manual/fbs" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">feedback suppression</a>.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">HRP</strong></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The harmonic processor. See <a href="/docs/manual/hrp" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the harmonic processor</a>.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">Pressing the panel you are already on folds it away and gives the curve the whole width.
+Press it again to bring it back.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="presets-for-one-stage">Presets for one stage</h2>
+<p class="my-[0.9rem] leading-base">A stage panel with presets — the gate and the compressor among them — carries a preset picker
+listing the console's factory presets first and then your own. Picking one writes its settings
+onto that stage of this channel and nothing else. Before it lands, the desk lists what the
+preset would move on this channel and asks you to confirm.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="copying-a-sound-between-channels">Copying a sound between channels</h2>
+<p class="my-[0.9rem] leading-base">A <strong class="font-semibold text-ink">channel config</strong> captures one channel's processing — its plugin chain and its EQ, gate
+and compressor — as a reusable named preset. Save it from a channel you like and apply it
+to another. See <a href="/docs/manual/scenes-sessions" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">scenes and sessions</a>.</p>
+<p class="my-[0.9rem] leading-base">For a quick copy without saving anything, the channel view's clipboard panel is a copy and a
+paste, each a row of part chips — single parts such as <strong class="font-semibold text-ink">EQ</strong>, <strong class="font-semibold text-ink">Gate</strong> or <strong class="font-semibold text-ink">Sends</strong>, and groups
+such as <strong class="font-semibold text-ink">Dynamics</strong>, <strong class="font-semibold text-ink">Processing</strong> or <strong class="font-semibold text-ink">Whole strip</strong>. Pick what goes onto the clipboard, then,
+on each channel you paste onto, pick which of it comes back out: copying a whole strip once and
+pasting only its EQ onto three channels is the common case. A picked chip is lit. A part the
+destination cannot carry is drawn dashed in red and cannot be picked, and its hover gives the
+reason. One undo takes a paste back.</p>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/manual/eq-dynamics/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Fmanual\u002Feq-dynamics",1790815557114]</script></body></html>

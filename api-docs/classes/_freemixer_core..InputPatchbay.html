@@ -1,0 +1,291 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>InputPatchbay | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core..html"></a></li>
+<li><a href="" aria-current="page">InputPatchbay</a></li></ul>
+<h1>Class InputPatchbay</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The stateful input patchbay: channel → its single physical input, and physical input → its
+head-amp home. Both maps are keyed by identity (<a href="../functions/_freemixer_core..channelKey.html" class="tsd-kind-function">channelKey</a> / <a href="../functions/_freemixer_core..physicalInputKey.html" class="tsd-kind-function">physicalInputKey</a>)
+so a split (two channels, one port) shares one <a href="../interfaces/_freemixer_core..Source.html" class="tsd-kind-interface">Source</a>. See the module header for the
+two rules it enforces.</p>
+</div></section>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="constructors">Constructors<a href="#constructors" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Constructor"><use href="../assets/icons.svg#icon-512"></use></svg><span>constructor</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#channelsforinput" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>channels<wbr/>For<wbr/>Input</span></a>
+<a href="#headampforchannel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>head<wbr/>Amp<wbr/>For<wbr/>Channel</span></a>
+<a href="#headampofinput" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>head<wbr/>Amp<wbr/>Of<wbr/>Input</span></a>
+<a href="#inputforchannel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>input<wbr/>For<wbr/>Channel</span></a>
+<a href="#inputrecord" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>input<wbr/>Record</span></a>
+<a href="#patchchannel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch<wbr/>Channel</span></a>
+<a href="#patchchanneltoinput" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch<wbr/>Channel<wbr/>To<wbr/>Input</span></a>
+<a href="#seedheadampforport" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>seed<wbr/>Head<wbr/>Amp<wbr/>For<wbr/>Port</span></a>
+<a href="#setgain" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Gain</span></a>
+<a href="#setheadampforport" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Head<wbr/>Amp<wbr/>For<wbr/>Port</span></a>
+<a href="#setpad" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Pad</span></a>
+<a href="#setphantom" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Phantom</span></a>
+<a href="#unpatchchannel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>unpatch<wbr/>Channel</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Constructors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="constructors-1">Constructors<a href="#constructors-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="constructor"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="constructorinputpatchbay"><span class="tsd-signature-keyword">new</span> <span class="tsd-kind-constructor-signature">InputPatchbay</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-class">InputPatchbay</a><a href="#constructorinputpatchbay" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">InputPatchbay</a></h4></div></li></ul></section></section></details>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="channelsforinput"><span>channels<wbr/>For<wbr/>Input</span><a href="#channelsforinput" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="channelsforinput-1"><span class="tsd-kind-call-signature">channelsForInput</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">patch</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..SourcePatch.html" class="tsd-signature-type tsd-kind-interface">SourcePatch</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">[]</span><a href="#channelsforinput-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The channels that source a given physical input — the <strong>split set</strong>, in bind order. More
+than one means several channels share this one preamp; empty means nothing sources it.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">patch</span>: <a href="../interfaces/_freemixer_core..SourcePatch.html" class="tsd-signature-type tsd-kind-interface">SourcePatch</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">[]</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="headampforchannel"><span>head<wbr/>Amp<wbr/>For<wbr/>Channel</span><a href="#headampforchannel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="headampforchannel-1"><span class="tsd-kind-call-signature">headAmpForChannel</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#headampforchannel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The head-amp of the input a channel sources, or <code>undefined</code> when the channel is unpatched.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="headampofinput"><span>head<wbr/>Amp<wbr/>Of<wbr/>Input</span><a href="#headampofinput" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="headampofinput-1"><span class="tsd-kind-call-signature">headAmpOfInput</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">patch</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..SourcePatch.html" class="tsd-signature-type tsd-kind-interface">SourcePatch</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#headampofinput-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The head-amp of a physical input directly (by port identity), or <code>undefined</code> if unknown.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">patch</span>: <a href="../interfaces/_freemixer_core..SourcePatch.html" class="tsd-signature-type tsd-kind-interface">SourcePatch</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="inputforchannel"><span>input<wbr/>For<wbr/>Channel</span><a href="#inputforchannel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="inputforchannel-1"><span class="tsd-kind-call-signature">inputForChannel</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#inputforchannel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The physical input a channel currently sources (its head-amp owner), or <code>undefined</code> when unpatched.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="inputrecord"><span>input<wbr/>Record</span><a href="#inputrecord" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="inputrecord-1"><span class="tsd-kind-call-signature">inputRecord</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">port</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#inputrecord-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The whole record a port holds — values, patch and declared capability — for a caller that
+has a PORT and no channel to ask through (a stagebox's arrival driving its own preamps).
+<code>undefined</code> when no channel and no seed has ever registered the port.</p>
+<p>The LIVE record, not a copy, exactly as <a href="#patchchannel" class="tsd-kind-method">patchChannel</a> hands one back: whoever drives
+it must snapshot before it crosses to a backend, or a concurrent edit moves the pad under a
+SENS byte already encoded against it.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">port</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="patchchannel"><span>patch<wbr/>Channel</span><a href="#patchchannel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="patchchannel-1"><span class="tsd-kind-call-signature">patchChannel</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">patch</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..SourcePatch.html" class="tsd-signature-type tsd-kind-interface">SourcePatch</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">init</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..InputInit.html" class="tsd-signature-type tsd-kind-type-alias">InputInit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a><a href="#patchchannel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Patch <code>channel</code> to the physical input <code>patch</code> — REPLACE semantics for the channel's ONE
+physical input (re-patching MOVES the channel; it never sums). If the input is already
+known — another channel splits it — its existing head-amp record is REUSED (the split
+shares the preamp) and <code>init</code> is IGNORED, so joining a split never resets the shared
+phantom / SENS. Returns the (possibly shared) input.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">patch</span>: <a href="../interfaces/_freemixer_core..SourcePatch.html" class="tsd-signature-type tsd-kind-interface">SourcePatch</a></span></li>
+<li><span><span class="tsd-kind-parameter">init</span>: <a href="../types/_freemixer_core..InputInit.html" class="tsd-signature-type tsd-kind-type-alias">InputInit</a><span class="tsd-signature-symbol"> = {}</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="patchchanneltoinput"><span>patch<wbr/>Channel<wbr/>To<wbr/>Input</span><a href="#patchchanneltoinput" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="patchchanneltoinput-1"><span class="tsd-kind-call-signature">patchChannelToInput</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">provider</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..InputProvider.html" class="tsd-signature-type tsd-kind-interface">InputProvider</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">input</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..AdapterInput.html" class="tsd-signature-type tsd-kind-interface">AdapterInput</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">init</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_freemixer_core..InputInit.html" class="tsd-signature-type tsd-kind-type-alias">InputInit</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;headAmp&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a><a href="#patchchanneltoinput-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Capability-stamped patch (mirrors <a href="../functions/_freemixer_core..makeSourceFromInput.html" class="tsd-kind-function">makeSourceFromInput</a>): registers the physical
+input with the head-amp CAPABILITY the enumerated <a href="../interfaces/_freemixer_core..AdapterInput.html" class="tsd-kind-interface">AdapterInput</a> declares, so a
+REAC-backed port advertises phantom / pad / SENS and a software input advertises none.
+Reuse + split-sharing are identical to <a href="#patchchannel" class="tsd-kind-method">patchChannel</a>.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">provider</span>: <a href="../interfaces/_freemixer_core..InputProvider.html" class="tsd-signature-type tsd-kind-interface">InputProvider</a></span></li>
+<li><span><span class="tsd-kind-parameter">input</span>: <a href="../interfaces/_freemixer_core..AdapterInput.html" class="tsd-signature-type tsd-kind-interface">AdapterInput</a></span></li>
+<li><span><span class="tsd-kind-parameter">init</span>: <span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_freemixer_core..InputInit.html" class="tsd-signature-type tsd-kind-type-alias">InputInit</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;headAmp&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="seedheadampforport"><span>seed<wbr/>Head<wbr/>Amp<wbr/>For<wbr/>Port</span><a href="#seedheadampforport" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="seedheadampforport-1"><span class="tsd-kind-call-signature">seedHeadAmpForPort</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">port</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">capability</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..HeadAmpCapability.html" class="tsd-signature-type tsd-kind-interface">HeadAmpCapability</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#seedheadampforport-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Write the head-amp record for a PORT that has none — independent of any channel, so a box's
+preamps can be determined before an operator has patched anything to them (spec §8). A SEED,
+never an assertion: it REFUSES a port that already carries a record and answers <code>false</code>,
+touching nothing, because a box re-appearing must never lose the operator's parked values to
+a policy guess. The record it writes is what a later <a href="#patchchannel" class="tsd-kind-method">patchChannel</a> to this port
+inherits, exactly as a split inherits a record another channel created.</p>
+<p><code>capability</code> is what the PORT declares, and it is required rather than optional: a record
+carrying none reads as <code>NO_HEAD_AMP</code>, and a projection of such a record is refused as
+&quot;declares no analog head-amp — state only&quot;. A determination that cannot be driven is a
+number in a map, and §8 is a safety rule about metal before it is a display rule.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">port</span>: <span class="tsd-signature-type">string</span></span></li>
+<li><span><span class="tsd-kind-parameter">value</span>: <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a></span></li>
+<li><span><span class="tsd-kind-parameter">capability</span>: <a href="../interfaces/_freemixer_core..HeadAmpCapability.html" class="tsd-signature-type tsd-kind-interface">HeadAmpCapability</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setgain"><span>set<wbr/>Gain</span><a href="#setgain" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setgain-1"><span class="tsd-kind-call-signature">setGain</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">gainDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setgain-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The preamp's GAIN (dB) on the channel's physical input (shared across a split). Throws if unpatched.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">gainDb</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setheadampforport"><span>set<wbr/>Head<wbr/>Amp<wbr/>For<wbr/>Port</span><a href="#setheadampforport" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setheadampforport-1"><span class="tsd-kind-call-signature">setHeadAmpForPort</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">port</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">capability</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..HeadAmpCapability.html" class="tsd-signature-type tsd-kind-interface">HeadAmpCapability</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a><a href="#setheadampforport-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Overwrite (or create) a port's head-amp record directly, independent of any channel — the
+session-RESTORE door (spec §6c: &quot;the kept value has one store, and it is the session
+file&quot;). Unlike <a href="#seedheadampforport" class="tsd-kind-method">seedHeadAmpForPort</a> this never refuses: a saved show's values carry
+the SAME authority as an operator's own write, and overwriting is the point — restoring a
+session replaces whatever the desk currently holds for that port, exactly as restoring a
+channel's PATCH replaces whatever it sourced before.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">port</span>: <span class="tsd-signature-type">string</span></span></li>
+<li><span><span class="tsd-kind-parameter">value</span>: <a href="../interfaces/_freemixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a></span></li>
+<li><span><span class="tsd-kind-parameter">capability</span>: <a href="../interfaces/_freemixer_core..HeadAmpCapability.html" class="tsd-signature-type tsd-kind-interface">HeadAmpCapability</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setpad"><span>set<wbr/>Pad</span><a href="#setpad" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setpad-1"><span class="tsd-kind-call-signature">setPad</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">on</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setpad-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>−20 dB analog pad on the channel's physical input (shared across a split). Throws if unpatched.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">on</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="setphantom"><span>set<wbr/>Phantom</span><a href="#setphantom" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="setphantom-1"><span class="tsd-kind-call-signature">setPhantom</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">on</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setphantom-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>+48 V phantom on the channel's physical input (shared across a split). Throws if unpatched.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">on</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="unpatchchannel"><span>unpatch<wbr/>Channel</span><a href="#unpatchchannel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="unpatchchannel-1"><span class="tsd-kind-call-signature">unpatchChannel</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#unpatchchannel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Drop a channel's binding. The physical input's head-amp record is released only once no
+channel still splits it — a surviving split keeps the shared preamp alive.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Constructors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Constructors</summary>
+<div><a href="#constructor"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Constructor"><use href="../assets/icons.svg#icon-512"></use></svg><span>constructor</span></a></div></details>
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
+<div><a href="#channelsforinput"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>channels<wbr/>For<wbr/>Input</span></a><a href="#headampforchannel"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>head<wbr/>Amp<wbr/>For<wbr/>Channel</span></a><a href="#headampofinput"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>head<wbr/>Amp<wbr/>Of<wbr/>Input</span></a><a href="#inputforchannel"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>input<wbr/>For<wbr/>Channel</span></a><a href="#inputrecord"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>input<wbr/>Record</span></a><a href="#patchchannel"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch<wbr/>Channel</span></a><a href="#patchchanneltoinput"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch<wbr/>Channel<wbr/>To<wbr/>Input</span></a><a href="#seedheadampforport"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>seed<wbr/>Head<wbr/>Amp<wbr/>For<wbr/>Port</span></a><a href="#setgain"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Gain</span></a><a href="#setheadampforport"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Head<wbr/>Amp<wbr/>For<wbr/>Port</span></a><a href="#setpad"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Pad</span></a><a href="#setphantom"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>set<wbr/>Phantom</span></a><a href="#unpatchchannel"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>unpatch<wbr/>Channel</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

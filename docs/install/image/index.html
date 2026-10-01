@@ -1,0 +1,291 @@
+<!DOCTYPE html><html  lang="en" data-theme="dark" class="scroll-smooth motion-reduce:scroll-auto bg-bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>openmixer — Installing from the console image</title><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_docs_nuxt/entry.CKwSwco3.css" crossorigin><link rel="preload" as="fetch" crossorigin="anonymous" href="/docs/install/image/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CZrZYqq7.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/BIQC7QM6.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/CYbG_pGl.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/C0Tb8qJ-.js"><link rel="modulepreload" as="script" crossorigin href="/_docs_nuxt/51SuVKF_.js"><script type="module" src="/_docs_nuxt/CZrZYqq7.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/CRRa_VYo.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DlAUqK2U.js"><link rel="prefetch" as="script" crossorigin href="/_docs_nuxt/DtYKEwbD.js"><meta name="description" content="openmixer is a from-scratch open professional software mixer: PipeWire + curated LV2 plugins with auto-generated controls, native REAC stageboxes, and MCU/X-Touch surfaces, driven by one canonical model."><meta name="theme-color" content="#0b0e11"><meta property="og:title" content="openmixer — an open professional software mixer"><meta property="og:description" content="One canonical model drives a software mix engine and hardware adapters. PipeWire + LV2, native REAC, MCU/X-Touch. GPL-3."><meta property="og:type" content="website"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"dark";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body  class="bg-bg text-ink font-body text-base leading-base antialiased [text-rendering:optimizeLegibility] bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-[length:46px_46px] bg-top"><div id="__nuxt" class="isolate"><div><header class="print:hidden sticky top-0 z-50 border-b border-border bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-[10px]"><div class="mx-auto w-full max-w-wrap px-gutter flex h-[60px] items-center gap-6"><a href="/" class="flex-none focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" aria-label="openmixer — home"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span></a><nav class="ml-auto flex gap-[1.2rem]" aria-label="Documentation sections"><!--[--><a href="/docs/install" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-accent text-ink">Install</a><a href="/docs/manual" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Operator manual</a><a href="/docs/hardware" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Hardware</a><a href="/docs/admin" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Administration</a><a href="/docs/troubleshooting" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Troubleshooting</a><a href="/docs/architecture" class="border-b-2 py-1 text-sm text-ink-dim transition-[color,border-color] duration-150 ease-token hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring border-b-transparent">Architecture</a><!--]--></nav><a class="flex-none rounded-r1 bg-accent px-[0.9rem] py-2 font-mono text-cap font-medium tracking-[0.04em] text-accent-ink transition-[filter] duration-150 ease-token hover:brightness-[1.08] focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring" href="https://github.com/FreeMixer/openmixer" rel="noopener">GitHub →</a></div></header><div class="mx-auto w-full max-w-wrap px-gutter grid grid-cols-[220px_minmax(0,1fr)] items-start gap-[clamp(1.5rem,4vw,3.5rem)] pt-[clamp(2rem,5vw,3.5rem)] pb-[clamp(3rem,6vw,5rem)] max-[860px]:grid-cols-1 print:block print:p-0"><aside class="print:hidden sticky top-[84px] max-h-[calc(100vh-100px)] overflow-y-auto max-[860px]:static max-[860px]:max-h-none" aria-label="On this page"><p class="mb-[0.8rem] font-mono text-micro tracking-[0.16em] text-ink-faint uppercase">On this page</p><ul class="border-l border-border"><!--[--><li><a href="#two-variants" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Two variants</a></li><li><a href="#1-download-the-iso" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">1. Download the ISO</a></li><li><a href="#2-write-it-to-a-usb-stick" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">2. Write it to a USB stick</a></li><li><a href="#3-boot-it" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">3. Boot it</a></li><li><a href="#4-nothing-to-answer" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">4. Nothing to answer</a></li><li><a href="#5-reboot-what-happens-without-you" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">5. Reboot; what happens without you</a></li><li><a href="#5a-the-password" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">5a. The password</a></li><li><a href="#6-plug-the-boxes-in" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">6. Plug the boxes in</a></li><li><a href="#7-per-console-facts-ansible" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">7. Per-console facts: Ansible</a></li><li><a href="#8-open-the-desk" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">8. Open the desk</a></li><li><a href="#until-the-project-opens" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">Until the project opens</a></li><li><a href="#9-updating-and-going-back" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">9. Updating and going back</a></li><li><a href="#the-rpm-path-still-exists" class="-ml-px block border-l-2 border-transparent py-[0.28rem] text-cap transition-[color,border-color] duration-150 ease-token hover:border-l-accent hover:text-ink focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring pl-[0.9rem] text-ink-dim">The RPM path still exists</a></li><!--]--></ul></aside><div><!----><article class="max-w-[74ch] text-base text-ink-dim"><h1 class="font-display font-semibold leading-tight tracking-[-0.01em] mb-[1.2rem] text-2xl tracking-[-0.02em] text-ink" id="installing-from-the-console-image">Installing from the console image</h1>
+<p class="my-[0.9rem] leading-base">The image is a full Fedora bootc install: flash it, answer nothing — <strong class="font-semibold text-ink">it installs onto the first
+disk it finds and erases it</strong> — and the console is running when it reboots. This is the recommended path — see <a href="/docs/install/packages" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Packages</a> for the alternative
+of installing onto a Fedora you already have.</p>
+<blockquote class="my-[1.3rem] rounded-r-r2 border-l-[3px] border-l-accent bg-surface px-[1.1rem] py-[0.4rem] text-ink-dim">
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Status (2026-09-08).</strong> The <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">console</code> variant boots, answers <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/health</code> and <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/api/plugins</code>, issues
+and anchors its own certificate, updates and rolls back between two image tags, and converges
+under the Ansible playbook — all measured on a real qcow2/VM built against a LOCAL dnf tree (the
+published repo still answers 404; see <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">docs/design/notes/2026-09-08-image-proofs-lane.md</code> for
+full traces and five real defects found and fixed along the way). <strong class="font-semibold text-ink">Not yet measured</strong>: the ISO's
+unattended install completing end to end (it was mid-install when the build host itself
+rebooted), and the <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">desk</code> variant's kiosk screen (built, not re-verified after the fixes below).
+The ISO built in this run is <strong class="font-semibold text-ink">2.3 GB</strong>; first-boot timing is not yet measured.</p>
+</blockquote>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="two-variants">Two variants</h2>
+<p class="my-[0.9rem] leading-base">Every release publishes two images from the one build:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">tag</th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink">what it runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">console</code> (<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">:44</code>)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The server alone — a headless box driven from a laptop, today's rig.</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">desk</code> (<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">:44-desk</code>)</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">The server <strong class="font-semibold text-ink">plus</strong> a kiosk session that opens the console's own web UI, full-screen, on the box's own monitor.</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base">Both are the same product at the same version; <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">desk</code> only adds a screen. A surface that should
+show a <em>different</em> console's desk (not this box's own server) is not part of either variant —
+point a browser or a kiosk unit at that console's address instead, and see
+<a href="/docs/install/trust-the-console" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Trusting the console's certificate</a> first.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="1-download-the-iso">1. Download the ISO</h2>
+<p class="my-[0.9rem] leading-base">Each release publishes <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer-console-fc44-&lt;version&gt;-x86_64.iso</code> and
+<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer-desk-fc44-&lt;version&gt;-x86_64.iso</code> as GitHub Release assets. The version in the
+filename is the tag — and the tag is one dnf repo snapshot, so <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/health.version</code> on a running
+console will read that same string back once it is up (see <a href="/docs/install/upgrading" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Upgrading</a>).</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="2-write-it-to-a-usb-stick">2. Write it to a USB stick</h2>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">dd</code> it, or use Fedora Media Writer / Balena Etcher if you would rather not type a device path by
+hand:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink">sudo dd if=openmixer-desk-fc44-&lt;version&gt;-x86_64.iso of=/dev/sdX bs=8M status=progress
+</code></pre>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Double-check <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/dev/sdX</code></strong> — <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">dd</code> overwrites the device you name with no confirmation and no
+undo. <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">lsblk</code> before you type the command, not after.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="3-boot-it">3. Boot it</h2>
+<p class="my-[0.9rem] leading-base">Boot the stick from your firmware's boot menu (F12, F11 or Esc on most machines). Whether the
+stick boots with Secure Boot on has not been verified yet — the ISO built and its unattended GRUB
+selection was proven headless in a VM (no Secure Boot in that path), but the disk write itself was
+interrupted by a host reboot before an install completed. If the firmware refuses it, turn Secure
+Boot off for the install and tell us.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="4-nothing-to-answer">4. Nothing to answer</h2>
+<p class="my-[0.9rem] leading-base">The install is unattended (<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">packaging/image/kickstart/console.toml</code>, embedded in the ISO). It
+answers the three questions Anaconda would otherwise ask:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Disk</strong> — the whole first disk, always. There is no disk picker; a box with more than one
+drive should have any drive it does not want wiped disconnected before this step.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">User</strong> — <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer</code>, password <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer</code>, in the <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">wheel</code> group (so <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">sudo</code> works, and asks
+for that same password). This is a <strong class="font-semibold text-ink">documented default</strong> and every console flashed from one
+image starts with it: see <a href="#5a-the-password" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">§5a</a> for changing it, and for the switch that makes
+the box ask for its own instead.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Timezone</strong> — whatever the image itself carries (UTC, Fedora's own default). Nothing in the
+installer sets this; it is a property of the image, not a question asked at install time.</li>
+</ul>
+<p class="my-[0.9rem] leading-base">None of the three configures the desk — the web UI, the audio graph and every per-console fact
+in §6 below arrive after the box reboots, never through the installer.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="5-reboot-what-happens-without-you">5. Reboot; what happens without you</h2>
+<p class="my-[0.9rem] leading-base">On first boot, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer-firstboot.service</code> runs once: it issues this machine's own TLS
+certificate authority and leaf (never the same key two consoles would ever share), anchors that
+root into the system trust store, enables the HTTPS block, resolves and labels the web port, and
+arms the engine's <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">--user</code> unit under <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">loginctl enable-linger</code> so it runs with nobody logged in.
+Only once that unit has succeeded does <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">gdm.service</code> start (<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">desk</code> variant only) — the ordering is
+deliberate: a kiosk that opened before the certificate existed would show a certificate warning on
+a screen with no keyboard to dismiss it.</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">console</code></strong> — the box is now a headless server. Nothing shows on an attached monitor; reach it
+from another machine's browser (see step 7).</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">desk</code></strong> — the box logs in as <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer</code> and opens <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">https://localhost:8443/</code> full-screen. That
+is the console's own web UI, not a separate viewer — see the next section.</li>
+</ul>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Nothing is asked, and nothing waits.</strong> A console is switched on before a show, often with no
+keyboard attached: the boot has no question in it, and the mixer is what appears. If the first-boot
+unit ever FAILS, the desk does not open — the machine stays on its text console with that unit's
+error printed on it, which is the screen you want when something is wrong, rather than a browser
+showing a connection error that looks like a network fault.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="5a-the-password">5a. The password</h2>
+<p class="my-[0.9rem] leading-base">The image ships one, documented, the same on every box flashed from it:</p>
+<table class="my-[1.3rem] block w-full border-collapse overflow-x-auto text-sm">
+<thead>
+<tr>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink"></th>
+<th class="border border-border px-[0.7rem] py-2 text-left align-top bg-surface-2 font-display font-semibold text-ink"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">user</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer</code></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">password</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer</code></td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">can <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">sudo</code></td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">yes, in the <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">wheel</code> group, asking for that same password</td>
+</tr>
+<tr>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top">root</td>
+<td class="border border-border px-[0.7rem] py-2 text-left align-top"><strong class="font-semibold text-ink">locked</strong> — there is no root login, on the console or over ssh</td>
+</tr>
+</tbody>
+</table>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Change it</strong> on any box that is reachable by people who should not have it. From another machine:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink">ssh openmixer@&lt;the console's address&gt;        # password: openmixer
+passwd                                       # asks for the old one, then the new one twice
+</code></pre>
+<p class="my-[0.9rem] leading-base">or at the console itself: <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Ctrl+Alt+F3</code> for a text login, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">passwd</code>, then <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">Ctrl+Alt+F1</code> back to the
+mixer. Nothing on the console reads this password again — it is an ordinary account password, and
+the desk keeps running while you change it.</p>
+<p class="my-[0.9rem] leading-base"><strong class="font-semibold text-ink">Or have each box ask for its own, at its first boot.</strong> One switch, <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/etc/openmixer/firstboot.conf</code>:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink">ask-console-password = yes
+</code></pre>
+<p class="my-[0.9rem] leading-base">With that set BEFORE a box's first boot, the console stops on a full-screen prompt and asks for a
+password for <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">openmixer</code>, twice, before the mixer opens; an empty answer or two that do not match
+are refused and it asks again. It waits as long as it takes — nobody can answer it remotely, so
+this is for boxes someone will be standing at the first time they are switched on. It asks once per
+first boot: a machine that completes its first boot is never asked again, and one whose first boot
+FAILS partway (no network for the certificate step, say) asks again the next time it is switched
+on, together with everything else that first boot does.</p>
+<p class="my-[0.9rem] leading-base">To turn it on for a box that has already booted, clear the first-boot stamp as well:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink">sudo sed -i 's/^ask-console-password.*/ask-console-password = yes/' /etc/openmixer/firstboot.conf
+sudo rm /var/lib/openmixer/.firstboot-done
+sudo systemctl reboot
+</code></pre>
+<p class="my-[0.9rem] leading-base">Two things to know before you enable it:</p>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Nothing checks how good the password is.</strong> There is no minimum length and no complexity rule —
+whatever is typed is accepted. Twelve characters or a short passphrase is a sensible house rule;
+the console will not enforce one for you.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">There is no way back in if it is forgotten.</strong> Root is locked and no other account exists, so a
+console whose password nobody remembers is re-flashed from the ISO (which erases the disk; the
+session and takes on it go with it). With the documented default left in place this cannot
+happen, which is part of why it is the default.</li>
+</ul>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="6-plug-the-boxes-in">6. Plug the boxes in</h2>
+<p class="my-[0.9rem] leading-base">REAC stageboxes and the RME clock master are hardware this image cannot know about at build time
+— see <a href="/docs/hardware" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the hardware guide</a> for cabling, then
+<a href="#7-per-console-facts-ansible" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">the Ansible section</a> below for how their NIC names and clock role
+reach the console.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="7-per-console-facts-ansible">7. Per-console facts: Ansible</h2>
+<p class="my-[0.9rem] leading-base">The image is identical on every console it is flashed onto. What makes <em>this</em> box this room's
+desk — its console size, which NICs carry which REAC segment, which device is the clock master, a
+private repo mirror if this room has one, and a TLS re-issue after a rename — is carried by
+<code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">ansible/playbooks/configure-console.yml</code> against the <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">consoles</code> inventory group, not baked into
+the image. Trusting the console from an operator's laptop is the separate
+<a href="/docs/install/trust-the-console" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">trust page</a> walk, not an Ansible role — pushing a CA onto a fleet of
+laptops the console does not own would be a second door onto the same trust store.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="8-open-the-desk">8. Open the desk</h2>
+<ul class="my-[0.9rem] list-disc pl-[1.3rem]">
+<li class="my-[0.35rem] leading-base">On a <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">desk</code> console's own screen: it is already open.</li>
+<li class="my-[0.35rem] leading-base">From anywhere else, on either variant: <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">https://&lt;box-address&gt;:8443/</code>. Find the box's LAN address
+the way your network already tells you (DHCP lease list or mDNS); the desk does not display it
+yet.</li>
+<li class="my-[0.35rem] leading-base"><strong class="font-semibold text-ink">Every <em>other</em> device visits <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">http://&lt;box-address&gt;:8880/trust/</code> first</strong> — the certificate this
+machine minted for itself in step 5 is trusted by nothing else yet. See
+<a href="/docs/install/trust-the-console" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Trusting the console's certificate</a>; it is not optional.</li>
+</ul>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="until-the-project-opens">Until the project opens</h2>
+<p class="my-[0.9rem] leading-base">The image and the packages live on private registries for now, and pulling them needs a
+credential from the project. Those steps are internal and change when the project opens; ask
+for them rather than reading them here.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="9-updating-and-going-back">9. Updating and going back</h2>
+<p class="my-[0.9rem] leading-base"><code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">bootc-fetch-apply-updates.timer</code> (enabled in the image, no updater of our own) pulls the tag the
+machine was flashed from. It is bootc's own unit and runs <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">bootc update --apply</code>, which reboots
+the machine when a new image was staged — so leave the timer disabled during a show and update
+between shows, or run <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">bootc update</code> by hand and reboot when it suits you. This has not yet been
+observed on an installed console. To go back:</p>
+<pre class="my-[1.3rem] overflow-x-auto rounded-r2 border border-border bg-well px-[1.2rem] py-[1.1rem]"><code class="font-mono text-sm leading-[1.65] text-ink">bootc rollback
+systemctl reboot
+</code></pre>
+<p class="my-[0.9rem] leading-base">The previous deployment is still on disk — rollback does not re-download anything. Proven both
+directions on a real VM (2026-09-08): <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">bootc switch</code> to a second tag moves <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">/health.version</code>
+forward after a reboot, and <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">bootc rollback</code> + reboot moves it back, with zero failed units either
+time. See <a href="/docs/install/upgrading" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Upgrading</a> for what does and does not restart.</p>
+<h2 class="font-display font-semibold leading-tight tracking-[-0.01em] mt-[2.6rem] mb-[0.9rem] border-t border-border pt-[0.6rem] text-xl text-ink" id="the-rpm-path-still-exists">The RPM path still exists</h2>
+<p class="my-[0.9rem] leading-base">Everything above is one way to get the same bits <a href="/docs/install/packages" class="text-accent underline decoration-[color-mix(in_srgb,var(--accent)_40%,transparent)] underline-offset-2 hover:decoration-accent focus-visible:rounded-[2px] focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-focus-ring">Packages</a> installs with <code class="rounded-r1 border border-border bg-surface-2 px-[0.35em] py-[0.1em] font-mono text-[0.9em] text-ink">dnf</code> on a
+Fedora you already run. One signed repository feeds both; a dnf user and an image user are running
+the same openmixer.</p>
+</article></div></div><footer class="print:hidden border-t border-border py-[2.2rem]"><div class="mx-auto w-full max-w-wrap px-gutter flex flex-wrap items-center gap-[1.2rem]"><span class="inline-flex items-center gap-[0.55rem]" aria-label="openmixer"><svg class="block flex-none" width="30" height="30" viewBox="0 0 96 96" fill="none" aria-hidden="true"><line x1="22" y1="46" x2="74" y2="46" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 3"></line><g stroke-linecap="round"><line x1="28" y1="20" x2="28" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="28" y1="58" x2="28" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.55"></line><rect x="22" y="54" width="12" height="8" rx="3" fill="#cfd9e0"></rect><line x1="48" y1="20" x2="48" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="48" y1="30" x2="48" y2="76" stroke="var(--accent)" stroke-width="6"></line><rect x="42" y="26" width="12" height="8" rx="3" fill="var(--accent)"></rect><line x1="68" y1="20" x2="68" y2="76" stroke="var(--surface-3)" stroke-width="6"></line><line x1="68" y1="66" x2="68" y2="76" stroke="var(--accent)" stroke-width="6" opacity="0.4"></line><rect x="62" y="62" width="12" height="8" rx="3" fill="#cfd9e0"></rect></g></svg><span class="font-display text-[1.25rem] leading-none font-semibold tracking-[-0.02em]"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></span><p class="max-w-[52ch] text-cap text-ink-faint"> openmixer — an open professional software mixer. GPL-3.0-or-later · © Pau Aliagas &lt;linuxnow@gmail.com&gt; </p></div></footer></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{manualBuildVersion:"6b99dde"},app:{baseURL:"/",buildId:"d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d",buildAssetsDir:"/_docs_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/docs/install/image/_payload.json?d942fd5e-7b03-4e4c-bc3d-2d86eae78a0d">[{"state":1,"once":7,"_errors":8,"serverRendered":5,"path":10,"prerenderedAt":11},["Reactive",2],{"$scolor-mode":3},{"preference":4,"value":4,"unknown":5,"forced":6},"dark",true,false,["Set"],["ShallowReactive",9],{},"\u002Fdocs\u002Finstall\u002Fimage",1790815557111]</script></body></html>

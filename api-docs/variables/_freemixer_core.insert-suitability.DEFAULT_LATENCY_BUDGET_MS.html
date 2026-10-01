@@ -1,0 +1,67 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>DEFAULT_LATENCY_BUDGET_MS | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core.insert-suitability.html">insert-suitability</a></li>
+<li><a href="" aria-current="page">DEFAULT_LATENCY_BUDGET_MS</a></li></ul>
+<h1>Variable DEFAULT_LATENCY_BUDGET_MS<code class="tsd-tag">Const</code></h1></div>
+<div class="tsd-signature"><span class="tsd-kind-variable">DEFAULT_LATENCY_BUDGET_MS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_freemixer_core.insert-suitability.InsertRole.html" class="tsd-signature-type tsd-kind-type-alias">InsertRole</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>The default insert-latency budget per role, in milliseconds — the <strong>accumulated</strong> latency
+of a destination's whole insert chain, not a per-plugin allowance.</p>
+<p>These are derived, not picked:</p>
+<ul>
+<li><strong><code>monitor</code> = 5 ms.</strong> A performer hears their own voice or instrument acoustically (and,
+for a voice, through bone conduction) at the same time as the monitor feed, so the
+feed's delay is heard as a slap/comb against the direct sound rather than as latency.
+Published live-monitoring listening tests (Lester &amp; Boley, <em>The Effects of Latency on
+Live Sound Monitoring</em>, AES 123rd Convention, 2007) put the point where performers
+reliably notice and object at roughly 10 ms, with the most sensitive — vocalists, and
+in-ear users who have no acoustic bleed to mask it — reacting from around 4–6 ms. That
+~10 ms is the WHOLE path, and the console has spent much of it before any plugin runs:
+conversion plus two quantum crossings is already ≈ 3–4 ms at 64 frames / 48 kHz. Half
+the audible boundary is therefore what is left to spend on inserts, and the other half
+is reserved for conversion and buffering. It is deliberately the same number as the
+catalog's <code>LIVE_MAX_MS</code> live/studio gate, so &quot;a live-tier plugin&quot; and &quot;a plugin that
+fits a monitor bus on its own&quot; mean the same thing instead of being two thresholds that
+drift apart.</li>
+<li><strong><code>program</code> = 100 ms.</strong> A program bus is not heard against the listener's own sound; it
+is heard against what the audience SEES on stage, and for a broadcast/recording split
+against picture. ITU-R BT.1359-1 puts the detectability threshold for sound lagging
+picture at 125 ms and the acceptability limit at 185 ms. 100 ms keeps the program path
+inside detectability with margin for the rest of the system — and leaves the
+mastering-grade tools that belong on a MAIN entirely usable, because a program-role
+overrun WARNS with the number rather than refusing (see <a href="_freemixer_core.insert-suitability.DEFAULT_ENFORCEMENT.html" class="tsd-kind-variable">DEFAULT_ENFORCEMENT</a>).</li>
+<li><strong><code>effects</code> = 60 ms.</strong> An FX return sums back against the dry signal, so its latency is
+heard as pre-delay nobody dialled in. Fusion of a delayed copy with its direct sound
+holds to roughly 30–50 ms for speech and out to ~80 ms for music (the precedence /
+Haas window); beyond that it separates into an audible discrete repeat. 60 ms sits at
+the practical edge of that window.</li>
+</ul>
+<p>All three are overridable per role and per bus (<a href="../interfaces/_freemixer_core.insert-suitability.InsertSuitabilityPolicy.html" class="tsd-kind-interface">InsertSuitabilityPolicy</a>) — a rig
+with 2 ms of conversion and a 32-frame quantum can afford more on a wedge than one on
+USB, and only the operator knows which they are on.</p>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

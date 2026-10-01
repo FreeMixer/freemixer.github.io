@@ -1,0 +1,223 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ConsoleSnapshot | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_server.html">@freemixer/server</a></li>
+<li><a href="../modules/_freemixer_server..html"></a></li>
+<li><a href="" aria-current="page">ConsoleSnapshot</a></li></ul>
+<h1>Interface ConsoleSnapshot</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The full console body — every addressable element of state.</p>
+</div></section>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ConsoleSnapshot</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#allocation">allocation</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ConsoleAllocation.html" class="tsd-signature-type tsd-kind-interface">ConsoleAllocation</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bpm">bpm</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#buses">buses</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..BusSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">BusSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#channels">channels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_server..ChannelSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ChannelSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#cue">cue</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..CueSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">CueSnapshotJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#dcas">dcas</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..DcaSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">DcaSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#expectedhardware">expectedHardware</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..HardwareManifest.html" class="tsd-signature-type tsd-kind-interface">HardwareManifest</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#headamps">headAmps</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..HeadAmpPortJson.html" class="tsd-signature-type tsd-kind-interface">HeadAmpPortJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#matrix">matrix</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..MatrixSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">MatrixSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mutegroups">muteGroups</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..MuteGroupSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">MuteGroupSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#outputs">outputs</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..OutputSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">OutputSnapshotJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pages">pages</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..SurfacePageJson.html" class="tsd-signature-type tsd-kind-interface">SurfacePageJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pendingallocation">pendingAllocation</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ConsoleAllocation.html" class="tsd-signature-type tsd-kind-interface">ConsoleAllocation</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#preferences">preferences</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..SurfacePreferencesJson.html" class="tsd-signature-type tsd-kind-interface">SurfacePreferencesJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#reacsegments">reacSegments</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ReacSegmentConfigJson.html" class="tsd-signature-type tsd-kind-interface">ReacSegmentConfigJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#safety">safety</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..SafetySnapshot.html" class="tsd-signature-type tsd-kind-interface">SafetySnapshot</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#speakeralign">speakerAlign</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">{</span><br/>        <span class="tsd-kind-property">mic</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>        <span class="tsd-kind-property">reference</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>        <span class="tsd-kind-property">referenceSide</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..ChannelRole.html" class="tsd-signature-type tsd-kind-type-alias">ChannelRole</a><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#striporder">stripOrder</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#surfaces">surfaces</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..SurfaceMapJson.html" class="tsd-signature-type tsd-kind-interface">SurfaceMapJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#talkback">talkback</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">micRoute</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#allocation" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>allocation?</span></a>
+<a href="#bpm" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>bpm?</span></a>
+<a href="#buses" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>buses</span></a>
+<a href="#channels" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>channels</span></a>
+<a href="#cue" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cue?</span></a>
+<a href="#dcas" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>dcas</span></a>
+<a href="#expectedhardware" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>expected<wbr/>Hardware?</span></a>
+<a href="#headamps" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>head<wbr/>Amps?</span></a>
+<a href="#matrix" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>matrix</span></a>
+<a href="#mutegroups" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>mute<wbr/>Groups</span></a>
+<a href="#outputs" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>outputs</span></a>
+<a href="#pages" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pages?</span></a>
+<a href="#pendingallocation" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pending<wbr/>Allocation?</span></a>
+<a href="#preferences" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>preferences?</span></a>
+<a href="#reacsegments" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>reac<wbr/>Segments?</span></a>
+<a href="#safety" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>safety?</span></a>
+<a href="#speakeralign" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>speaker<wbr/>Align?</span></a>
+<a href="#striporder" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>strip<wbr/>Order?</span></a>
+<a href="#surfaces" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>surfaces</span></a>
+<a href="#talkback" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>talkback?</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="allocation"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>allocation</span><a href="#allocation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">allocation</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ConsoleAllocation.html" class="tsd-signature-type tsd-kind-interface">ConsoleAllocation</a></div>
+<div class="tsd-comment tsd-typography"><p>The console the show was mixed on — the DECLARATION the desk was built from, not a
+derivation of it (ruling 2026-08-14: &quot;a session must store its allocation, otherwise how
+do we restore it?&quot;).</p>
+<p>The channel lists above say which strips existed; only this says how big the console
+they lived on WAS. That distinction is load-bearing because the native summing lanes are
+sized at allocation time: restoring a 24-input show onto an 8-input desk by growing the
+strip list alone is refused by MAIN itself (<code>bus main/1 is full (16 input slots)</code>), so
+the size has to be re-declared through StructuralDsp.applyAllocation — the one
+doorway that builds strips and sizes their bus lanes together — before any value lands.</p>
+<p>Absent on sessions saved before this field: the console keeps the size it booted with and
+restores what fits, which is the behaviour those sessions were saved under.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="bpm"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>bpm</span><a href="#bpm" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">bpm</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>Console-wide tempo (BPM) for tempo-synced FX. Optional + additive: absent → the default.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="buses"><code class="tsd-tag">Readonly</code><span>buses</span><a href="#buses" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">buses</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..BusSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">BusSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="channels"><code class="tsd-tag">Readonly</code><span>channels</span><a href="#channels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">channels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_server..ChannelSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ChannelSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="cue"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>cue</span><a href="#cue" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">cue</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..CueSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">CueSnapshotJson</a></div>
+<div class="tsd-comment tsd-typography"><p>The cue bus + console-wide cue state (mode, monitor-output designation) — the
+cue/solo-to-monitor spec. Optional + additive: absent on sessions saved before the
+feature, which restore to the PFL default with no monitor output.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="dcas"><code class="tsd-tag">Readonly</code><span>dcas</span><a href="#dcas" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">dcas</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..DcaSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">DcaSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="expectedhardware"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>expected<wbr/>Hardware</span><a href="#expectedhardware" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">expectedHardware</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..HardwareManifest.html" class="tsd-signature-type tsd-kind-interface">HardwareManifest</a></div>
+<div class="tsd-comment tsd-typography"><p>The <strong>expected hardware</strong> at save time (issue #154) — stageboxes, soundcards, control
+surfaces. On restore the server diffs it against what is present and surfaces a
+missing-hardware summary. Optional + additive: absent on sessions saved before this field.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="headamps"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>head<wbr/>Amps</span><a href="#headamps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">headAmps</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..HeadAmpPortJson.html" class="tsd-signature-type tsd-kind-interface">HeadAmpPortJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The desk's DESIRED analog head-amp — phantom / pad / gain — keyed by PHYSICAL INPUT, not by
+channel (the one-physical-input and head-amp-by-port laws; <code>input-patchbay.ts</code>, spec §6c:
+&quot;the kept value has one store, and it is the session file&quot;). A channel's own <code>phantom</code> /
+<code>pad</code> / <code>headAmpGainDb</code> fields already round-trip the values for a port CURRENTLY sourced
+by that channel; this block is what survives a re-patch or a restart for a port that is
+not — a channel repatched away from a preamp still owes it the phantom it turned on, and
+before this block that fact lived only in the running process's memory.</p>
+<p>Absence is a fact, exactly like <a href="#striporder" class="tsd-kind-property">stripOrder</a>: a session with no <code>headAmps</code> block
+restores nothing and asserts no default onto any preamp — the house floor
+(<code>/console/defaults</code>) is a never-seen port's answer, never this block's.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="matrix"><code class="tsd-tag">Readonly</code><span>matrix</span><a href="#matrix" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">matrix</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..MatrixSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">MatrixSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="mutegroups"><code class="tsd-tag">Readonly</code><span>mute<wbr/>Groups</span><a href="#mutegroups" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">muteGroups</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..MuteGroupSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">MuteGroupSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>Mute groups (membership + live active flag), captured/restored like <a href="#dcas" class="tsd-kind-property">dcas</a>.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="outputs"><code class="tsd-tag">Readonly</code><span>outputs</span><a href="#outputs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">outputs</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..OutputSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">OutputSnapshotJson</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pages"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>pages</span><a href="#pages" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">pages</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..SurfacePageJson.html" class="tsd-signature-type tsd-kind-interface">SurfacePageJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The operator's USER pages (<a href="_freemixer_core..SurfacePageJson.html" class="tsd-kind-interface">SurfacePageJson</a>) — show content, beside the look above.
+Absent restores the EMPTY set (never the previous session's pages): a show that built no
+page has none, and a page is never invented.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pendingallocation"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>pending<wbr/>Allocation</span><a href="#pendingallocation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">pendingAllocation</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ConsoleAllocation.html" class="tsd-signature-type tsd-kind-interface">ConsoleAllocation</a></div>
+<div class="tsd-comment tsd-typography"><p>The shape the console will be built at on its NEXT BOOT — an accepted reshape waiting for a
+restart (<code>2026-09-14-console-allocation.md</code> §4(d)). Absent when none is scheduled.</p>
+<p>It lives HERE, beside <a href="#allocation" class="tsd-kind-property">allocation</a>, and not in a store of its own: the session is the
+one place a console's definition is recorded, and &quot;the shape it is&quot; and &quot;the shape it will
+be&quot; are two facts about the same thing. A second store for the next shape is the second
+ledger the house forbids — two answers to &quot;how big is this desk&quot;, neither announcing the
+other.</p>
+<p>Nothing applies it live. The boot seed reads it AHEAD of <a href="#allocation" class="tsd-kind-property">allocation</a> and builds at
+it, grow or shrink alike, because a fresh build has no mid-show ratchet to satisfy; on that
+boot it becomes the declared shape and this field goes away.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="preferences"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>preferences</span><a href="#preferences" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">preferences</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..SurfacePreferencesJson.html" class="tsd-signature-type tsd-kind-interface">SurfacePreferencesJson</a></div>
+<div class="tsd-comment tsd-typography"><p>The operator's view preferences — the desk's LOOK (see <a href="_freemixer_core..SurfacePreferencesJson.html" class="tsd-kind-interface">SurfacePreferencesJson</a>).
+Absent means the console never had any set, which seeds
+<a href="../variables/_freemixer_core..DEFAULT_SURFACE_PREFERENCES.html" class="tsd-kind-variable">DEFAULT_SURFACE_PREFERENCES</a>; absence is a fact, not a migration.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="reacsegments"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>reac<wbr/>Segments</span><a href="#reacsegments" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">reacSegments</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ReacSegmentConfigJson.html" class="tsd-signature-type tsd-kind-interface">ReacSegmentConfigJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The REAC segments' DESIRED config (<a href="_freemixer_core..ReacSegmentConfigJson.html" class="tsd-kind-interface">ReacSegmentConfigJson</a>), keyed by the segment's
+own <code>/reac/segment/{name}</code> address. Absent restores NOTHING ASSERTED — the daemon's
+best-drivable default stands — never a hardcoded rate and never the previous show's.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="safety"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>safety</span><a href="#safety" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">safety</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..SafetySnapshot.html" class="tsd-signature-type tsd-kind-interface">SafetySnapshot</a></div>
+<div class="tsd-comment tsd-typography"><p>Gig-safety pre-loads (spares, mute groups, panic targets). Optional and
+additive — a session written before this field is read back with no safety
+config (see <a href="../functions/_freemixer_core..emptySafety.html" class="tsd-kind-function">emptySafety</a>), so the schema version is unchanged.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="speakeralign"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>speaker<wbr/>Align</span><a href="#speakeralign" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">speakerAlign</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">mic</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">reference</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">referenceSide</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_freemixer_core..ChannelRole.html" class="tsd-signature-type tsd-kind-type-alias">ChannelRole</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The loudspeaker-alignment SETUP — which channel carries the measurement microphone and
+which output is the reference (<code>/console/speakerAlign</code>, spec <code>2026-08-31-smart-alignment.md</code>
+§9b, amended 2026-09-08 — issue #838: a console restart answered <code>{mic:null,reference:null}</code>
+and every loudspeaker row read <code>no-mic</code>). A show fact like <a href="#talkback" class="tsd-kind-property">talkback</a>'s mic route, not
+a view choice: &quot;the mic is on input 9&quot; describes how THIS alignment session was set up, for
+whoever stands at the desk next. Absent restores UNPICKED, never the previous show's picks.</p>
+</div>
+<div class="tsd-type-declaration">
+<h4>Type Declaration</h4>
+<ul class="tsd-parameters">
+<li class="tsd-parameter">
+<h5><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span class="tsd-kind-property">mic</span><span class="tsd-signature-symbol">?: </span><a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span class="tsd-kind-property">reference</span><span class="tsd-signature-symbol">?: </span><a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span class="tsd-kind-property">referenceSide</span><span class="tsd-signature-symbol">?: </span><a href="../types/_freemixer_core..ChannelRole.html" class="tsd-signature-type tsd-kind-type-alias">ChannelRole</a></h5>
+<div class="tsd-comment tsd-typography"><p>WHICH SIDE of the reference output is the reference BOX (#845) — absent reads as <code>'L'</code>,
+which is what a stereo desk has always meant by &quot;aligned to MAIN&quot;.</p>
+</div></li></ul></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="striporder"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>strip<wbr/>Order</span><a href="#striporder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">stripOrder</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The DESK's strip order — the operator's reordering of the <code>/channel</code> roster, one order
+for every client (ruling 2026-08-11). The stored fact is the OVERRIDE only: absent means
+the operator never reordered, which reads as the allocation's natural order — the
+derivation is never stored. Strips the loaded console does not hold are dropped on read,
+and ones the override does not name append in natural order; the override itself is
+never rewritten.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="surfaces"><code class="tsd-tag">Readonly</code><span>surfaces</span><a href="#surfaces" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">surfaces</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..SurfaceMapJson.html" class="tsd-signature-type tsd-kind-interface">SurfaceMapJson</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="talkback"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>talkback</span><a href="#talkback" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">talkback</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">micRoute</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a> <span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The talkback MIC route — a show fact (operator ruling 2026-08-19), unlike the generator
+routes, which are instrument state the assignment row re-declares at runtime and which a
+session therefore never carries. Optional + additive: absent restores an unrouted mic.</p>
+</div></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#allocation"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>allocation</span></a><a href="#bpm"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>bpm</span></a><a href="#buses"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>buses</span></a><a href="#channels"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>channels</span></a><a href="#cue"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cue</span></a><a href="#dcas"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>dcas</span></a><a href="#expectedhardware"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>expected<wbr/>Hardware</span></a><a href="#headamps"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>head<wbr/>Amps</span></a><a href="#matrix"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>matrix</span></a><a href="#mutegroups"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>mute<wbr/>Groups</span></a><a href="#outputs"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>outputs</span></a><a href="#pages"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pages</span></a><a href="#pendingallocation"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pending<wbr/>Allocation</span></a><a href="#preferences"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>preferences</span></a><a href="#reacsegments"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>reac<wbr/>Segments</span></a><a href="#safety"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>safety</span></a><a href="#speakeralign"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>speaker<wbr/>Align</span></a><a href="#striporder"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>strip<wbr/>Order</span></a><a href="#surfaces"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>surfaces</span></a><a href="#talkback"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>talkback</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>rbjSection | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_core.html">@freemixer/core</a></li>
+<li><a href="../modules/_freemixer_core.eq.html">eq</a></li>
+<li><a href="" aria-current="page">rbjSection</a></li></ul>
+<h1>Function rbjSection</h1></div>
+<section class="tsd-panel">
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="rbjsection"><span class="tsd-kind-call-signature">rbjSection</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">kind</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core.eq.BiquadKind.html" class="tsd-signature-type tsd-kind-type-alias">BiquadKind</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">freqHz</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">q</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">gainDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">sampleRate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core.eq.BiquadSection.html" class="tsd-signature-type tsd-kind-interface">BiquadSection</a><a href="#rbjsection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>One biquad section, designed to MATCH THE ANALOGUE PROTOTYPE rather than to be its bilinear
+image. THE single transcription of the design in the codebase: both the coefficients the
+engine pushes (<a href="_freemixer_core.eq.rbjCoeffs.html" class="tsd-kind-function">rbjCoeffs</a>) and the magnitude the surface draws
+(<a href="_freemixer_core.eq.biquadMagnitudeDb.html" class="tsd-kind-function">biquadMagnitudeDb</a>) come from here, so the drawn curve can never disagree with what
+the engine runs.</p>
+<p>WHY THIS IS NOT THE RBJ COOKBOOK ANY MORE (operator ruling, 2026-09-14). The cookbook
+designs by the bilinear transform, which compresses the whole analogue frequency axis into
+<code>[0, Nyquist)</code>. Pre-warping puts <code>f0</code> back where it was asked for and leaves everything
+above it squeezed: at the 96 kHz the graph runs, a +12 dB bell at 16 kHz Q 2 was <strong>1.28 dB</strong>
+low at 20 kHz and a +12 dB high shelf at 12 kHz <strong>0.50 dB</strong> high — measured, not argued
+(<code>an internal spec</code> §5). Raising the graph rate shrinks
+that error but costs 1.98x the CPU on every stage; an EQ is LINEAR, so oversampling it buys
+nothing at all. The ruling: match the prototype BY COEFFICIENT DESIGN, at the rate the desk
+runs.</p>
+<p>THE DESIGNS, per kind — each one measured against its analogue prototype by
+<code>packages/pipewire-native/tools/eq-matched-probe.c</code>, which prints the before/after table:</p>
+<ul>
+<li><strong>peaking, lowShelf, highShelf</strong> — matched-Z pole/zero placement (Vicanek, <em>Matched Second
+Order Digital Filters</em>, 2016). Every pole and zero of the prototype is finite, so <code>exp(sT)</code>
+places all four exactly and one scalar sets the reference gain (unity at DC, except the low
+shelf, whose DC gain is the shelf gain). A peaking section is a zero pair at <code>f0</code> damped
+<code>A/(2Q)</code> over a pole pair at <code>f0</code> damped <code>1/(2AQ)</code>; a shelf is a pair at <code>f0*sqrt(A)</code> over a
+pair at <code>f0/sqrt(A)</code> (swapped for the low shelf), both damped <code>1/(2Q)</code>.</li>
+<li><strong>lowpass</strong> — matched-Z poles, but the prototype's two zeros are at <code>s = infinity</code> and the
+map has nowhere to put them, so the numerator is instead FITTED to the prototype's
+magnitude at DC, at <code>f0</code> and at Nyquist (Vicanek's construction for the same reason).</li>
+<li><strong>notch</strong> — matched-Z poles under the cookbook's own numerator, which already IS the
+matched-Z zero pair (<code>{1, -2cos(w0), 1}</code> puts both zeros exactly on the unit circle at
+<code>f0</code>), so only the denominator changes and the null at <code>f0</code> stays exact.</li>
+<li><strong>highpass</strong> — UNCHANGED, still the cookbook's. Measured first: over the 20-1000 Hz its
+pass filter serves, the bilinear error is 0.005 dB at 96 kHz — there is nothing to fix, and
+the fitted alternative is infeasible over much of the space and worse where it is not.</li>
+</ul>
+<p>A 0 dB peaking or shelf section is still EXACTLY identity — zeros and poles are designed by
+the same call with the same arguments when <code>A = 1</code>, so they cancel term for term and the
+scalar is exactly 1. <a href="_freemixer_core.eq.eqBandIsIdentity.html" class="tsd-kind-function">eqBandIsIdentity</a> rests on that.</p>
+<p><code>gainDb</code> is used only by the peaking/shelf kinds (the pass kinds ignore it). The
+centre/cutoff is clamped just under Nyquist so a band dragged to the top of the audio band
+can't produce a degenerate section.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">kind</span>: <a href="../types/_freemixer_core.eq.BiquadKind.html" class="tsd-signature-type tsd-kind-type-alias">BiquadKind</a></span></li>
+<li><span><span class="tsd-kind-parameter">freqHz</span>: <span class="tsd-signature-type">number</span></span></li>
+<li><span><span class="tsd-kind-parameter">q</span>: <span class="tsd-signature-type">number</span></span></li>
+<li><span><span class="tsd-kind-parameter">gainDb</span>: <span class="tsd-signature-type">number</span></span></li>
+<li><span><span class="tsd-kind-parameter">sampleRate</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_core.eq.BiquadSection.html" class="tsd-signature-type tsd-kind-interface">BiquadSection</a></h4></div></li></ul></section></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

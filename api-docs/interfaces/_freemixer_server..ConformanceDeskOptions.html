@@ -1,0 +1,194 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ConformanceDeskOptions | openmixer — generated API reference</title><meta name="description" content="Documentation for openmixer — generated API reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">openmixer — generated API reference</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/_freemixer_server.html">@freemixer/server</a></li>
+<li><a href="../modules/_freemixer_server..html"></a></li>
+<li><a href="" aria-current="page">ConformanceDeskOptions</a></li></ul>
+<h1>Interface ConformanceDeskOptions</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>How the conformance desk is dimensioned and where it keeps its state.</p>
+</div></section>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ConformanceDeskOptions</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#alignsource">alignSource</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">AlignPairSource</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#allocation">allocation</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ConsoleAllocation.html" class="tsd-signature-type tsd-kind-interface">ConsoleAllocation</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#catalogpath">catalogPath</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#clipcapture">clipCapture</a><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ClipCapture.html" class="tsd-signature-type tsd-kind-interface">ClipCapture</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#clipcapturepollms">clipCapturePollMs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#clock">clock</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">ClockControl</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#convergenceheartbeatms">convergenceHeartbeatMs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#host">host</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#log">log</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">message</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#metersource">meterSource</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">MeterSource</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#nativematrices">nativeMatrices</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NativeMatrixControl</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#nativeoutputroutes">nativeOutputRoutes</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NativeOutputRouteControl</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pluginhost">pluginHost</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">PluginHost</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#port">port</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#shippedsessions">shippedSessions</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sources">sources</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">index</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">source</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#statedir">stateDir</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#alignsource" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>align<wbr/>Source?</span></a>
+<a href="#allocation" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>allocation?</span></a>
+<a href="#catalogpath" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>catalog<wbr/>Path?</span></a>
+<a href="#clipcapture" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>clip<wbr/>Capture?</span></a>
+<a href="#clipcapturepollms" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>clip<wbr/>Capture<wbr/>Poll<wbr/>Ms?</span></a>
+<a href="#clock" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>clock?</span></a>
+<a href="#convergenceheartbeatms" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>convergence<wbr/>Heartbeat<wbr/>Ms?</span></a>
+<a href="#host" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>host?</span></a>
+<a href="#log" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>log?</span></a>
+<a href="#metersource" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>meter<wbr/>Source?</span></a>
+<a href="#nativematrices" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>native<wbr/>Matrices?</span></a>
+<a href="#nativeoutputroutes" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>native<wbr/>Output<wbr/>Routes?</span></a>
+<a href="#pluginhost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>plugin<wbr/>Host?</span></a>
+<a href="#port" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>port?</span></a>
+<a href="#shippedsessions" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>shipped<wbr/>Sessions?</span></a>
+<a href="#sources" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>sources?</span></a>
+<a href="#statedir" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>state<wbr/>Dir</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="alignsource"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>align<wbr/>Source</span><a href="#alignsource" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">alignSource</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">AlignPairSource</span></div>
+<div class="tsd-comment tsd-typography"><p>The ANALYSER PAIR door — what the alignment watchers read
+(<code>2026-08-31-smart-alignment.md</code> §2 and §9b). This desk captures no audio, so absent (the
+default) every alignment reading refuses <code>no-capture</code>, which is visible and honest. A
+caller that declares one gets the real rows and the real watchers over it: the same move
+<a href="#metersource" class="tsd-kind-property">ConformanceDeskOptions.meterSource</a> makes for the meters.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="allocation"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>allocation</span><a href="#allocation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">allocation</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ConsoleAllocation.html" class="tsd-signature-type tsd-kind-interface">ConsoleAllocation</a></div>
+<div class="tsd-comment tsd-typography"><p>The console allocation. Default: the <a href="../variables/_freemixer_core..DEFAULT_PRESET.html" class="tsd-kind-variable">DEFAULT_PRESET</a> console (16:8).</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="catalogpath"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>catalog<wbr/>Path</span><a href="#catalogpath" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">catalogPath</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Plugin catalog path. Default: NONE — the desk declares its roster
+(./test-support/declared-catalog.ts) rather than reading the host's scan, for the
+reason the clock and the NIC list are declared: a scan is a measurement of the machine, and
+the checked-in row artifact carried its 958-plugin count as if it were a fact about the
+console. A caller that needs the host's real catalog names its path here.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="clipcapture"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>clip<wbr/>Capture</span><a href="#clipcapture" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">clipCapture</span><span class="tsd-signature-symbol">?:</span> <a href="_freemixer_core..ClipCapture.html" class="tsd-signature-type tsd-kind-interface">ClipCapture</a></div>
+<div class="tsd-comment tsd-typography"><p>The engine's clip CAPTURE door (<code>an internal spec</code> §3). This desk
+measures no real audio, so absent (the default) every <code>/channel/{kind}/{index}/clip</code> row
+answers its fresh, never-latched state and <code>/channel</code>'s <code>clipped</code> fold stays empty — the
+same absent-by-default move <a href="#metersource" class="tsd-kind-property">ConformanceDeskOptions.meterSource</a> and
+<a href="#alignsource" class="tsd-kind-property">ConformanceDeskOptions.alignSource</a> make. A caller that declares one gets the real
+capture poll over it, on <a href="#clipcapturepollms" class="tsd-kind-property">ConformanceDeskOptions.clipCapturePollMs</a>'s cadence.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="clipcapturepollms"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>clip<wbr/>Capture<wbr/>Poll<wbr/>Ms</span><a href="#clipcapturepollms" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">clipCapturePollMs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>The clip capture poll's cadence, forwarded to the server. Omitted, the operator's ruling
+(~500 ms) holds; a caller that wants a captured over to land inside a short-lived probe
+(the matrix's own console) names a fast one here instead of waiting on the real cadence.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="clock"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>clock</span><a href="#clock" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">clock</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">ClockControl</span></div>
+<div class="tsd-comment tsd-typography"><p>The graph clock. Default DECLARED_CLOCK — a DECLARED graph, never the host's.
+<code>MixerServerOptions.clock</code> falls back to <code>PwMetadataClock</code>, which reads the machine's
+PipeWire graph; on this desk that made four rows answer with whatever else the suite run
+had put on the shared scratch daemon (<code>test-support/declared-clock.ts</code> carries the
+measurement). A suite that needs a clock which MOVES declares its own here.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="convergenceheartbeatms"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>convergence<wbr/>Heartbeat<wbr/>Ms</span><a href="#convergenceheartbeatms" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">convergenceHeartbeatMs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>Convergence heartbeat period; omitted, the server default (1 s) holds.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="host"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>host</span><a href="#host" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">host</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>HTTP/WS bind. Default <code>127.0.0.1:0</code> (an ephemeral port, reported in the return).</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="log"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>log</span><a href="#log" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">log</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">message</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-comment tsd-typography"><p>Where the desk logs. Default: silent (the bin passes stderr).</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="metersource"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>meter<wbr/>Source</span><a href="#metersource" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">meterSource</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">MeterSource</span></div>
+<div class="tsd-comment tsd-typography"><p>A peak source for the desk's meters. This desk has no audio path to measure, so absent
+(the default) the console offers no meter tick and <code>/meters</code> is a 404 — absence is a fact.
+A caller that declares one gets the real meter row over it: the console drives the read
+while <code>/meters</code> is watched and serves the frame it flattened and encoded itself.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="nativematrices"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>native<wbr/>Matrices</span><a href="#nativematrices" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">nativeMatrices</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NativeMatrixControl</span></div>
+<div class="tsd-comment tsd-typography"><p>The NATIVE BUS LANES — what carries a non-MAIN bus's own output stage, including the
+per-destination delay of <code>2026-08-31-smart-alignment.md</code> §9b. Absent (the default) an
+aux / mix / matrix output STORES its delay and plays none of it, and a loudspeaker-alignment
+reading over it refuses <code>correction-not-actuated</code>: the same absent-by-default discipline
+<a href="#nativeoutputroutes" class="tsd-kind-property">ConformanceDeskOptions.nativeOutputRoutes</a> takes for MAIN's.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="nativeoutputroutes"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>native<wbr/>Output<wbr/>Routes</span><a href="#nativeoutputroutes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">nativeOutputRoutes</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NativeOutputRouteControl</span></div>
+<div class="tsd-comment tsd-typography"><p>MAIN's per-destination OUTPUT ROUTE STAGE — the trim/mute/delay MAIN applies to its own
+destination. Absent (the default) this desk STORES those values and plays none of them,
+exactly as a console with no native fan-out does, and a loudspeaker-alignment reading over
+it refuses <code>correction-not-actuated</code> rather than offering a delay nothing would read. Every
+OTHER bus's destination rides <a href="#nativematrices" class="tsd-kind-property">ConformanceDeskOptions.nativeMatrices</a> instead.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pluginhost"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>plugin<wbr/>Host</span><a href="#pluginhost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">pluginHost</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">PluginHost</span></div>
+<div class="tsd-comment tsd-typography"><p>The plugin host the desk racks into. Default DeclaredPluginHost — a declared rack
+with no daemon, for the reason the clock and the catalog are declared: a desk that boots on
+any machine cannot spawn <code>mod-host</code>, and a console that cannot rack closes three write doors
+(<code>/channel/{kind}/{index}/inserts</code> <code>plugins</code>, a rack slot's <code>plugin</code>, a chain processor's
+<code>plugin</code>), which a battery standing on this desk then cannot probe.</p>
+<p>A caller measuring the NO-HOST console passes AbsentPluginHost: the desk reads that
+declaration and reports <code>plugins.available: false</code> on <code>/health</code>, so the rack doors refuse
+and OPTIONS greys the same fields.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="port"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>port</span><a href="#port" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">port</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="shippedsessions"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>shipped<wbr/>Sessions</span><a href="#shippedsessions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">shippedSessions</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Whether an empty state dir is seeded with the shipped sessions so the desk comes up as a
+real minimal show. Default <code>true</code> — a desk is a console, and that is what a console with no
+history does. Set <code>false</code> where the caller DECLARES ITS OWN SHOW (the matrix probe console
+dimensions itself deliberately, and a shipped session would overwrite what it just said).</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="sources"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>sources</span><a href="#sources" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">sources</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">index</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">source</span><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core..Source.html" class="tsd-signature-type tsd-kind-interface">Source</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>Sources to declare AND patch at boot, through the real <code>addChannel</code> source door — a
+declared stagebox input whose head-amp capability the rows then genuinely resolve. The
+hardware behind such a source is absent on this desk, so its patch defers (the honest
+pseudo-patch), while its DECLARATION — name, head-amp caps — is real console state.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="statedir"><code class="tsd-tag">Readonly</code><span>state<wbr/>Dir</span><a href="#statedir" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">stateDir</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Where the desk persists sessions/scenes/settings — also where a template session goes.</p>
+</div></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
+<div><a href="#alignsource"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>align<wbr/>Source</span></a><a href="#allocation"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>allocation</span></a><a href="#catalogpath"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>catalog<wbr/>Path</span></a><a href="#clipcapture"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>clip<wbr/>Capture</span></a><a href="#clipcapturepollms"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>clip<wbr/>Capture<wbr/>Poll<wbr/>Ms</span></a><a href="#clock"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>clock</span></a><a href="#convergenceheartbeatms"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>convergence<wbr/>Heartbeat<wbr/>Ms</span></a><a href="#host"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>host</span></a><a href="#log"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>log</span></a><a href="#metersource"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>meter<wbr/>Source</span></a><a href="#nativematrices"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>native<wbr/>Matrices</span></a><a href="#nativeoutputroutes"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>native<wbr/>Output<wbr/>Routes</span></a><a href="#pluginhost"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>plugin<wbr/>Host</span></a><a href="#port"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>port</span></a><a href="#shippedsessions"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>shipped<wbr/>Sessions</span></a><a href="#sources"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>sources</span></a><a href="#statedir"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>state<wbr/>Dir</span></a></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

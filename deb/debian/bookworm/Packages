@@ -46,6 +46,30 @@ Description: C header declaring the protocol of plugin-hostd
  readers that are not C, is /usr/share/plugin-hostd/protocol.json of the
  plugin-hostd package.
 
+Package: plugin-hostd-dev
+Architecture: all
+Version: 0.1.2
+Priority: optional
+Section: libdevel
+Source: plugin-hostd
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 63
+Filename: ./all/plugin-hostd-dev_0.1.2_all.deb
+Size: 14332
+MD5sum: 794e100cb003faa4188161712e608d5e
+SHA1: 591e1b25c5436ed18ab18b937b8e705dad6f17be
+SHA256: e9ab0c5295cd0341568c933dc3bb4129d22318b73680ed38c9401ba158eeff98
+SHA512: 325c8053246868791543bf5d5bb724f55be924c1e2fce2de9c6bd3385713c1b5cd4e2d5075185c1142de3a96e909672143d3aadfcb87fd7d42ee286ba474033a
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: C header declaring the protocol of plugin-hostd
+ The verbs plugin-hostd adds to mod-host's protocol, its placement syntax,
+ error codes, feedback events, settings and readiness line, declared once in
+ plugin-hostd/protocol.h, which the daemon itself is compiled against.
+ Include it from a controller rather than spelling the values again;
+ pkg-config plugin-hostd gives the flags. The same declaration as JSON, for
+ readers that are not C, is /usr/share/plugin-hostd/protocol.json of the
+ plugin-hostd package.
+
 Package: libmod-host-protocol-dev
 Architecture: amd64
 Version: 0.1.0-1
@@ -353,6 +377,35 @@ Description: supervisor of LV2 and CLAP plugin hosts behind one mod-host socket
  is unaffected. mod-host is not packaged by Debian: install it from source
  for LV2 plugins.
 
+Package: plugin-hostd
+Architecture: amd64
+Version: 0.1.2
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 111
+Depends: libc6 (>= 2.34), libmod-host-protocol0 (>= 0.1.0)
+Recommends: omx-clap-host
+Suggests: mod-host
+Filename: ./amd64/plugin-hostd_0.1.2_amd64.deb
+Size: 46896
+MD5sum: f0f85b2333111cd69dbe67fa5f1ab1ea
+SHA1: a5117b40fe1396354eafa63500c26c86092b3bab
+SHA256: 54258069c10cf4d011807743bbab32b45e5621e60518fb430524bdfab2858aab
+SHA512: 550dfb801aa8059b84d07551ec5a0afa31ab34bc2fc7641992025a77974fff5e23f7f4abe3b39597488cd4162f0d127b6823124d36d4ab09c869fc8d237d5bbb
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: supervisor of LV2 and CLAP plugin hosts behind one mod-host socket
+ plugin-hostd speaks mod-host's socket protocol to a controller and runs one
+ worker process per plugin, or per named pool of plugins, behind it: mod-host
+ for LV2 plugins and omx-clap-host for CLAP plugins. A plugin that crashes
+ takes down its own worker and nothing else, and the daemon puts it back.
+ Audio never passes through the daemon: every worker is a JACK client, as in
+ mod-host.
+ .
+ A format whose worker is not installed refuses its adds; the other format
+ is unaffected. mod-host is not packaged by Debian: install it from source
+ for LV2 plugins.
+
 Package: libmod-host-protocol-dev
 Architecture: arm64
 Version: 0.1.0-1
@@ -647,6 +700,35 @@ MD5sum: 49fa2daa848f48665eb569a2b9240105
 SHA1: e0bef83c270fbed2bc585e9eabee414f9891e8df
 SHA256: f333e09f91bf06612c1e8a0240c3a698fea2ef0d2e5de2ccca222f54898cc950
 SHA512: 96c287c74d0e2e6fe5ef741563636c3105ab15742d9d5d10ebb366b34591fd2144c056c02aba3898506a8de612bc73c432b69fde07971c23f814edf4ab3cb847
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: supervisor of LV2 and CLAP plugin hosts behind one mod-host socket
+ plugin-hostd speaks mod-host's socket protocol to a controller and runs one
+ worker process per plugin, or per named pool of plugins, behind it: mod-host
+ for LV2 plugins and omx-clap-host for CLAP plugins. A plugin that crashes
+ takes down its own worker and nothing else, and the daemon puts it back.
+ Audio never passes through the daemon: every worker is a JACK client, as in
+ mod-host.
+ .
+ A format whose worker is not installed refuses its adds; the other format
+ is unaffected. mod-host is not packaged by Debian: install it from source
+ for LV2 plugins.
+
+Package: plugin-hostd
+Architecture: arm64
+Version: 0.1.2
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 106
+Depends: libc6 (>= 2.34), libmod-host-protocol0 (>= 0.1.0)
+Recommends: omx-clap-host
+Suggests: mod-host
+Filename: ./arm64/plugin-hostd_0.1.2_arm64.deb
+Size: 45164
+MD5sum: 6050ba4dcdd2429fcde09536caa69d34
+SHA1: 7b2292b1c32237f0f3b96e7ea11873e5b9bccee8
+SHA256: fa25be2017f2bdee2659d1aab90c8f75d170a14b261a10a489a565bdbc53f56e
+SHA512: 2d0e88ece8101ebfa0f3a1fd43604bcb5a7e0d9d5628478fe5596e55d6235910ccd4f2dd6a8d039abc502c06de237896b2a3df7416389be04fc72c6bcf67f749
 Homepage: https://github.com/FreeMixer/plugin-hostd
 Description: supervisor of LV2 and CLAP plugin hosts behind one mod-host socket
  plugin-hostd speaks mod-host's socket protocol to a controller and runs one

@@ -1,0 +1,1 @@
+import{u as e}from"#entry";var t=[/^\/api-docs(\/|$)/,/^\/openapi\.json$/,/^\/docs\/(install|manual|hardware|admin|troubleshooting|architecture)(\/|$)/];function n(e){return t.some(t=>t.test(e))}function r(){let t=e();return e=>{if(!e.startsWith(`/`)||n(e))return e;let r=e.indexOf(`#`),i=r<0?e:e.slice(0,r),a=r<0?``:e.slice(r);return`${t(i)}${a}`}}export{r as t};

@@ -338,6 +338,33 @@ Description: CLAP hosting core of omx-clap-host, shared library
  and the RT body that runs its process() on the caller's thread. It names
  no JACK and no socket.
 
+Package: libomxdsp-dev
+Architecture: amd64
+Version: 0.1.1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 299
+Filename: ./amd64/libomxdsp-dev_0.1.1_amd64.deb
+Size: 59660
+MD5sum: c11d7a7b04e88219f67c2d9599a9193c
+SHA1: 8911050b3b69b914d269f210ed81137971ff09df
+SHA256: b139fbc4d3cc5a139c9f2106a1f5e1df913b96f9ca5240ea4d054b00d11ecde8
+SHA512: 5113e7bc949043233abc62c3af47a20f95bd27cffd99cf3920c74af9aa553d17eb677f03a89ea3064ea6ebde102c31690596d66f0859fffa25a28fb9708ceb8e
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: DSP primitives and effect kernels of OpenMixer, for static linking
+ libomxdsp holds the DSP building blocks of the OpenMixer console (biquads,
+ one-poles, envelopes, gain computers, delay rings, the oversampler) and the
+ effect kernels built from them, as plain C with no allocation, lock or
+ system call on the audio path. The OpenMixer engine and the omx plugins
+ compile and link the same kernels from it, so a plugin sounds like the
+ console.
+ .
+ This package holds the headers, libomxdsp.a and omxdsp.pc. Programs link
+ the library statically; no shared library exists.
+
 Package: omx-clap-host
 Architecture: amd64
 Version: 0.1.0
@@ -746,6 +773,33 @@ Description: CLAP hosting core of omx-clap-host, shared library
  activates and warms a CLAP plugin up and owns its parameters and state,
  and the RT body that runs its process() on the caller's thread. It names
  no JACK and no socket.
+
+Package: libomxdsp-dev
+Architecture: arm64
+Version: 0.1.1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 300
+Filename: ./arm64/libomxdsp-dev_0.1.1_arm64.deb
+Size: 60124
+MD5sum: e5ca69545fb843eb48c476483d860729
+SHA1: b1d083779d71f5528fc222881298f749d740b471
+SHA256: 025ee767b4f620f2cdf33d336263718f68a4cda45d772782855fc3aa5c1b7883
+SHA512: 9dc805eba950a4e944b4ca8fcc2422940232670aa9537c3b9698c3aa9ac58e41b4fcffaf8f05175157f6d3be169331e34032ab4042ad67ca9f58cddfb2e98060
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: DSP primitives and effect kernels of OpenMixer, for static linking
+ libomxdsp holds the DSP building blocks of the OpenMixer console (biquads,
+ one-poles, envelopes, gain computers, delay rings, the oversampler) and the
+ effect kernels built from them, as plain C with no allocation, lock or
+ system call on the audio path. The OpenMixer engine and the omx plugins
+ compile and link the same kernels from it, so a plugin sounds like the
+ console.
+ .
+ This package holds the headers, libomxdsp.a and omxdsp.pc. Programs link
+ the library statically; no shared library exists.
 
 Package: omx-clap-host
 Architecture: arm64

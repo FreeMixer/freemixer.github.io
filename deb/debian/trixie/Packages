@@ -501,6 +501,36 @@ Description: DSP primitives and effect kernels of OpenMixer, for static linking
  contracts and ThreadSanitizer). Programs link the library statically; no
  shared library exists.
 
+Package: libomxdsp-dev
+Architecture: amd64
+Version: 0.1.5
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 700
+Filename: ./amd64/libomxdsp-dev_0.1.5_amd64.deb
+Size: 150764
+MD5sum: 97d6cb22afe78eacab0c33f4c9cd2e13
+SHA1: babefb4766db89b163c664d17f137ba346233f70
+SHA256: 161e8f042bdd16c00dd5391983f793b7d7e967b026eb50e66e9e9823869d60e7
+SHA512: fc3ed4ab39e41326a46336a55c616913952d462ff0b9d5fd358769c48aa093b77425d58f9cfcdf1542733cf80dfa5c12d7b786319d4246d58bbf765405614c00
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: DSP primitives and effect kernels of OpenMixer, for static linking
+ libomxdsp holds the DSP building blocks of the OpenMixer console (biquads,
+ one-poles, envelopes, gain computers, delay rings, the oversampler) and the
+ effect kernels built from them, as plain C with no allocation, lock or
+ system call on the audio path. The OpenMixer engine and the omx plugins
+ compile and link the same kernels from it, so a plugin sounds like the
+ console.
+ .
+ This package holds the headers and the static library in three flavours,
+ each with its pkg-config file: libomxdsp.a (omxdsp), libomxdsp-contracts.a
+ (omxdsp-contracts, contracts compiled in) and libomxdsp-tsan.a (omxdsp-tsan,
+ contracts and ThreadSanitizer). Programs link the library statically; no
+ shared library exists.
+
 Package: omx-clap-host
 Architecture: amd64
 Version: 0.1.0
@@ -1055,6 +1085,36 @@ MD5sum: ce6fb85cf451cbd17067b0f6c774b317
 SHA1: 2199f6f0b16cf818e813cefbd73ddc8e5858d6f8
 SHA256: 7b9cb0b60698ef1bf1047f160a040c70e8b96feabc912ed6c99e6c65de074cd3
 SHA512: 6f309684a06afefac37f731ae2609434839a9c05a96da895f2fcd5e6e7523c292cb136e0d8c541a6c8ee1925fdfe3a24737a098a250fc1f2e44c6444808ee7e2
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: DSP primitives and effect kernels of OpenMixer, for static linking
+ libomxdsp holds the DSP building blocks of the OpenMixer console (biquads,
+ one-poles, envelopes, gain computers, delay rings, the oversampler) and the
+ effect kernels built from them, as plain C with no allocation, lock or
+ system call on the audio path. The OpenMixer engine and the omx plugins
+ compile and link the same kernels from it, so a plugin sounds like the
+ console.
+ .
+ This package holds the headers and the static library in three flavours,
+ each with its pkg-config file: libomxdsp.a (omxdsp), libomxdsp-contracts.a
+ (omxdsp-contracts, contracts compiled in) and libomxdsp-tsan.a (omxdsp-tsan,
+ contracts and ThreadSanitizer). Programs link the library statically; no
+ shared library exists.
+
+Package: libomxdsp-dev
+Architecture: arm64
+Version: 0.1.5
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 704
+Filename: ./arm64/libomxdsp-dev_0.1.5_arm64.deb
+Size: 151812
+MD5sum: 1bcef6e3e217f30ab776aa675630f8e6
+SHA1: 0aff13f0eec746cdcca18d62d295da09bde0b867
+SHA256: 1ff13aa815fad3b45a06d5972784fc502e1c0d21a46480f1e825ea5cec3a6e2a
+SHA512: 3eceaedf1dcfe3f95544ab10793dbae448c88e082097e155c9269f8a599a96f5123f3b0dcbb1ce7782d25bf42dc434cf0f0795fe3d8fba407b230fa5e31d0440
 Homepage: https://github.com/FreeMixer/omx-dsp
 Description: DSP primitives and effect kernels of OpenMixer, for static linking
  libomxdsp holds the DSP building blocks of the OpenMixer console (biquads,

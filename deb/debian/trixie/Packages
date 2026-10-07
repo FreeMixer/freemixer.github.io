@@ -612,6 +612,72 @@ Description: CLAP plugin host for JACK, controlled over mod-host's socket protoc
  .
  The CLAP hosting core it runs plugins on is libomx-clap-core0.
 
+Package: omx-plugins-clap
+Architecture: amd64
+Version: 0.1.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 149
+Depends: libc6 (>= 2.29)
+Filename: ./amd64/omx-plugins-clap_0.1.0_amd64.deb
+Size: 37204
+MD5sum: cb4969db5769cec71fcb46c4d249550e
+SHA1: 3a8fd6035a7919c25738f691875e688f86be0426
+SHA256: 67beb5df96f4f86dc0aef9540e82e1fcf55dd2faf2fb9545008fe7847bce9aa0
+SHA512: e8fb7c2dc8839b936a6ed01241184632240575f07982099d29c6d915b1ff771c7185765d9b8c1b80d5b54efc49636b6f3a544d42c4ae9197a2c2ec8a413c1787
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer console effects as CLAP plugins
+ omx delay, omx drive, omx eq8 and omx strip as CLAP plugins, in
+ /usr/lib/clap where CLAP hosts find them. The DSP inside each one is the
+ OpenMixer console's own (omx-dsp, linked in statically), so a plugin sounds
+ the same in a DAW as on the desk, sample for sample.
+
+Package: omx-plugins-lv2
+Architecture: amd64
+Version: 0.1.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 259
+Depends: libc6 (>= 2.29)
+Filename: ./amd64/omx-plugins-lv2_0.1.0_amd64.deb
+Size: 57820
+MD5sum: 5fabc091243e9513ee24b6a369ac1417
+SHA1: 80d70efc2cb462f17d83f27f093ef9a8ca6ff09e
+SHA256: 5eac3b10a08f0179f5971ba86a5002f924760ca9b64da6e6d4a2acad45241873
+SHA512: 28c50f26e49146ce512a4f6a6207c04892a7ff6ab2cf5d2b045443df328cd5d84a33e0a1dd46505ebc7ac017b63e3501979043c1e9bc75f5aeb12db2367f2bba
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer console effects as LV2 plugins
+ omx delay, omx drive, omx eq8 and omx strip as LV2 plugins, in /usr/lib/lv2
+ where LV2 hosts (Ardour, Carla, MOD, Zynthian) find them, with a MOD GUI
+ where the plugin declares one. The DSP inside each one is the OpenMixer
+ console's own (omx-dsp, linked in statically), so a plugin sounds the same
+ in a DAW as on the desk, sample for sample.
+
+Package: omx-plugins
+Architecture: amd64
+Version: 0.1.0
+Priority: optional
+Section: metapackages
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 8
+Depends: omx-plugins-clap (= 0.1.0), omx-plugins-lv2 (= 0.1.0)
+Filename: ./amd64/omx-plugins_0.1.0_amd64.deb
+Size: 1788
+MD5sum: 5705498e028466a5e14bc0800af08df9
+SHA1: 483ac735ee98f708a95902b360cfaf0aca1f3c5c
+SHA256: da3653ed97299a1a0304ef3a4bc046b593ca52b2a4b3bdcde1dad788a25345da
+SHA512: 05d618e2bd5214de9fb5c368afb66c64612fd6453c207c2e90f965e6faf540c59cb44092ac85569b4e4bdc159c0a3e7c01f2f9db94745ca2775cbeb3771feb50
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer console effects as CLAP and LV2 plugins (metapackage)
+ omx delay, omx drive, omx eq8 and omx strip, in both plugin formats: this
+ package installs omx-plugins-clap and omx-plugins-lv2. The DSP inside each
+ plugin is the OpenMixer console's own (omx-dsp, linked in statically), so a
+ plugin sounds the same in a DAW as on the desk, sample for sample.
+
 Package: plugin-hostd
 Architecture: amd64
 Version: 0.1.0
@@ -1210,6 +1276,72 @@ Description: CLAP plugin host for JACK, controlled over mod-host's socket protoc
  down.
  .
  The CLAP hosting core it runs plugins on is libomx-clap-core0.
+
+Package: omx-plugins-clap
+Architecture: arm64
+Version: 0.1.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 281
+Depends: libc6 (>= 2.29)
+Filename: ./arm64/omx-plugins-clap_0.1.0_arm64.deb
+Size: 34396
+MD5sum: c08ea6c2ddc126c240f7d7a7cbdb5fed
+SHA1: 91832e118a9437ae8f1ff9dd01674c2db319b1eb
+SHA256: 5bff1465801b1684941efc3431a5c3d1b6ac4866d6dfa94d15fa2e30d5b8121b
+SHA512: 0034c1b21a197af1ce7863a36a38d7fb40da91fd850c065c219e73d3c32bff6bdda9f32b008f44da8d27e820261af89ccc679655077cd2793a92972d16dae89e
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer console effects as CLAP plugins
+ omx delay, omx drive, omx eq8 and omx strip as CLAP plugins, in
+ /usr/lib/clap where CLAP hosts find them. The DSP inside each one is the
+ OpenMixer console's own (omx-dsp, linked in statically), so a plugin sounds
+ the same in a DAW as on the desk, sample for sample.
+
+Package: omx-plugins-lv2
+Architecture: arm64
+Version: 0.1.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 415
+Depends: libc6 (>= 2.29)
+Filename: ./arm64/omx-plugins-lv2_0.1.0_arm64.deb
+Size: 54132
+MD5sum: 36c102bff718590491d687772e2fe0a8
+SHA1: ffe45c1e45eb0719f6f7b7fa6968ba933eddd02d
+SHA256: 5aca0dd42a10819080f9cc0695fe96c8c8a973970fa4244e9f84e177ff2e4646
+SHA512: 32d740fa1082d060677af2a22eb0bb27f8027b6b1936d600f7f0f3cbb6d43bbb15f327af156fc25f0cfc61baf20bb4224613a2a1062a90a47c29c4147570a959
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer console effects as LV2 plugins
+ omx delay, omx drive, omx eq8 and omx strip as LV2 plugins, in /usr/lib/lv2
+ where LV2 hosts (Ardour, Carla, MOD, Zynthian) find them, with a MOD GUI
+ where the plugin declares one. The DSP inside each one is the OpenMixer
+ console's own (omx-dsp, linked in statically), so a plugin sounds the same
+ in a DAW as on the desk, sample for sample.
+
+Package: omx-plugins
+Architecture: arm64
+Version: 0.1.0
+Priority: optional
+Section: metapackages
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 8
+Depends: omx-plugins-clap (= 0.1.0), omx-plugins-lv2 (= 0.1.0)
+Filename: ./arm64/omx-plugins_0.1.0_arm64.deb
+Size: 1788
+MD5sum: 40153702e989c8be7a5256b5fbaf2cc9
+SHA1: b4c6bfaa751ac1a672bf8b618ecf044c1574db91
+SHA256: 021428b36210e8f4d86e999903f4a5ef864b8e53f76f50433cf69c4aec4c051e
+SHA512: 4fbe50984be2bdbbc783a3d1bc848c7e843c99987e25940c0174b067fb3647914a4374ae7589051ab7826e790f86fb72541f5870940508a32107cad9c62855e3
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer console effects as CLAP and LV2 plugins (metapackage)
+ omx delay, omx drive, omx eq8 and omx strip, in both plugin formats: this
+ package installs omx-plugins-clap and omx-plugins-lv2. The DSP inside each
+ plugin is the OpenMixer console's own (omx-dsp, linked in statically), so a
+ plugin sounds the same in a DAW as on the desk, sample for sample.
 
 Package: plugin-hostd
 Architecture: arm64

@@ -1,0 +1,43 @@
+omx-clap-host (0.3.0) unstable; urgency=medium
+
+  * A plugin whose parameter list has a hole is refused whole, never served
+    short; the whole list comes in one call.
+  * A host can give an instance its tempo: the plugin reads it from the
+    transport of every block.
+  * The list of host extensions has a header of its own,
+    `clap_host_extensions.h`.
+  * The qualifier's fault plugins come with the tests (`make fixtures`).
+  * A plugin re-engaged after a bypass is reset on the control thread, never
+    in the audio path.
+  * The worker message ring an in-process plugin shares with its worker thread
+    ships as `omx_msgring.h`.
+  * The library's ABI number is 2: a program built against the 0.2 headers
+    keeps working, and one built against these is refused by an older library.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 07 Oct 2026 12:00:00 +0000
+
+omx-clap-host (0.2.0) unstable; urgency=medium
+
+  * The library names the threads that carry audio with a test the host
+    supplies, so every worker of a split processing chain counts as an audio
+    thread.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 03 Oct 2026 12:00:00 +0000
+
+omx-clap-host (0.1.1) unstable; urgency=medium
+
+  * Plugin meters are reported the way mod-host reports its output meters.
+  * Before a plugin is activated, the host checks the layout that plugin-hostd
+    expects.
+  * Answers the new plugin information commands: track_info, remote_pages,
+    remote_page_get and param_info.
+  * Built against plugin-hostd 0.1.2.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 01 Oct 2026 12:00:00 +0000
+
+omx-clap-host (0.1.0) unstable; urgency=medium
+
+  * First package: the CLAP host, and the library it is built on with its
+    development files.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 29 Sep 2026 12:00:00 +0000

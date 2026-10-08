@@ -815,7 +815,7 @@ disconnects everything not in the rule-set.
   instance numbers.
 - This is the explicit anti-pattern to avoid: **do not** persist by numeric PipeWire/JACK
   id.
-`,S=`# 0008 — DCA/VCA is control-domain gain coupling, not an audio sub-bus
+`,T=`# 0008 — DCA/VCA is control-domain gain coupling, not an audio sub-bus
 
 Status: Accepted (built — 2026-07-29 note below)
 Date: 2026-06-29
@@ -861,7 +861,7 @@ holds the \`dcaRuntimes\` map (\`DcaRuntime\`) and exposes \`dcas()\`; the serve
 \`setDcaFader\` in \`packages/server/src/structural-dsp.ts\`, with the \`dca.members\` /
 \`dca.fader\` / \`dca.name\` / \`dca.remove\` behaviour exercised by name in
 \`structural-dsp.test.ts\`. No audio sub-bus was introduced — the decision held.
-`,T=`# 0009 — C for hot paths, with the PipeWire node as the language boundary
+`,S=`# 0009 — C for hot paths, with the PipeWire node as the language boundary
 
 Status: Accepted (built) — the inventory of what is C has grown; see the 2026-07-29 note
 Date: 2026-06-29
@@ -3521,7 +3521,7 @@ from a desk with a fixed set of named bands (Bass/LoMid/HiMid/Treble and the lik
 way that matters on a real show: no band sits unused because the mix didn't need it, no
 problem frequency goes untreated because every named slot is already spoken for, and each
 band is a decision the operator made, not a slot the desk handed out. A restrictive
-[console profile](personalities-themes.md) may offer a different EQ character (a fixed
+[console profile](look.md) may offer a different EQ character (a fixed
 musical set, for instance), and will say so by simply not presenting the dynamic controls.
 
 **What this stage guarantees:** Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample.
@@ -3599,6 +3599,23 @@ each showing its name and its own on/off switch. Hover a name to see its current
 An effect that is on also appears in the channel's processing chain as a stage of its own, where
 you drag it to a new place like any other stage; switched off, it leaves the chain but keeps its
 place in the processing order. This chip is a stand-in until a better way of laying out the native effects arrives.
+
+## The FX page
+
+The **FX** page shows the selected strip's effects chain, and below it one effect's whole panel:
+every parameter, and its curve when it has one. It follows channel select the way the processing
+view does, so selecting another strip shows that strip's chain.
+
+| Control | What it does |
+|---|---|
+| **An effect in the chain bar** | Shows that effect's panel below the bar. |
+| **An effect's switch** | Bypasses that effect or brings it back. |
+| **The arrows beside the bar** | Move the selected effect earlier or later in the chain. |
+| **\`+\`** | Opens the plugin picker for the strip's inserts, with delay, reverb, modulation and saturation listed first. |
+
+In the processing view each effect is a small chip with its name, its switch, one key value
+(a delay's time, for example) and a \`›\`. Tapping the chip opens the FX page at that effect. The
+page remembers, for each strip, the effect you last looked at and opens on it again.
 
 ## Delay
 
@@ -3766,6 +3783,23 @@ runs after the chorus and before the delay, and it arrives switched off.
 
 **What this stage guarantees:** Every sample this stage produces is a finite number — never NaN,
 never infinite. Bypassed, this stage's output is identical to its input, sample for sample.
+
+## Pitch
+
+The **Pitch** stage shifts the channel up or down without changing its speed, by reading the signal
+twice through a short moving delay and crossfading between the two reads. It runs after the flanger
+and before the delay, and it arrives switched off. No strip panel draws it yet; it is reached through
+its row, \`/channel/{kind}/{index}/pitch\`.
+
+| Control | What it does |
+|---|---|
+| **On** | In or out. Off, the channel passes through exactly as it came in. |
+| **Semitones** | The coarse shift, −12 to +12 in whole semitones; it comes up at 0. |
+| **Cents** | The fine shift, −50 to +50 cents; it comes up at 0. |
+| **Mix** | Dry to wet, 0 to 100 %; it comes up at 100 %, the shifted signal alone. |
+
+The shifted signal is read from up to 40 ms back, so the wet part sits slightly behind the dry
+one; that is the effect's own time, not a delay the console adds to the channel.
 
 ## De-esser
 
@@ -4380,8 +4414,8 @@ else.
   them back through the desk.
 - **[Metering and latency](metering-latency.md)** — the meter bridge, loudness, and
   what the telemetry numbers mean.
-- **[Personalities and themes](personalities-themes.md)** — console profiles, brand
-  character and accessibility.
+- **[Console profiles and the look](look.md)** — console profiles, the theme, accent and
+  finish, and accessibility.
 - **[The Setup panels](setup.md)** — allocation, adapters, control surfaces, stageboxes,
   discovery, the interface takeover and the network.
 - **[The clock](reac-clock.md)** — the graph clock and the REAC wire, segment by segment.
@@ -4646,7 +4680,96 @@ This is phase 1 of a larger surround design. It does **not** currently include:
   relying on cue to represent the centre image.
 - **Appliance-dependent.** Whether \`LCR\` is even offered on MAIN depends on the console
   profile in use — not every supported desk models a discrete centre bus.
-`,me=`# The matrix and outputs
+`,me=`# Console profiles and the look
+
+Two independent things in the display menu. They do different jobs and it is worth keeping
+them apart: the **console profile** sets what the desk can do, the **look** sets how it is
+drawn.
+
+## Console profile — what the desk *is*
+
+![Setup, Preferences](images/look-1.png)
+*Preferences in the config zone: theme, accent, finish and language.*
+
+A **console profile** sets the desk's capabilities: how many input channels and buses,
+how many EQ bands and of what kind, which dynamics types are available and in how many
+stages, whether the processing order is free or fixed, how many inserts, which send tap
+points exist.
+
+- **openmixer** — the default. Restricts nothing: the caps are the engine's own maxima,
+  every section present, free reordering, a dynamic-band parametric EQ (add and remove
+  bands freely, no fixed count), two dynamics stages with the full type list.
+- **Midas PRO** — a fixed-format desk: fixed per-type bus counts, a four-band musical EQ
+  (fixed named bands, no adding or removing), gate before compressor enforced, a single
+  insert.
+- **Roland M-5000** — the M-5000's own shape.
+
+Choosing a restrictive profile is how you make the software behave like the desk your
+crew already knows. A capability a profile does not have is **absent**, not greyed out —
+there is no pretending.
+
+Changing profile changes what the console can do, so it is a setup decision, not a
+during-the-show one. A saved session records the size it was built at; a profile that
+cannot express that size will not silently shrink it. A profile never changes the look.
+
+## The look — how the desk is drawn
+
+The desk has one house style, the **omx look**: an enamel faceplate, aluminium knobs, ridged
+fader caps, buttons that are off, dim or lit, and meters and curves behind backlit glass. You
+choose three things about it, each independently of the other two.
+
+- **Theme** — **dark** (the default), **high contrast**, or **light**. High contrast separates
+  meter zones by **brightness** as well as by colour, for stage glare and for colour-blind
+  safety.
+- **Accent** — the colour every live thing glows in: values, lamps, lit segments, curve
+  traces, the fader fill and the focus ring. **Orange** (the default), **amber**, **teal**,
+  **ice**, **green**, **violet**, **red** or **magenta**. On the light theme each accent is
+  drawn a deeper shade, and on high contrast a brighter one, so it reads on every panel.
+- **Finish** — the metal of the knobs, fader caps, toggles and screws: **aluminium** (the
+  default), **graphite** or **black**. The knob's pointer stays light on every finish.
+
+Two families of colour never follow the accent: the **function colours** (mute red, solo
+amber, the record and alarm lamps), so a mute is always a mute; and the **channel colours**
+you give a strip, which keep their own hue and are drawn per theme.
+
+The look is part of the **session**: it is saved with the show, every screen on the desk shows
+the same look, and loading a show brings back the look it was mixed with. Plugin panels wear
+the same look.
+
+## The three themes
+
+The same fader bay, photographed once in each theme at the same density.
+
+![The fader bay in the dark theme](images/look-theme-dark.png)
+*Dark — the default a new console starts in.*
+
+![The fader bay in the high-contrast theme](images/look-theme-hc.png)
+*High contrast — a black field, white type, meter zones separated by brightness as well as colour. The rest of this manual is printed in it.*
+
+![The fader bay in the light theme](images/look-theme-light.png)
+*Light — for a bright room.*
+
+Every other figure in this manual is captured in the **high-contrast** theme at the **compact**
+density, because that is how the desk is run: high contrast on the narrowest screen you are
+likely to be carrying. A picture taken at a roomier density teaches a layout you will not see
+when it matters, and a picture taken light teaches a surface you will not be looking at.
+
+## Density
+
+Not part of the look but the same kind of setting: the **density** picker in the display menu
+sets how tightly the surface packs — compact, normal or comfortable, plus **auto**, which
+picks one for the screen you are on. On a small tablet
+compact fits more strips; on a large touchscreen at front of house comfortable is easier to
+hit in the dark.
+
+## Language
+
+The surface's language is selectable in Setup. English is the default; Catalan and
+Spanish are fully-translated selectable locales.
+
+Numbers and dates follow the chosen locale — Catalan uses comma decimals, and the numeric
+fields accept either separator, so nothing has to be retyped when you switch.
+`,ke=`# The matrix and outputs
 
 ## The crosspoint matrix
 
@@ -4841,7 +4964,7 @@ no solo. Its output route is set in the same output routing row as everything el
 
 If the main meter moves and nothing comes out, that route is where to look:
 [the main output is silent](../troubleshooting/silent-main.md).
-`,ke=`# The console menus
+`,ge=`# The console menus
 
 Six menus sit across the top of the header: **Setup**, **Patch**, **Scenes**, **Meters**,
 **Layouts** and **Help**. Everything the desk can show is behind one of them, and this page is the
@@ -4881,7 +5004,7 @@ Fourteen panels, all of them in the config zone.
 | **Network** | The address and port the server is answering on. See [the Setup panels](setup.md#network). |
 | **Plugin analysis** | Plugin cost measured on this machine against the figures the catalog ships. See [the Setup panels](setup.md#plugin-analysis). |
 | **Sessions** | The saved consoles on this server. See [scenes and sessions](scenes-sessions.md). |
-| **Preferences** | Theme, personality, density and language. See [personalities and themes](personalities-themes.md). |
+| **Preferences** | Theme, accent, finish and language. See [console profiles and the look](look.md). |
 
 ## Patch
 
@@ -4972,9 +5095,9 @@ Not menus, but they live up there too.
   into itself, naming the channels in the ring. **BREAK LOOP** cuts one link to open it; if
   there is no link the desk can safely cut, it says so rather than cutting something else.
 - The **cue and monitor** block. See [cue, solo and the monitor](cue-solo.md).
-- **Display settings** — console appliance, personality, density and theme, the same four
-  the Preferences panel carries, put where you can reach them without opening a panel. See
-  [personalities and themes](personalities-themes.md).
+- **Display settings** — console appliance, the look (theme, accent, finish) and density,
+  put where you can reach them without opening a panel. See
+  [console profiles and the look](look.md).
 - **Warnings** — see [what the warnings say](#what-the-warnings-say) below.
 - **Undo / redo** and the **History** panel — see [undo and history](#undo-and-history).
 - The **REC** transport — see [recording and takes](recording.md).
@@ -5024,7 +5147,7 @@ anyway** or **Leave it** rather than quietly overwriting somebody's more recent 
 - [Layouts and the work zone](layouts.md) — what happens when you add a panel.
 - [The Setup panels](setup.md) — what each Setup item opens.
 - [Keyboard reference](keyboard.md) — the shortcuts that skip the menus entirely.
-`,ge=`# Metering and latency
+`,we=`# Metering and latency
 
 ## The meter bridge
 
@@ -5102,7 +5225,7 @@ The clock panel itself — both tabs, and every segment control — is [the cloc
 Meters tell you what the mixer received. They do not tell you that phantom power reached a
 microphone, that an amplifier is on, or that a wedge is plugged in. For anything physical,
 confirm physically.
-`,we=`# The patchbay and the graph
+`,fe=`# The patchbay and the graph
 
 openmixer treats the live PipeWire graph as the truth. Anything producing audio on the
 machine — a browser tab, a media player, a microphone, a stagebox — can be patched into a
@@ -5305,93 +5428,6 @@ that is only ever a mixer — see
 The same graph engine runs as a standalone tool, \`openmixer-patchbay\`: a small server that
 exposes the machine's live PipeWire routing with no mixer attached. It is useful as a
 plain patchbay in its own right.
-`,fe=`# Console profiles, personalities and themes
-
-Three independent pickers in the header. They do different jobs and it is worth keeping
-them apart.
-
-## Console profile — what the desk *is*
-
-![Setup, Preferences](images/personalities-themes-1.png)
-*Preferences in the config zone: console profile, personality, theme, density and language.*
-
-A **console profile** sets the desk's capabilities: how many input channels and buses,
-how many EQ bands and of what kind, which dynamics types are available and in how many
-stages, whether the processing order is free or fixed, how many inserts, which send tap
-points exist.
-
-- **openmixer** — the default. Restricts nothing: the caps are the engine's own maxima,
-  every section present, free reordering, a dynamic-band parametric EQ (add and remove
-  bands freely, no fixed count), two dynamics stages with the full type list.
-- **Midas PRO** — a fixed-format desk: fixed per-type bus counts, a four-band musical EQ
-  (fixed named bands, no adding or removing), gate before compressor enforced, a single
-  insert.
-- **Roland M-5000** — the M-5000's own shape.
-
-Choosing a restrictive profile is how you make the software behave like the desk your
-crew already knows. A capability a profile does not have is **absent**, not greyed out —
-there is no pretending.
-
-Changing profile changes what the console can do, so it is a setup decision, not a
-during-the-show one. A saved session records the size it was built at; a profile that
-cannot express that size will not silently shrink it.
-
-## Personality — what the desk *looks* like
-
-**Personality** sets brand character: **openmixer** (the default look), the three
-house looks **Classic Analog**, **Modern Digital** and **Vintage**, and the four
-homages **Midas**, **Roland**, **SSL** and **Waves**. It restyles faders, knobs,
-meters and accents — a generic homage, never a copy — and plugin panels follow the
-active personality unless you pin them.
-
-Personality changes appearance only. It never changes what the desk can do; that is the
-profile's job.
-
-## Theme — brightness and accessibility
-
-**Theme** sets **dark** (the default), **high contrast**, or **light**.
-
-High contrast separates meter zones by **brightness** as well as by colour, for stage
-glare and for colour-blind safety. It holds under every personality.
-
-## The three themes
-
-The same fader bay, photographed once in each theme at the same density.
-
-![The fader bay in the dark theme](images/personalities-themes-theme-dark.png)
-*Dark — the default a new console starts in.*
-
-![The fader bay in the high-contrast theme](images/personalities-themes-theme-hc.png)
-*High contrast — a black field, white type, meter zones separated by brightness as well as colour. The rest of this manual is printed in it.*
-
-![The fader bay in the light theme](images/personalities-themes-theme-light.png)
-*Light — for a bright room.*
-
-Every other figure in this manual is captured in the **high-contrast** theme at the **compact**
-density, because that is how the desk is run: high contrast on the narrowest screen you are
-likely to be carrying. A picture taken at a roomier density teaches a layout you will not see
-when it matters, and a picture taken light teaches a surface you will not be looking at.
-
-## They compose
-
-"SSL under light" is a light field with SSL-blue controls. High contrast holds whatever
-personality is active. All three remember your choice.
-
-## Density
-
-Not a picker but the same kind of setting: the **density** control in the layout chip row
-sets how tightly the surface packs — compact, normal or comfortable, plus **auto**, which
-picks one for the screen you are on. On a small tablet
-compact fits more strips; on a large touchscreen at front of house comfortable is easier to
-hit in the dark.
-
-## Language
-
-The surface's language is selectable in Setup. English is the default; Catalan and
-Spanish are fully-translated selectable locales.
-
-Numbers and dates follow the chosen locale — Catalan uses comma decimals, and the numeric
-fields accept either separator, so nothing has to be retyped when you switch.
 `,ye=`# Analysis and metering
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
@@ -5815,7 +5851,7 @@ name or description — our reading, not the plugin's claim.
 | LSP Parametric Equalizer x8 Stereo | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.46 % | ok / ok / ok / ok | no |  |
 | Luftikus | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.28 % | ok / ok / ok / ok | no |  |
 | Multiband EQ | lv2-swh-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 3.927 ms | low | 0.15 % | ok / ok / ok / ok | no |  |
-`,Se=`# Filters
+`,Te=`# Filters
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
 
@@ -5879,7 +5915,7 @@ name or description — our reading, not the plugin's claim.
 | GxTape | lv2-guitarix-plugins | unsuitable — costs more of a core than one insert may | 0.010 ms | low | 2.88 % | ok / ok / ok / ok | yes |  |
 | Tal-Filter | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | — | unknown | — | ok / ok / ok / ok | no |  |
 | Tal-Filter-2 | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0.031 ms | low | 1.32 % | ok / ok / ok / ok | no |  |
-`,Te=`# The plugin catalog
+`,Se=`# The plugin catalog
 
 Every LV2 plugin the reference install carries, measured rather than described: latency and
 CPU cost at 44.1, 48, 96 and 192 kHz, an allocation/lock/syscall trace of the audio callback
@@ -7467,9 +7503,9 @@ figures and the live-safe filter exist for exactly that decision — see
 ## Skins
 
 Panels can wear **skins**: a texture and accent per plugin family, so a wall of open
-editors is easy to scan. Under a branded [personality](personalities-themes.md) the panels
-take that brand's look, and a per-plugin picker in the editor header pins any panel to a
-skin you choose.
+editors is easy to scan. Every panel wears the desk's [look](look.md) (theme, accent and
+finish); the skin only tints its backdrop by the plugin's vendor, and a per-plugin picker in
+the editor header pins any panel to a skin you choose.
 
 ## What is in the catalog
 
@@ -7762,6 +7798,28 @@ the recording.
 The record panel's phase chip says where the transport is: **idle**, **armed**, **recording** or
 **stopping**, and **no recorder** on a console with no capture engine, where the panel says so
 once rather than greying every control.
+
+## Following a DAW (MMC)
+
+A DAW or a show controller can drive the transports with MIDI Machine Control. The settings live
+in \`/record/mmc\`: **enabled**, the **device id** the desk answers to (0x00–0x7F; the default
+0x7F answers all-call only) and **record**, which is \`ignore\` or \`strobe\`.
+
+**MMC cannot start or stop a take unless you say so.** With the default \`record = ignore\`, MMC
+can play, pause, stop and locate the virtual soundcheck, but a take is never touched: a DAW's
+STOP is the button pressed all evening, and it must not end the show's multitrack. Set
+\`record = strobe\` once, on purpose, and RECORD STROBE starts a take and RECORD EXIT or STOP ends
+it — through the same REC and STOP the panel uses, with the same refusals. MMC never arms a
+channel; arming stays the patch and the per-channel opt-out.
+
+**Enabled is off after every restart**, whatever it was when the desk went down, so a desk
+restarted mid-show does not start taking orders from a DAW that is still sending. A message the
+desk does not act on — a command it does not honour, another device id — is counted in
+\`ignored\`, never dropped silently.
+
+Not yet: the MIDI port that feeds these settings is not connected on this build. The row holds
+and persists the settings, but no MMC message reaches the transports until the MIDI-in door
+lands.
 
 ## The take library
 
@@ -8647,7 +8705,7 @@ rankings. See [the plugin catalog](plugin-catalog/index.md).
 | **Come-up gain** | [The channel strip](channel-strip.md) |
 | **Clock** | [The clock](reac-clock.md) |
 | **Sessions** | [Scenes and sessions](scenes-sessions.md) |
-| **Preferences** | [Personalities and themes](personalities-themes.md) |
+| **Preferences** | [Console profiles and the look](look.md) |
 
 ## Related
 
@@ -8663,7 +8721,7 @@ The surface is a digital console split into two halves, with a header on top.
 ## The header
 
 Carries the openmixer mark, the console model, the **connection indicator**, a channel
-count, the **console profile**, **personality** and **theme** pickers, a **Save session**
+count, the **display settings** menu (console profile, theme, accent, finish, density), a **Save session**
 button, and two panic buttons — **MAINS MUTE** and **ALL MUTE** — which kill sound
 instantly and do not ask for confirmation.
 
@@ -9627,4 +9685,4 @@ for manual patching. It is opt-in; see
 Xruns make everything click. A stagebox that sounds granular while the rest of the graph
 is clean is a different fault: see
 [granulated or stuttery box audio](granulated-audio.md).
-`,s=[{slug:"install",label:"Install"},{slug:"manual",label:"Operator manual"},{slug:"hardware",label:"Hardware"},{slug:"admin",label:"Administration"},{slug:"troubleshooting",label:"Troubleshooting"},{slug:"architecture",label:"Architecture"}],$e=Object.assign({"../../../../docs/admin/backup.md":r,"../../../../docs/admin/config-files.md":l,"../../../../docs/admin/env-vars.md":h,"../../../../docs/admin/index.md":d,"../../../../docs/admin/logs.md":c,"../../../../docs/admin/ports.md":u,"../../../../docs/admin/reac-configuration.md":p,"../../../../docs/admin/services.md":m,"../../../../docs/admin/state-and-sessions.md":k,"../../../../docs/architecture/decisions/0001-native-reac-not-aes67.md":g,"../../../../docs/architecture/decisions/0002-pipewire-native-summing-mod-host-inserts-only.md":w,"../../../../docs/architecture/decisions/0003-server-single-source-of-truth.md":f,"../../../../docs/architecture/decisions/0004-canonical-model-and-adapters.md":y,"../../../../docs/architecture/decisions/0005-declarative-desired-graph-reconcile.md":b,"../../../../docs/architecture/decisions/0006-ordered-processor-channel-strip.md":v,"../../../../docs/architecture/decisions/0007-persist-routing-by-name-not-id.md":x,"../../../../docs/architecture/decisions/0008-dca-as-control-domain-gain-coupling.md":S,"../../../../docs/architecture/decisions/0009-c-for-hot-paths-pipewire-node-boundary.md":T,"../../../../docs/architecture/decisions/0010-metadata-driven-plugin-editor.md":A,"../../../../docs/architecture/decisions/0011-fader-position-and-db-with-per-adapter-scale.md":P,"../../../../docs/architecture/decisions/0012-adapter-manager-menus-and-files.md":z,"../../../../docs/architecture/decisions/0013-telemetry-measured-in-the-engine.md":C,"../../../../docs/architecture/decisions/0014-multi-modal-input.md":E,"../../../../docs/architecture/decisions/0015-modular-multi-window-web-ui.md":R,"../../../../docs/architecture/decisions/0016-gpl3-no-agpl-code-copied.md":M,"../../../../docs/architecture/decisions/0017-per-destination-output-trim-floor.md":I,"../../../../docs/architecture/decisions/0018-clock-force-rate-live-lever-hardware-probe.md":D,"../../../../docs/architecture/decisions/0019-cue-solo-monitor-bus-never-the-mains.md":L,"../../../../docs/architecture/decisions/0020-plugin-tiers-fixed-by-measured-latency.md":_,"../../../../docs/architecture/decisions/0021-fx-send-return-channels-native-delay-reverb.md":O,"../../../../docs/architecture/decisions/README.md":N,"../../../../docs/architecture/index.md":F,"../../../../docs/architecture/native-dsp-vs-modhost-inserts.md":H,"../../../../docs/architecture/one-summing-bus.md":B,"../../../../docs/architecture/overview.md":G,"../../../../docs/architecture/row-grammar-and-conformance.md":W,"../../../../docs/architecture/technical-manual.md":q,"../../../../docs/hardware/clocking-and-sample-rate.md":U,"../../../../docs/hardware/index.md":Q,"../../../../docs/hardware/reac-boxes.md":X,"../../../../docs/hardware/wiring-and-nic.md":V,"../../../../docs/index.md":j,"../../../../docs/install/first-boot.md":K,"../../../../docs/install/first-session.md":Z,"../../../../docs/install/image.md":Y,"../../../../docs/install/index.md":J,"../../../../docs/install/packages.md":$,"../../../../docs/install/services.md":ee,"../../../../docs/install/trust-the-console.md":ne,"../../../../docs/install/upgrading.md":te,"../../../../docs/manual/alignment.md":oe,"../../../../docs/manual/channel-strip.md":ae,"../../../../docs/manual/cue-solo.md":se,"../../../../docs/manual/eq-dynamics.md":ie,"../../../../docs/manual/fbs.md":re,"../../../../docs/manual/head-amp.md":le,"../../../../docs/manual/hrp.md":he,"../../../../docs/manual/index.md":de,"../../../../docs/manual/keyboard.md":ce,"../../../../docs/manual/layouts.md":ue,"../../../../docs/manual/lcr.md":pe,"../../../../docs/manual/matrix-outputs.md":me,"../../../../docs/manual/menus.md":ke,"../../../../docs/manual/metering-latency.md":ge,"../../../../docs/manual/patchbay.md":we,"../../../../docs/manual/personalities-themes.md":fe,"../../../../docs/manual/plugin-catalog/analysis.md":ye,"../../../../docs/manual/plugin-catalog/delay.md":be,"../../../../docs/manual/plugin-catalog/dynamics.md":ve,"../../../../docs/manual/plugin-catalog/equalisers.md":xe,"../../../../docs/manual/plugin-catalog/filters.md":Se,"../../../../docs/manual/plugin-catalog/index.md":Te,"../../../../docs/manual/plugin-catalog/instruments.md":Ae,"../../../../docs/manual/plugin-catalog/midi.md":Pe,"../../../../docs/manual/plugin-catalog/modulation.md":ze,"../../../../docs/manual/plugin-catalog/pitch-and-spectral.md":Ce,"../../../../docs/manual/plugin-catalog/recommendations.md":Ee,"../../../../docs/manual/plugin-catalog/reverb.md":Re,"../../../../docs/manual/plugin-catalog/saturation-and-amps.md":Me,"../../../../docs/manual/plugin-catalog/spatial.md":Ie,"../../../../docs/manual/plugin-catalog/uncategorised.md":De,"../../../../docs/manual/plugin-catalog/utility.md":Le,"../../../../docs/manual/plugins.md":_e,"../../../../docs/manual/reac-clock.md":Oe,"../../../../docs/manual/recording.md":Ne,"../../../../docs/manual/room.md":Fe,"../../../../docs/manual/rta.md":He,"../../../../docs/manual/scenes-sessions.md":Be,"../../../../docs/manual/sends-buses-dcas.md":Ge,"../../../../docs/manual/setup.md":We,"../../../../docs/manual/surface.md":qe,"../../../../docs/manual/talkback.md":Ue,"../../../../docs/troubleshooting/box-not-establishing.md":Qe,"../../../../docs/troubleshooting/granulated-audio.md":Xe,"../../../../docs/troubleshooting/index.md":Ve,"../../../../docs/troubleshooting/plugin-catalog-empty.md":je,"../../../../docs/troubleshooting/poisoned-autosave.md":Ke,"../../../../docs/troubleshooting/silent-main.md":Ze,"../../../../docs/troubleshooting/web-ui-cannot-reach-server.md":Ye,"../../../../docs/troubleshooting/xrun-driver-election.md":Je});function en(e){const n=e.lastIndexOf("/docs/");return n<0?e:e.slice(n+6)}function nn(e){const n=e.replace(/\.md$/,"");return n==="index"?"":n.replace(/\/index$/,"")}function tn(e,n){const t=/^#\s+(.+)$/m.exec(e);return t?.[1]?t[1].trim():(n.split("/").pop()??n).replace(/\.md$/,"")}function on(e){if(e==="index.md")return!0;const n=e.split("/")[0];return s.some(t=>t.slug===n)}const a=new Map(Object.entries($e).map(([e,n])=>({docPath:en(e),source:n})).filter(({docPath:e})=>on(e)).map(({docPath:e,source:n})=>{const t=s.find(i=>i.slug===e.split("/")[0]),o={docPath:e,slug:nn(e),...t?{section:t}:{},title:tn(n,e),source:n};return[o.slug,o]})),sn=new Set([...a.values()].map(e=>e.docPath));function rn(e){return a.get(e.replace(/^\/+|\/+$/g,""))}function an(e){return e.toLowerCase().replace(/[`*_]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"section"}const ln=(()=>{const e=new Map;for(const n of a.values())if(n.section?.slug==="manual")for(const[,t]of n.source.matchAll(/^#{1,3}\s+(.+)$/gm)){const o=an(t??"");e.has(o)||e.set(o,n.slug)}return e})();export{s as D,ln as M,sn as R,nn as a,rn as d,an as s};
+`,s=[{slug:"install",label:"Install"},{slug:"manual",label:"Operator manual"},{slug:"hardware",label:"Hardware"},{slug:"admin",label:"Administration"},{slug:"troubleshooting",label:"Troubleshooting"},{slug:"architecture",label:"Architecture"}],$e=Object.assign({"../../../../docs/admin/backup.md":r,"../../../../docs/admin/config-files.md":l,"../../../../docs/admin/env-vars.md":h,"../../../../docs/admin/index.md":d,"../../../../docs/admin/logs.md":c,"../../../../docs/admin/ports.md":u,"../../../../docs/admin/reac-configuration.md":p,"../../../../docs/admin/services.md":m,"../../../../docs/admin/state-and-sessions.md":k,"../../../../docs/architecture/decisions/0001-native-reac-not-aes67.md":g,"../../../../docs/architecture/decisions/0002-pipewire-native-summing-mod-host-inserts-only.md":w,"../../../../docs/architecture/decisions/0003-server-single-source-of-truth.md":f,"../../../../docs/architecture/decisions/0004-canonical-model-and-adapters.md":y,"../../../../docs/architecture/decisions/0005-declarative-desired-graph-reconcile.md":b,"../../../../docs/architecture/decisions/0006-ordered-processor-channel-strip.md":v,"../../../../docs/architecture/decisions/0007-persist-routing-by-name-not-id.md":x,"../../../../docs/architecture/decisions/0008-dca-as-control-domain-gain-coupling.md":T,"../../../../docs/architecture/decisions/0009-c-for-hot-paths-pipewire-node-boundary.md":S,"../../../../docs/architecture/decisions/0010-metadata-driven-plugin-editor.md":A,"../../../../docs/architecture/decisions/0011-fader-position-and-db-with-per-adapter-scale.md":P,"../../../../docs/architecture/decisions/0012-adapter-manager-menus-and-files.md":z,"../../../../docs/architecture/decisions/0013-telemetry-measured-in-the-engine.md":C,"../../../../docs/architecture/decisions/0014-multi-modal-input.md":E,"../../../../docs/architecture/decisions/0015-modular-multi-window-web-ui.md":R,"../../../../docs/architecture/decisions/0016-gpl3-no-agpl-code-copied.md":M,"../../../../docs/architecture/decisions/0017-per-destination-output-trim-floor.md":I,"../../../../docs/architecture/decisions/0018-clock-force-rate-live-lever-hardware-probe.md":D,"../../../../docs/architecture/decisions/0019-cue-solo-monitor-bus-never-the-mains.md":L,"../../../../docs/architecture/decisions/0020-plugin-tiers-fixed-by-measured-latency.md":_,"../../../../docs/architecture/decisions/0021-fx-send-return-channels-native-delay-reverb.md":O,"../../../../docs/architecture/decisions/README.md":N,"../../../../docs/architecture/index.md":F,"../../../../docs/architecture/native-dsp-vs-modhost-inserts.md":H,"../../../../docs/architecture/one-summing-bus.md":B,"../../../../docs/architecture/overview.md":G,"../../../../docs/architecture/row-grammar-and-conformance.md":W,"../../../../docs/architecture/technical-manual.md":q,"../../../../docs/hardware/clocking-and-sample-rate.md":U,"../../../../docs/hardware/index.md":Q,"../../../../docs/hardware/reac-boxes.md":X,"../../../../docs/hardware/wiring-and-nic.md":V,"../../../../docs/index.md":j,"../../../../docs/install/first-boot.md":K,"../../../../docs/install/first-session.md":Z,"../../../../docs/install/image.md":Y,"../../../../docs/install/index.md":J,"../../../../docs/install/packages.md":$,"../../../../docs/install/services.md":ee,"../../../../docs/install/trust-the-console.md":ne,"../../../../docs/install/upgrading.md":te,"../../../../docs/manual/alignment.md":oe,"../../../../docs/manual/channel-strip.md":ae,"../../../../docs/manual/cue-solo.md":se,"../../../../docs/manual/eq-dynamics.md":ie,"../../../../docs/manual/fbs.md":re,"../../../../docs/manual/head-amp.md":le,"../../../../docs/manual/hrp.md":he,"../../../../docs/manual/index.md":de,"../../../../docs/manual/keyboard.md":ce,"../../../../docs/manual/layouts.md":ue,"../../../../docs/manual/lcr.md":pe,"../../../../docs/manual/look.md":me,"../../../../docs/manual/matrix-outputs.md":ke,"../../../../docs/manual/menus.md":ge,"../../../../docs/manual/metering-latency.md":we,"../../../../docs/manual/patchbay.md":fe,"../../../../docs/manual/plugin-catalog/analysis.md":ye,"../../../../docs/manual/plugin-catalog/delay.md":be,"../../../../docs/manual/plugin-catalog/dynamics.md":ve,"../../../../docs/manual/plugin-catalog/equalisers.md":xe,"../../../../docs/manual/plugin-catalog/filters.md":Te,"../../../../docs/manual/plugin-catalog/index.md":Se,"../../../../docs/manual/plugin-catalog/instruments.md":Ae,"../../../../docs/manual/plugin-catalog/midi.md":Pe,"../../../../docs/manual/plugin-catalog/modulation.md":ze,"../../../../docs/manual/plugin-catalog/pitch-and-spectral.md":Ce,"../../../../docs/manual/plugin-catalog/recommendations.md":Ee,"../../../../docs/manual/plugin-catalog/reverb.md":Re,"../../../../docs/manual/plugin-catalog/saturation-and-amps.md":Me,"../../../../docs/manual/plugin-catalog/spatial.md":Ie,"../../../../docs/manual/plugin-catalog/uncategorised.md":De,"../../../../docs/manual/plugin-catalog/utility.md":Le,"../../../../docs/manual/plugins.md":_e,"../../../../docs/manual/reac-clock.md":Oe,"../../../../docs/manual/recording.md":Ne,"../../../../docs/manual/room.md":Fe,"../../../../docs/manual/rta.md":He,"../../../../docs/manual/scenes-sessions.md":Be,"../../../../docs/manual/sends-buses-dcas.md":Ge,"../../../../docs/manual/setup.md":We,"../../../../docs/manual/surface.md":qe,"../../../../docs/manual/talkback.md":Ue,"../../../../docs/troubleshooting/box-not-establishing.md":Qe,"../../../../docs/troubleshooting/granulated-audio.md":Xe,"../../../../docs/troubleshooting/index.md":Ve,"../../../../docs/troubleshooting/plugin-catalog-empty.md":je,"../../../../docs/troubleshooting/poisoned-autosave.md":Ke,"../../../../docs/troubleshooting/silent-main.md":Ze,"../../../../docs/troubleshooting/web-ui-cannot-reach-server.md":Ye,"../../../../docs/troubleshooting/xrun-driver-election.md":Je});function en(e){const n=e.lastIndexOf("/docs/");return n<0?e:e.slice(n+6)}function nn(e){const n=e.replace(/\.md$/,"");return n==="index"?"":n.replace(/\/index$/,"")}function tn(e,n){const t=/^#\s+(.+)$/m.exec(e);return t?.[1]?t[1].trim():(n.split("/").pop()??n).replace(/\.md$/,"")}function on(e){if(e==="index.md")return!0;const n=e.split("/")[0];return s.some(t=>t.slug===n)}const a=new Map(Object.entries($e).map(([e,n])=>({docPath:en(e),source:n})).filter(({docPath:e})=>on(e)).map(({docPath:e,source:n})=>{const t=s.find(i=>i.slug===e.split("/")[0]),o={docPath:e,slug:nn(e),...t?{section:t}:{},title:tn(n,e),source:n};return[o.slug,o]})),sn=new Set([...a.values()].map(e=>e.docPath));function rn(e){return a.get(e.replace(/^\/+|\/+$/g,""))}function an(e){return e.toLowerCase().replace(/[`*_]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"section"}const ln=(()=>{const e=new Map;for(const n of a.values())if(n.section?.slug==="manual")for(const[,t]of n.source.matchAll(/^#{1,3}\s+(.+)$/gm)){const o=an(t??"");e.has(o)||e.set(o,n.slug)}return e})();export{s as D,ln as M,sn as R,nn as a,rn as d,an as s};

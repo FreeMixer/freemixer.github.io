@@ -1,0 +1,50 @@
+omx-dsp (0.3.0) unstable; urgency=medium
+
+  * release: the header says 0.3.0
+  * release: omx-dsp 0.3.0
+  * fx/transient: the instance's resolve names its times after the contract's
+    controls
+  * tools: face-conformance, every instance face takes its kernel's contract
+    controls
+  * fx/limiter: omx_limiter_instance.h, the instance face, with its oracle at
+    every declared rate
+  * fx/rotary: omx_rotary_instance.h, the instance face, with its oracle at
+    every declared rate
+  * fx/pitch: omx_pitch_instance.h, the instance face, with its oracle at
+    every declared rate
+  * fx/phaser: omx_phaser_instance.h, the instance face, with its oracle at
+    every declared rate
+  * fx/tremolo: the instance's resolve takes the contract's controls in their
+    declared order
+  * fx/tremolo: omx_tremolo_instance.h, the host-agnostic instance core, with
+    its oracle at every declared rate (openmixer#953)
+  * Build against omx-contract 2.0.0
+  * ci: no changelog job; git history is the changelog
+  * Remove CHANGELOG.md and its CI check; git history is the changelog
+  * release: api-docs uploads only on a tag, artifact in the dry run
+  * changelog: 0.1.6 was released on 2026-10-07, and the generated changelogs
+    are synced
+  * changelog: 0.1.7, 0.1.8 and 0.2.0 were released on 2026-10-08
+  * CI: use the shared workflows and actions of FreeMixer/.github at v1, not
+    main
+  * changelogs: the spec's and Debian's generated from CHANGELOG.md
+    (changelog.sh sync)
+  * 0.2.0: requires omx-contract 1.3.0; CI and release take it from the
+    channel
+  * The build finds the pinned contract; the checks read it; one more refuses
+    a restated name
+  * The kernels and tests build against omx-contract's header, not a
+    committed copy
+  * README: link the project site, not the private openmixer repository
+  * contract-agree: an empty gap list is a pass; the gap list is empty
+    against omx-contract 1.3.0
+  * release: attach the API docs tarball
+  * ci: build the API docs on every PR
+  * Doxyfile: ignore attributes and static asserts, report every missing doc
+  * Document the dyn and gate struct members
+  * ci: engine-identity is a desk check
+  * ci: the generated limits are compared with omx-contract, not rendered
+    from private openmixer
+  * ci: every job runs on GitHub's runners
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 09 Oct 2026 12:58:10 +0000

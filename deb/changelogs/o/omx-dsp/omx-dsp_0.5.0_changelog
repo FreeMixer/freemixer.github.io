@@ -1,0 +1,35 @@
+omx-dsp (0.5.0) unstable; urgency=medium
+
+  * release: omx-dsp 0.5.0
+  * face-conformance: PENDING says why gate is on it
+  * fx/gate: the face takes the hold and the hysteresis, in the contract's
+    order
+  * fx/comp: the face takes the mix, the comp's controls complete
+  * fx/comp: the dynamics face is the comp face, taking kind and detector
+    oversampling
+  * fx/eq: a stereo instance face taking the EQ's contract controls in order
+  * fx/delay: an instance face that owns its rings and takes the contract's
+    controls
+  * fx/drive: the face takes auto-gain, stereo link and the HF roll-off
+  * face-conformance: a counted control is an array argument, an `of` control
+    none
+  * Pin omx-contract 2.2.0, and require it as a range: >= 2.2.0, < 3
+  * test/fx: dyn_controls, the declared dynamics controls against their
+    closed forms
+  * dyn: the comp's mix is a dry share folded into the gain
+  * dyn: the gate's hold and hysteresis run in the kernel
+  * fx/deesser: an instance face in the generator's shape
+  * eq-design: the cookbook's bandwidth-to-Q relation, core's
+    bandwidthOctavesQ in C
+  * fx/reverb: the instance face owns its pool and takes the contract's
+    controls
+  * fx/flanger: the instance face owns its rings and takes the contract's
+    controls
+  * fx/chorus: the instance face owns its rings and takes the contract's
+    controls
+  * fx/drive: the instance face takes the contract's controls, in their order
+  * fx/gate: the instance face's key argument is the contract's keySource, as
+    its index
+  * fx/geq: the instance face takes the contract's band control
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 09 Oct 2026 17:50:51 +0000

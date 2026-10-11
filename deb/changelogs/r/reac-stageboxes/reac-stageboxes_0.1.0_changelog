@@ -1,0 +1,31 @@
+reac-stageboxes (0.1.0) unstable; urgency=medium
+
+  * Catalan test: compare only the program's own lines
+  * Tests: accept a snapshot version in debian/changelog and a PipeWire-less
+    Catalan run
+  * README: install from the FreeMixer channel; BUILDING: the release flow
+  * Release through the shared FreeMixer workflows
+  * CI: meson test on Fedora 44 and Debian trixie
+  * Package for Debian, add a manual page, test that the version agrees
+  * Drop the private release machinery
+  * BUILDING: the release flow and its secret names
+  * Release workflow: dryrun tag builds and signs, a dispatch from main
+    publishes
+  * Add publish-repo.sh, the same dnf-tree publisher libreac uses
+  * build-rpm test: skip when the tree is not the top of a git work tree
+  * build-rpm.sh: the tag must be the version meson.build and the spec carry;
+    packages carry the fmx suffix
+  * Release plan: a tag push only dry-runs, a publish is a dispatch from main
+  * Guard the README: no build command in its code, run by meson test with a
+    self-test
+  * Build steps move from the README to BUILDING.md; the README keeps the
+    pitch and the install
+  * Give the app a real icon, an Audio-menu home, and a shippable RPM
+  * Catalan actually reaches the operator: bind the catalogues, translate
+    --list
+  * Find the stageboxes: decide membership from node info, not registry
+    globals
+  * Initial commit: a stagebox preamp application on reac-pw alone
+  * Initial commit
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 11 Oct 2026 12:16:54 +0000

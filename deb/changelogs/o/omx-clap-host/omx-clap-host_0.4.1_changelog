@@ -1,0 +1,37 @@
+omx-clap-host (0.4.1) unstable; urgency=medium
+
+  * Release 0.4.1: the warm-up runs at the activated block size
+  * clap_host: warm up at the activated block size, not at most 128 frames
+    (#43)
+  * lv2 tests: compare a frame-counted plugin with a plain LV2 loop after the
+    warm-up (#43)
+  * Comments say what the code does without naming code outside this
+    repository
+  * README: a Status section from the CI jobs, and the apt lines spelled out
+  * release: the API docs are attached on a tag only
+  * ci: the RPM smoke artifact no longer shares a name pattern with the
+    release build
+  * Remove CHANGELOG.md; version-check reads the spec and debian/changelog
+  * abi: record the baseline with the bend range field
+  * clap_stage_test: the sysex pool resets across blocks through omx_clap_run
+    and run_io
+  * clap_stage: a channel message longer than three bytes is counted as
+    unmappable
+  * clap_stage: a block that does not run drops the events queued for it
+  * clap_stage: the pitch-bend range is a stage field, default 2 semitones
+  * abi: record the baseline with the channel-message fields
+  * lv2-compatibility: the modgui row says planned until the console draws it
+    (#25)
+  * Makefile: fall back to a JACK_DIR tree when jack has no pkg-config
+  * Test what each channel message becomes at the note input
+  * Every channel message reaches an instrument, not just its notes
+  * CI: use the shared workflows and actions of FreeMixer/.github at v1, not
+    main
+  * ci: pin plugin-hostd at its v0.1.3 release tag
+  * Use the new repo name omx-clap-core in URLs (#19) (#20)
+  * release: attach the API docs tarball
+  * ci: build the API docs on every PR
+  * Add make docs: the C API reference by doxygen
+  * Document the public headers for the API reference
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 11 Oct 2026 23:28:53 +0000

@@ -399,6 +399,33 @@ Description: find out whether an audio plugin is safe to run live
  Use it to vet a plugin before a gig, to curate a plugin collection, or to
  judge the same plugin against the rules of different hosts.
 
+Package: plugin-qualify
+Architecture: all
+Version: 0.2.0
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 931
+Depends: nodejs (>= 18), python3, python3-lilv
+Recommends: mod-host
+Filename: ./all/plugin-qualify_0.2.0_all.deb
+Size: 155536
+MD5sum: 1f2bb23ee8d5858c2c0d143dc9d24d14
+SHA1: e7eb613073a1c96113f5a223321a187d9aa8850c
+SHA256: b7b059fa06eb5d2488455961b7ee13852d7305e9e5a3bcf4f749100741fa3e4e
+SHA512: 4f2d1e129bd3ab9fd096b28d28fa6fdcc8947d9f76dcd392684b706d667f56511e9b0086eed34f23539d53b9ef9eac8776a5738c62bbc9fdae6f5708fd37e7d1
+Homepage: https://github.com/FreeMixer/plugin-qualify
+Description: find out whether an audio plugin is safe to run live
+ A plugin that glitches on stage is worse than one you never installed.
+ plugin-qualify takes an LV2 or CLAP plugin and tells you whether it can be
+ trusted inside a real-time audio engine: it scans the plugin, measures its
+ latency and CPU cost at the sample rates and buffer sizes you play at, runs
+ it under a real host with memory checking, and gives one plain verdict.
+ Anything it could not measure is never a pass.
+ .
+ Use it to vet a plugin before a gig, to curate a plugin collection, or to
+ judge the same plugin against the rules of different hosts.
+
 Package: libmod-host-protocol-dev
 Architecture: amd64
 Version: 0.1.0-1

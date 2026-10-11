@@ -1,0 +1,22 @@
+plugin-qualify (0.1.1) unstable; urgency=medium
+
+  * npm publish: run by hand until the name exists on npm
+  * README: install from the FreeMixer channel
+  * Comments no longer cite the private tree
+  * README: install states only what exists
+  * ci: no changelog job; git history is the changelog
+  * Remove CHANGELOG.md and the checks that read it
+  * BUILDING.md: the test suite needs Node.js 20
+  * Run on the Node.js that Debian ships: require Node.js 18, not 22
+  * CI: the pack check can no longer SIGPIPE tar
+  * npm trusted publishing on a tag, RPM and DEB release workflow, package
+    dry run in CI
+  * RPM spec and debian/ packaging, generated changelogs
+  * Changelog entry for 0.1.1
+  * README installs from the FreeMixer channel, docs cite no private specs
+  * Rename the package to @openmixer/plugin-qualify, keep bytecode out of the
+    tarball
+  * ci: the pack check lists the tarball into a file, so a grep that stops
+    early cannot SIGPIPE tar under pipefail
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 11 Oct 2026 12:16:57 +0000

@@ -1698,6 +1698,54 @@ Description: OpenMixer delay, drive, EQ, strip, gate and effects as CLAP plugins
  REAPER, Carla and other CLAP hosts find them. They run the console's own DSP,
  so they sound like the desk, sample for sample.
 
+Package: omx-plugins-clap
+Architecture: amd64
+Version: 0.4.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 605
+Depends: libc6 (>= 2.29)
+Filename: ./amd64/omx-plugins-clap_0.4.0_amd64.deb
+Size: 118436
+MD5sum: c28fd5661dbbb6b7cab9b4cfddf1dd74
+SHA1: 9b55b9b477775b04e722db5d306b7f6631b7b063
+SHA256: 2ff56cd00fd42302500d68253e85ec7703fbbe9b945c7c625f2c84de13497db0
+SHA512: af071a59e4db606c7788ca6383a3f6826f47fd1e8204fd48b48e8485ce37ca7dc26510e64746cc4dd07e84474b935b5879b397af2355cbd9afb35e52a1492995
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer delay, drive, EQ, strip, gate and effects as CLAP plugins
+ The OpenMixer console's delay, drive, 8-, 16- and 32-band EQ, 31-band
+ graphic EQ, channel strip, keyed gate and effects (chorus, flanger, phaser,
+ tremolo, rotary speaker, reverb, pitch shifter, transient shaper, de-esser,
+ limiter, compressor) as CLAP plugins, installed in /usr/lib/clap where Bitwig,
+ REAPER, Carla and other CLAP hosts find them. They run the console's own DSP,
+ so they sound like the desk, sample for sample.
+
+Package: omx-plugins-dev
+Architecture: amd64
+Version: 0.4.0
+Priority: optional
+Section: libdevel
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 858
+Depends: libomxdsp-dev (>= 0.5.2), clap-headers
+Filename: ./amd64/omx-plugins-dev_0.4.0_amd64.deb
+Size: 121440
+MD5sum: 72de66cf69395c062806ff9fceb7e660
+SHA1: 3ed19874dd6f9604db331a4876ccd7040d9c0b70
+SHA256: afab040b003d997973988226ece719ef3efe58430b6450bf5dc52dccf8e872de
+SHA512: dbf21f9183b3b958689f3fb715511990ca01159b5fcb20d9dedcd9ef3ea76fdfdd359593ec9c162ee51b079f913d6516d92cf193362c1b5e1b49d8d144b935f8
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: Headers and static library of the OpenMixer plugins
+ The headers other projects include to use the OpenMixer plugins' parameters
+ and instance code, such as omx_delay_core.h and each plugin's generated
+ parameter header, installed in /usr/include/omx-plugins, and libomxplugins.a
+ (pkg-config omxplugins): every plugin's CLAP face in one static library,
+ with the table of their entries in omx_clap_static.h, for a host that runs
+ the plugins in its own process without loading .clap files.
+
 Package: omx-plugins-lv2
 Architecture: amd64
 Version: 0.1.0
@@ -1758,6 +1806,31 @@ MD5sum: d326410cc5f9d4f828948c53b070b983
 SHA1: 3ffeb03c0a892927bbfc6e6f4c128a0fdc7b5fb0
 SHA256: eaefe082ecbf07e38410cd5e25b6579c1225f6349c6fa51439ae905aa05d437b
 SHA512: 51b93d5a4d981d3621750dc935fa4cffaed9bf4886fd11ba38e506a1e12ac10d9d05cfe71934cef916aa987d615d36cdb6824afa646948b45a6ee4ddf2b33ecf
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer delay, drive, EQ, strip, gate and effects as LV2 plugins
+ The OpenMixer console's delay, drive, 8-, 16- and 32-band EQ, 31-band
+ graphic EQ, channel strip, keyed gate and effects (chorus, flanger, phaser,
+ tremolo, rotary speaker, reverb, pitch shifter, transient shaper, de-esser,
+ limiter, compressor) as LV2 plugins, installed in /usr/lib/lv2 where Ardour,
+ Carla, MOD and Zynthian find them, with a MOD GUI where the plugin has one.
+ They run the console's own DSP, so they sound like the desk, sample for
+ sample.
+
+Package: omx-plugins-lv2
+Architecture: amd64
+Version: 0.4.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 2585
+Depends: libc6 (>= 2.29)
+Filename: ./amd64/omx-plugins-lv2_0.4.0_amd64.deb
+Size: 247128
+MD5sum: 30c072a35a03b85bf883b8e9f9dc2e4c
+SHA1: f87f4166df0e4c4d79ca8dfda3b1f0a6b868c3a4
+SHA256: 1b5993005ad82e748f7fe1ba94b7bcf56287f9fdaa67db816fd178a39c1fea24
+SHA512: e32faabb884d36a884a57b6c448197d189339aae6f439870ad304f6ce05d528cfb1eb79970bf5fdc7db71562f753b6817f8ebeffc0c6a5a91e0cb74446bdeab7
 Homepage: https://github.com/FreeMixer/omx-plugins
 Description: OpenMixer delay, drive, EQ, strip, gate and effects as LV2 plugins
  The OpenMixer console's delay, drive, 8-, 16- and 32-band EQ, 31-band
@@ -1829,6 +1902,35 @@ MD5sum: 47eabd82382bac2ca29e63a8ffe63d44
 SHA1: f7a56f26ced74664f5a3287a899368be37eccd12
 SHA256: 933866e5d992ee17eb81e85da27d91186864859015a1d35e9a58e5612499f8ce
 SHA512: 932acaa789d4e22de60342cbe68f23e8b0ebb1e09e116a0e50959e4c2608b5925d8f04430e400b628e3d90b94b5feba53d54abb25bc9c3148f93af5661049925
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer delay, drive, EQ, strip, gate and effects (CLAP, LV2)
+ Take the sound of the OpenMixer console into your DAW or onto your own rig:
+ delay, drive, the channel EQ as an 8-band EQ, a 16-band EQ or a 32-band EQ,
+ a 31-band graphic EQ, the full channel strip and the keyed gate with its
+ sidechain input, and the console's effects: chorus, flanger, phaser,
+ tremolo, rotary speaker, reverb, pitch shifter, transient shaper, de-esser,
+ limiter and compressor. They come as CLAP plugins for Bitwig, REAPER and
+ Carla, and as LV2 plugins for Ardour, Carla, MOD and Zynthian. Each one runs
+ the same DSP as the console, so a track sounds the same in a session as it
+ does on the desk, sample for sample.
+ .
+ This package installs both formats; omx-plugins-clap and omx-plugins-lv2
+ install one each.
+
+Package: omx-plugins
+Architecture: amd64
+Version: 0.4.0
+Priority: optional
+Section: metapackages
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 8
+Depends: omx-plugins-clap (= 0.4.0), omx-plugins-lv2 (= 0.4.0)
+Filename: ./amd64/omx-plugins_0.4.0_amd64.deb
+Size: 2312
+MD5sum: d6e559f4ad9d195e126e76f4d4dff6e4
+SHA1: e30e3abb52ebcdfe272757ee295009ec73f1cd73
+SHA256: 8748c2db62c4826a059c6cb1f732c4e199c5275ef0c97099819a66c8ec13d6f0
+SHA512: 293f11dc92199d8d7ccdd840023f56caff0159514259be610e935ef8078e637631f2e490660641fae2a208de8cd3f7ddaed845fe8bfa57fb3bee2155020c605b
 Homepage: https://github.com/FreeMixer/omx-plugins
 Description: OpenMixer delay, drive, EQ, strip, gate and effects (CLAP, LV2)
  Take the sound of the OpenMixer console into your DAW or onto your own rig:
@@ -3285,6 +3387,54 @@ Description: OpenMixer delay, drive, EQ, strip, gate and effects as CLAP plugins
  REAPER, Carla and other CLAP hosts find them. They run the console's own DSP,
  so they sound like the desk, sample for sample.
 
+Package: omx-plugins-clap
+Architecture: arm64
+Version: 0.4.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 1289
+Depends: libc6 (>= 2.29)
+Filename: ./arm64/omx-plugins-clap_0.4.0_arm64.deb
+Size: 106144
+MD5sum: 6a6488db973406ec01361efd6d12fc75
+SHA1: a04bf6193ed7753e687db963951c1eff843ac42c
+SHA256: 3f7d553a281cf1b47ec4db1b837dd2427ad98a6cda525895975226fc89733f0a
+SHA512: 38a427623ba02d9c89e772d808bcc833e7e38014cf442789d8d195a02216a909672ee6a1c6f5fd31731731fdb14e9a63c15b73212482966fa38fa8f9f29462ab
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer delay, drive, EQ, strip, gate and effects as CLAP plugins
+ The OpenMixer console's delay, drive, 8-, 16- and 32-band EQ, 31-band
+ graphic EQ, channel strip, keyed gate and effects (chorus, flanger, phaser,
+ tremolo, rotary speaker, reverb, pitch shifter, transient shaper, de-esser,
+ limiter, compressor) as CLAP plugins, installed in /usr/lib/clap where Bitwig,
+ REAPER, Carla and other CLAP hosts find them. They run the console's own DSP,
+ so they sound like the desk, sample for sample.
+
+Package: omx-plugins-dev
+Architecture: arm64
+Version: 0.4.0
+Priority: optional
+Section: libdevel
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 789
+Depends: libomxdsp-dev (>= 0.5.2), clap-headers
+Filename: ./arm64/omx-plugins-dev_0.4.0_arm64.deb
+Size: 110020
+MD5sum: 12bc4a4f29f7691f7b48b7ea60175734
+SHA1: ed559addc4a1913e0b0d318f90f98194d4122cbf
+SHA256: 31a5c226b3fed45c8d1204d6c2e054ab8ec831f1d02ea77ddf4de78ed4eaf257
+SHA512: 02bb1d8edea08c4b08a75547d39fe6f05910324b3ba7d51d50df49e69d85dcc2677e12a8be83d014cef1e2df89726e36df13fd7372cff50a0354559bf35183a1
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: Headers and static library of the OpenMixer plugins
+ The headers other projects include to use the OpenMixer plugins' parameters
+ and instance code, such as omx_delay_core.h and each plugin's generated
+ parameter header, installed in /usr/include/omx-plugins, and libomxplugins.a
+ (pkg-config omxplugins): every plugin's CLAP face in one static library,
+ with the table of their entries in omx_clap_static.h, for a host that runs
+ the plugins in its own process without loading .clap files.
+
 Package: omx-plugins-lv2
 Architecture: arm64
 Version: 0.1.0
@@ -3345,6 +3495,31 @@ MD5sum: e358bfd5a1a7eee93073646fc10b8f5b
 SHA1: 5e0bb4491d38afcd6d76816626147bf2072afe13
 SHA256: c1b8c713e3d13c7ec38210e386a34434a6bfcf915ca0e61b1fe1fa2eae6d541f
 SHA512: b05e129703563a241fbe9f01b29068d73825b462ea61797c8f979d364e91f0ade825d9e7b95082b55da2ad12136406b09735091167c83ad2b4eb7762c5858a87
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer delay, drive, EQ, strip, gate and effects as LV2 plugins
+ The OpenMixer console's delay, drive, 8-, 16- and 32-band EQ, 31-band
+ graphic EQ, channel strip, keyed gate and effects (chorus, flanger, phaser,
+ tremolo, rotary speaker, reverb, pitch shifter, transient shaper, de-esser,
+ limiter, compressor) as LV2 plugins, installed in /usr/lib/lv2 where Ardour,
+ Carla, MOD and Zynthian find them, with a MOD GUI where the plugin has one.
+ They run the console's own DSP, so they sound like the desk, sample for
+ sample.
+
+Package: omx-plugins-lv2
+Architecture: arm64
+Version: 0.4.0
+Priority: optional
+Section: sound
+Source: omx-plugins
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 3377
+Depends: libc6 (>= 2.29)
+Filename: ./arm64/omx-plugins-lv2_0.4.0_arm64.deb
+Size: 234680
+MD5sum: 427fa2b5ca658389c1f6f5568780e163
+SHA1: 395593ed935ba61fd46410dec69cf9500e4adcd9
+SHA256: 8652c6cd64922ac6ee531a618c249b60ab0c606531ffd4a8b4048a2812abd189
+SHA512: 6dba180889b661b8a5765d915a51f44075cab203ed389bdda964dc9e7c01046e60820a990742e75e49c3db6ea766ff9de4923981b8b383385ffbaf85a0cda67a
 Homepage: https://github.com/FreeMixer/omx-plugins
 Description: OpenMixer delay, drive, EQ, strip, gate and effects as LV2 plugins
  The OpenMixer console's delay, drive, 8-, 16- and 32-band EQ, 31-band
@@ -3416,6 +3591,35 @@ MD5sum: 40371876fc8bb53e483059319adbcbd2
 SHA1: 530021628ce91519fddf311aef600a5346bae2ef
 SHA256: bd76ad15eea29bf32bdda96a19851d730fccdf93de874cf0f9d1ebe3df3de91a
 SHA512: 8f8dcfb12923406a984594ef8373e5e2397755154a84568b935af5d5021576a9e453a1aa3d47eae0d66b9791893fa9bab418adda21877c93bb8d583400be967f
+Homepage: https://github.com/FreeMixer/omx-plugins
+Description: OpenMixer delay, drive, EQ, strip, gate and effects (CLAP, LV2)
+ Take the sound of the OpenMixer console into your DAW or onto your own rig:
+ delay, drive, the channel EQ as an 8-band EQ, a 16-band EQ or a 32-band EQ,
+ a 31-band graphic EQ, the full channel strip and the keyed gate with its
+ sidechain input, and the console's effects: chorus, flanger, phaser,
+ tremolo, rotary speaker, reverb, pitch shifter, transient shaper, de-esser,
+ limiter and compressor. They come as CLAP plugins for Bitwig, REAPER and
+ Carla, and as LV2 plugins for Ardour, Carla, MOD and Zynthian. Each one runs
+ the same DSP as the console, so a track sounds the same in a session as it
+ does on the desk, sample for sample.
+ .
+ This package installs both formats; omx-plugins-clap and omx-plugins-lv2
+ install one each.
+
+Package: omx-plugins
+Architecture: arm64
+Version: 0.4.0
+Priority: optional
+Section: metapackages
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 8
+Depends: omx-plugins-clap (= 0.4.0), omx-plugins-lv2 (= 0.4.0)
+Filename: ./arm64/omx-plugins_0.4.0_arm64.deb
+Size: 2312
+MD5sum: 34d5dad16256bf0c7332ad6f3cfae96a
+SHA1: b898fef88c2071714bd2ffd1959a43ae6c40d5c7
+SHA256: 21b87c6c669c60738317e8ec1da62812ac15d355d2b756dd03342c7149d2f190
+SHA512: 5753c36283e1fafac81bf9fbbd7ef4b8ecf9b720c2a98efeb719e1a986a617d51ea5c029cf1ff9fd8539d2327b7d39fd79c14782ebc40db20d02c1d42b76a99f
 Homepage: https://github.com/FreeMixer/omx-plugins
 Description: OpenMixer delay, drive, EQ, strip, gate and effects (CLAP, LV2)
  Take the sound of the OpenMixer console into your DAW or onto your own rig:

@@ -1,0 +1,63 @@
+omx-plugins (0.5.0) unstable; urgency=medium
+
+  * Release 0.5.0: omx pitch reports its latency; version and changelogs
+    (#110)
+  * omx pitch: the latency at full mix is where the impulse lands, 0 at half
+    mix (#110)
+  * oracle: the declaration's latency checks, an impulse through both faces
+    at every rate (#110)
+  * CLAP faces: the latency changes only at activation, after a restart asked
+    once (#110)
+  * Pin omx-dsp 0.6.0, whose pitch face reports its latency (#110)
+  * Declarations: console comments in plain words, no source symbols
+  * gen: a released parameter list is read from the parameter table alone
+    (#107)
+  * gen: a released parameter list is read from the parameter table alone
+    (#107)
+  * docs: BUILDING names look.mjs and its token source (#105)
+  * schema: the panel is declared once; console.panel is gone, a second copy
+    is refused (#100)
+  * plugins: MOD GUIs regenerated, selectors named selector (#101)
+  * build: make test and CI check look.json against its tokens (#105)
+  * plugins: one panel per declaration, the console's sections and graphs
+    folded into it (#100)
+  * tools: modgui-gen reads the schema's widgets, honours panel.widgets and
+    draws a fader (#101)
+  * tools: look.json is generated from tools/look/tokens.css by look.mjs
+    (#105)
+  * schema: the shared widgets are the console's names, selector where choice
+    was (#101)
+  * plugins: every panel declares a family and roles of the console's
+    vocabulary (#99)
+  * schema: panel.family and panel.roles are the console's closed set, a
+    declaration outside it is refused (#99)
+  * tools: a variant's per-band role names every band's parameter (#99)
+  * panel description: a panel family the extension has no place for is none
+    (#107)
+  * panel description: a panel family the extension has no place for is none
+    (#107)
+  * test: the CLAP face's contract, pages and placement defaults read back
+    against the declaration (#102)
+  * faces: CLAP serves param-contract/1, remote controls and track-info from
+    the declaration (#102)
+  * panel description: the contract's per-placement defaults, and the
+    sections as remote-control pages (#102)
+  * param contract: every plugin's rows of org.openmixer.param-contract/1,
+    from its declaration (#102)
+  * omx-contract reader: a travel's per-kind defaults reach the resolved
+    parameters (#102)
+  * test: each built face's panel description read back as a host reads it,
+    against the declaration (#107)
+  * faces: CLAP and LV2 serve org.openmixer.panel-description/1 from the
+    generated rows (#107)
+  * panel description: every plugin's rows of
+    org.openmixer.panel-description/1, from its declaration (#107)
+  * declarations: the EQ, keyed gate and drive panels name the graph drawn
+    over them (#107)
+  * test: the LV2 port groups read back through lilv against the declaration
+    (#103)
+  * LV2 faces: one port group per panel section, each section's parameters in
+    it (#103)
+  * Declarations: the console stage comments name no private branch or file
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 12 Oct 2026 14:20:58 +0000

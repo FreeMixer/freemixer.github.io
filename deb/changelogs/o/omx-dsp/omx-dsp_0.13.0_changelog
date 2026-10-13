@@ -1,0 +1,30 @@
+omx-dsp (0.13.0) unstable; urgency=medium
+
+  * magnitude: omx_eq_curve_freqs builds under -Werror without OMX_CONTRACTS
+    (#86)
+  * Version 0.13.0 (FreeMixer/openmixer#1601)
+  * test: the EQ arms fail against nine sabotaged copies of the design and
+    curve (FreeMixer/openmixer#1601)
+  * test: the EQ design and curve against what openmixer dac7b0d computes, at
+    the nine RME rates (FreeMixer/openmixer#1601)
+  * tools: ts-golden.mjs design runs core's, the web surface's and the
+    catalog's EQ maths for the parity table (FreeMixer/openmixer#1601)
+  * test: the EQ bank, head filters and drawn curve against their closed
+    forms at the nine RME rates (FreeMixer/openmixer#1601)
+  * magnitude: a band's magnitude and the drawn curve, core's
+    biquadMagnitudeDb and eqCurveDb, the web surface's eqStateBands and
+    magnitudeSumDb (FreeMixer/openmixer#1601)
+  * eq-design: the bank and the head filters, omx_eq_bank_design and
+    omx_eq_pass_design, core's eqCoeffs and passFilterCoeffs
+    (FreeMixer/openmixer#1601)
+  * eq-design: omx_eq_octaves_q, the analogue width-to-Q law, the catalog's
+    octavesToQ (FreeMixer/openmixer#1601)
+  * eq-design: omx_eq_complement, the 1 - H section over the same poles,
+    core's complementSection (FreeMixer/openmixer#1601)
+  * magnitude: the unit-circle evaluation without the Nyquist clamp,
+    omx_biquad_magnitude_db_w (FreeMixer/openmixer#1601)
+  * BUILDING: the EQ maths openmixer's TypeScript computes, its C symbols and
+    the parity table (FreeMixer/openmixer#1601)
+  * Add a selftest for the release workflow's arm gate
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 13 Oct 2026 16:18:03 +0000

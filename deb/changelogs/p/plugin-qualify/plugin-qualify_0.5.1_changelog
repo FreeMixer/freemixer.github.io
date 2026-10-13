@@ -1,0 +1,18 @@
+plugin-qualify (0.5.1) unstable; urgency=medium
+
+  * Version 0.5.1
+  * native: install the interposer executable, so the RPM strips it and
+    splits its debug info
+  * DEB: recommend python3-lilv, which bookworm does not carry
+  * Install check: run its steps in bash
+  * Docs: the packages carry the CLAP prober, and where the command finds it
+  * Packaging dry run: install the package and qualify the fixture plugins
+    with nothing set
+  * DEB: build the CLAP prober and its interposer into /usr/lib/plugin-qualify
+  * RPM: build the CLAP prober and its interposer into
+    %{_libexecdir}/plugin-qualify
+  * Find the CLAP prober in the installed libexec directory before
+    native/build
+  * native: honour CPPFLAGS and LDFLAGS, add an install target
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 13 Oct 2026 01:38:19 +0000

@@ -1,0 +1,32 @@
+omx-dsp (0.10.0) unstable; urgency=medium
+
+  * Version 0.10.0
+  * BUILDING.md: the engine-kernels desk check against the omx-dsp the engine
+    pins
+  * test: the engine kernels' sabotaged copies build without -Werror (GCC 16)
+  * omx_rta: the complex spectrum and the decimator join analysis/omx_rta.h
+  * omx_src, omx_gen: the states' members documented for doxygen
+  * omx_rta: out of the umbrella header, which omx_fft.h includes
+  * tools: engine-kernels-identity, the digests through the engine's copies
+    (a desk check)
+  * test: make test-engine-kernels compares the digests and breaks each
+    kernel once
+  * test: golden digests of the moved kernels at the nine RME rates, written
+    by the engine's own copies
+  * test: the spectrum readings' and decimator's oracles, moved from the
+    engine, and the nine RME rates
+  * test: the generators' oracle, moved from the engine, and the nine RME
+    rates
+  * test: the sample-rate converter's oracle, moved from the engine, and
+    every RME rate pair
+  * omx_rta: the spectrum readings and the half-band decimator, moved from
+    the engine's mix_dsp.h (FreeMixer/openmixer#1580)
+  * omx_gen: the test-signal generators, moved from the engine's mix_dsp.h
+    (FreeMixer/openmixer#1580)
+  * omx_src: the offline sample-rate converter, moved from the engine's
+    mix_src.h (FreeMixer/openmixer#1580)
+  * Pin omx-contract 2.6.0
+  * tools: contract-include takes a pinned omx-contract commit before its
+    release
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 13 Oct 2026 09:13:30 +0000

@@ -1,0 +1,38 @@
+plugin-qualify (0.6.0) unstable; urgency=medium
+
+  * Changelog: the per-rate soak verdict, the timedOut soak and the
+    cost-field refusal (#32)
+  * The cost gate refuses a reading missing a field it judges
+    (hosting.cost.fields-missing) (#32)
+  * A soak failure measured at the console's rate is unsuitable at that rate;
+    a supervisor timeout is timedOut, never died (#32)
+  * Changelog: the faithful measuring host and the worker in benchmark.py
+    (#32)
+  * benchmark.py: run the plugin's worker between blocks instead of dropping
+    its jobs (#32)
+  * lv2_measure: a faithful host - a real worker, patch:Set, a bounded soak
+    sweep, a stdout of its own (#32)
+  * Read the measurer's record past a plugin's banner, size a soak's limit,
+    declare the soak sweep bounds (#32)
+  * Version 0.6.0 (#32)
+  * Parity test: keep openmixer's copy in the tree, held to its blob ids (#32)
+  * Docs: the LV2 measurer, where it is found, and its parity test (#32)
+  * npm release: install lilv and the LV2 headers before the native build
+    (#32)
+  * Packaging dry run: measure the LV2 fixtures through the installed package
+    with nothing set (#32)
+  * CI: install lilv and the LV2 headers the measurer builds against (#32)
+  * Install the LV2 measurer beside the CLAP prober in the RPM and the DEB
+    (#32)
+  * lv2-measure.mjs measures the hosting dimensions through the native
+    measurer (#32)
+  * One declared list of the native tools, each found by its setting, then
+    installed, then native/build (#32)
+  * Test the LV2 measurer prints what openmixer's copy prints, byte for byte
+    (#32)
+  * native: take in the LV2 measurer's features oracle, and run it and the
+    measurer in the tests (#32)
+  * native: LV2 fixture bundles, an RT-safe and an RT-unsafe gain (#32)
+  * native: take in openmixer's LV2 measurer and host probe (#32)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 13 Oct 2026 08:13:01 +0000

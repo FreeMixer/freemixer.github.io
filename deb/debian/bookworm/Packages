@@ -326,6 +326,34 @@ Description: one shared source of truth for every FreeMixer knob, range, default
  resolved json render and the schema under /usr/share/omx-contract, and
  omx-contract.pc. A consumer requires it at exactly the version it pins.
 
+Package: libomx-contract-dev
+Architecture: all
+Version: 2.8.0
+Multi-Arch: foreign
+Priority: optional
+Section: libdevel
+Source: omx-contract
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 182
+Filename: ./all/libomx-contract-dev_2.8.0_all.deb
+Size: 35252
+MD5sum: 77fe1c32eb598cd9f2be74557b4af2b4
+SHA1: c9d22ea1616c798e7e9a953285c332f2db4d1669
+SHA256: 474c2f3613cfd41dafc979987cae64dbd0f02fc354733143a34a6db8aaad1c3a
+SHA512: f622ca4b6b557a732bcfc5adf36690c237848ffdde31c3c60231360601c6e03cfa74b8512355b4b4a0c9f86f48944b23a8f3609ee81a7299d7ec4546a809c11f
+Homepage: https://github.com/FreeMixer/omx-contract
+Description: one shared source of truth for every FreeMixer knob, range, default
+ A fader range, a default, a plugin parameter, a supported sample rate: in
+ FreeMixer each of these is written down once, in omx-contract, and everything
+ else reads it. That is why the console, the DSP library and the plugins agree
+ on what a knob does and how far it turns. The declarations are plain JSON with
+ a JSON Schema, so tools in any language can read them, and they are rendered
+ as C headers for the code that is built from them.
+ .
+ This package holds the c render under /usr/include/omxcontract, the
+ resolved json render and the schema under /usr/share/omx-contract, and
+ omx-contract.pc. A consumer requires it at exactly the version it pins.
+
 Package: omx-plugins-dev
 Architecture: all
 Version: 0.2.0

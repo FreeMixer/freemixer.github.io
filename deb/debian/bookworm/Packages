@@ -1903,6 +1903,39 @@ Description: audio toolbox of the OpenMixer console, a real-time-safe C library
  contracts and ThreadSanitizer). Programs link the library statically; no
  shared library exists.
 
+Package: libomxdsp-dev
+Architecture: amd64
+Version: 0.9.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 918
+Depends: libomx-contract-dev (>= 2.5.0), libomx-contract-dev (<< 3)
+Filename: ./amd64/libomxdsp-dev_0.9.0_amd64.deb
+Size: 208920
+MD5sum: cc7a8643b4bb5a86f5e8802e0a0bc8f4
+SHA1: f5dac38b51538e1ecfdd89626e0113e8149022d9
+SHA256: 71f86dd7901d486ab8fae62041b5ed6d8a45e0ca5e5f147307d03e11b12e18de
+SHA512: d0093738f49a7628a9a8b0bf3d1177d5db910222bd1a08abe951fc1e2e89922fd97f5047fbb10655858e7f811c394972d19b24bcb4f588289d6cf652791e7941
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: audio toolbox of the OpenMixer console, a real-time-safe C library
+ libomxdsp is the sound of the OpenMixer console, as a library: the filters,
+ envelopes, delays, limiters, gates, compressors and other building blocks of
+ a mixer channel, written in plain C that never allocates, locks or calls the
+ system while audio is running. The console and the omx plugins are built from
+ this same code, so an effect sounds the same on the desk and in your DAW,
+ sample for sample. Link it into your own plugin, effect or audio tool and
+ start from parts that are already tested against exact results at every
+ sample rate.
+ .
+ This package holds the headers and the static library in three flavours,
+ each with its pkg-config file: libomxdsp.a (omxdsp), libomxdsp-contracts.a
+ (omxdsp-contracts, contracts compiled in) and libomxdsp-tsan.a (omxdsp-tsan,
+ contracts and ThreadSanitizer). Programs link the library statically; no
+ shared library exists.
+
 Package: libreac-dev
 Architecture: amd64
 Version: 1.7.1
@@ -4166,6 +4199,39 @@ MD5sum: 2b30334f5bf08030954b134d2bb35e7b
 SHA1: cfd11f283ca7410f1f63b68a0cd527f1e475b642
 SHA256: ecfc0d12f15854eb83cfb165461ba35a2ba5298029555314679e3782210eb9d6
 SHA512: 6095165f1fed6f8983ec6f1d1046e55be698b0dc76a3d3a907497d0ec6a296437384df552f6fb789d65c1a4be4f13d5901698ecc7f008975c815af4fb8cad771
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: audio toolbox of the OpenMixer console, a real-time-safe C library
+ libomxdsp is the sound of the OpenMixer console, as a library: the filters,
+ envelopes, delays, limiters, gates, compressors and other building blocks of
+ a mixer channel, written in plain C that never allocates, locks or calls the
+ system while audio is running. The console and the omx plugins are built from
+ this same code, so an effect sounds the same on the desk and in your DAW,
+ sample for sample. Link it into your own plugin, effect or audio tool and
+ start from parts that are already tested against exact results at every
+ sample rate.
+ .
+ This package holds the headers and the static library in three flavours,
+ each with its pkg-config file: libomxdsp.a (omxdsp), libomxdsp-contracts.a
+ (omxdsp-contracts, contracts compiled in) and libomxdsp-tsan.a (omxdsp-tsan,
+ contracts and ThreadSanitizer). Programs link the library statically; no
+ shared library exists.
+
+Package: libomxdsp-dev
+Architecture: arm64
+Version: 0.9.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 916
+Depends: libomx-contract-dev (>= 2.5.0), libomx-contract-dev (<< 3)
+Filename: ./arm64/libomxdsp-dev_0.9.0_arm64.deb
+Size: 208780
+MD5sum: 5120052a71f5045102f5eaa2ad018723
+SHA1: fdfd5ce0577bb9d7ca74715258140d659ce37725
+SHA256: 0ea4a845e8becc76e6a68058cc5cc952544d3a90a76351452c01ce50ff3ca52a
+SHA512: 6b7e3905a13be3ee0d3202dff92aa8a3d94530c8e1dc3824c7d1bfff689d337a9709b1c074688e109e36281dd1eae21b47c46dd665f316ef2f010d9f304c2bb1
 Homepage: https://github.com/FreeMixer/omx-dsp
 Description: audio toolbox of the OpenMixer console, a real-time-safe C library
  libomxdsp is the sound of the OpenMixer console, as a library: the filters,

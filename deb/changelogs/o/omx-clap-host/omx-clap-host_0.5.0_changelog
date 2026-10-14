@@ -1,0 +1,17 @@
+omx-clap-host (0.5.0) unstable; urgency=medium
+
+  * Release 0.5.0
+  * lv2 host test: take the thread baseline once the last rate's worker is
+    gone (#48)
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+  * lv2_clap_test: warm-up activated at 512, run at 256 (#45)
+  * lv2_clap_test: a reset whose worker thread cannot start (#13)
+  * lv2: a reset whose worker cannot start again breaks the instance until
+    activate (#13)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 14 Oct 2026 12:32:58 +0000

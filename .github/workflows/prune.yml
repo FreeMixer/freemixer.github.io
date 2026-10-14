@@ -1,0 +1,401 @@
+name: Prune the package repository
+
+# Keeps the newest version of every RPM, DEB and npm package plus the versions keep.yml pins, and removes
+# everything else: older versions and every duplicate build of one version. Run by hand, from main.
+#
+# apply=false (the default) is a dry run: it prints, per package and format, what would be kept and what
+# deleted, writes that plan to the job summary and as an artifact, and changes nothing.
+# apply=true deletes the plan's files from rpm/ and deb/, regenerates and re-signs the dnf metadata and the
+# apt index with the release workflows' own scripts (FreeMixer/.github publish-rpms and publish-debs), pushes,
+# and then checks that every kept version installs (dnf in fedora:44, apt in debian:bookworm) and that the
+# newest of each is what resolves. On npm it unpublishes what npmjs allows and deprecates the rest.
+# Git tags and GitHub releases are not touched.
+#
+# Secrets, as the release workflows use them (FreeMixer/.github build-rpm.yml and build-deb.yml):
+#   OPENMIXER_PACKAGES_SIGNING_KEY   signs the dnf metadata and the apt index
+#   RPM_GPG_KEY, RPM_GPG_PASSPHRASE  the original key, co-signs the apt index when this repository may read it
+#   PAGES_TOKEN, SITE_GPG_KEY        push to this repository, signed
+#   NPM_TOKEN                        an npm token that may unpublish and deprecate @openmixer packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Delete for real. false only prints what would be deleted.'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      sha: ${{ steps.plan.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: The selection is tested
+        run: node --test .github/prune/test/*.test.mjs
+      - name: What would be kept and deleted
+        id: plan
+        run: |
+          set -o pipefail
+          node .github/prune/select.mjs --keep keep.yml --tree . --json plan.json | tee plan.txt
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD > plan.sha
+          { echo '### Package repository'; echo '```'; cat plan.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prune-plan
+          path: |
+            plan.json
+            plan.txt
+            plan.sha
+          retention-days: 30
+
+  npm:
+    name: npm
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            keep.yml
+            .github/prune
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+      - name: Unpublish or deprecate what is not kept
+        env:
+          APPLY: ${{ inputs.apply && github.ref == 'refs/heads/main' }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -o pipefail
+          if [ "$APPLY" = true ]; then
+            test -n "$NODE_AUTH_TOKEN" || { echo "::error::NPM_TOKEN is not set: unpublish and deprecate need a token with publish rights on @openmixer"; exit 1; }
+            node .github/prune/npm.mjs --keep keep.yml --apply | tee npm.txt
+          else
+            node .github/prune/npm.mjs --keep keep.yml | tee npm.txt
+          fi
+          { echo '### npm'; echo '```'; cat npm.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+  rpm:
+    name: Prune rpm/
+    needs: plan
+    if: inputs.apply && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: fedora:44
+    steps:
+      - name: Install the packaging tools
+        run: dnf install -y --setopt=install_weak_deps=False createrepo_c rpm-sign gnupg2 pinentry findutils diffutils git curl python3-rpm zstd
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # the scripts the release workflows publish with, at the same ref they use
+      - uses: actions/checkout@v4
+        with:
+          repository: FreeMixer/.github
+          ref: v1
+          path: .fmx
+
+      - uses: actions/checkout@v4
+        with:
+          path: .self
+          sparse-checkout: |
+            keep.yml
+            .github/prune
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: prune-plan
+          path: plan
+
+      - uses: FreeMixer/.github/.github/actions/import-gpg-key@v1
+        with:
+          gpg-key: ${{ secrets.OPENMIXER_PACKAGES_SIGNING_KEY }}
+
+      - uses: FreeMixer/.github/.github/actions/channel-pull@v1
+        with:
+          publish-token: ${{ secrets.PAGES_TOKEN }}
+          channel: ${{ github.repository }}
+
+      - name: The tree is the one the plan was made from
+        env:
+          PLANNED: ${{ needs.plan.outputs.sha }}
+        run: |
+          got=$(git -C build/channel rev-parse HEAD)
+          [ "$got" = "$PLANNED" ] || { echo "::error::main moved from $PLANNED to $got since the plan: run the prune again"; exit 1; }
+
+      - name: Check the signing key is one the channel serves
+        run: .fmx/.github/actions/import-gpg-key/channel-keys.sh check build/channel/rpm/RPM-GPG-KEY-freemixer "$FREEMIXER_GPG_KEY_ID"
+
+      - name: Delete what the plan deletes
+        run: |
+          set -euo pipefail
+          node -e '
+            const p = require("./plan/plan.json");
+            for (const f of [...p.delete.map((r) => r.path), ...p.orphans]) if (f.startsWith("rpm/")) console.log(f);
+          ' > rpm-delete.txt
+          while IFS= read -r f; do rm -v "build/channel/$f"; done < rpm-delete.txt
+          # what is left is exactly what the plan keeps
+          diff <(node -e 'for (const r of require("./plan/plan.json").keep) if (r.path.startsWith("rpm/")) console.log(r.path)' | sort) \
+               <(cd build/channel && find rpm -name '*.rpm' | sort)
+
+      - name: Regenerate and sign the metadata
+        run: |
+          set -euo pipefail
+          # publish-tree.sh adds the packages of a directory and rewrites the metadata of every directory of
+          # the tree; given the kept packages it adds nothing, and the metadata describes only them
+          mkdir staging
+          find build/channel/rpm -name '*.rpm' -exec cp -t staging {} +
+          .fmx/.github/actions/publish-rpms/publish-tree.sh build/channel/rpm staging "$FREEMIXER_GPG_KEY_ID"
+          for d in build/channel/rpm/fedora/*/*/; do
+            test -s "$d/repodata/repomd.xml.asc" || { echo "::error::$d has no signed metadata"; exit 1; }
+          done
+
+      - name: The pruned tree has nothing left to delete
+        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --tree build/channel --only rpm --expect-clean
+
+      - uses: FreeMixer/.github/.github/actions/channel-push@v1
+        with:
+          publish-token: ${{ secrets.PAGES_TOKEN }}
+          site-gpg-key: ${{ secrets.SITE_GPG_KEY }}
+          channel: ${{ github.repository }}
+          tag: prune-${{ github.run_id }}
+          what: rpm
+
+  deb:
+    name: Prune deb/
+    needs: [plan, rpm]
+    if: inputs.apply && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: debian:bookworm
+    env:
+      HAS_COSIGN: ${{ secrets.RPM_GPG_KEY != '' }}
+    steps:
+      - name: Install the packaging tools
+        run: apt-get update -qq && apt-get install -y --no-install-recommends apt-utils gnupg git curl ca-certificates findutils dpkg-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/checkout@v4
+        with:
+          repository: FreeMixer/.github
+          ref: v1
+          path: .fmx
+
+      - uses: actions/checkout@v4
+        with:
+          path: .self
+          sparse-checkout: |
+            keep.yml
+            .github/prune
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: prune-plan
+          path: plan
+
+      - uses: FreeMixer/.github/.github/actions/import-gpg-key@v1
+        with:
+          gpg-key: ${{ secrets.OPENMIXER_PACKAGES_SIGNING_KEY }}
+
+      # the original key co-signs the apt index while installs may hold only it, as in build-deb.yml
+      - uses: FreeMixer/.github/.github/actions/import-gpg-key@v1
+        if: env.HAS_COSIGN == 'true'
+        with:
+          gpg-key: ${{ secrets.RPM_GPG_KEY }}
+          gpg-passphrase: ${{ secrets.RPM_GPG_PASSPHRASE }}
+          id-variable: FREEMIXER_GPG_COSIGN_KEY_ID
+
+      - uses: FreeMixer/.github/.github/actions/channel-pull@v1
+        with:
+          publish-token: ${{ secrets.PAGES_TOKEN }}
+          channel: ${{ github.repository }}
+
+      # main moved by the rpm prune; the apt half is planned again on the pulled tree and must match
+      - name: The tree is the one the plan was made from
+        run: |
+          set -euo pipefail
+          node .self/.github/prune/select.mjs --keep .self/keep.yml --tree build/channel --only deb --json now.json > /dev/null
+          node -e '
+            const a = require("./plan/plan.json"), b = require("./now.json");
+            const pick = (p) => JSON.stringify({ keep: p.keep.filter((r) => r.format === "deb").map((r) => r.path).sort(),
+              delete: [...p.delete.filter((r) => r.format === "deb").map((r) => r.path), ...p.orphans.filter((f) => f.startsWith("deb/"))].sort() });
+            if (pick(a) !== pick(b)) { console.error("::error::deb/ changed since the plan: run the prune again"); process.exit(1); }
+          '
+
+      - name: Check the signing keys are ones the channel serves
+        run: |
+          # shellcheck disable=SC2086 # the co-signer is one fingerprint or empty
+          .fmx/.github/actions/import-gpg-key/channel-keys.sh check build/channel/deb/freemixer.asc \
+            "$FREEMIXER_GPG_KEY_ID" ${FREEMIXER_GPG_COSIGN_KEY_ID:-}
+
+      - name: Delete what the plan deletes
+        run: |
+          set -euo pipefail
+          node -e '
+            const p = require("./plan/plan.json");
+            for (const f of [...p.delete.map((r) => r.path), ...p.orphans]) if (f.startsWith("deb/")) console.log(f);
+          ' > deb-delete.txt
+          while IFS= read -r f; do rm -v "build/channel/$f"; done < deb-delete.txt
+          diff <(node -e 'for (const r of require("./plan/plan.json").keep) if (r.path.startsWith("deb/")) console.log(r.path)' | sort) \
+               <(cd build/channel && find deb -name '*.deb' | sort)
+
+      - name: Regenerate and sign the index
+        env:
+          CHANGELOGS_URL: https://freemixer.github.io/deb/changelogs
+        run: |
+          set -euo pipefail
+          # publish-tree.sh takes <suite>/<package>.deb; given the kept packages it adds nothing and rewrites
+          # Packages, Release, InRelease and Release.gpg of every suite
+          for suite in build/channel/deb/debian/*/; do
+            s=$(basename "$suite"); mkdir -p "staging/$s"
+            find "$suite" -name '*.deb' -exec cp -t "staging/$s" {} +
+          done
+          COSIGN=${FREEMIXER_GPG_COSIGN_KEY_ID:-} .fmx/.github/actions/publish-debs/publish-tree.sh build/channel/deb staging "$FREEMIXER_GPG_KEY_ID"
+          for d in build/channel/deb/debian/*/; do
+            test -s "$d/InRelease" || { echo "::error::$d has no signed index"; exit 1; }
+          done
+
+      - name: The pruned tree has nothing left to delete
+        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --tree build/channel --only deb --expect-clean
+
+      - uses: FreeMixer/.github/.github/actions/channel-push@v1
+        with:
+          publish-token: ${{ secrets.PAGES_TOKEN }}
+          site-gpg-key: ${{ secrets.SITE_GPG_KEY }}
+          channel: ${{ github.repository }}
+          tag: prune-${{ github.run_id }}
+          what: deb
+
+  verify-dnf:
+    name: Kept RPMs install (fedora:44)
+    needs: [plan, deb]
+    if: inputs.apply && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: fedora:44
+    steps:
+      - run: dnf install -y --setopt=install_weak_deps=False git curl findutils
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: |
+            keep.yml
+            .github/prune
+            rpm/fedora/44/x86_64/repodata/repomd.xml
+            rpm/fedora/44/noarch/repodata/repomd.xml
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: prune-plan
+          path: plan
+      - name: Wait for Pages to serve the pruned metadata
+        run: |
+          for d in x86_64 noarch; do
+            for _ in $(seq 60); do
+              curl -fsS "https://freemixer.github.io/rpm/fedora/44/$d/repodata/repomd.xml" | cmp -s - "rpm/fedora/44/$d/repodata/repomd.xml" && continue 2
+              sleep 10
+            done
+            echo "::error::Pages still serves the old $d metadata"; exit 1
+          done
+      - name: Every kept version installs, and the newest resolves
+        run: |
+          set -uo pipefail
+          curl -fsSL -o /etc/yum.repos.d/freemixer.repo https://freemixer.github.io/rpm/freemixer.repo
+          dnf -y makecache
+          node .github/prune/expect.mjs --plan plan/plan.json --format rpm --repo fedora/44 --arch x86_64 > expect.txt
+          fail=0
+          while read -r what a b; do
+            if [ "$what" = install ]; then
+              if dnf -y install "$a" >/dev/null && dnf -y remove "$a" >/dev/null; then echo "installs   $a"
+              else echo "::error::$a does not install"; fail=1; fi
+            else
+              got=$(dnf repoquery -q --repo freemixer --repo freemixer-noarch --latest-limit=1 --qf '%{evr}\n' "$a" | head -1)
+              if [ "$got" = "$b" ]; then echo "newest     $a $b"; else echo "::error::$a resolves to '$got', not $b"; fail=1; fi
+            fi
+          done < expect.txt
+          exit $fail
+
+  verify-apt:
+    name: Kept DEBs install (debian:bookworm)
+    needs: [plan, deb]
+    if: inputs.apply && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    container:
+      image: debian:bookworm
+    steps:
+      - run: apt-get update -qq && apt-get install -y --no-install-recommends git curl ca-certificates
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: |
+            keep.yml
+            .github/prune
+            deb/debian/bookworm/InRelease
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: prune-plan
+          path: plan
+      - name: Wait for Pages to serve the pruned index
+        run: |
+          for _ in $(seq 60); do
+            curl -fsS https://freemixer.github.io/deb/debian/bookworm/InRelease | cmp -s - deb/debian/bookworm/InRelease && exit 0
+            sleep 10
+          done
+          echo "::error::Pages still serves the old bookworm index"; exit 1
+      - name: Every kept version installs, and the newest resolves
+        run: |
+          set -uo pipefail
+          mkdir -p /etc/apt/keyrings
+          curl -fsSL -o /etc/apt/keyrings/freemixer.asc https://freemixer.github.io/deb/freemixer.asc
+          echo 'deb [signed-by=/etc/apt/keyrings/freemixer.asc] https://freemixer.github.io/deb/debian/bookworm ./' > /etc/apt/sources.list.d/freemixer.list
+          apt-get update -qq
+          node .github/prune/expect.mjs --plan plan/plan.json --format deb --repo debian/bookworm --arch amd64 > expect.txt
+          fail=0
+          while read -r what a b; do
+            if [ "$what" = install ]; then
+              specs=${a//,/ }
+              # shellcheck disable=SC2086,SC2046 # one word per package
+              if apt-get install -y -qq $specs >/dev/null && apt-get purge -y -qq --autoremove $(printf '%s\n' $specs | sed 's/=.*//') >/dev/null; then echo "installs   $a"
+              else echo "::error::$a does not install"; fail=1; fi
+            else
+              got=$(apt-cache policy "$a" | awk '/Candidate:/ {print $2}')
+              if [ "$got" = "$b" ]; then echo "newest     $a $b"; else echo "::error::$a resolves to '$got', not $b"; fail=1; fi
+            fi
+          done < expect.txt
+          exit $fail

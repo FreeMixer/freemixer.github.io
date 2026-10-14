@@ -1,0 +1,23 @@
+omx-clap-host (0.6.0) unstable; urgency=medium
+
+  * Version 0.6.0
+  * Ship the worker's test fixtures in an omx-clap-host-tests package
+  * release: name the API docs tarball from the VERSION file (#50)
+  * Install clap_meters.h with the other core headers (#60)
+  * lv2: the patch type starts initialised, which GCC's LTO cannot prove
+    otherwise (#48)
+  * lv2: a patch parameter is typed lv2:Parameter, the class LV2 defines (#48)
+  * docs: the patch row names the CLAP face's test (#48)
+  * lv2 clap test: the patch parameters through the face
+  * lv2 patch test: a value the plugin emits on its own is kept
+  * docs: the compatibility matrix's numeric patch row
+  * lv2 shim: numeric patch properties as CLAP parameters
+  * lv2: numeric patch properties through a patch port
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 14 Oct 2026 18:56:18 +0000

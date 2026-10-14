@@ -1,0 +1,22 @@
+omx-dsp (0.15.0) unstable; urgency=medium
+
+  * Release 0.15.0
+  * dyn: the flat path hoists the centred knee, so a gate on its slope costs
+    what it did (#56)
+  * test: the flat gain against the gain computer, the kernel against a
+    per-sample reference, the calls per block, and three sabotages (#56)
+  * dyn: a BELOW slot skips the dB path where its gain is flat, gate open or
+    on its floor (#56)
+  * test: the idelay digests at the nine RME rates, the six held unchanged
+    (#81)
+  * test: the idelay oracle at the nine RME rates, the ledger drained per
+    rate (#81)
+  * flanger: both legs tick through omx_fdelay_tick_pair (#57)
+  * test: tick_pair reads two ticks' bits at orders 3 and 5, and a sabotage
+    turns the arm red (#57)
+  * fdelay: omx_fdelay_tick_pair, two lines ticked with one split and one
+    kernel (#57)
+  * delay, reverb: blend through omx_wetdry_mix instead of restating the pair
+    (#67)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 14 Oct 2026 12:29:09 +0000

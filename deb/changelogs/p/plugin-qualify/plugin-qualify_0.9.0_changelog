@@ -1,0 +1,33 @@
+plugin-qualify (0.9.0) unstable; urgency=medium
+
+  * Release 0.9.0
+  * LV2 feature provider at omx-clap-core 0.8.0, floor only: fetch-deps reads
+    the omx-dsp and omx-contract headers it needs, and the packages
+    build-require omx-clap-lv2 >= 0.8.0 and omx-dsp >= 0.18.0 (#51)
+  * Docs: the LV2 measurer's feature options and where its provider comes
+    from (#51)
+  * lv2-measure: pass the feature-option flags to every hosting run (#51)
+  * Packaging: build against omx-clap-lv2 0.7 for the LV2 host features (#51)
+  * lv2_measure: build the host features on omx-clap-core's provider (#51)
+  * CI: no sibling source pin; the daemon test is a visible skip until a
+    plugin-hostd with pin_file is released (#55)
+  * CI: build plugin-hostd at the commit that reads pin_file (#55)
+  * Packaging: omx-contract is a floor only, no ceiling
+  * clap-loader: restore the two skip guards the previous commit dropped (#54)
+  * --all refuses when LV2 bundles are on the LV2 path, and an unreadable
+    CLAP search directory is a named scan refusal (#54)
+  * docs: say that --all also walks the CLAP search path (#54)
+  * plugin-qualify: --all qualifies the CLAP plugins on the search path (#54)
+  * clap-loader: walk the standard CLAP search path (#54)
+  * ci: the shared release workflow also reads the run it reports on
+    (actions: read)
+  * ci: the dry-run job allows the issue-opening step of the shared release
+    workflow
+  * release: allow the shared workflow to open an issue when a release fails
+  * Tests: the pins file line against hostd's grammar, a fixture qualified
+    into a file, hostd loading it (#55)
+  * README: say what --pins writes and how plugin-hostd takes it (#55)
+  * --pins writes one pin and its verdict per qualified plugin in
+    plugin-hostd's pin_set line (#55)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 15:23:15 +0000

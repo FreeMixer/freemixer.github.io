@@ -1,0 +1,30 @@
+plugin-qualify (0.8.0) unstable; urgency=medium
+
+  * Accept omx-contract 2.11: the measurer reads only the declared rates, so
+    the floor stays 2.10.1 and the ceiling is < 2.12 (omx-dsp#97)
+  * The leak check ignores liblilv's own world leak
+  * The leak check covers the plugin-not-found exit too (#40)
+  * README: say what the npm package does not ship
+  * The ASan build of lv2_measure reads omx-contract's header too (#40)
+  * README: the npm package exists, say how to install it (#38)
+  * Leave the version at 0.7.0; the release PR sets 0.8.0
+  * omx-contract range is one minor wide: >= 2.10.1, < 2.11
+  * lv2-measure reads its rates from omx-contract's limits header (#50)
+  * qualify: an auxiliary input refuses the CLAP plugin
+  * Version 0.9.0 (#40)
+  * A leak check runs lv2_measure under AddressSanitizer on every way out
+    (#40)
+  * lv2_measure frees the host, and what it read of the plugin, on every way
+    out (#40)
+  * Test the prober reads a name holding a comma or a space as unpinnable
+    (#28)
+  * Test readIntegrity's refusals: '..', '.', an empty segment, a leading
+    '/', a path twice, no files (#28)
+  * Version 0.8.0 (#31)
+  * Take a native tool and its interposer from one place, and refuse a place
+    holding only one (#31)
+  * Look for the native tools in the checkout's own build before the
+    installed directories (#31)
+  * README: install from the npm registry
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 03:27:53 +0000

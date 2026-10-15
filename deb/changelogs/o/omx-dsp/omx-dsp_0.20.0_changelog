@@ -1,0 +1,11 @@
+omx-dsp (0.20.0) unstable; urgency=medium
+
+  * Version 0.20.0: the live HRP shell held at the nine rates (openmixer#1580)
+  * analysis: the HRP shell's rate oracle reads the window rule from
+    analysis_rates.h and holds the cut to 1e-3 dB (openmixer#1580)
+  * analysis: the live HRP shell's own decisions at the nine RME rates
+    (openmixer#1580)
+  * denormal arm: omx_denormals_off is proved by its effect, a subnormal
+    operand and result read zero (omx-clap-core#61)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 13:23:22 +0000

@@ -6,7 +6,12 @@ Nothing under `rpm/fedora/` or `deb/debian/` is edited by hand. The release work
 (`FreeMixer/.github`, `build-rpm.yml` and `build-deb.yml`) adds its signed packages and regenerates and signs
 the metadata, on a version tag. The website (`index.html` and the other top-level paths listed in
 `deploy/site-owns.txt` of FreeMixer/openmixer-www) is written by that repository's pages workflow, which
-never touches `rpm/`, `deb/`, the keys or `.nojekyll`. Committed by hand: `rpm/freemixer.repo`, this file.
+never touches `rpm/`, `deb/`, the keys or `.nojekyll`. Committed by hand: `rpm/freemixer.repo`, `keep.yml`, this file.
+
+Old versions leave by the prune workflow (`.github/workflows/prune.yml`, run by hand, a dry run unless
+asked otherwise): it keeps the newest version of every package, the versions `keep.yml` pins and the ones
+openmixer's main and integration branches pin, deletes every other RPM and DEB, regenerates and signs the
+metadata with the release workflows' own scripts, and then deprecates the old npm versions.
 
 The two key files hold EVERY key the channel signs with, and the publish workflows only ever add to them
 (`channel-keys.sh` in FreeMixer/.github). A new signing key is committed into both files by hand before

@@ -1,0 +1,35 @@
+# The versions the prune keeps besides the newest of every package, because our own work still pins them.
+# The prune workflow (.github/workflows/prune.yml) keeps the newest version of every RPM, DEB and npm
+# package plus what is listed here and what openmixer's main and integration/* branches pin (read at every run
+# by .github/prune/pins.mjs), and deletes everything else. An entry leaves this file as soon as nothing pins it
+# any more (FreeMixer/freemixer.github.io#1, stage 2).
+#
+# version   the package version, without epoch, release or Debian revision; the newest build of it is kept
+# rpm, deb  binary package names, * matches any text
+# source    source package names: every rpm and deb built from them
+# npm       npm package names
+# reason    who pins it
+keep:
+  - version: 2.6.0
+    rpm: [omx-contract-devel]
+    deb: [libomx-contract-dev]
+    npm: ["@openmixer/omx-contract"]
+    reason: openmixer pins omx-contract 2.6.0; kept only while something pins it
+  - version: 2.3.0
+    rpm: [omx-contract-devel]
+    reason: the CI worker image pins omx-contract-devel 2.3.0
+  - version: 0.6.1
+    rpm: [omx-dsp-devel]
+    reason: the CI worker image pins omx-dsp-devel 0.6.1
+  - version: 0.14.0
+    rpm: [omx-dsp-devel]
+    reason: the last omx-dsp that builds against the current contract, until 0.17.0
+  - version: 0.5.1
+    rpm: [omx-plugins*]
+    deb: [omx-plugins*]
+    reason: openmixer pins omx-plugins 0.5.1
+  - version: 0.5.1
+    rpm: [plugin-qualify]
+    deb: [plugin-qualify]
+    npm: ["@openmixer/plugin-qualify"]
+    reason: openmixer pins plugin-qualify 0.5.1

@@ -569,6 +569,11 @@ test('pins: a pinned release keeps that build, even when a newer build of the ve
   assert.deepEqual(pinsLost(pins, pkgs, new Set(r.keep.map((k) => k.path))), []);
   assert.deepEqual(pinsLost(pins, pkgs, new Set(['rpm/fedora/44/x86_64/mod-host-protocol-0.10.6.f14a230-12.fc44.x86_64.rpm'])).length, 1,
     'the newest build of the version does not stand in for the pinned one');
+  // two pinned builds of one version are two pins: keeping one does not answer for the other
+  const both = toKeep([{ ref: 'origin/main', file: 'f', name: 'mod-host', version: '0.10.6.f14a230', release: '11' },
+    { ref: 'origin/integration/x', file: 'f', name: 'mod-host', version: '0.10.6.f14a230', release: '12' }]);
+  const lost = pinsLost(both, pkgs, new Set(['rpm/fedora/44/x86_64/mod-host-protocol-0.10.6.f14a230-12.fc44.x86_64.rpm']));
+  assert.deepEqual(lost.map((l) => l.split(':')[0]), ['rpm fedora/44 mod-host-protocol.x86_64 0.10.6.f14a230-11']);
 });
 
 test('pins: a source one format builds without the pinned version is named for that format', () => {

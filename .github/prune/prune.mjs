@@ -455,7 +455,7 @@ export function pinsLost(keep, allPkgs, keptPaths) {
     if (p.arch === 'src') continue;
     for (const e of pinsFor(keep, p.format, p.name, sourceName(p))) {
       if (!pinned(fmt[p.format], p.evr, e)) continue;
-      const k = `${p.format} ${p.repo} ${p.name}.${p.arch} ${e.version}`;
+      const k = `${p.format} ${p.repo} ${p.name}.${p.arch} ${e.version}${e.release ? '-' + e.release : ''}`;
       (groups.get(k) || groups.set(k, { reason: e.reason, paths: [] }).get(k)).paths.push(`${p.format}/${p.repo}/${p.file}`);
     }
   }

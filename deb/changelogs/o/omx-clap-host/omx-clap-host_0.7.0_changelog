@@ -1,0 +1,256 @@
+omx-clap-host (0.7.0) unstable; urgency=medium
+
+  * clap_host_limits.h: the extra-inputs refusal comment matches the
+    contract's wording
+  * Version 0.7.0: the transport, side-chain and meter calls get their own
+    version node
+  * lv2 tests: lv2_asan_test carries the licence header the other tests have
+  * lv2: a bundle stays loaded when its last reference goes
+  * core: the meter kinds under the library's own names, for a consumer
+    without clap_meters.h (FreeMixer/openmixer#1585)
+  * core: an instance's clap.meters/1, read through
+    omx_clap_host_meter_count, _info and _values (FreeMixer/openmixer#1585)
+  * docs: a program hosting in process reads clap.meters/1 through the
+    library (FreeMixer/openmixer#1585)
+  * lv2: the kinds check's comments say every stage-2 kind now has its
+    fixture (#48)
+  * ci: run the stage-2 kinds check in the test job
+  * lv2: the stage-2 kinds check also fails when its exit status is lost
+  * lv2: a check names which stage-2 kinds have no fixture
+  * lv2 tests: each side-chain fixture group has the lv2:symbol port-groups
+    asks for (#48)
+  * core: the auxiliary inputs' process list follows the instance's fields,
+    so no field of the stage moves (#48)
+  * core: a bound auxiliary pair carries its length, and no block reads past
+    it (#48)
+  * docs: LV2 matrix rows for side chains and port groups
+  * lv2: side chains are CLAP inputs, port groups read
+  * core: admit auxiliary inputs, fed silence until bound
+  * lv2 clap test: line-buffered output, so a run that stops names its last
+    check (#48)
+  * core: omx_clap_host_set_transport goes in a 0.5 version node, not the
+    released 0.4 (#48)
+  * Write the bar comment in the present tense
+  * LV2 adapter: forge time:Position from the host's transport
+  * Document the fields of the published transport for make docs
+  * Hand the plugin the host's whole transport, not only the tempo
+  * packaging: the RPM check builds with libasan, which test-lv2 now links
+    (#48)
+  * lv2/core: append a MIDI event through the buffer's bytes, which GCC's LTO
+    does not read as an overflow (#48)
+  * lv2/clap: say how long an output sysex's bytes stay valid (#48)
+  * lv2 tests: the MIDI output path runs under AddressSanitizer
+  * lv2/core: refuse a MIDI message bigger than its buffer before padding it
+  * lv2 tests: a MIDI output sequence in beats passes nothing
+  * lv2/clap: map MIDI through clap.note-ports and the event lists
+  * lv2/core: carry MIDI messages through the atom buffers of the MIDI ports
+  * lv2/core: read a MIDI atom port as the MIDI input or output
+  * lv2: the patch type starts initialised, which GCC's LTO cannot prove
+    otherwise (#48)
+  * lv2: a patch parameter is typed lv2:Parameter, the class LV2 defines (#48)
+  * docs: the patch row names the CLAP face's test (#48)
+  * lv2 clap test: the patch parameters through the face
+  * lv2 patch test: a value the plugin emits on its own is kept
+  * docs: the compatibility matrix's numeric patch row
+  * lv2 shim: numeric patch properties as CLAP parameters
+  * lv2: numeric patch properties through a patch port
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+  * lv2 clap test: line-buffered output, so a run that stops names its last
+    check (#48)
+  * Version 0.5.0: the host's whole transport reaches the plugins (#48)
+  * core: omx_clap_host_set_transport goes in a 0.5 version node, not the
+    released 0.4 (#48)
+  * Write the bar comment in the present tense
+  * LV2 adapter: forge time:Position from the host's transport
+  * Document the fields of the published transport for make docs
+  * Hand the plugin the host's whole transport, not only the tempo
+  * packaging: the RPM check builds with libasan, which test-lv2 now links
+    (#48)
+  * lv2/core: append a MIDI event through the buffer's bytes, which GCC's LTO
+    does not read as an overflow (#48)
+  * lv2/clap: say how long an output sysex's bytes stay valid (#48)
+  * lv2 tests: the MIDI output path runs under AddressSanitizer
+  * lv2/core: refuse a MIDI message bigger than its buffer before padding it
+  * lv2 tests: a MIDI output sequence in beats passes nothing
+  * lv2/clap: map MIDI through clap.note-ports and the event lists
+  * lv2/core: carry MIDI messages through the atom buffers of the MIDI ports
+  * lv2/core: read a MIDI atom port as the MIDI input or output
+  * lv2: the patch type starts initialised, which GCC's LTO cannot prove
+    otherwise (#48)
+  * lv2: a patch parameter is typed lv2:Parameter, the class LV2 defines (#48)
+  * docs: the patch row names the CLAP face's test (#48)
+  * lv2 clap test: the patch parameters through the face
+  * lv2 patch test: a value the plugin emits on its own is kept
+  * docs: the compatibility matrix's numeric patch row
+  * lv2 shim: numeric patch properties as CLAP parameters
+  * lv2: numeric patch properties through a patch port
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+  * lv2 tests: each side-chain fixture group has the lv2:symbol port-groups
+    asks for (#48)
+  * core: the auxiliary inputs' process list follows the instance's fields,
+    so no field of the stage moves (#48)
+  * Version 0.5.0 carries the side chains too (#48)
+  * core: a bound auxiliary pair carries its length, and no block reads past
+    it (#48)
+  * docs: LV2 matrix rows for side chains and port groups
+  * lv2: side chains are CLAP inputs, port groups read
+  * core: admit auxiliary inputs, fed silence until bound
+  * lv2 clap test: line-buffered output, so a run that stops names its last
+    check (#48)
+  * Version 0.5.0: the host's whole transport reaches the plugins (#48)
+  * core: omx_clap_host_set_transport goes in a 0.5 version node, not the
+    released 0.4 (#48)
+  * Write the bar comment in the present tense
+  * LV2 adapter: forge time:Position from the host's transport
+  * Document the fields of the published transport for make docs
+  * Hand the plugin the host's whole transport, not only the tempo
+  * packaging: the RPM check builds with libasan, which test-lv2 now links
+    (#48)
+  * lv2/core: append a MIDI event through the buffer's bytes, which GCC's LTO
+    does not read as an overflow (#48)
+  * lv2/clap: say how long an output sysex's bytes stay valid (#48)
+  * lv2 tests: the MIDI output path runs under AddressSanitizer
+  * lv2/core: refuse a MIDI message bigger than its buffer before padding it
+  * lv2 tests: a MIDI output sequence in beats passes nothing
+  * lv2/clap: map MIDI through clap.note-ports and the event lists
+  * lv2/core: carry MIDI messages through the atom buffers of the MIDI ports
+  * lv2/core: read a MIDI atom port as the MIDI input or output
+  * lv2: the patch type starts initialised, which GCC's LTO cannot prove
+    otherwise (#48)
+  * lv2: a patch parameter is typed lv2:Parameter, the class LV2 defines (#48)
+  * docs: the patch row names the CLAP face's test (#48)
+  * lv2 clap test: the patch parameters through the face
+  * lv2 patch test: a value the plugin emits on its own is kept
+  * docs: the compatibility matrix's numeric patch row
+  * lv2 shim: numeric patch properties as CLAP parameters
+  * lv2: numeric patch properties through a patch port
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+  * spdx-check.sh: read the tree when the checkout belongs to another uid
+  * Add the copyright line to clap_untrusted_test.c
+  * Check that every tracked source names its licence
+  * Add the SPDX and copyright header to clap_host_limits.h
+  * lv2: the kinds check's comments say every stage-2 kind now has its
+    fixture (#48)
+  * ci: run the stage-2 kinds check in the test job
+  * lv2: the stage-2 kinds check also fails when its exit status is lost
+  * lv2: a check names which stage-2 kinds have no fixture
+  * lv2 tests: each side-chain fixture group has the lv2:symbol port-groups
+    asks for (#48)
+  * core: the auxiliary inputs' process list follows the instance's fields,
+    so no field of the stage moves (#48)
+  * Version 0.5.0 carries the side chains too (#48)
+  * core: a bound auxiliary pair carries its length, and no block reads past
+    it (#48)
+  * docs: LV2 matrix rows for side chains and port groups
+  * lv2: side chains are CLAP inputs, port groups read
+  * core: admit auxiliary inputs, fed silence until bound
+  * lv2 clap test: line-buffered output, so a run that stops names its last
+    check (#48)
+  * Version 0.5.0: the host's whole transport reaches the plugins (#48)
+  * core: omx_clap_host_set_transport goes in a 0.5 version node, not the
+    released 0.4 (#48)
+  * Write the bar comment in the present tense
+  * LV2 adapter: forge time:Position from the host's transport
+  * Document the fields of the published transport for make docs
+  * Hand the plugin the host's whole transport, not only the tempo
+  * packaging: the RPM check builds with libasan, which test-lv2 now links
+    (#48)
+  * lv2/core: append a MIDI event through the buffer's bytes, which GCC's LTO
+    does not read as an overflow (#48)
+  * lv2/clap: say how long an output sysex's bytes stay valid (#48)
+  * lv2 tests: the MIDI output path runs under AddressSanitizer
+  * lv2/core: refuse a MIDI message bigger than its buffer before padding it
+  * lv2 tests: a MIDI output sequence in beats passes nothing
+  * lv2/clap: map MIDI through clap.note-ports and the event lists
+  * lv2/core: carry MIDI messages through the atom buffers of the MIDI ports
+  * lv2/core: read a MIDI atom port as the MIDI input or output
+  * lv2: the patch type starts initialised, which GCC's LTO cannot prove
+    otherwise (#48)
+  * lv2: a patch parameter is typed lv2:Parameter, the class LV2 defines (#48)
+  * docs: the patch row names the CLAP face's test (#48)
+  * lv2 clap test: the patch parameters through the face
+  * lv2 patch test: a value the plugin emits on its own is kept
+  * docs: the compatibility matrix's numeric patch row
+  * lv2 shim: numeric patch properties as CLAP parameters
+  * lv2: numeric patch properties through a patch port
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+  * core: the meter kinds under the library's own names, for a consumer
+    without clap_meters.h (FreeMixer/openmixer#1585)
+  * Version 0.6.0: a plugin's meters read in process
+    (FreeMixer/openmixer#1585)
+  * core: an instance's clap.meters/1, read through
+    omx_clap_host_meter_count, _info and _values (FreeMixer/openmixer#1585)
+  * docs: a program hosting in process reads clap.meters/1 through the
+    library (FreeMixer/openmixer#1585)
+  * lv2: the kinds check's comments say every stage-2 kind now has its
+    fixture (#48)
+  * ci: run the stage-2 kinds check in the test job
+  * lv2: the stage-2 kinds check also fails when its exit status is lost
+  * lv2: a check names which stage-2 kinds have no fixture
+  * lv2 tests: each side-chain fixture group has the lv2:symbol port-groups
+    asks for (#48)
+  * core: the auxiliary inputs' process list follows the instance's fields,
+    so no field of the stage moves (#48)
+  * Version 0.5.0 carries the side chains too (#48)
+  * core: a bound auxiliary pair carries its length, and no block reads past
+    it (#48)
+  * docs: LV2 matrix rows for side chains and port groups
+  * lv2: side chains are CLAP inputs, port groups read
+  * core: admit auxiliary inputs, fed silence until bound
+  * lv2 clap test: line-buffered output, so a run that stops names its last
+    check (#48)
+  * Version 0.5.0: the host's whole transport reaches the plugins (#48)
+  * core: omx_clap_host_set_transport goes in a 0.5 version node, not the
+    released 0.4 (#48)
+  * Write the bar comment in the present tense
+  * LV2 adapter: forge time:Position from the host's transport
+  * Document the fields of the published transport for make docs
+  * Hand the plugin the host's whole transport, not only the tempo
+  * packaging: the RPM check builds with libasan, which test-lv2 now links
+    (#48)
+  * lv2/core: append a MIDI event through the buffer's bytes, which GCC's LTO
+    does not read as an overflow (#48)
+  * lv2/clap: say how long an output sysex's bytes stay valid (#48)
+  * lv2 tests: the MIDI output path runs under AddressSanitizer
+  * lv2/core: refuse a MIDI message bigger than its buffer before padding it
+  * lv2 tests: a MIDI output sequence in beats passes nothing
+  * lv2/clap: map MIDI through clap.note-ports and the event lists
+  * lv2/core: carry MIDI messages through the atom buffers of the MIDI ports
+  * lv2/core: read a MIDI atom port as the MIDI input or output
+  * lv2: the patch type starts initialised, which GCC's LTO cannot prove
+    otherwise (#48)
+  * lv2: a patch parameter is typed lv2:Parameter, the class LV2 defines (#48)
+  * docs: the patch row names the CLAP face's test (#48)
+  * lv2 clap test: the patch parameters through the face
+  * lv2 patch test: a value the plugin emits on its own is kept
+  * docs: the compatibility matrix's numeric patch row
+  * lv2 shim: numeric patch properties as CLAP parameters
+  * lv2: numeric patch properties through a patch port
+  * lv2: refuse a state longer than 1 MiB on load (#48)
+  * docs: a state longer than 1 MiB is refused (#48)
+  * lv2: load a pset:Preset through clap.preset-load
+  * lv2: save and restore the state through clap.state
+  * lv2: refuse state:mapPath and state:makePath in the fixture, as the twins
+    prove
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 00:18:05 +0000

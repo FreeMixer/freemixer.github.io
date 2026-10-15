@@ -1,0 +1,29 @@
+omx-clap-host (0.8.0) unstable; urgency=medium
+
+  * README: version 0.8.0
+  * Version 0.8.0: omx_clap_raw.h and the LV2 feature provider
+  * packaging: the omx-dsp floor is 0.18.0, the first release with
+    omx_wetdry_xfade_block
+  * packaging: omx-dsp is a floor only, the < 0.19 ceiling is gone
+  * lv2: the adapter takes the feature options and installs their header (#63)
+  * ci: the devel RPM's file list names omx_clap_raw.h (#62)
+  * lv2: test each feature option as a plugin sees it (#63)
+  * lv2 tests: take the null host from omx_clap_raw.h (#62)
+  * lv2: one feature provider with options a host applies (#63)
+  * clap_layout_pin: open the plugin through omx_clap_raw.h (#62)
+  * BUILDING.md: say what omx_clap_raw.h installs and why it is raw (#62)
+  * tests: make test-raw opens the fake through omx_clap_raw.h (#62)
+  * omx_clap_raw.h: the raw dlopen, clap_entry, factory and null-host open,
+    header only (#62)
+  * ci: the shared release workflow also reads the run it reports on
+    (actions: read)
+  * ci: the dry-run job allows the issue-opening step of the shared release
+    workflow
+  * ci: the abi and deb jobs install omx-dsp from the FreeMixer channel (#61)
+  * release: allow the shared workflow to open an issue when a release fails
+  * omx-clap-core-devel requires omx-dsp-devel 0.18.1 up to the next minor
+    (#61)
+  * hosted_stage.h takes its DSP words from omx-dsp: block finite scan,
+    denormals off, dB to linear, block crossfade (#61)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 13:11:47 +0000

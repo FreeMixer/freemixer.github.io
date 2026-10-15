@@ -1,0 +1,32 @@
+omx-dsp (0.19.0) unstable; urgency=medium
+
+  * Version 0.19.0: the mix module's bus sum, analyser tap, load meter and
+    gain-reduction reading (#98)
+  * meter: the gain-reduction step's comment counts its three powf and says
+    why a 0 ms release lands at once (#98)
+  * mix golden: log10f is the correctly rounded omx_log10f, so the gr digests
+    hold on every glibc (#98)
+  * Bus sum and load meter digests written by the engine's copies, the
+    identity check and their sabotages (#98)
+  * Mix module: the real-time load meter's measure half (#98)
+  * Mix module: one source's contribution to a summing bus, as entries of the
+    mix matrix (#98)
+  * mix: the analyser tap's header states the facts, with no private paths
+    (#98)
+  * Analyser tap digests written by the engine's copies, the identity check
+    and two sabotages (#98)
+  * Mix module: one analyser tap's reading, the mono sum, one spectrum and
+    the three-stage low zoom (#98)
+  * Peak hold and gain-reduction digests written by the engine's copies, the
+    identity check and a sabotage of each (#98)
+  * Mix module: the meters' peak hold and the gain-reduction reading's hold
+    and recovery (#98)
+  * mix-engine-identity: the installed omx-contract, nothing downloaded, and
+    omx_gen.h forwards to the engine's generators (#98)
+  * ci: the shared release workflow also reads the run it reports on
+    (actions: read)
+  * ci: the dry-run job allows the issue-opening step of the shared release
+    workflow
+  * release: allow the shared workflow to open an issue when a release fails
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 10:31:59 +0000

@@ -1,0 +1,31 @@
+plugin-hostd (0.2.0) unstable; urgency=medium
+
+  * Release 0.2.0
+  * Remove a test binary committed by mistake (#25)
+  * Pin store: an overlong line is one held line, a learned line is capped, a
+    failed fdopen cleans up (#25)
+  * sabotage: follow the supervisor and test names of the first-use change,
+    and break the store guards (#25)
+  * Pin store: a corrupt or unreadable store is loud, saves are durable (#25)
+  * Packaging: omx-clap-host-tests is a floor only, and no_pins refuses a
+    ceiling
+  * ci: the shared release workflow also reads the run it reports on
+    (actions: read)
+  * ci: the dry-run job allows the issue-opening step of the shared release
+    workflow
+  * release: allow the shared workflow to open an issue when a release fails
+  * Supervisor: pin_accept goes through the format table (#26)
+  * Tests: a third format registered only in the test goes through add,
+    param, pin and remove; rows with a capability missing are refused (#26)
+  * Protocol: no format named where a capability is meant; the generated
+    files follow (#26)
+  * Formats: one table row per plugin format, the pins and the supervisor
+    read the row (#26)
+  * Tests: first use, a changed plugin, a changed layout, a pin file, and the
+    sabotage that turns each red (#25)
+  * Pins: record the pin of a plugin on its first add, keep it in a store,
+    announce a change (#25)
+  * Docs: design note for first-use pins, one pins format and a
+    format-neutral host (#25, #26)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 15:03:17 +0000

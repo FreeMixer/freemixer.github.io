@@ -441,10 +441,13 @@ test('pins: pins.txt lines with a version, bare or as a tag; lines without one p
     'omx-clap-host 0.4.2 https://github.com/FreeMixer/omx-clap-core.git 09f9d6c1',
     'mod-host https://github.com/linuxnow/mod-host.git - 5739eaeb',
     'omx-contract https://github.com/FreeMixer/omx-contract.git v2.5.0 1beee741',
+    'mod-host-protocol 0.1.0 0.10.6.f14a230-11 https://example.org/builds/mod-host-0.10.6.f14a230-11.fc44.src.rpm b863fb13',
   ].join('\n')), [
     { name: 'omx-dsp', version: '0.6.1' },
     { name: 'omx-clap-host', version: '0.4.2' },
     { name: 'omx-contract', version: '2.5.0' },
+    { name: 'mod-host-protocol', version: '0.1.0' },
+    { name: 'mod-host', version: '0.10.6.f14a230', release: '11' },
   ]);
 });
 
@@ -486,7 +489,9 @@ test('pins: a source pin keeps that version of every rpm and deb built from it',
   assert.deepEqual(kept(deb), ['all/libomx-contract-dev_2.5.0-1_all.deb', 'all/libomx-contract-dev_2.7.0-1_all.deb']);
   assert.deepEqual(unusedPins(pins, [...parsePrimary(CONTRACT_RPM, 'fedora/44', 'noarch')]), []);
   assert.deepEqual(unusedPins(toKeep([{ ref: 'r', file: 'f', name: 'omx-contract', version: '9.9.9' }]), parsePackages(CONTRACT_DEB, 'debian/bookworm')),
-    ['source omx-contract 9.9.9: no such package in any repository']);
+    ['source omx-contract 9.9.9: no deb build of it']);
+  assert.deepEqual(unusedPins(toKeep([{ ref: 'r', file: 'f', name: 'nothing-builds-this', version: '1.0.0' }]), parsePackages(CONTRACT_DEB, 'debian/bookworm')),
+    ['source nothing-builds-this 1.0.0: no such package in any repository']);
 });
 
 test('pins: a plan that deletes every build of a pinned version names it', () => {
@@ -551,4 +556,47 @@ test('cli: no origin/main to read is an error, not an empty pin list', () => {
   const p = spawnSync(process.execPath, [path.join(here, '..', 'pins.mjs'), '--repo', tmp], { encoding: 'utf8' });
   assert.equal(p.status, 2);
   assert.match(p.stderr, /no origin\/main/);
+});
+
+test('pins: a pinned release keeps that build, even when a newer build of the version exists', () => {
+  const rpm = primary(['9', '11', '12'].map((r) => rpmPkg(`mod-host-protocol x86_64 0.10.6.f14a230-${r}.fc44`, { source: `mod-host-0.10.6.f14a230-${r}.fc44.src.rpm` })));
+  const pins = toKeep(pinsTxt('mod-host-protocol 0.1.0 0.10.6.f14a230-11 https://example.org/mod-host-0.10.6.f14a230-11.fc44.src.rpm b8\n')
+    .map((p) => ({ ref: 'origin/main', file: '.github/pins.txt', ...p })));
+  const pkgs = parsePrimary(rpm, 'fedora/44', 'x86_64');
+  const r = selectRepo(pkgs, pins);
+  assert.deepEqual(kept(r), ['x86_64/mod-host-protocol-0.10.6.f14a230-11.fc44.x86_64.rpm', 'x86_64/mod-host-protocol-0.10.6.f14a230-12.fc44.x86_64.rpm']);
+  for (const row of r.keep) row.path = `rpm/fedora/44/${row.file}`;
+  assert.deepEqual(pinsLost(pins, pkgs, new Set(r.keep.map((k) => k.path))), []);
+  assert.deepEqual(pinsLost(pins, pkgs, new Set(['rpm/fedora/44/x86_64/mod-host-protocol-0.10.6.f14a230-12.fc44.x86_64.rpm'])).length, 1,
+    'the newest build of the version does not stand in for the pinned one');
+});
+
+test('pins: a source one format builds without the pinned version is named for that format', () => {
+  const pins = toKeep([{ ref: 'origin/main', file: '.github/pins.txt', name: 'omx-contract', version: '2.5.0' }]);
+  const rpmWithout = parsePrimary(primary([rpmPkg('omx-contract-devel noarch 2.7.0-1.fc44', { source: 'omx-contract-2.7.0-1.fc44.src.rpm' })]), 'fedora/44', 'noarch');
+  assert.deepEqual(unusedPins(pins, [...rpmWithout, ...parsePackages(CONTRACT_DEB, 'debian/bookworm')]), ['source omx-contract 2.5.0: no rpm build of it']);
+  // a source only one format builds at all is not a gap in the other
+  assert.deepEqual(unusedPins(pins, parsePackages(CONTRACT_DEB, 'debian/bookworm')), []);
+});
+
+test('cli: a plan that would delete a pinned version fails the run and names it', () => {
+  // the selection is broken on purpose in a copy, so the gate in select.mjs is what must catch it
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'prune-'));
+  const copy = path.join(tmp, 'prune');
+  fs.cpSync(path.join(here, '..'), copy, { recursive: true });
+  const lib = path.join(copy, 'prune.mjs');
+  const src = fs.readFileSync(lib, 'utf8');
+  const broken = src.replace('for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0])))', 'for (const pin of [])');
+  assert.notEqual(broken, src, 'the sabotage applies');
+  fs.writeFileSync(lib, broken);
+  const tree = path.join(tmp, 'tree');
+  writeTree(tree, { noarch: CONTRACT_RPM }, CONTRACT_DEB);
+  fs.writeFileSync(path.join(tmp, 'keep.yml'), 'keep:\n');
+  const pinsFile = path.join(tmp, 'pins.json');
+  fs.writeFileSync(pinsFile, JSON.stringify(toKeep([{ ref: 'origin/main', file: '.github/pins.txt', name: 'omx-contract', version: '2.5.0' }])));
+  const r = spawnSync(process.execPath, [path.join(copy, 'select.mjs'), '--keep', path.join(tmp, 'keep.yml'), '--pins', pinsFile, '--tree', tree], { encoding: 'utf8' });
+  assert.equal(r.status, 1, r.stdout + r.stderr);
+  assert.match(r.stderr, /the plan deletes every build of a pinned version:\n/);
+  assert.match(r.stderr, /\n {2}rpm fedora\/44 omx-contract-devel\.noarch 2\.5\.0: openmixer pins/);
+  assert.match(r.stderr, /\n {2}deb debian\/bookworm libomx-contract-dev\.all 2\.5\.0: openmixer pins/);
 });

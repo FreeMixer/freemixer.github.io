@@ -150,6 +150,8 @@ export function semverCmp(a, b) {
 //       deb: [name]
 //       npm: ["@scope/name"]
 //       source: [name]            every rpm and deb built from that source package
+//       release: 11               optional: that build of the version (rpm Release or Debian revision, before
+//                                 any .dist suffix), not the newest build of it
 //       reason: why it stays
 // Anything else is refused rather than guessed at.
 export function parseKeep(text) {
@@ -172,7 +174,7 @@ export function parseKeep(text) {
     else if (!cur) throw new Error(`${where}: a key outside an entry`);
     const [, , key, value] = m;
     if (key in cur) throw new Error(`${where}: ${key} given twice`);
-    if (key === 'version' || key === 'reason') cur[key] = scalar(value);
+    if (key === 'version' || key === 'release' || key === 'reason') cur[key] = scalar(value);
     else if (key === 'rpm' || key === 'deb' || key === 'npm' || key === 'source') {
       const l = value.match(/^\[(.*)\]$/);
       if (!l) throw new Error(`${where}: ${key} must be an inline list [a, b]`);
@@ -201,6 +203,14 @@ export function pinsFor(keep, format, name, source) {
 
 // the name of the source package of a binary: the Source of a deb, the name in the source RPM's file name
 export const sourceName = (p) => (p.format === 'rpm' ? (p.source || '').replace(/-[^-]+-[^-]+\.src\.rpm$/, '') : p.source);
+
+// a build is the pin's: its version, and its release when the pin names one (11 matches 11 and 11.fc44)
+const pinned = (F, evr, pin) => {
+  if (F.upstream(evr) !== pin.version) return false;
+  if (!pin.release) return true;
+  const r = F.release(evr);
+  return r === pin.release || r.startsWith(pin.release + '.');
+};
 
 // ---------------------------------------------------------------- index parsing
 
@@ -279,6 +289,7 @@ const fmt = {
     // the version a pin and "newest version" speak of: epoch and version, not the build
     vcmp: (a, b) => rpmEvrCmp({ epoch: a.epoch, ver: a.ver }, { epoch: b.epoch, ver: b.ver }),
     upstream: (evr) => evr.ver,
+    release: (evr) => evr.rel,
     show: (evr) => `${evr.epoch && evr.epoch !== '0' ? evr.epoch + ':' : ''}${evr.ver}-${evr.rel}`,
     indep: 'noarch',
     satisfies(provide, req) {
@@ -296,6 +307,7 @@ const fmt = {
       return debVersionCmp(`${x.epoch}:${x.upstream}`, `${y.epoch}:${y.upstream}`);
     },
     upstream: (evr) => parseDebVersion(evr).upstream,
+    release: (evr) => parseDebVersion(evr).revision,
     show: (evr) => evr,
     indep: 'all',
     satisfies(provide, req) {
@@ -346,14 +358,14 @@ export function selectRepo(pkgs, keep) {
     const newest = builds.reduce((x, y) => (F.vcmp(x.evr, y.evr) >= 0 ? x : y));
     const targets = [{ evr: newest.evr, why: 'newest', isNewest: true }];
     for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0]))) {
-      const hit = builds.find((b) => F.upstream(b.evr) === pin.version);
-      if (hit && F.vcmp(hit.evr, newest.evr) !== 0) targets.push({ evr: hit.evr, why: `pinned: ${pin.reason}` });
+      const hit = builds.find((b) => pinned(F, b.evr, pin));
+      if (hit && (pin.release || F.vcmp(hit.evr, newest.evr) !== 0)) targets.push({ evr: hit.evr, exact: !!pin.release, why: `pinned: ${pin.reason}` });
     }
     for (const t of targets) {
       for (const a of archList) {
         const own = builds.filter((b) => forArch(b, a));
         if (!own.length) continue;
-        const same = own.filter((b) => F.vcmp(b.evr, t.evr) === 0);
+        const same = own.filter((b) => (t.exact ? F.cmp : F.vcmp)(b.evr, t.evr) === 0);
         if (same.length) mark(best(same), t.why);
         else if (t.isNewest) {
           const fb = best(own);
@@ -421,9 +433,16 @@ export function unusedPins(keep, allPkgs) {
     const hit = allPkgs.some((p) => p.format === format && p.arch !== 'src' && re.test(p.name) && fmt[format].upstream(p.evr) === e.version);
     if (!hit) out.push(`${format} ${g} ${e.version}: no such package in any repository`);
   }
+  // a source pin holds in every format that builds that source at all: a format that has the source but not
+  // the pinned version is named on its own
   for (const e of keep) for (const src of e.source || []) {
-    const hit = allPkgs.some((p) => p.arch !== 'src' && sourceName(p) === src && fmt[p.format].upstream(p.evr) === e.version);
-    if (!hit) out.push(`source ${src} ${e.version}: no such package in any repository`);
+    const v = `${e.version}${e.release ? '-' + e.release : ''}`;
+    const of = allPkgs.filter((p) => p.arch !== 'src' && sourceName(p) === src);
+    if (!of.length) { out.push(`source ${src} ${v}: no such package in any repository`); continue; }
+    for (const format of ['rpm', 'deb']) {
+      const mine = of.filter((p) => p.format === format);
+      if (mine.length && !mine.some((p) => pinned(fmt[format], p.evr, e))) out.push(`source ${src} ${v}: no ${format} build of it`);
+    }
   }
   return out;
 }
@@ -435,7 +454,7 @@ export function pinsLost(keep, allPkgs, keptPaths) {
   for (const p of allPkgs) {
     if (p.arch === 'src') continue;
     for (const e of pinsFor(keep, p.format, p.name, sourceName(p))) {
-      if (fmt[p.format].upstream(p.evr) !== e.version) continue;
+      if (!pinned(fmt[p.format], p.evr, e)) continue;
       const k = `${p.format} ${p.repo} ${p.name}.${p.arch} ${e.version}`;
       (groups.get(k) || groups.set(k, { reason: e.reason, paths: [] }).get(k)).paths.push(`${p.format}/${p.repo}/${p.file}`);
     }

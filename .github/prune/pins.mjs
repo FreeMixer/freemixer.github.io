@@ -22,7 +22,9 @@ import { pathToFileURL } from 'node:url';
 const VERSION = /^v?(\d+\.\d+\.\d+)$/;
 
 // .github/pins.txt: "<name> <version>", "<name> <version> <url> <sha>", "<name> <url> v<version> <sha>";
-// a line without a version (a source commit, a fork at a commit) pins no package
+// a line without a version (a source commit, a fork at a commit) pins no package. A line that names a source
+// RPM (".../mod-host-0.10.6.f14a230-11.fc44.src.rpm") also pins that build of that source: the rpm packages
+// carry the source's version, not the one the line gives its own name
 export function pinsTxt(text) {
   const out = [];
   for (const raw of text.split('\n')) {
@@ -31,6 +33,10 @@ export function pinsTxt(text) {
     const [name, ...rest] = line.split(/\s+/);
     const v = rest.map((t) => t.match(VERSION)).find(Boolean);
     if (v) out.push({ name, version: v[1] });
+    for (const t of rest) {
+      const s = t.split('/').pop().match(/^(.+)-([^-]+)-([^-]+?)(?:\.fc\d+)?\.src\.rpm$/);
+      if (s) out.push({ name: s[1], version: s[2], release: s[3] });
+    }
   }
   return out;
 }
@@ -58,14 +64,15 @@ export function pnpmLock(text) {
 export function toKeep(found) {
   const by = new Map();
   for (const f of found) {
-    const k = `${f.name} ${f.version}`;
-    (by.get(k) || by.set(k, { name: f.name, version: f.version, where: new Set() }).get(k)).where.add(`${f.ref}:${f.file}`);
+    const k = `${f.name} ${f.version}${f.release ? '-' + f.release : ''}`;
+    (by.get(k) || by.set(k, { key: k, name: f.name, version: f.version, release: f.release, where: new Set() }).get(k)).where.add(`${f.ref}:${f.file}`);
   }
-  return [...by.values()].sort((a, b) => (a.name + a.version < b.name + b.version ? -1 : 1)).map((p) => ({
+  return [...by.values()].sort((a, b) => (a.key < b.key ? -1 : 1)).map((p) => ({
     version: p.version,
+    ...(p.release ? { release: p.release } : {}),
     source: [p.name],
     npm: [`@openmixer/${p.name}`],
-    reason: `openmixer pins ${p.name} ${p.version} (${[...p.where].sort().join(', ')})`,
+    reason: `openmixer pins ${p.key} (${[...p.where].sort().join(', ')})`,
   }));
 }
 
@@ -102,7 +109,7 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     if (!repo) throw new Error('--repo is required');
     const { refs, keep } = readRepo(repo, opt('--refs', 'origin/main,origin/integration/*').split(','));
     console.log(`openmixer refs read: ${refs.join(', ')}`);
-    for (const e of keep) console.log(`  ${e.source[0]} ${e.version}: ${e.reason.replace(/^.*\((.*)\)$/, '$1')}`);
+    for (const e of keep) console.log(`  ${e.reason.replace(/^openmixer pins (.*) \((.*)\)$/, '$1: $2')}`);
     if (opt('--json')) fs.writeFileSync(opt('--json'), JSON.stringify(keep, null, 2) + '\n');
   } catch (e) {
     console.error(e.message);

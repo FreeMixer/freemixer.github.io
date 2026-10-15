@@ -1,10 +1,12 @@
 # The versions the prune keeps besides the newest of every package, because our own work still pins them.
 # The prune workflow (.github/workflows/prune.yml) keeps the newest version of every RPM, DEB and npm
-# package plus what is listed here, and deletes everything else. An entry leaves this file as soon as
-# nothing pins it any more (FreeMixer/freemixer.github.io#1, stage 2).
+# package plus what is listed here and what openmixer's main and integration/* branches pin (read at every run
+# by .github/prune/pins.mjs), and deletes everything else. An entry leaves this file as soon as nothing pins it
+# any more (FreeMixer/freemixer.github.io#1, stage 2).
 #
 # version   the package version, without epoch, release or Debian revision; the newest build of it is kept
 # rpm, deb  binary package names, * matches any text
+# source    source package names: every rpm and deb built from them
 # npm       npm package names
 # reason    who pins it
 keep:

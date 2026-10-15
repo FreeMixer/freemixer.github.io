@@ -8,7 +8,8 @@
 // The rule, per repository (one Fedora release, one Debian suite) and per binary package name:
 //   - the newest version is kept, and of that version only the newest build (an older Release or Debian
 //     revision of the same version is a duplicate build and goes);
-//   - a version keep.yml pins for that name and format is kept the same way;
+//   - a pinned version is kept the same way: one keep.yml names for that name and format, or one that
+//     openmixer's main or integration branches pin for its source package (pins.mjs derives those);
 //   - a version is kept per architecture: x86_64 and aarch64 (amd64 and arm64) each get the best build of
 //     the version that the architecture can install, its own or noarch/all. An architecture that has no
 //     build of the newest version keeps its own newest build, and the plan says so;
@@ -145,9 +146,10 @@ export function semverCmp(a, b) {
 // keep.yml is a fixed shape, read by this small reader so the prune needs nothing installed:
 //   keep:
 //     - version: 2.6.0
-//       rpm: [name, glob*]        any of rpm, deb, npm; at least one
+//       rpm: [name, glob*]        any of rpm, deb, npm, source; at least one
 //       deb: [name]
 //       npm: ["@scope/name"]
+//       source: [name]            every rpm and deb built from that source package
 //       reason: why it stays
 // Anything else is refused rather than guessed at.
 export function parseKeep(text) {
@@ -171,7 +173,7 @@ export function parseKeep(text) {
     const [, , key, value] = m;
     if (key in cur) throw new Error(`${where}: ${key} given twice`);
     if (key === 'version' || key === 'reason') cur[key] = scalar(value);
-    else if (key === 'rpm' || key === 'deb' || key === 'npm') {
+    else if (key === 'rpm' || key === 'deb' || key === 'npm' || key === 'source') {
       const l = value.match(/^\[(.*)\]$/);
       if (!l) throw new Error(`${where}: ${key} must be an inline list [a, b]`);
       cur[key] = l[1].split(',').map(scalar).filter(Boolean);
@@ -182,7 +184,7 @@ export function parseKeep(text) {
     const what = `keep.yml entry ${k + 1}`;
     if (!e.version) throw new Error(`${what}: no version`);
     if (!e.reason) throw new Error(`${what}: no reason`);
-    if (!e.rpm && !e.deb && !e.npm) throw new Error(`${what}: names no rpm, deb or npm package`);
+    if (!e.rpm && !e.deb && !e.npm && !e.source) throw new Error(`${what}: names no rpm, deb, npm or source package`);
   });
   return entries;
 }
@@ -190,9 +192,15 @@ export function parseKeep(text) {
 const globRe = (g) => new RegExp('^' + g.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$');
 
 // the pins of keep.yml that apply to one package name of one format
-export function pinsFor(keep, format, name) {
-  return keep.filter((e) => (e[format] || []).some((g) => globRe(g).test(name)));
+// source: the name of the source package a binary was built from; an entry's `source` list pins every binary
+// built from those sources, in rpm and deb alike
+export function pinsFor(keep, format, name, source) {
+  return keep.filter((e) => (e[format] || []).some((g) => globRe(g).test(name))
+    || (format !== 'npm' && source && (e.source || []).includes(source)));
 }
+
+// the name of the source package of a binary: the Source of a deb, the name in the source RPM's file name
+export const sourceName = (p) => (p.format === 'rpm' ? (p.source || '').replace(/-[^-]+-[^-]+\.src\.rpm$/, '') : p.source);
 
 // ---------------------------------------------------------------- index parsing
 
@@ -337,7 +345,7 @@ export function selectRepo(pkgs, keep) {
   for (const [name, builds] of byName) {
     const newest = builds.reduce((x, y) => (F.vcmp(x.evr, y.evr) >= 0 ? x : y));
     const targets = [{ evr: newest.evr, why: 'newest', isNewest: true }];
-    for (const pin of pinsFor(keep, F.id, name)) {
+    for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0]))) {
       const hit = builds.find((b) => F.upstream(b.evr) === pin.version);
       if (hit && F.vcmp(hit.evr, newest.evr) !== 0) targets.push({ evr: hit.evr, why: `pinned: ${pin.reason}` });
     }
@@ -413,18 +421,36 @@ export function unusedPins(keep, allPkgs) {
     const hit = allPkgs.some((p) => p.format === format && p.arch !== 'src' && re.test(p.name) && fmt[format].upstream(p.evr) === e.version);
     if (!hit) out.push(`${format} ${g} ${e.version}: no such package in any repository`);
   }
+  for (const e of keep) for (const src of e.source || []) {
+    const hit = allPkgs.some((p) => p.arch !== 'src' && sourceName(p) === src && fmt[p.format].upstream(p.evr) === e.version);
+    if (!hit) out.push(`source ${src} ${e.version}: no such package in any repository`);
+  }
   return out;
+}
+
+// the pins a plan would break: per repository, package and architecture, a pinned version that exists
+// and of which no build is kept. keptPaths: the plan's kept paths (rpm/<repo>/<file>, deb/<repo>/<file>)
+export function pinsLost(keep, allPkgs, keptPaths) {
+  const groups = new Map();
+  for (const p of allPkgs) {
+    if (p.arch === 'src') continue;
+    for (const e of pinsFor(keep, p.format, p.name, sourceName(p))) {
+      if (fmt[p.format].upstream(p.evr) !== e.version) continue;
+      const k = `${p.format} ${p.repo} ${p.name}.${p.arch} ${e.version}`;
+      (groups.get(k) || groups.set(k, { reason: e.reason, paths: [] }).get(k)).paths.push(`${p.format}/${p.repo}/${p.file}`);
+    }
+  }
+  return [...groups].filter(([, g]) => !g.paths.some((f) => keptPaths.has(f))).map(([k, g]) => `${k}: ${g.reason}`);
 }
 
 // ---------------------------------------------------------------- npm
 
-export const NPM_UNPUBLISH_WINDOW_MS = 72 * 3600 * 1000;
 export const DEPRECATION = 'superseded; nobody uses this version';
 
-// packument: the registry document of the package ({versions, time, 'dist-tags'}); weekly: downloads of
-// the last week; npm allows an unpublish within 72 hours of the publish, or later only for a package with
-// one maintainer, no dependents and under 300 downloads a week. What it refuses is deprecated instead.
-export function selectNpm(name, packument, keep, { now = Date.now(), weekly = Infinity } = {}) {
+// packument: the registry document of the package ({versions, 'dist-tags'}). Stage 1 of the prune only
+// deprecates: a deprecated version still installs, so a pin nobody listed here keeps working, while an
+// unpublished one is gone for good and npm never lets that version number be published again.
+export function selectNpm(name, packument, keep) {
   const versions = Object.keys(packument.versions || {}).sort(semverCmp);
   const stable = versions.filter((v) => !v.includes('-'));
   const newest = (stable.length ? stable : versions).at(-1);
@@ -432,13 +458,9 @@ export function selectNpm(name, packument, keep, { now = Date.now(), weekly = In
   const latest = packument['dist-tags']?.latest;
   if (latest && latest !== newest) keepSet.set(latest, 'the latest dist-tag');
   for (const pin of pinsFor(keep, 'npm', name)) if (versions.includes(pin.version) && !keepSet.has(pin.version)) keepSet.set(pin.version, `pinned: ${pin.reason}`);
-  const maintainers = (packument.maintainers || []).length;
-  const lateUnpublish = maintainers <= 1 && weekly < 300;
-  const out = { name, keep: [], unpublish: [], deprecate: [], already: [] };
+  const out = { name, keep: [], deprecate: [], already: [] };
   for (const v of versions) {
-    if (keepSet.has(v)) { out.keep.push({ version: v, reason: keepSet.get(v) }); continue; }
-    const age = now - Date.parse(packument.time?.[v] ?? 0);
-    if (age < NPM_UNPUBLISH_WINDOW_MS || lateUnpublish) out.unpublish.push({ version: v });
+    if (keepSet.has(v)) out.keep.push({ version: v, reason: keepSet.get(v) });
     else if (packument.versions[v].deprecated) out.already.push({ version: v, deprecated: packument.versions[v].deprecated });
     else out.deprecate.push({ version: v });
   }

@@ -11,8 +11,9 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
   rpmvercmp, rpmEvrCmp, debVersionCmp, semverCmp, parseKeep, parsePrimary, parsePackages,
-  selectRepo, unusedPins, selectNpm, report,
+  selectRepo, unusedPins, pinsLost, selectNpm, report,
 } from '../prune.mjs';
+import { pinsTxt, packageJson, pnpmLock, toKeep } from '../pins.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const select = path.join(here, '..', 'select.mjs');
@@ -337,34 +338,22 @@ test('the report folds architectures and names the reason', () => {
 
 // ------------------------------------------------------------------ npm
 
-test('npm: newest and pins stay; recent versions unpublish, older ones deprecate', () => {
-  const now = Date.parse('2026-10-14T12:00:00Z');
-  const v = (t, extra = {}) => ({ t, extra });
-  const versions = {
-    '0.0.0-stage': v('2026-10-05T00:00:00Z'),
-    '0.9.0': v('2026-10-05T00:00:00Z', { deprecated: 'old' }),
-    '1.0.0': v('2026-10-06T00:00:00Z'),
-    '2.9.0': v('2026-10-13T00:00:00Z'), // within 72 hours
-    '2.10.0': v('2026-10-13T01:00:00Z'),
-    '2.10.1': v('2026-10-14T08:00:00Z'),
-  };
+test('npm: newest and pins stay; the rest is deprecated, never unpublished', () => {
+  const versions = { '0.0.0-stage': {}, '0.9.0': { deprecated: 'old' }, '1.0.0': {}, '2.9.0': {}, '2.10.0': {}, '2.10.1': {} };
   const packument = {
-    versions: Object.fromEntries(Object.entries(versions).map(([k, x]) => [k, { version: k, ...x.extra }])),
-    time: Object.fromEntries(Object.entries(versions).map(([k, x]) => [k, x.t])),
+    versions: Object.fromEntries(Object.entries(versions).map(([k, x]) => [k, { version: k, ...x }])),
     'dist-tags': { latest: '2.10.1' },
-    maintainers: [{ name: 'a' }],
   };
-  const r = selectNpm('@scope/foo', packument, keep, { now, weekly: 2000 });
+  const r = selectNpm('@scope/foo', packument, keep);
   assert.deepEqual(r.keep.map((k) => k.version), ['2.10.1'], 'the pin 1.0 is not 1.0.0');
-  assert.deepEqual(r.unpublish.map((k) => k.version), ['2.9.0', '2.10.0']);
-  assert.deepEqual(r.deprecate.map((k) => k.version), ['0.0.0-stage', '1.0.0']);
+  assert.deepEqual(r.deprecate.map((k) => k.version), ['0.0.0-stage', '1.0.0', '2.9.0', '2.10.0']);
   assert.deepEqual(r.already.map((k) => k.version), ['0.9.0']);
-  // a pin that names an existing version keeps it; few downloads allow a late unpublish
-  const pinned = selectNpm('@scope/foo', packument, parseKeep('keep:\n  - version: 1.0.0\n    npm: ["@scope/foo"]\n    reason: pinned by x\n'), { now, weekly: 10 });
+  assert.equal(r.unpublish, undefined, 'stage 1 unpublishes nothing');
+  // a pin that names an existing version keeps it
+  const pinned = selectNpm('@scope/foo', packument, parseKeep('keep:\n  - version: 1.0.0\n    npm: ["@scope/foo"]\n    reason: pinned by x\n'));
   assert.deepEqual(pinned.keep.map((k) => k.version), ['1.0.0', '2.10.1']);
-  assert.deepEqual(pinned.unpublish.map((k) => k.version), ['0.0.0-stage', '0.9.0', '2.9.0', '2.10.0']);
   // a latest tag that is not the highest version is kept too
-  const tagged = selectNpm('@scope/foo', { ...packument, 'dist-tags': { latest: '2.10.0' } }, [], { now });
+  const tagged = selectNpm('@scope/foo', { ...packument, 'dist-tags': { latest: '2.10.0' } }, []);
   assert.deepEqual(tagged.keep.map((k) => k.version), ['2.10.0', '2.10.1']);
 });
 
@@ -440,4 +429,126 @@ test('cli: a broken keep.yml stops the run', () => {
   const r = spawnSync(process.execPath, [select, '--keep', path.join(tmp, 'keep.yml'), '--tree', tmp], { encoding: 'utf8' });
   assert.equal(r.status, 2);
   assert.match(r.stderr, /no reason/);
+});
+
+// ------------------------------------------------------------------ what openmixer pins
+
+test('pins: pins.txt lines with a version, bare or as a tag; lines without one pin nothing', () => {
+  assert.deepEqual(pinsTxt([
+    '# comment',
+    'omx-dsp 0.6.1',
+    'omx-dsp-source https://github.com/FreeMixer/omx-dsp.git dacc2f9c',
+    'omx-clap-host 0.4.2 https://github.com/FreeMixer/omx-clap-core.git 09f9d6c1',
+    'mod-host https://github.com/linuxnow/mod-host.git - 5739eaeb',
+    'omx-contract https://github.com/FreeMixer/omx-contract.git v2.5.0 1beee741',
+  ].join('\n')), [
+    { name: 'omx-dsp', version: '0.6.1' },
+    { name: 'omx-clap-host', version: '0.4.2' },
+    { name: 'omx-contract', version: '2.5.0' },
+  ]);
+});
+
+test('pins: exact @openmixer specifiers of a package.json, and what the lock resolved', () => {
+  assert.deepEqual(packageJson(JSON.stringify({
+    dependencies: { '@openmixer/omx-contract': '2.5.0', '@openmixer/core': 'workspace:*', left: '1.0.0' },
+    devDependencies: { '@openmixer/plugin-qualify': '=0.5.1', '@openmixer/ranged': '^1.2.0' },
+  })), [{ name: 'omx-contract', version: '2.5.0' }, { name: 'plugin-qualify', version: '0.5.1' }]);
+  assert.deepEqual(pnpmLock([
+    "  '@openmixer/omx-contract@2.5.0':",
+    '    resolution: {integrity: sha512-x}',
+    "  '@openmixer/ranged@1.2.3(typescript@5.6.0)':",
+    "  '@openmixer/pre@1.0.0-rc.1':",
+  ].join('\n')), [{ name: 'omx-contract', version: '2.5.0' }, { name: 'ranged', version: '1.2.3' }]);
+});
+
+test('pins: one keep entry per name and version, for the source in rpm and deb and on npm', () => {
+  const k = toKeep([
+    { ref: 'origin/main', file: '.github/pins.txt', name: 'omx-contract', version: '2.5.0' },
+    { ref: 'origin/main', file: 'pnpm-lock.yaml', name: 'omx-contract', version: '2.5.0' },
+    { ref: 'origin/integration/x', file: '.github/pins.txt', name: 'omx-contract', version: '2.6.0' },
+  ]);
+  assert.deepEqual(k.map((e) => [e.version, e.source, e.npm]), [
+    ['2.5.0', ['omx-contract'], ['@openmixer/omx-contract']],
+    ['2.6.0', ['omx-contract'], ['@openmixer/omx-contract']],
+  ]);
+  assert.match(k[0].reason, /origin\/main:\.github\/pins\.txt, origin\/main:pnpm-lock\.yaml/);
+});
+
+// a contract library at three versions: the rpm and the deb carry other names than the source
+const CONTRACT_RPM = primary(['2.5.0', '2.6.0', '2.7.0'].map((v) => rpmPkg(`omx-contract-devel noarch ${v}-1.fc44`, { source: `omx-contract-${v}-1.fc44.src.rpm` })));
+const CONTRACT_DEB = ['2.5.0', '2.6.0', '2.7.0'].map((v) => debPkg('libomx-contract-dev', `${v}-1`, 'all', { source: 'omx-contract' })).join('\n\n') + '\n';
+
+test('pins: a source pin keeps that version of every rpm and deb built from it', () => {
+  const pins = toKeep([{ ref: 'origin/main', file: '.github/pins.txt', name: 'omx-contract', version: '2.5.0' }]);
+  const rpm = selectRepo(parsePrimary(CONTRACT_RPM, 'fedora/44', 'noarch'), pins);
+  assert.deepEqual(kept(rpm), ['noarch/omx-contract-devel-2.5.0-1.fc44.noarch.rpm', 'noarch/omx-contract-devel-2.7.0-1.fc44.noarch.rpm']);
+  const deb = selectRepo(parsePackages(CONTRACT_DEB, 'debian/bookworm'), pins);
+  assert.deepEqual(kept(deb), ['all/libomx-contract-dev_2.5.0-1_all.deb', 'all/libomx-contract-dev_2.7.0-1_all.deb']);
+  assert.deepEqual(unusedPins(pins, [...parsePrimary(CONTRACT_RPM, 'fedora/44', 'noarch')]), []);
+  assert.deepEqual(unusedPins(toKeep([{ ref: 'r', file: 'f', name: 'omx-contract', version: '9.9.9' }]), parsePackages(CONTRACT_DEB, 'debian/bookworm')),
+    ['source omx-contract 9.9.9: no such package in any repository']);
+});
+
+test('pins: a plan that deletes every build of a pinned version names it', () => {
+  const pkgs = parsePackages(CONTRACT_DEB, 'debian/bookworm');
+  const pins = toKeep([{ ref: 'origin/main', file: '.github/pins.txt', name: 'omx-contract', version: '2.5.0' }]);
+  const keptPaths = new Set(['deb/debian/bookworm/all/libomx-contract-dev_2.7.0-1_all.deb']);
+  assert.deepEqual(pinsLost(pins, pkgs, keptPaths).map((l) => l.split(':')[0]), ['deb debian/bookworm libomx-contract-dev.all 2.5.0']);
+  keptPaths.add('deb/debian/bookworm/all/libomx-contract-dev_2.5.0-1_all.deb');
+  assert.deepEqual(pinsLost(pins, pkgs, keptPaths), []);
+});
+
+// an openmixer repository whose main pins omx-contract 2.5.0 three ways and whose integration branch 2.6.0
+function openmixerRepo(root) {
+  const git = (...a) => spawnSync('git', ['-C', root, ...a], { encoding: 'utf8' });
+  fs.mkdirSync(path.join(root, '.github'), { recursive: true });
+  fs.mkdirSync(path.join(root, 'packages/core'), { recursive: true });
+  git('init', '-q', '-b', 'main');
+  const commit = (v, ref) => {
+    fs.writeFileSync(path.join(root, '.github/pins.txt'), `omx-contract https://github.com/FreeMixer/omx-contract.git v${v} 1beee741\n`);
+    fs.writeFileSync(path.join(root, 'packages/core/package.json'), JSON.stringify({ dependencies: { '@openmixer/omx-contract': v } }));
+    fs.writeFileSync(path.join(root, 'pnpm-lock.yaml'), `packages:\n  '@openmixer/omx-contract@${v}':\n`);
+    git('add', '-A');
+    git('-c', 'user.name=t', '-c', 'user.email=t@t', '-c', 'commit.gpgsign=false', 'commit', '-q', '-m', v);
+    git('update-ref', ref, 'HEAD');
+  };
+  commit('2.5.0', 'refs/remotes/origin/main');
+  commit('2.6.0', 'refs/remotes/origin/integration/waves');
+}
+
+test('cli: what openmixer main pins survives the plan in rpm, deb and npm', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'prune-'));
+  const om = path.join(tmp, 'openmixer');
+  openmixerRepo(om);
+  const pinsFile = path.join(tmp, 'pins.json');
+  const p = spawnSync(process.execPath, [path.join(here, '..', 'pins.mjs'), '--repo', om, '--json', pinsFile], { encoding: 'utf8' });
+  assert.equal(p.status, 0, p.stderr);
+  assert.match(p.stdout, /refs read: origin\/integration\/waves, origin\/main/);
+  const pins = JSON.parse(fs.readFileSync(pinsFile, 'utf8'));
+  assert.deepEqual(pins.map((e) => e.version), ['2.5.0', '2.6.0']);
+
+  const tree = path.join(tmp, 'tree');
+  writeTree(tree, { noarch: CONTRACT_RPM }, CONTRACT_DEB);
+  fs.writeFileSync(path.join(tmp, 'keep.yml'), 'keep:\n');
+  const planFile = path.join(tmp, 'plan.json');
+  const r = spawnSync(process.execPath, [select, '--keep', path.join(tmp, 'keep.yml'), '--pins', pinsFile, '--tree', tree, '--json', planFile], { encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  const plan = JSON.parse(fs.readFileSync(planFile, 'utf8'));
+  const keptOf = (f) => plan.keep.filter((k) => k.format === f).map((k) => k.version).sort();
+  assert.deepEqual(keptOf('rpm'), ['2.5.0-1.fc44', '2.6.0-1.fc44', '2.7.0-1.fc44']);
+  assert.deepEqual(keptOf('deb'), ['2.5.0-1', '2.6.0-1', '2.7.0-1']);
+  assert.deepEqual(plan.lost, []);
+
+  const keepAll = [...parseKeep('keep:\n'), ...pins];
+  const npm = selectNpm('@openmixer/omx-contract', { versions: { '2.4.0': {}, '2.5.0': {}, '2.6.0': {}, '2.7.0': {} } }, keepAll);
+  assert.deepEqual(npm.keep.map((k) => k.version), ['2.5.0', '2.6.0', '2.7.0']);
+  assert.deepEqual(npm.deprecate.map((k) => k.version), ['2.4.0']);
+});
+
+test('cli: no origin/main to read is an error, not an empty pin list', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'prune-'));
+  spawnSync('git', ['init', '-q', tmp]);
+  const p = spawnSync(process.execPath, [path.join(here, '..', 'pins.mjs'), '--repo', tmp], { encoding: 'utf8' });
+  assert.equal(p.status, 2);
+  assert.match(p.stderr, /no origin\/main/);
 });

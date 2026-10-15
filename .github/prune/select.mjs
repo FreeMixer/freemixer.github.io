@@ -4,9 +4,11 @@
 //
 // Print what the prune keeps and deletes in the package repository, and write the plan as JSON.
 //
-//   select.mjs --keep keep.yml --tree <channel checkout> [--json plan.json] [--expect-clean]
-//   select.mjs --keep keep.yml --url https://freemixer.github.io [--rpm fedora/44/x86_64,...] [--deb bookworm,...]
+//   select.mjs --keep keep.yml [--pins pins.json] --tree <channel checkout> [--json plan.json] [--expect-clean]
+//   select.mjs --keep keep.yml [--pins pins.json] --url https://freemixer.github.io [--rpm fedora/44/x86_64,...] [--deb bookworm,...]
 //
+// --pins adds the entries pins.mjs derived from openmixer's branches to keep.yml's. A plan that would still
+// delete every build of a pinned version that exists exits 1, after printing and writing it.
 // --only rpm|deb reads that half alone.
 // --tree reads every rpm/fedora/<release>/<dir>/repodata and deb/debian/<suite>/Packages of a checkout, and
 // also deletes package files that no index lists. --url reads the served indexes of the named directories.
@@ -16,7 +18,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
-import { parseKeep, parsePrimary, parsePackages, selectRepo, unusedPins, report } from './prune.mjs';
+import { parseKeep, parsePrimary, parsePackages, selectRepo, unusedPins, pinsLost, report } from './prune.mjs';
 
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
@@ -48,6 +50,7 @@ const primaryHref = (repomd) => {
 
 async function main() {
   const keep = parseKeep(fs.readFileSync(opt('--keep', 'keep.yml'), 'utf8'));
+  if (opt('--pins')) keep.push(...JSON.parse(fs.readFileSync(opt('--pins'), 'utf8')));
   const tree = opt('--tree');
   const url = opt('--url');
   if (!tree === !url) throw new Error('give exactly one of --tree and --url');
@@ -118,6 +121,7 @@ async function main() {
     orphans: orphans.sort(),
     notes: results.flatMap((r) => r.notes),
     warnings: only ? [] : unusedPins(keep, all),
+    lost: pinsLost(keep, all, new Set(results.flatMap((r) => r.keep).map((r) => r.path))),
   };
   console.log(report(results));
   if (plan.orphans.length) console.log(`\nfiles no index lists (deleted):\n${plan.orphans.map((f) => '  ' + f).join('\n')}`);
@@ -128,6 +132,10 @@ async function main() {
   for (const f of ['rpm', 'deb'].filter(want)) console.log(`  ${f}: keep ${count(plan.keep, f)}, delete ${count(plan.delete, f)}`);
   if (tree) console.log(`  files no index lists: ${plan.orphans.length}`);
   if (opt('--json')) fs.writeFileSync(opt('--json'), JSON.stringify(plan, null, 2) + '\n');
+  if (plan.lost.length) {
+    console.error(`the plan deletes every build of a pinned version:\n${plan.lost.map((n) => '  ' + n).join('\n')}`);
+    process.exit(1);
+  }
   if (flag('--expect-clean') && (plan.delete.length || plan.orphans.length)) {
     console.error(`not clean: ${plan.delete.length} indexed and ${plan.orphans.length} unindexed package(s) would still be deleted`);
     process.exit(1);

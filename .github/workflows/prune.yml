@@ -1,21 +1,25 @@
 name: Prune the package repository
 
-# Keeps the newest version of every RPM, DEB and npm package plus the versions keep.yml pins, and removes
-# everything else: older versions and every duplicate build of one version. Run by hand, from main.
+# Keeps the newest version of every RPM, DEB and npm package plus the pinned versions, and removes everything
+# else: older versions and every duplicate build of one version. Run by hand, from main. The pinned versions are
+# keep.yml's and the ones openmixer's main and integration/* branches pin (.github/pins.txt, the @openmixer
+# specifiers of packages/*/package.json and pnpm-lock.yaml), read by .github/prune/pins.mjs; a plan that would
+# delete a pinned version fails.
 #
 # apply=false (the default) is a dry run: it prints, per package and format, what would be kept and what
 # deleted, writes that plan to the job summary and as an artifact, and changes nothing.
 # apply=true deletes the plan's files from rpm/ and deb/, regenerates and re-signs the dnf metadata and the
 # apt index with the release workflows' own scripts (FreeMixer/.github publish-rpms and publish-debs), pushes,
 # and then checks that every kept version installs (dnf in fedora:44, apt in debian:bookworm) and that the
-# newest of each is what resolves. On npm it unpublishes what npmjs allows and deprecates the rest.
+# newest of each is what resolves. Only then, on npm, it deprecates what is not kept (it never unpublishes).
 # Git tags and GitHub releases are not touched.
 #
 # Secrets, as the release workflows use them (FreeMixer/.github build-rpm.yml and build-deb.yml):
 #   OPENMIXER_PACKAGES_SIGNING_KEY   signs the dnf metadata and the apt index
 #   RPM_GPG_KEY, RPM_GPG_PASSPHRASE  the original key, co-signs the apt index when this repository may read it
 #   PAGES_TOKEN, SITE_GPG_KEY        push to this repository, signed
-#   NPM_TOKEN                        an npm token that may unpublish and deprecate @openmixer packages
+#   NPM_TOKEN                        an npm token that may deprecate @openmixer packages; only a real run reads it
+#   OPENMIXER_READ_TOKEN             reads FreeMixer/openmixer while it is private; not needed once it is public
 
 on:
   workflow_dispatch:
@@ -46,14 +50,29 @@ jobs:
           node-version: 22
       - name: The selection is tested
         run: node --test .github/prune/test/*.test.mjs
+      - name: What openmixer pins
+        env:
+          TOKEN: ${{ secrets.OPENMIXER_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          url=https://github.com/FreeMixer/openmixer.git
+          git init -q openmixer
+          if [ -n "$TOKEN" ]; then
+            git -C openmixer config http.https://github.com/.extraheader "AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+          fi
+          git -C openmixer fetch -q --depth 1 --no-tags "$url" \
+            '+refs/heads/main:refs/remotes/origin/main' '+refs/heads/integration/*:refs/remotes/origin/integration/*'
+          node .github/prune/pins.mjs --repo openmixer --json pins.json | tee pins.txt
+          rm -rf openmixer
       - name: What would be kept and deleted
         id: plan
         run: |
           set -o pipefail
-          node .github/prune/select.mjs --keep keep.yml --tree . --json plan.json | tee plan.txt
+          node .github/prune/select.mjs --keep keep.yml --pins pins.json --tree . --json plan.json | tee plan.txt
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           git rev-parse HEAD > plan.sha
-          { echo '### Package repository'; echo '```'; cat plan.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          { echo '### What openmixer pins'; echo '```'; cat pins.txt; echo '```';
+            echo '### Package repository'; echo '```'; cat plan.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: prune-plan
@@ -61,11 +80,19 @@ jobs:
             plan.json
             plan.txt
             plan.sha
+            pins.json
+            pins.txt
           retention-days: 30
 
+  # a real run deprecates on npm only after the indexes are pruned and every kept version installed; a dry run
+  # needs only the plan
   npm:
     name: npm
-    needs: plan
+    needs: [plan, verify-dnf, verify-apt]
+    if: >-
+      always() && needs.plan.result == 'success' &&
+      (!(inputs.apply && github.ref == 'refs/heads/main') ||
+       (needs.verify-dnf.result == 'success' && needs.verify-apt.result == 'success'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -79,17 +106,21 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - name: Unpublish or deprecate what is not kept
+      - uses: actions/download-artifact@v4
+        with:
+          name: prune-plan
+          path: plan
+      - name: Deprecate what is not kept
         env:
           APPLY: ${{ inputs.apply && github.ref == 'refs/heads/main' }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ (inputs.apply && github.ref == 'refs/heads/main') && secrets.NPM_TOKEN || '' }}
         run: |
           set -o pipefail
           if [ "$APPLY" = true ]; then
-            test -n "$NODE_AUTH_TOKEN" || { echo "::error::NPM_TOKEN is not set: unpublish and deprecate need a token with publish rights on @openmixer"; exit 1; }
-            node .github/prune/npm.mjs --keep keep.yml --apply | tee npm.txt
+            test -n "$NODE_AUTH_TOKEN" || { echo "::error::NPM_TOKEN is not set: deprecate needs a token with publish rights on @openmixer"; exit 1; }
+            node .github/prune/npm.mjs --keep keep.yml --pins plan/pins.json --apply | tee npm.txt
           else
-            node .github/prune/npm.mjs --keep keep.yml | tee npm.txt
+            node .github/prune/npm.mjs --keep keep.yml --pins plan/pins.json | tee npm.txt
           fi
           { echo '### npm'; echo '```'; cat npm.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
@@ -173,7 +204,7 @@ jobs:
           done
 
       - name: The pruned tree has nothing left to delete
-        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --tree build/channel --only rpm --expect-clean
+        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --tree build/channel --only rpm --expect-clean
 
       - uses: FreeMixer/.github/.github/actions/channel-push@v1
         with:
@@ -241,7 +272,7 @@ jobs:
       - name: The tree is the one the plan was made from
         run: |
           set -euo pipefail
-          node .self/.github/prune/select.mjs --keep .self/keep.yml --tree build/channel --only deb --json now.json > /dev/null
+          node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --tree build/channel --only deb --json now.json > /dev/null
           node -e '
             const a = require("./plan/plan.json"), b = require("./now.json");
             const pick = (p) => JSON.stringify({ keep: p.keep.filter((r) => r.format === "deb").map((r) => r.path).sort(),
@@ -283,7 +314,7 @@ jobs:
           done
 
       - name: The pruned tree has nothing left to delete
-        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --tree build/channel --only deb --expect-clean
+        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --tree build/channel --only deb --expect-clean
 
       - uses: FreeMixer/.github/.github/actions/channel-push@v1
         with:

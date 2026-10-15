@@ -1,0 +1,39 @@
+omx-plugins (0.7.0) unstable; urgency=medium
+
+  * omx-drive: hfRolloff is the contract's roll-off id (off, 12 kHz, 16 kHz),
+    regenerated against omx-contract 2.11.0 (omx-dsp#97)
+  * Widen the omx-contract range to >= 2.11.0, < 2.12 (omx-dsp#97)
+  * README: the drive's oversampling and the gate's key filter rows, generated
+  * omx keyed-gate: key high-pass and low-pass; omx strip fixes them off
+  * omx drive: the oversample control, bound to the instance face
+  * Build against omx-dsp 0.18: floor 0.18.0, ceiling below 0.19
+  * Drop the pin file; tools/deps-check.sh holds the packaging ranges
+  * tools: read omx-contract from the installed package, in the spec's range
+  * Makefile: take the omx-dsp and omx-contract ranges from the spec
+  * packaging: omx-dsp >= 0.17.0, < 0.18 and omx-contract >= 2.10.1, < 2.11
+  * omx transient: a thread the arms oracle cannot start is a failed arm,
+    never joined (#36)
+  * private-refs-check: catch docs/design and harness paths, and fail when
+    git grep fails
+  * omx transient: the arms oracle names no private source, only what it
+    tests (#36)
+  * omx deesser: its declaration in the schema's key order, meters after
+    portHints
+  * gen: the plugin Makefiles' OMXDSP_MIN follows the omx-dsp pin, 0.15.0
+  * Release 0.7.0: omx-dsp 0.15.0, and manuals from the contract; version and
+    changelogs
+  * ci: fail on pointers into private repositories, issues, branches and paths
+  * Public sources state the facts, not pointers into private specs, issues
+    and paths
+  * test: a travel moved in omx-contract moves the manuals (#104)
+  * declarations: the manuals read their ranges and defaults from the
+    parameters (#104)
+  * gen: fill a manual's range, default and limits from its parameters (#104)
+  * omx transient: the engine's transient arms as an oracle on both faces at
+    the nine RME rates (#36)
+  * gen: a declaration's oracles are built and run on both faces in make test
+    (#36)
+  * docs: a declaration names the oracles moved with its effect from the
+    engine (#36)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 15 Oct 2026 03:22:23 +0000

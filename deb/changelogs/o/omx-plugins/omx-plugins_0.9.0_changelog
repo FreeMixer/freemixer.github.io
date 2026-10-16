@@ -1,0 +1,28 @@
+omx-plugins (0.9.0) unstable; urgency=medium
+
+  * Release 0.9.0: the changelog names the pitch units
+  * README, BUILDING.md: pitch travel with its units; omx-contract 2.12.0 or
+    later
+  * omx pitch: the oracle's plan and one-step sabotage use whole semitones
+  * packaging: build against omx-contract 2.12.0 or later
+  * omx pitch: generated faces follow omx-contract 2.12.0
+  * tools: the semitone unit (st) of omx-contract 2.12.0 maps to semitone12TET
+  * Release 0.9.0: coherent meters, comp and de-esser levels, qualify-gated
+    release; version and changelogs
+  * tools: qualify-release.sh carries a self-test, and a suitable rating
+    whose rtSafe is not true refuses
+  * release: the RPM and DEB jobs wait for the qualify job, so no release
+    goes out without a suitable verdict for every plugin (openmixer#1476)
+  * tools: qualify-release.sh builds the tree and refuses unless
+    plugin-qualify's RT-safety document for every .clap says suitable
+    (openmixer#1476)
+  * omx comp reports its gain reduction and its input and output levels,
+    every meter coherent
+  * Coherent meters: the faces publish every meter through the ring; the
+    de-esser reports its input and output levels
+  * include/omx_meter_ring.h: three copies and one word, so a meter read
+    never mixes two blocks
+  * Include omx-clap-core's installed clap_meters.h, delete the second copy
+    (#119)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 16 Oct 2026 04:22:37 +0000

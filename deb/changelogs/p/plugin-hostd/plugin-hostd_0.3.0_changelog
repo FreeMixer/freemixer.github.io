@@ -1,0 +1,15 @@
+plugin-hostd (0.3.0) unstable; urgency=medium
+
+  * plugin-hostd 0.3.0
+  * test-lv2-adapter: the daemon in front of a real omx-clap-host and mod-host
+  * Read the adapter's refusal from its reply, and tell a plugin it does not
+    find from a refusal (#45)
+  * ci: run the own-host page as written in a clean Debian container, both
+    architectures (#27)
+  * docs: use plugin-hostd in your own host, nine commands on Debian (#27)
+  * pin.h: zero the SHA-256 block at init, so gcc -O3 -Werror builds a
+    consumer
+  * Select the worker that runs LV2 plugins: mod-host, omx-clap-host or auto
+    (#45)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 16 Oct 2026 00:36:01 +0000

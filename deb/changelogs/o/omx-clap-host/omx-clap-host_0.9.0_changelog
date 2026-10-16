@@ -1,0 +1,89 @@
+omx-clap-host (0.9.0) unstable; urgency=medium
+
+  * Changelog 0.9.0: note-offs are never dropped
+  * ci: the tests package lists socket_conformance.py
+  * stage: keep half of a block's note slots for note offs and panics (#115)
+  * socket_conformance.py: a last command with no NUL before the close
+  * tests: a note off, all notes off and a pedal let go must survive a full
+    block (#115)
+  * omx-clap-host-tests: carry socket_conformance.py
+  * test-socket: the command socket's framing, by a conformance script (#103)
+  * Version 0.9.0: LV2 plugins in omx-clap-host, CV ports, atoms, makePath
+  * Restate the private specification citations and the private default
+    plugin path as public facts; add make private-refs (openmixer#1478)
+  * lv2 tests: a makePath request on the audio role, and one through a file,
+    are refused by their codes (#85)
+  * docs: what omx-clap-host does with an LV2 plugin, and the test of each
+    part (#96)
+  * ci: the LV2 path of omx-clap-host, and lilv as a recommendation of the
+    packages (#96)
+  * identity: the LV2 plugin through omx-clap-host, mod-host and the adapter
+    in process (#96)
+  * omx-clap-host: add lv2:<uri> through the LV2 adapter, with the refusal
+    code in the reply (#96)
+  * omx-clap-host: find the bundle of an LV2 URI on LV2_PATH (#96)
+  * LV2 adapter: the last refusal's code and a parameter's LV2 symbol, for a
+    host (#96)
+  * docs: what the bench's whole-graph figure measures, and why mod-host led
+    it
+  * omx-clap-host: a crash ends the host at once, without its core dump
+  * lv2: say that patch parameter ids changed order (#84)
+  * lv2 tests: a 4096-byte reply with no NUL dropped, a 4095-byte one read
+    whole (#84)
+  * lv2 tests: the atom fixture replies 4096 bytes with no NUL, and 4095 with
+    it (#84)
+  * lv2: a reported text of 4096 bytes with no NUL is dropped, never written
+    past its slot (#84)
+  * docs: patch parameter ids change order from earlier versions, and the
+    reported text limit exactly (#84)
+  * lv2 tests: a ninth CV output is refused, as a ninth input is (#83)
+  * lv2 tests: the copy directory outside the root is named like one (#85)
+  * lv2 tests: clear a state root an earlier run of the same pid left (#85)
+  * lv2 tests: makePath through a link, a/../b, an overlong path, and the
+    saved copies named and dropped (#85)
+  * lv2 tests: the escape fixture hands its makePath to the test (#85)
+  * lv2: the face logs a makePath refusal's code, and names and drops a
+    plugin's saved copies (#85)
+  * lv2: makePath walks the path with O_NOFOLLOW, refuses links and long
+    paths by code, and saved copies can be dropped (#85)
+  * docs: makePath refusal codes, symlinks, who removes the saved copies, and
+    the same-tree limit (#85)
+  * lv2 tests: stale copies of an earlier process are never an instance's own
+    (#85)
+  * lv2: never take a directory name an earlier process left under the state
+    root (#85)
+  * docs: an instance's directory takes a name no directory of the root holds
+    (#85)
+  * lv2 tests: state:makePath saved and restored at every rate, and the paths
+    refused (#85)
+  * lv2 tests: a fixture bundle that keeps its state in a file made by
+    state:makePath (#85)
+  * lv2: the face takes the state root and logs make_path_refused (#85)
+  * lv2: state:makePath in a directory of the instance's own, its files
+    copied out by a save (#85)
+  * lv2: a state root in the configuration, and state:makePath offered with
+    it (#85)
+  * docs: state:makePath, a directory of the instance's own under the state
+    root (#85)
+  * bench: a Copyright line in each bench C file, as spdx-check asks
+  * docs: the first hosting-paths bench results, 2026-10-15 (#82)
+  * lv2 tests: each atom message type at every rate, and the refusals (#84)
+  * lv2 tests: a fixture bundle for the atom messages beside MIDI (#84)
+  * lv2: CLAP notes into the MIDI input, and the text properties through
+    omx_clap_lv2_patch_text_* (#84)
+  * lv2: carry text properties, atom:Blank and patch:Put bodies, notify
+    outputs and time on the MIDI input (#84)
+  * lv2: give patch parameter ids in the order of their URIs, the same in
+    every instance (#84)
+  * docs: each atom message type carried or refused, and why (#84)
+  * lv2 tests: CV ports at every rate, bit-identical with the plugin run
+    directly (#83)
+  * lv2 tests: a fixture bundle with a CV input and a CV output (#83)
+  * lv2: each CV port is a mono CLAP audio port of the face (#83)
+  * lv2: read CV ports and connect them to buffers of their own, up to 8 each
+    way (#83)
+  * bench: a harness that measures the four hosting paths in a private
+    PipeWire
+  * docs: a CV port is a mono CLAP audio port, and why (#83)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 16 Oct 2026 02:14:13 +0000

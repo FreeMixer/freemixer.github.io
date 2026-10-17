@@ -2696,6 +2696,39 @@ Description: audio toolbox of the OpenMixer console, a real-time-safe C library
 
 Package: libomxdsp-dev
 Architecture: amd64
+Version: 0.21.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 1766
+Depends: libomx-contract-dev (>= 2.14.0)
+Filename: ./amd64/libomxdsp-dev_0.21.0_amd64.deb
+Size: 352024
+MD5sum: 04909637c13324db4dd3eb7d8dd68465
+SHA1: 4cc04de315cde428ad732649a494cca70325937a
+SHA256: 4b6e57611fbb8ff2904d1a1d05ab486a1a96df5955aa8310add52083571b3c1f
+SHA512: 02119f95aca3a88b72f2adeedaaf4be0362dfead9a898b5e3a81755b54bd5b1ca8bf9a1c476c177fb877eb7babdec54f33722ec85eb4ff9c34e421f7c62200cb
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: audio toolbox of the OpenMixer console, a real-time-safe C library
+ libomxdsp is the sound of the OpenMixer console, as a library: the filters,
+ envelopes, delays, limiters, gates, compressors and other building blocks of
+ a mixer channel, written in plain C that never allocates, locks or calls the
+ system while audio is running. The console and the omx plugins are built from
+ this same code, so an effect sounds the same on the desk and in your DAW,
+ sample for sample. Link it into your own plugin, effect or audio tool and
+ start from parts that are already tested against exact results at every
+ sample rate.
+ .
+ This package holds the headers and the static library in three flavours,
+ each with its pkg-config file: libomxdsp.a (omxdsp), libomxdsp-contracts.a
+ (omxdsp-contracts, contracts compiled in) and libomxdsp-tsan.a (omxdsp-tsan,
+ contracts and ThreadSanitizer). Programs link the library statically; no
+ shared library exists.
+
+Package: libomxdsp-dev
+Architecture: amd64
 Version: 0.3.0
 Multi-Arch: same
 Priority: optional
@@ -6826,6 +6859,39 @@ MD5sum: a1248dff73595fb4b7024194fec749bc
 SHA1: b4eea8f2d8d97d91d4ef3e152b604abcce2a983f
 SHA256: c8ad19e733047dee33640348f958854dcb551f66904c35406039ea5d2b25cd5e
 SHA512: 97596960f22e0ea53613425f13372a7d740bd4471cfc42a9844118b1c5507bf7175070944527e47e59f9653b9124d4acea107c20e8ea9d88388cdeceaee6f507
+Homepage: https://github.com/FreeMixer/omx-dsp
+Description: audio toolbox of the OpenMixer console, a real-time-safe C library
+ libomxdsp is the sound of the OpenMixer console, as a library: the filters,
+ envelopes, delays, limiters, gates, compressors and other building blocks of
+ a mixer channel, written in plain C that never allocates, locks or calls the
+ system while audio is running. The console and the omx plugins are built from
+ this same code, so an effect sounds the same on the desk and in your DAW,
+ sample for sample. Link it into your own plugin, effect or audio tool and
+ start from parts that are already tested against exact results at every
+ sample rate.
+ .
+ This package holds the headers and the static library in three flavours,
+ each with its pkg-config file: libomxdsp.a (omxdsp), libomxdsp-contracts.a
+ (omxdsp-contracts, contracts compiled in) and libomxdsp-tsan.a (omxdsp-tsan,
+ contracts and ThreadSanitizer). Programs link the library statically; no
+ shared library exists.
+
+Package: libomxdsp-dev
+Architecture: arm64
+Version: 0.21.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-dsp
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 1743
+Depends: libomx-contract-dev (>= 2.14.0)
+Filename: ./arm64/libomxdsp-dev_0.21.0_arm64.deb
+Size: 349132
+MD5sum: 4c4a891a19c5f4e90d5115d912c1cc03
+SHA1: ea843e85d06f1226d79b13e941831744b640326b
+SHA256: 655e8029b80313dbeb67c1fe295963bfde0794a703ae4eec745d86cb3f82971d
+SHA512: 22ecc58e0b0a9118d39497d8d18b61693c5840eb55782ba895903cec25d19ab306ab4432aebd691af96c67b4accebcf1f9012a2e774684cc408daa3898c174e1
 Homepage: https://github.com/FreeMixer/omx-dsp
 Description: audio toolbox of the OpenMixer console, a real-time-safe C library
  libomxdsp is the sound of the OpenMixer console, as a library: the filters,

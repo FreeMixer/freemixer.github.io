@@ -1,0 +1,79 @@
+omx-dsp (0.21.0) unstable; urgency=medium
+
+  * packaging: omx-contract floor 2.14.0
+  * bus sum: accumulate takes a non-finite coefficient as 0, with a value arm
+    and sabotage (#170)
+  * bus sum: say accumulate takes a non-finite coefficient as 0 (#170)
+  * drive oracle: run the nine RME rates and assert the declared mark at each
+    (#68)
+  * drive oracle: declare the alias floor and stage peak marks per rate, with
+    the measured reason (#68)
+  * Ship omx-dsp-copy-check.1 and list the check's files in CI
+  * omx-dsp-copy-check: find pow(10, x / 20) and pow(10, x / 2000)
+  * omx-dsp-copy-check: the exports file and the check that reads it
+  * Tag each function's TypeScript twin with @twin
+  * contract-single-source: also name guards and #undef on a contract name
+  * face-conformance: the delay tap controls and the graphic EQ mode are
+    newer than the faces (#165)
+  * oversampler: OMX_OVS_LATENCY_4X reads the contract's
+    OMX_DETECTOR_OVERSAMPLE_LATENCY_SAMPLES (omx-contract#44)
+  * align: OMX_ALIGN_MAX_MS reads the contract's
+    OMX_INPUT_ALIGN_DELAY_RANGE_MAX (omx-contract#44)
+  * hrp: OMX_HRP_HARMONICS reads the contract's OMX_HRP_HARMONIC_COUNT
+    (omx-contract#44)
+  * delay: the tap ceiling and the tap factor set from omx-contract
+    (omx-contract#63)
+  * omx_mbcomp: take the multiband limits from omx-contract (omx-contract#62)
+  * Version 0.21.0: the mix maths, the multiband compressor and the pole law
+    live in the library
+  * test: break the strip alignment stage five ways and require its oracle to
+    see each
+  * ci: give the make test job 60 minutes, the suite runs 20 to 30
+  * omx_dyn: seed y[n-1] when the slot enters the feedback loop (#78)
+  * omxdsp.h includes omx_align.h; a check that every public header is
+    reached or listed (#74)
+  * release-arm-gate-selftest: gate() evaluates the parsed literals, with a
+    sabotage run (#85)
+  * denormal: guard the flush-to-zero effect checks on SSE float maths (#126)
+  * contract-single-source: the self-test edits a scratch copy of the header
+    (#108)
+  * Refuse AI-attribution lines in commit messages: commit-msg hook and a
+    pull request check
+  * public-sources-check: also scan the commit messages a pull request adds
+  * omx_pole_rescale: a NaN rate is a rate the caller could not supply, and
+    the pole stays in [0, 1]
+  * mix goldens: the rest of the mix maths, written by the engine's own copies
+  * mix/omx_route_gain: an output route's fill, fold and fold-fill gain stages
+  * mix/omx_meter: omx_meter_strip_peak, the strip's post-fader reading
+  * mix/omx_mix_coef: omx_mix_strip_split and omx_mix_settled_silent
+  * mix/omx_pan_law: OMX_PAN_LCR_FOLD_CLEV, the LCR downmix's centre level
+  * note-map-sabotage: twelve sabotages of omx_note_map.h, each red on the
+    note_map arm (#150)
+  * omx_note_map: a note leg's channel filter, key split, transpose and
+    velocity curve (#150)
+  * test/fx: band_dyn_poly-perturb.sh, a sabotage per arm of the poly oracle
+  * omx_band_dyn: gain path on the libm-free unit pair, in 64-sample chunks
+  * tools: deesser-cost.c, the de-esser's ns per frame by the plugin cost
+    method
+  * test/fx: hold the band-dynamics loop to its libm form, frozen verbatim
+  * omx_units: state omx_lin_to_db_poly's bound over every float level
+  * omxdsp_threads: the gate joins the 8-thread identity arm
+  * omx_env_step: the cascade picks its one-pole's result, not its pole
+  * gate cost: a bench for the gate kernel and a base-against-tree A/B
+  * delay-taps-sabotage: the tap oracle sees six broken kernels
+  * fx delay: up to four integer read taps on the one ring
+  * pole-rescale-guard: one home for the reference-rate pole law
+  * onepole-sabotage: the rescale checks see four broken copies
+  * delay tone, reverb damping: the poles call omx_pole_rescale
+  * omx_pole_rescale: a reference-rate pole at the running rate
+  * geq true oracle: a clamped gain keeps its target's sign, and a seventh
+    sabotage proves the arm sees it (#129)
+  * mbcomp oracle: keep the running maxima as comparisons, not fmax over
+    widened floats (#128)
+  * fx: mbcomp-perturb, five sabotages the multiband oracle must see (#128)
+  * fx: omx_mbcomp, a multiband compressor over an LR4 crossover tree (#128)
+  * geq true mode: oracle at the nine RME rates and six sabotages (#129)
+  * geq instance: true mode, the two-pass gain solve as a control-thread
+    design (#129)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 17 Oct 2026 04:10:37 +0000

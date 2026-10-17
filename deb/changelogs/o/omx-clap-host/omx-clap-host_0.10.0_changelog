@@ -1,0 +1,64 @@
+omx-clap-host (0.10.0) unstable; urgency=medium
+
+  * Release 0.10.0
+  * abi: record the baseline of 0.10.0 with make abi-baseline
+  * hosting.json: impl links that point at code reading a limit, and links
+    --check in contract-dir-check.sh
+  * hosted_stage_limits.h: say why no number carries a description and the
+    file stays out of Doxygen
+  * packaging: require omx-contract 2.15.0, and pin the CI contract job to
+    its tag
+  * omx-clap-host: the LV2 worker's ring and poll are the declared ones,
+    16384 bytes (#145)
+  * install: the rendered headers, the TypeScript module and the definitions,
+    with no floor on the unreleased contract
+  * clap_host_limits.h: the banner names the file it is rendered from
+  * ts/omx-clap-core-hosting: the hosting items as a TypeScript module,
+    rendered from data/hosting.json
+  * hosted_stage_limits.h: the hosted stage's numbers as
+    OMX_HOSTED_STAGE_<FIELD>, rendered from data/hosting.json
+  * data/hosting.json: the render word that frames clap_host_limits.h, and
+    the header held to it byte for byte
+  * install data/ into omx-contract's contract directory, and hold the header
+    to its render
+  * data/hosting.json: HOSTED_STAGE_LIMITS and HOSTING_CODES, declared where
+    they are implemented
+  * omx-clap-host: one transport for every plugin: set_bpm, set_bpb,
+    transport, -t (#88)
+  * stage: the lane copy of omx_clap_run_io as omx_clap_io_lane, and
+    omx_clap_host_run_io over it (#88)
+  * doc: omx-clap-host hands every plugin a transport: set_bpm, set_bpb,
+    transport, -t (#88)
+  * BUILDING: make test-jack-notes-out (#89)
+  * omx-clap-host: effect_<N>:midi_out carries a plugin's note output (#89)
+  * core: a plugin's note output in a lock-free ring the audio role reads;
+    ABI 7 (#89)
+  * omx_clap_midi.h: the adapter's MIDI form of a CLAP note, as one installed
+    header (#89)
+  * doc: a plugin's note and MIDI output reaches effect_<N>:midi_out (#89)
+  * stage: the note ids' sink passes every event on to the stage's sink
+  * tests: jack_lv2_e2e expects atom-in-unfed from the value-atom fixture and
+    keeps midi-in-fed-empty on a two-MIDI twin (#131)
+  * stage: a zone asked for before activate lasts across the bind (#86)
+  * core: a note port that prefers MIDI_MPE gets raw MIDI (#86)
+  * core: note ids beside the stage, bound at activate; ABI 6 (#86)
+  * stage: note ids, an MPE zone and NOTE_END on a CLAP note input (#86)
+  * doc: note ids, MPE and note end on a CLAP note input (#86)
+  * private-refs-check: self-test arms only the dated-filename and
+    dated-citation patterns can catch
+  * docs: the atom input rule, and a README refusal that still refuses (#131)
+  * lv2: host an atom control input that takes no MIDI (#131)
+  * Refuse AI-attribution lines in commit messages: commit-msg hook and a
+    pull request check
+  * doc: the MIDI dialect carries sysex up to 256 bytes, eight per cycle
+    (#118)
+  * docs: what a plugin does with its parameters by itself (#87)
+  * omx-clap-host: param_set and param_gesture on the feedback socket (#87)
+  * core: a plugin's own parameter events, modulation, host gestures, rescan,
+    clear and text (#87)
+  * docs: the state root and state:makePath through omx-clap-host (#111)
+  * omx-clap-host: a state root, so state:makePath is offered (#111)
+  * omx-clap-host: param_info answers from the parameter contract (#120)
+  * core: read and check a plugin's parameter contract at open (#120)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 17 Oct 2026 17:25:37 +0000

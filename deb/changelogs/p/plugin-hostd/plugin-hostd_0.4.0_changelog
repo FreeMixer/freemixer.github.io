@@ -1,0 +1,45 @@
+plugin-hostd (0.4.0) unstable; urgency=medium
+
+  * plugin-hostd 0.4.0
+  * first-use pins note: state the pins decision without pointing into a
+    private spec (#79)
+  * docs: the first-use pins note says it is built, and which question about
+    external plugins is open (#79)
+  * ci: the file lists carry the probe runner, its manual page and the probe
+    output schema (#72)
+  * plugin-hostd-probe: a manual page, shipped by the RPM and the DEB (#72)
+  * plugin-hostd-probe: a run id without the host name, the tool version from
+    the package (#72)
+  * probe_child: guard _GNU_SOURCE and stop tracking the built binary (#72)
+  * ignore the probe runner and its test child (#72)
+  * plugin-hostd-probe: packaged, and described in the README (#72)
+  * plugin-hostd-probe: runs a prober under the portable limits, kills the
+    whole process tree and writes the probe output (#72)
+  * stress plugin: STRESS_FAULT makes the first process call crash, hang or
+    leave a process behind (#72)
+  * tests: the probe output's three fixtures validate, five broken copies are
+    refused, each guard sabotaged (#72)
+  * protocol: the probe output's codes declared in protocol.h, its schema
+    generated from them (#72)
+  * sabotage.py: the debian/control needle carries <!nocheck> on the
+    omx-clap-host-tests line (#32)
+  * Build without omx-clap-core: its tests package is a check-stage
+    dependency only (#32)
+  * Require the mod-host-protocol that carries mod-audio/mod-host#113
+  * Refuse private repository names, paths and issues in tracked files
+  * protocol: phd_number_in refuses '-0'; a note verb carrying it is refused
+  * End a removed instance's held gestures (#47)
+  * List presets, and relay gestures, plugin-moved values and suggested pages
+    (#47)
+  * Play notes on an instance, and keep the tempo across a respawn (#46)
+  * test-socket: say which conformance script runs
+  * relay: drop a complete worker line longer than LINE_LIMIT too
+  * param_info: say that the released omx-clap-host answers -511 for every
+    CLAP parameter, and test the daemon passes it through (#53)
+  * The adapter is asked again about a plugin it refused after lv2_worker_set
+    and pin changes (#56)
+  * test-socket: the command socket against socket_conformance.py
+  * Check the allocations of the relay and of a worker's reply
+  * relay: drop the whole of a worker line that is too long
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 18 Oct 2026 07:58:48 +0000

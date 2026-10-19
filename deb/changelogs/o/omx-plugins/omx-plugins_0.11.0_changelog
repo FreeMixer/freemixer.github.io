@@ -1,0 +1,42 @@
+omx-plugins (0.11.0) unstable; urgency=medium
+
+  * meter-level: level meters bit for bit, the gain reduction within 1e-4 dB
+  * qualify-release: read plugin-qualify's qualification records
+  * 0.11.0 changelog: the merged changes and the omx-dsp 0.24.0 and
+    omx-contract 2.16.0 floors
+  * ci: omx-dsp-copy-check --enforce, so no source carries a copy of an
+    omx-dsp function again
+  * packaging: floor omx-dsp at 0.24.0, the release with omx_meter_level_db
+  * faces: a level meter reads through omx_meter_level_db
+  * meter-level: a digest of the level meters' values, before they read from
+    omx-dsp
+  * oracles: take the rates from OMX_ORACLE_FULL_RATES_* (#177)
+  * omx-contract floor 2.16.0, where OMX_ORACLE_FULL_RATES_* first exists
+    (#177)
+  * omx-contract.mjs: build the EQ default probe in a private directory and
+    rename it into place (#195)
+  * faces: the level meter reads omx-dsp's peak and dB, g_level_db's own
+    copies are gone (#169)
+  * test: sabotage arms for clap-params-check, panel-check, clap-ext-check
+    and port-groups-check (#172)
+  * clap-crosscheck: a map with more than 256 rules or caps is refused, not
+    written past the table (#190)
+  * strip-crosscheck: the low-pass above 0.6 of Nyquist is a declared gap,
+    the rest is green (#190)
+  * contract-union test: the fake CLI is a .mjs file, so node 18 loads its ES
+    module syntax (#187)
+  * omx-contract.mjs: render the union into a private directory, read it by
+    content name (#187)
+  * gen: the LV2 faces state dBFS, dBu, LUFS, dB/oct, x and min (#171)
+  * strip-crosscheck: build the hand-ported strip against the omx-dsp and
+    omx-contract it pinned (#130)
+  * Release 0.11.0: factory presets
+  * install-devel: ship test plugins' generated decl headers too
+  * presets: hold the catalogue presets to their measured figures through the
+    DSP (#152)
+  * README: say where the factory presets are and how they are made
+  * packaging: install the factory presets with the omx-plugins package
+  * presets: 120 factory presets for the 19 plugins
+  * presets: a generator and a checker for factory preset files
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 19 Oct 2026 05:05:54 +0000

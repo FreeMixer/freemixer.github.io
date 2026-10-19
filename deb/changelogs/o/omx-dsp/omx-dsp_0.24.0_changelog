@@ -1,0 +1,49 @@
+omx-dsp (0.24.0) unstable; urgency=medium
+
+  * Version 0.24.0: a dynamics slot's key, the source switch and the level
+    reading live in the library
+  * chorus oracle: arm A's comment says nine rates, as the arm runs (#179)
+  * omx_idelay: declare the ring size, OMX_IDELAY_MAX_RATE and OMX_IDELAY_CAP
+  * omx_units: read the floor from the declared constant (#177)
+  * data: declare LIN_TO_DB_FLOOR, the floor of omx_lin_to_db (#177)
+  * test: gen-once counts the sabotaged build even when it races to a compile
+    error (#163)
+  * mix goldens: key, pb and level digests at the nine rates, and the engine
+    identity sets key and pb
+  * mix/omx_meter.h: omx_meter_level_db, a level meter's dBFS reading
+  * mix: omx_src_blend.h, the source switch, moved from the engine
+  * mix: omx_key.h, a dynamics slot's key, moved from the engine
+  * drive oracle: the cookbook low-pass holds its corner below Nyquist (#204)
+  * chorus and flanger oracles: the comments say nine rates (#179)
+  * chorus and flanger kernel oracles run at the nine oracle rates (#179)
+  * Tests: OMX_ORACLE_FULL_RATES_* for the nine rates, no vendor name in our
+    macros
+  * test: gen-once reads the Makefile's lists with --no-print-directory, so
+    it holds under a parent make (#163)
+  * tools: drive-cost and flanger-cost benches on the omx-dsp kernels, make
+    bench-drive and bench-flanger (#1748)
+  * tools: kernel-cost-ab.sh runs the interleaved before/after for any cost
+    bench; gate-cost-ab.sh is its gate case (#1748)
+  * Makefile: make test runs gen-once, as BUILDING says (#163)
+  * test: gen-once counts the generator's runs under make -j8 and fails on a
+    re-added call (#163)
+  * Makefile: test-fx is one target per kernel, so -j runs them side by side
+    (#163)
+  * Makefile: generate the kernel lists once, as a prerequisite (#163)
+  * BUILDING: say make -jN test generates the kernel lists once (#163)
+  * perturb.sh generates its case list into its own scratch dir (#153, #163)
+  * Docs: say oracle rates where the text named the vendor, or the old macro
+    (#176)
+  * Kernel oracles of reverb, delay, deesser and drive run at the nine RME
+    rates (#179)
+  * instance-rates-sabotage: the declared-only gate and the deesser's cap
+    turn the oracles red (#179)
+  * Nine instance faces accept the nine oracle rates, 32 to 192 kHz (#179)
+  * idelay: the kernel is declared in this tree, and the test reads the
+    ceiling from it (#189)
+  * rate-list-check: no test or tool types a rate list the contract declares
+    (#190)
+  * Six oracles and ts-golden.mjs read the contract's rate lists (#190)
+  * ci: the DEB package jobs get the test job's 60 minutes
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 19 Oct 2026 00:32:30 +0000

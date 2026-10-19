@@ -1,0 +1,58 @@
+libdiginet (0.1.0) unstable; urgency=medium
+
+  * Release 0.1.0
+  * docs: check the protocol against C24-Engine-Renewed
+  * codec: seven-segment bits and counter dots as the desk reads them
+  * docs: sources in plain words
+  * release.yml: the DEB install check reads the suite's directory of the
+    artifact (#6)
+  * .gitignore: the probe binary (#4)
+  * release.yml: the shared RPM and DEB workflows, then an install check of
+    what they built (#6)
+  * tests/package-check.sh: install the packages in a clean container, build
+    a consumer, check the capability (#6)
+  * libdiginet.spec: install the shared libraries only, not the archives (#6)
+  * test_install: a second install to another prefix names that prefix (#6)
+  * pkg-config files are written at install time, from that install's prefix
+    (#6)
+  * make test holds the version and sonames to one definition (#6)
+  * debian/: libdiginet0, libdiginet-transport0, libdiginet-dev,
+    diginet-tools (#6)
+  * packaging/libdiginet.spec: libdiginet, -devel and diginet-tools (#6)
+  * make shared and install-shared: the libraries as shared objects, VERSION
+    and the sonames (#6)
+  * BUILDING.md: the packages and the release; a manual page for
+    diginet-probe (#6)
+  * test_probe: the probe against the desk emulator (#4)
+  * diginet-probe: the M1 steps, --checksum, --keepalive, --touch-test (#4)
+  * docs/probe.md: running the first desk test; BUILDING.md and README (#4)
+  * Session deadline: a keepalive held by the back-off is due when the
+    back-off ends (#3)
+  * make test parses every workflow (#3)
+  * CI: quote the packet-test step, which did not parse (#3)
+  * make test installs into a scratch root and builds a consumer (#3)
+  * make install: the transport archive, headers and pkg-config file too (#3)
+  * CI: make test on the bare runner too, and a transport consumer (#3)
+  * Real-clock tests: socketpair, and AF_PACKET in a private namespace (#3)
+  * Transport suite against the emulator on a virtual clock (#3)
+  * A desk emulator for the transport tests (#3)
+  * Transport: packet socket, descriptor io and the session state machine (#3)
+  * BUILDING.md: the transport library and its tests (#3)
+  * Codec suite: exact bytes, round trips, running status, refusals (#2)
+  * Frame builder refuses a body holding F0 13 xx 70 (#2)
+  * Codecs for every control, and the Control|24 and ProControl personalities
+    (#2)
+  * protocol.md: what the library assumes where the sources are silent (#2)
+  * Golden running-status frame: five commands, as A7 counts a fader move (#1)
+  * CI: a push runs on main only; pull requests cover the branches (#1)
+  * CI: build and test on fedora:44, bookworm and trixie; ksy check (#1)
+  * make test refuses private names in files and commit messages (#1)
+  * make ksy-check: the generated parser reads the golden frames (#1)
+  * Golden frames and the frame suite (#1)
+  * Frame and header parser, builder and command cursor (#1)
+  * diginet.ksy: the frame, header, announce and command grammar (#1)
+  * BUILDING.md: make, make test, make install, the Kaitai check (#1)
+  * protocol.md: open questions cite no private place
+  * The protocol as known, with sources; README and licence
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 19 Oct 2026 07:03:44 +0000

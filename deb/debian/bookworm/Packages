@@ -1133,6 +1133,101 @@ Description: find out whether an audio plugin is safe to run live
  Use it to vet a plugin before a gig, to curate a plugin collection, or to
  judge the same plugin against the rules of different hosts.
 
+Package: diginet-tools
+Architecture: amd64
+Version: 0.1.0
+Priority: optional
+Section: utils
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 42
+Depends: libcap2-bin, libc6 (>= 2.34), libdiginet-transport0 (>= 0.1.0), libdiginet0 (>= 0.1.0)
+Filename: ./amd64/diginet-tools_0.1.0_amd64.deb
+Size: 12736
+MD5sum: 102fb4697911323bbe6822ddee9c96dd
+SHA1: c9f51df032ba5d1ad52eba12d505bf8989f86293
+SHA256: 91e2c2cbe5d4717ee88c5108439eadaf9fd912605706e5cdc8ea61d6d7d684b5
+SHA512: 6d4d9e243b7180421e84be621b454f158e35dcf734cc46daf743a5504601f0d73245ea8879dca9b0a95a7cec994c6d44427dd2cadb0114280708e0823ca2c600
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: first test of a Digidesign Control|24 or ProControl
+ diginet-probe wakes a Control|24 or ProControl cabled to a network interface,
+ moves a fader, lights a lamp, writes a scribble strip, logs and decodes every
+ key, touch and turn, and ends with a summary of what the desk answered. It is
+ given the one capability it needs to open a packet socket, cap_net_raw, on
+ install.
+
+Package: libdiginet-dev
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 53
+Depends: libdiginet0 (= 0.1.0), libdiginet-transport0 (= 0.1.0)
+Filename: ./amd64/libdiginet-dev_0.1.0_amd64.deb
+Size: 13468
+MD5sum: 1b3c61f43a6494b17ce8274eee4a118e
+SHA1: 97ef001a0ad156588d7efd67c31836c5c00b301e
+SHA256: 36dda50e3a80792e6a39a97cb1dfca3aa58effc00883d14be944657ab1de6ce6
+SHA512: 35cdf5ac8d10f0304ca4b8d4369a5bf85a2a766e815ebd02f4a07f4f08badd30abdc18f96c9fbb23954b4caa776c3a37aaa5e3210f80259455276551c05c2296
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: Control|24 and ProControl libraries, development files
+ Headers, the pkg-config files libdiginet and libdiginet-transport, and the
+ Kaitai Struct grammar of the protocol, diginet.ksy, for building programs
+ that drive a Control|24 or ProControl.
+
+Package: libdiginet-transport0
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 32
+Depends: libc6 (>= 2.17), libdiginet0 (>= 0.1.0)
+Filename: ./amd64/libdiginet-transport0_0.1.0_amd64.deb
+Size: 9800
+MD5sum: 92bc16664c3261b35ab534de28688755
+SHA1: 5f90864d59632415a8c0d68644a3eba478f5bed7
+SHA256: c1c2f24706fb695a37ac7677f331dc9ac3509750f823eafc31557c6ae986c26c
+SHA512: c12976199280f766aa4fa965d8f719b1bde781eb2cb1387176033e9e539aa97149acfa10294b4f8e75a6415f2cc89cc1c96e33a3682a61d99a02a754fae77512
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: transport layer for the Digidesign Control|24 and ProControl
+ libdiginet-transport carries the protocol of libdiginet over the wire: the
+ packet socket, discovery, the online handshake, acknowledgements, a keepalive
+ that ACKs never starve, retransmit, back-off, latest-wins coalescing and
+ display pacing. It never wakes a desk another host is using.
+
+Package: libdiginet0
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 32
+Depends: libc6 (>= 2.14)
+Filename: ./amd64/libdiginet0_0.1.0_amd64.deb
+Size: 10108
+MD5sum: e8e95334e68cb0a6ec61d0daeac15d23
+SHA1: b7d1ba1e8bbb8631059310f21b15a3fa2459a4c7
+SHA256: 9dbbec0236c0a57391c44280cc2471ddc931695db869021d8f571b160a362f29
+SHA512: 7571923f33b7a264dce2d5e3348998fb342160b8fcb149bebd4f08c03cf02ac41952b7befb80650c3d029fb5eb352df5269063f6043eae4c10e9319628f26a2f
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: protocol library for the Digidesign Control|24 and ProControl
+ libdiginet speaks DigiNet, the raw Ethernet protocol of the Digidesign
+ Control|24 and ProControl control surfaces, so a Linux mixer or DAW can drive
+ one again: motor faders and their touch, V-Pots and their LED rings, every key
+ and lamp, scribble strips, meters, the counter and the jog wheel.
+ .
+ This is the protocol: the frame grammar, encoders and decoders for every
+ control, and one personality per desk. It refuses to encode the desk's
+ memory-writing message family.
+
 Package: libmod-host-protocol-dev
 Architecture: amd64
 Version: 0.1.0-1
@@ -5871,6 +5966,101 @@ Description: PipeWire-native Roland REAC endpoint
  The package runs reac-pw as a user service, without root: it gives the
  daemon the file capabilities it needs for raw network frames, VLAN
  sub-interfaces and real-time scheduling.
+
+Package: diginet-tools
+Architecture: arm64
+Version: 0.1.0
+Priority: optional
+Section: utils
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 82
+Depends: libcap2-bin, libc6 (>= 2.34), libdiginet-transport0 (>= 0.1.0), libdiginet0 (>= 0.1.0)
+Filename: ./arm64/diginet-tools_0.1.0_arm64.deb
+Size: 12668
+MD5sum: 548aecbed4b299b71e8f306ef4921a74
+SHA1: aab78f479aebf04b57b439391e7576d5681d5b23
+SHA256: 52331526d9acfd0e456bc5175a664fa5078025c0c36aefeb654b37b160e3938d
+SHA512: a6292becce1fe4508589abc4fc3c660de86a694b48615cf26913ff6d29c389fb5f1e93389ea6cd2c3b1a1e6f71a9e67c1b956cc127396147c0de8d249804df3e
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: first test of a Digidesign Control|24 or ProControl
+ diginet-probe wakes a Control|24 or ProControl cabled to a network interface,
+ moves a fader, lights a lamp, writes a scribble strip, logs and decodes every
+ key, touch and turn, and ends with a summary of what the desk answered. It is
+ given the one capability it needs to open a packet socket, cap_net_raw, on
+ install.
+
+Package: libdiginet-dev
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 53
+Depends: libdiginet0 (= 0.1.0), libdiginet-transport0 (= 0.1.0)
+Filename: ./arm64/libdiginet-dev_0.1.0_arm64.deb
+Size: 13456
+MD5sum: 8e9769c885bad933ed1c72fa0bd34cee
+SHA1: 93236dd97f3a6607ff9410dbe70ed3d0b51020d5
+SHA256: ffc6dbf6a8b3933f30a8f4c17fc77d8f79038b4588e9c5bf9272fd69853737db
+SHA512: c979c57330353592b97f925e2a12e177fc2c0a438bdbb4277f3961e21e892786d4c6008a59eacc492e6243d3cb2538c84ee37de2d3871e6659040d73cd8ec1d8
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: Control|24 and ProControl libraries, development files
+ Headers, the pkg-config files libdiginet and libdiginet-transport, and the
+ Kaitai Struct grammar of the protocol, diginet.ksy, for building programs
+ that drive a Control|24 or ProControl.
+
+Package: libdiginet-transport0
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 80
+Depends: libc6 (>= 2.17), libdiginet0 (>= 0.1.0)
+Filename: ./arm64/libdiginet-transport0_0.1.0_arm64.deb
+Size: 9800
+MD5sum: 8ed9db5d11faa83ba4fda55f72bf4737
+SHA1: bc5cc9b5085941817f24fb472e1db01f88762b92
+SHA256: 974fbe221dc6b53ef80d641afccf35f546c5f256d1170d8d0ff7d4d629cc380b
+SHA512: 30d9d0a2cfbba4389656d88b8efe6d150d8a9e085cd114f4327e8f17f0b12f1af7a263ac4fd7f796ebfd486620068e72459284acdea5c297aa03ba76b25c592f
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: transport layer for the Digidesign Control|24 and ProControl
+ libdiginet-transport carries the protocol of libdiginet over the wire: the
+ packet socket, discovery, the online handshake, acknowledgements, a keepalive
+ that ACKs never starve, retransmit, back-off, latest-wins coalescing and
+ display pacing. It never wakes a desk another host is using.
+
+Package: libdiginet0
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libdiginet
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 80
+Depends: libc6 (>= 2.17)
+Filename: ./arm64/libdiginet0_0.1.0_arm64.deb
+Size: 10184
+MD5sum: 3b26a16df6b2b9f4d7c0b95b692dea84
+SHA1: ab10e64f3de463142d4eba5d602baca016f44284
+SHA256: b77b18bb428a666d8afb46398421d6f272cef6929084832744658153f9e7f5b3
+SHA512: b2b5d7f54845d0563b424a9b02ffb95178035e95c43943b0477941a1b71f138c66e0e4e9fb75a8251c0e47eebd6c60ddc8c94f59b65aa7d4735f116dededb15d
+Homepage: https://github.com/FreeMixer/libdiginet
+Description: protocol library for the Digidesign Control|24 and ProControl
+ libdiginet speaks DigiNet, the raw Ethernet protocol of the Digidesign
+ Control|24 and ProControl control surfaces, so a Linux mixer or DAW can drive
+ one again: motor faders and their touch, V-Pots and their LED rings, every key
+ and lamp, scribble strips, meters, the counter and the jog wheel.
+ .
+ This is the protocol: the frame grammar, encoders and decoders for every
+ control, and one personality per desk. It refuses to encode the desk's
+ memory-writing message family.
 
 Package: libmod-host-protocol-dev
 Architecture: arm64

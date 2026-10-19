@@ -1,0 +1,61 @@
+omx-clap-host (0.11.0) unstable; urgency=medium
+
+  * Release 0.11.0
+  * abi: record the baseline of 0.11.0 with make abi-baseline
+  * abi: the MPE zones are ABI 9, appended after the voice info of ABI 8
+    (#139, #91)
+  * stage: the zones struct comment names omx_clap_mpe_take (#139)
+  * stage: document the MPE master bits for make docs (#139)
+  * Version 0.11.0: two MPE zones add to the ABI (#139)
+  * stage: a lower and an upper MPE zone held together; a master reaches its
+    own zone's notes (#139)
+  * lv2_run_test: hold the worker inside work() instead of racing its poll
+    (#101, #113)
+  * tests: jack_transport_e2e refuses the probe's -1 reading as zero drift
+    (#147)
+  * doc: two MPE zones held together, master expressions reach their own zone
+    (#139)
+  * ci: build plugin-hostd's RPMs without its check stage (#166)
+  * Version 0.11.0: omx_clap_host_voice_info is an addition to the ABI (#91)
+  * core: read clap.voice-info at activate, answer it with
+    omx_clap_host_voice_info; ABI 8 (#91)
+  * doc: an instrument's voice info, read at activate (#91)
+  * tests: jack_transport_e2e reads beats against seconds in one process()
+    (#147)
+  * tests: dialect_doc_check.sh compares reference.md with clap_stage.h on
+    the passed message types (#93)
+  * docs: note dialect rules and the plugin window say what the code does
+    (#93)
+  * param_contract_test: pin OMX_CLAP_PARAM_SCALES ordinals and count to
+    omx-contract's PARAM_SCALES (#153)
+  * lv2 core: free the side-chain names of a refused open (#54)
+  * test-contract: hold each hosting limit and refusal code to what
+    omx-contract's reader reads, one sabotage arm per value (#146)
+  * BUILDING: the hosting headers are held value by value to the reader's
+    values (#146)
+  * bench-stage: copy omx_clap_midi.h beside the relaxed clap_stage.h; run it
+    in CI (#165)
+  * ci: build plugin-hostd's DEBs with nocheck (#166, #142)
+  * omx-contract floor 2.16.0, where OMX_ORACLE_FULL_RATES_* first exists
+    (#150)
+  * tests: take the oracle rates from OMX_ORACLE_FULL_RATES_INIT (#150)
+  * omx-clap-host: a note verb with no room in the queue answers -517 (#122)
+  * omx-clap-host: answer plugin-hostd's note verbs on the command socket
+    (#122)
+  * Build against plugin-hostd 0.4.0, whose header declares the note verbs
+    (#122)
+  * abi: check the layout of every public structure with pahole, atomics
+    included (#117)
+  * stage: the published transport may have an audio thread as its writer
+    (#121)
+  * lv2: admit an instrument, a MIDI input and audio outputs with no audio
+    input (#132)
+  * ci: run make test-socket against the protocol library CI builds (#103)
+  * stage: a late NOTE_END frees an id only while it names the event's note
+    (#138)
+  * doc: the gesture ends after a drop and the R3 check after a rescan (#141)
+  * param contract: check R3 after each params.rescan (#141)
+  * omx-clap-host: end the open gestures when the parameter ring dropped
+    events (#141)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 18 Oct 2026 23:37:31 +0000

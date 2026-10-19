@@ -1,0 +1,41 @@
+plugin-hostd (0.5.0) unstable; urgency=medium
+
+  * plugin-hostd 0.5.0
+  * Read ORACLE_FLOOR_RATES and PARAM_SCALES from omx-contract
+  * A pin whose verdict is refused refuses the add with PIN_REFUSED (-516)
+  * own-host page: say which version each checked item was checked against;
+    argue the probe tolerance (#52)
+  * own-host CI runs the page's LV2 block and measures the audio through it
+    (#52)
+  * own-host page: an LV2 plugin through omx-clap-host (#52)
+  * worker_env test: whether a nice can be lowered is asked of the kernel,
+    not read from the euid (#87)
+  * packaging: plugin-hostd owns /usr/share/plugin-hostd/pins.d (#42)
+  * pins_dir: read the packages' pins as a read-only layer under the host's
+    (#42)
+  * README, manual: the pins.d layer packages ship pins in (#42)
+  * worker_env: the daemon logs a nice it could not apply, and the test
+    expects what an unprivileged daemon can set (#87)
+  * README: a worker_env nice the daemon cannot apply is logged (#87)
+  * test-lv2-adapter: the two refusal arms use a fixture that requires a
+    feature the adapter lacks (#89)
+  * A failed realloc keeps the relay's gesture table and the LV2 refusal and
+    pick tables whole (#88)
+  * ci: the tests package requires plugin-hostd(isa) = version-release of the
+    same build (#43)
+  * plugin-hostd-tests: drop 'of no use to anyone else' from the description
+    (#43)
+  * no_pins: a '<=', '=' or '<' on omx-clap-host-tests is a ceiling in the
+    spec and debian/control (#37)
+  * Declare NOTE_QUEUE_FULL (-517): a note the worker had no room for
+  * A pin whose verdict is refused refuses the add with PIN_REFUSED (-516)
+  * supervisor: a worker whose feedback the relay cannot follow is not started
+  * relay: a worker the relay has no memory for is not left writing into a
+    full socket
+  * plugin-hostd-probe: an LV2 plugin of which nothing is pinned is refused
+    by its code
+  * plugin-hostd-probe: run an LV2 plugin through lv2_measure's passes
+  * tests: an LV2 stress fixture and a child that speaks lv2_measure
+  * A plugin the LV2 adapter refused under auto gets a worker of its own
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 19 Oct 2026 00:12:30 +0000

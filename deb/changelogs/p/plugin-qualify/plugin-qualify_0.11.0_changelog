@@ -1,0 +1,44 @@
+plugin-qualify (0.11.0) unstable; urgency=medium
+
+  * check-installed: --out holds the qualification record and its probe output
+  * Version 0.11.0
+  * qualifyTargets: a target's runs and documents count only when all its
+    runs gave a probe output (#94)
+  * test: native/*.c holds no log10 or pow(10, ...) of its own but one named
+    line (#87)
+  * lv2-host-probe: a NaN level stays NaN and is a failed claim, never the
+    -240 dB floor (#87)
+  * lv2-host-probe: level_db_at reads omx-dsp's omx_lin_to_db_d (#87)
+  * lv2-measure: the dB readings are omx-dsp's omx_lin_to_db_d (#87)
+  * omx-dsp floor 0.21.0 (#87)
+  * packaging: plugin-qualify requires plugin-hostd 0.4.0, whose
+    plugin-hostd-probe measures every CLAP plugin (#94)
+  * plugin-qualify judge: write the record beside a byte copy of the probe
+    output (#94)
+  * measure through the probe runner, CLAP and LV2, with no timeout of ours
+    (#94)
+  * qualification record: the judgment, beside a byte copy of the probe
+    output it judged (#94)
+  * judge from a probe output: the same verdicts as today's documents, cost
+    at rate and quantum (#94)
+  * cost is read at rate and quantum, per-rate only for the old format (#94)
+  * readProbeOutput: refuse an unknown major and a derived-field mismatch
+    (#94)
+  * README: judge from the probe output, the qualification record,
+    OMX_PROBE_RUNNER (#94)
+  * tests: the scan golden is omx-clap-host 0.10.0's, and no test reads the
+    host's /usr/lib/clap (#89)
+  * ci: install python3-lilv, omx-clap-scan and two LV2 plugin packages so
+    the scanner tests run (#89)
+  * docs: design note for probe mode under the supervised child and cost
+    keyed by rate and quantum (#91)
+  * hosting.worker.nonconforming: minted in HOSTING_CODE and mapped from the
+    probe's refusal (#41)
+  * qualify-declarations: the default rates and quanta come from
+    @openmixer/omx-contract (#93)
+  * benchmark.py: refuse a worker interface with a NULL work or work_response
+    (#41)
+  * lv2_measure: resolve a relative LV2_PATH segment before lilv reads it
+    (#58)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 19 Oct 2026 00:02:26 +0000

@@ -1,0 +1,98 @@
+omx-clap-host (0.12.0) unstable; urgency=medium
+
+  * Release notes 0.12.0: what the parity run changed in the LV2 adapter
+  * lv2/core: the latency port starts at lv2:default, else lv2:minimum
+  * lv2: the restart after the core's warm-up stays a full LV2 deactivate and
+    activate (#230)
+  * lv2/core: lv2_instance_keep compares the block length the plugin was told
+    (#230)
+  * tests: lv2_parity.py, the audio verdict beside a port-layout DIFFERS, and
+    known plugin faults
+  * tests: lv2_parity.py holds 1000 ms and warms 0.25 s by default
+  * lv2/core: a plugin whose description has no state:state is restored
+    nothing (#214)
+  * lv2/core: an output control port starts at lv2:default, else lv2:minimum
+    (#231)
+  * lv2: the latency restart keeps the LV2 instance active and unreset (#230)
+  * lv2/core: lv2_instance_keep says when an activate may keep the running
+    instance (#230)
+  * Release 0.12.0: a fuller CLAP host and a wider LV2 adapter
+  * docs: the parity row names the classes as they are now
+  * tests: lv2_parity.py, an instance silent among random ones is DIFFERS
+  * tests: jack_parity prints each client's MIDI input count, not whether it
+    has one
+  * tests: lv2_parity.py bounds a random plugin's cross-host level by its own
+    level spread
+  * tests: lv2_parity.py keeps /tmp visible inside its namespace
+  * jack_lv2_e2e: the host fixture's mappath twin is refused no-realisation
+    now that state:mapPath is offered (#94)
+  * docs: lv2:inPlaceBroken as a required feature is admitted, and the tests
+    that say so (#94)
+  * ci: the LV2 parity rules and the parity runner on the fixtures
+  * tests: lv2_parity.py hides the live PipeWire's socket inside its namespace
+  * tests: lv2_parity.sh hands the coverage table to the report step
+  * tests: lv2_parity.py, no pass the parity gate would misread, and the
+    denominator in the report
+  * tests: lv2_parity.py compares only the controls both hosts read, and
+    groups the notes
+  * tests: lv2_parity.py names a control both hosts read differently, and
+    notes a MIDI input one host lacks
+  * tests: jack_parity reads a client's ports until the graph shows them, and
+    feeds MIDI to all or none
+  * tests: lv2_parity.py, the first cycle only once every link is active
+  * docs: the parity test in the LV2 compatibility page's list of tests
+  * tests: lv2_parity.sh, the parity run on the desk
+  * tests: lv2_parity.py, mod-host against the LV2 adapter plugin by plugin
+  * tests: jack_parity, a feeder that is also the graph's only clock
+  * host: the ABI history names 0.12; a test arm for the thread-pool
+    re-entrancy guard (#90)
+  * contract: hosting.topology.no-audio-input is gone (#184)
+  * LV2 adapter and host: a plugin with no input of any kind is admitted as a
+    source (#184)
+  * LV2 adapter: a plugin with no audio output is hosted with the strip's
+    audio passing through it (#183)
+  * host: a transport change or a queued sysex wakes a sleeping plugin;
+    request_exec from exec is refused; the sleep tests run at the floor rates
+    (#90)
+  * host fixture: the two-MIDI-input twin allocates its own instance, not the
+    fixed twin's smaller one (#199)
+  * version: the stack ships as 0.12.0, the preset symbols join its node (#95)
+  * jack e2e: the two-MIDI-input twin is admitted now, one midi_in on the
+    client (#199)
+  * LV2 adapter: one atom port carrying MIDI and patch is one port for both
+    (#198)
+  * LV2 adapter: lv2:inPlaceBroken required is offered, by the construction
+    it already has (#193)
+  * LV2 adapter: a MIDI port after the first is fed empty or drained, not
+    refused (#199)
+  * hosted stage: a process error strikes the format's own counter, the
+    layout unchanged (#192)
+  * omx-clap-host: any buffer-size change re-activates, serialised; a process
+    error is its own fault (#192)
+  * param_info: an LV2 plugin answers from the contract its TTL makes (#94)
+  * lv2_clap_test: hold the worker fake while a traced block runs (#94)
+  * LV2 adapter: the host declares its fixed block, and the adapter keeps the
+    promise (#192)
+  * Version 0.15.0: the LV2 adapter's rest of the non-UI spec (#94)
+  * docs: the LV2 matrix reads supported or refused on purpose on every #94
+    row
+  * lv2: the rest of the non-UI LV2 specification (#94)
+  * core: a sleep never takes a sounding voice (#90)
+  * Version 0.14.0: the full host's extensions add to the ABI (#90)
+  * doc: a full host: timers, descriptors, pool, tail, render, state-context,
+    port activation, sleep (#90)
+  * core: what a full host offers: timers, descriptors, thread pool, tail,
+    render, state-context, sleep (#90)
+  * stage: the run functions can hand back the plugin's process status (#90)
+  * Version 0.13.0: preset listing adds to the ABI (#95)
+  * doc: presets, and every CLAP extension header with its status (#95)
+  * lv2: the adapter's entry lists the bundle's pset:Preset (#95, #94)
+  * core: list a plugin file's presets through its preset-discovery factory
+    (#95)
+  * clap_host_extensions.h: document the count and the list each (#91)
+  * Version 0.12.0: the instrument details add to the ABI (#91)
+  * core: instrument details: host note-ports, note names, voice-info
+    changes, MIDI 2.0 (#91)
+  * abi-check: "no data member change (N filtered)" is no change
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 20 Oct 2026 03:51:00 +0000

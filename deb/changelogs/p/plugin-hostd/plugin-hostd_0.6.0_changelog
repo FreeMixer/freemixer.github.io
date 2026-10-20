@@ -1,0 +1,30 @@
+plugin-hostd (0.6.0) unstable; urgency=medium
+
+  * Release 0.6.0: the CLAP prober under the interposer, notes in the probe
+    runner
+  * ci: a runner that refuses unshare fails build-and-test and the JACK2 job,
+    and a guard holds it (#107)
+  * BUILDING: the JACK test's LV2 world is the tests directory itself, as CI
+    runs it (#105)
+  * supervisor: a worker's ready line is found wherever it sits in its log,
+    not in the first page only (#105)
+  * test-probe: a preload the runner had is dropped for the child and
+    recorded (#109)
+  * probe: say which preload a measurement dropped, and put it back (#109)
+  * sabotage: break each guard of the CLAP interposer (#109)
+  * test-probe: the CLAP child counts only under the interposer it finds
+    (#109)
+  * probe: run the CLAP prober under the interposer beside it (#109)
+  * sabotage: break each copy of the runner's cost, notes and latency (#106)
+  * test-probe: run plugin-qualify's own prober and lv2_measure when a build
+    is named (#106)
+  * probe: a latency taken from a note says so, and whether the note sounded
+    (#106)
+  * probe: an LV2 point carries its note sweep, a CLAP point the sweep's
+    counts (#106)
+  * probe output 1.1: each point carries the cost timed at its rate, with the
+    notes held (#106)
+  * probe: pass --probe-notes and --hold to the CLAP prober (#106)
+  * ci: run mod-host in the test job so the LV2 worker path is proven (#100)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 20 Oct 2026 02:20:06 +0000

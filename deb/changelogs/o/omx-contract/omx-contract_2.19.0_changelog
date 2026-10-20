@@ -1,0 +1,31 @@
+omx-contract (2.19.0) unstable; urgency=medium
+
+  * Release 2.19.0: the audio-layout codes, two codes retired, RME_RATES gone
+  * rates: drop RME_RATES, the former name of ORACLE_FULL_RATES (#125) Its
+    readers have moved: the mains of omx-dsp, omx-clap-core, omx-plugins,
+    plugin-qualify and plugin-hostd read ORACLE_FULL_RATES. The C header
+    loses OMX_RME_RATES_COUNT and OMX_RME_RATES_INIT, the ts module its
+    RME_RATES export, the JSON render its formerNames.
+  * hosting/topology: wider-than-strip is a main port wider than the caller's
+    lane
+  * hosting: retire required-not-provided and extra-inputs-fed-silence,
+    declared until a major Removing a code is MAJOR (semver v2.18.0 names
+    featuresMissing removed as MAJOR), and no release takes a major bump
+    before openmixer publishes. So both stay declared and their doc says they
+    are retired: hosting.features.required-not-provided for
+    hosting.features.missing, which names the same fact (#127;
+    featuresMissingAtLoad keeps its key), and
+    hosting.topology.extra-inputs-fed-silence for
+    hosting.topology.too-many-ports, written by nobody once omx-clap-core#92
+    lands. docs/data-layout.md says how a code is retired.
+  * hosting/topology: the five codes omx-clap-core#92 writes for audio
+    layouts too-many-ports, port-too-wide, port-without-channels,
+    channel-map-unknown and ambisonic-config, under topologyTooManyPorts,
+    topologyPortTooWide, topologyPortWithoutChannels,
+    topologyChannelMapUnknown and topologyAmbisonicConfig, each with the
+    meaning the desk gave on #119. omx-clap-core writes them from describe
+    and activation (src/clap_host.c, lv2/core/lv2_world.c); plugin-qualify's
+    verdicts and the console read them. The C header gains
+    OMX_HOSTING_TOPOLOGY_<CODE> for each.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 20 Oct 2026 03:08:10 +0000

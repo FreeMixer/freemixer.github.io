@@ -1,0 +1,66 @@
+plugin-hostd (0.7.0) unstable; urgency=medium
+
+  * sabotage: the probe arm's scratch tree carries what the Makefile's probe
+    rule builds from (src, include, packaging, Makefile) (#101)
+  * ci and sabotage: the devel RPM's expected files name the three
+    contract.d/3 tables, and the sabotage script builds the probe through the
+    Makefile (#101, #126)
+  * docs/design: chains, the protocol has no latency verb to route (#101)
+  * docs/design: chains, the open question of an LV2 chain while require_pins
+    is on (#101)
+  * daemon_test: a chain's scenarios wait for the declaration's chain_formed
+    before marking (#101)
+  * supervisor: the chain helpers sit before sup_call, so the sabotage arms
+    of the reply and of the adapter row bite again (#101)
+  * packaging: 0.7.0 carries chain and chain_clear (#101)
+  * sabotage: every chain guard broken once goes red; SABOTAGE_ONLY runs the
+    arms of a few tests (#101)
+  * daemon_test: a member's state is saved before it leaves its worker, and a
+    removed member keeps the order of the rest (#101)
+  * verbs_contract: every verb a controller sends is answered by handle(),
+    and chain is routed by no instance (#101)
+  * daemon_test: a chain of three in one worker, its refusals, the quarantine
+    of its crashed member and its rejoin (#101)
+  * supervisor: chain gathers its members in one worker in order, a crashed
+    member is quarantined and the chain goes on (#101)
+  * protocol: chain and chain_clear, the chain's error codes and chain_formed
+    (#101)
+  * docs/design: chains, instances run in order in one worker, a crashed
+    member quarantined (#101)
+  * plugin-hostd 0.7.0: describe and the format tables, on omx-contract 3
+    (#126)
+  * packaging: omx-contract 3.0.0 is the floor, the first with the formatMap
+    kind (#126)
+  * plugin-hostd-probe.1: the describe verb, its table, its options and exits
+    (#126)
+  * probe: describe clap:<path>#<id> | lv2:<uri> writes the scanned
+    descriptor through the format table (#126)
+  * data/formats: clap_entry and rdfs:seeAlso give the descriptor's
+    source.from (#126)
+  * docs/formats: the dump names the plugin's file, describe writes the links
+    a scanned descriptor needs (#126)
+  * docs/formats: the port scopes are source-field segments, the bag keys a
+    scope's facts, describe's defaults (#126)
+  * probe: the strings that grow and the JSON reader move to src/json.c, for
+    describe (#126)
+  * test-format-coverage: every field of a format one row, with its sabotage
+    arms (#126)
+  * transforms: the closed list TRANSFORMS(X) the format tables name, make
+    test-transforms (#126)
+  * data/formats: PLUGIN_HOSTD_CLAP_MAP and PLUGIN_HOSTD_LV2_MAP, installed
+    by make install-contract (#126)
+  * docs/formats: a table drops a runtime handle; lv2:index is a used term,
+    never dropped (#126)
+  * docs/formats: the format tables, the transforms, the coverage test, the
+    field dump and describe (#126)
+  * test-contract: the generator follows a scratch vocabulary header (#115)
+  * probe: write the bands, the latency method and the scheduling class by
+    omx-contract's names (#115)
+  * test-vocabulary: the probe schema's shared enums are the contract's, word
+    for word (#115)
+  * probe-output.schema: the words shared with omx-contract come from its
+    vocabulary header (#115)
+  * packaging: omx-contract 2.18.0 is the floor, the first with the
+    vocabulary header (#115)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 21 Oct 2026 20:25:32 +0000

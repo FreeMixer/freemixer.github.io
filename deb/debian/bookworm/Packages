@@ -676,6 +676,37 @@ Description: one shared source of truth for every FreeMixer knob, range, default
  resolved json render and the schema under /usr/share/omx-contract, and
  omx-contract.pc. A consumer requires it at exactly the version it pins.
 
+Package: libomx-contract-dev
+Architecture: all
+Version: 3.0.0
+Multi-Arch: foreign
+Priority: optional
+Section: libdevel
+Source: omx-contract
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 635
+Recommends: omx-contract (= 3.0.0)
+Breaks: libomx-clap-core-dev (<< 0.13.0~), libomxdsp-dev (<< 0.25.0~), omx-plugins-dev (<< 0.13.0~)
+Filename: ./all/libomx-contract-dev_3.0.0_all.deb
+Size: 57716
+MD5sum: 6269a255594936f2f600330658d90faa
+SHA1: a9df614aaa1d333c0e74ef81099aba447237635e
+SHA256: 596c85882d97b340860310bd01f0be2f1adc2213a330736690f835aec00d3ec3
+SHA512: 064a6f605c1698fce21c0f880e45606c750a8f5b84c16b66e3cfc270db011c455180cec248d73431e4934db74f0d15808fb13f9d39de5a7d56515a32395db5ca
+Homepage: https://github.com/FreeMixer/omx-contract
+Description: one shared source of truth for every FreeMixer knob, range, default
+ A fader range, a default, a plugin parameter, a supported sample rate: in
+ FreeMixer each of these is written down once, in omx-contract, and everything
+ else reads it. That is why the console, the DSP library and the plugins agree
+ on what a knob does and how far it turns. The declarations are plain JSON with
+ a JSON Schema, so tools in any language can read them, and they are rendered
+ as C headers for the code that is built from them.
+ .
+ This package holds the c render under /usr/include/omxcontract, the
+ resolved json render and the schema under /usr/share/omx-contract, and
+ omx-contract.pc. A consumer requires it at a floor, the lowest release
+ whose declarations it builds against.
+
 Package: omx-contract
 Architecture: all
 Version: 2.17.0
@@ -772,6 +803,33 @@ MD5sum: 3b6f29381ac8d0552c57b795f3461f8b
 SHA1: 2902540c2ecf64eec46dcc13341757406afb58ca
 SHA256: d40fdb2ca5699d17893731e056b1a8544e76477744dd46f7379c3ffb1f4b09ce
 SHA512: 54ec8c96d8023d818d1a0e7ee38ac7c767ae5110a48ec43bc899bfe1727441c6554363c08bb8852a70da65d2e0dad8ae458b1f10bae926ab76f63b843ea6c7f0
+Homepage: https://github.com/FreeMixer/omx-contract
+Description: command that checks and renders the FreeMixer declarations
+ A fader range, a default, a plugin parameter, a supported sample rate: in
+ FreeMixer each of these is written down once, in omx-contract, and everything
+ else reads it. The declarations are plain JSON with a JSON Schema.
+ .
+ This package holds the omx-contract command, which validates, formats and
+ renders the declarations, and reads the contract directory the packages
+ install their definitions into as one checked set. It carries the npm
+ packages it runs on (ajv and its dependencies), so it needs node and
+ nothing else.
+
+Package: omx-contract
+Architecture: all
+Version: 3.0.0
+Priority: optional
+Section: devel
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 1959
+Depends: nodejs
+Recommends: pkgconf | pkg-config
+Filename: ./all/omx-contract_3.0.0_all.deb
+Size: 259872
+MD5sum: 5801e491746b785ecbdb5876e2588671
+SHA1: 8e1a54bddc74f91ec68575fa1129ff6032b137aa
+SHA256: 854963fc38aa3cc1ab57e9c1d7c9b986c4aa7fd94c0bbe7839be8712bf8b301a
+SHA512: e67789060df82a5e6e49bca48ab36280fa96b9c192c9b5d34419a4b2b16fb99a3438e69e60c2b2ce2351cbaaee65031dbef785a1f9722bf05e278a43a5bd60dc
 Homepage: https://github.com/FreeMixer/omx-contract
 Description: command that checks and renders the FreeMixer declarations
  A fader range, a default, a plugin parameter, a supported sample rate: in

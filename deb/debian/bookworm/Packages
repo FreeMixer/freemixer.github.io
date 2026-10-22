@@ -1220,6 +1220,28 @@ Description: C header to drive plugin-hostd from your own controller
  plugin-hostd gives the flags. The same declaration as JSON, for tools not
  written in C, ships in the plugin-hostd package.
 
+Package: plugin-hostd-dev
+Architecture: all
+Version: 0.8.0
+Priority: optional
+Section: libdevel
+Source: plugin-hostd
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 251
+Filename: ./all/plugin-hostd-dev_0.8.0_all.deb
+Size: 36568
+MD5sum: 99d170b28959fbce0ab0923363a88f30
+SHA1: a3e2fa89e40fa1b994e7738543aef73a6b171bb3
+SHA256: be0beeca018cc25b0282127f34f475ae1d079cf66332a8877343f3e70e171200
+SHA512: 6ed8bddd6df709d9a3f0fb52f5fe4459a37aa934f3247c9eff9dc6c4f31bcfec6e0904caa33373597d60470d5eb5079a9f77b4858f5adb73f7f79b0df9e68b4e
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: C header to drive plugin-hostd from your own controller
+ The C header that declares everything a controller needs to drive
+ plugin-hostd: the verbs it adds to mod-host's protocol, error codes, feedback
+ events and settings. Include it instead of copying the values, and pkg-config
+ plugin-hostd gives the flags. The same declaration as JSON, for tools not
+ written in C, ships in the plugin-hostd package.
+
 Package: plugin-qualify
 Architecture: all
 Version: 0.1.1
@@ -6296,6 +6318,30 @@ Description: stand-in plugin worker to test a program that drives plugin-hostd
  /usr/libexec/plugin-hostd/tests, away from the directories programs run
  from.
 
+Package: plugin-hostd-tests
+Architecture: amd64
+Version: 0.8.0
+Priority: optional
+Section: sound
+Source: plugin-hostd
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 46
+Depends: plugin-hostd (= 0.8.0), libc6 (>= 2.34), libmod-host-protocol0 (>= 0.1.0)
+Filename: ./amd64/plugin-hostd-tests_0.8.0_amd64.deb
+Size: 13884
+MD5sum: 6440d7151d136f9f780d0c9d615980f5
+SHA1: 28575a36cc00cddc5dc57c05369b4e40792f561f
+SHA256: ac068f85a065bf48c5597800667fcabf2cd87b602b31df3e7fd9f56a74950ecd
+SHA512: 13d127d81d704df41831e6e99613bb41ee0d2d806473b22afd0c1e6b317fee5d234c46a0baa941f8d8e10e1198dd62b88c8f325aebded8fbb9f700b58fd7989a
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: stand-in plugin worker to test a program that drives plugin-hostd
+ A small worker that speaks the same protocol as mod-host and omx-clap-host
+ and can be made to die on cue, so a program that talks to plugin-hostd can
+ be tested against a real daemon without a plugin, a JACK server or any
+ audio. Run it with -L to print the layout it reports. It is installed in
+ /usr/libexec/plugin-hostd/tests, away from the directories programs run
+ from.
+
 Package: plugin-hostd
 Architecture: amd64
 Version: 0.1.0
@@ -6718,6 +6764,35 @@ MD5sum: 8aed714cffe50cad7155da69537e32e8
 SHA1: 1cbac236a546e6ef413316925335f53053b56a88
 SHA256: 6ebb2eb53cad124627597d97cc06cc072bbbcbe9f659542ec342635a635be91d
 SHA512: 5015c5a620e6a92c44418a403b28c4e704bb639485ea32f693298325c4b3ddfb2204a31420040b2f21de01bf415c0f5588c012773043e9a3da93e2a3e9ccde61
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: run LV2 and CLAP plugins so that one crash cannot stop the show
+ plugin-hostd keeps your effects and instruments running when one of them
+ misbehaves. It gives a controller one mod-host socket and starts each plugin,
+ or each named group of plugins, in a worker process of its own: mod-host for
+ LV2, omx-clap-host for CLAP. If a plugin crashes, only its worker goes down
+ and the daemon brings it back. Audio never passes through the daemon, so it
+ adds no latency: every worker is a JACK client.
+ .
+ A format whose worker is not installed refuses its adds; the other format
+ is unaffected. mod-host is not packaged by Debian: install it from source
+ for LV2 plugins.
+
+Package: plugin-hostd
+Architecture: amd64
+Version: 0.8.0
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 277
+Depends: libmod-host-protocol0 (>= 0.1.0-6~fmx), libc6 (>= 2.34)
+Recommends: omx-clap-host (>= 0.9.0)
+Suggests: mod-host
+Filename: ./amd64/plugin-hostd_0.8.0_amd64.deb
+Size: 110280
+MD5sum: 319787c846766eefafa688f84cf272e4
+SHA1: b410ea5bb4cc442e039caac8e5325064f6030156
+SHA256: aafa791e0b208023d6fab64c13d1eddf4689d9c49fc954f3cac034858a84f470
+SHA512: 3d0676815894b1f679ee305807cc5d41abf43a7d766797eea9666f71c064f0b425b41827235bbdef74a5b6977ffd87b8d01d2c008e666de45f7af63e33e07d11
 Homepage: https://github.com/FreeMixer/plugin-hostd
 Description: run LV2 and CLAP plugins so that one crash cannot stop the show
  plugin-hostd keeps your effects and instruments running when one of them
@@ -11882,6 +11957,30 @@ Description: stand-in plugin worker to test a program that drives plugin-hostd
  /usr/libexec/plugin-hostd/tests, away from the directories programs run
  from.
 
+Package: plugin-hostd-tests
+Architecture: arm64
+Version: 0.8.0
+Priority: optional
+Section: sound
+Source: plugin-hostd
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 78
+Depends: plugin-hostd (= 0.8.0), libc6 (>= 2.34), libmod-host-protocol0 (>= 0.1.0)
+Filename: ./arm64/plugin-hostd-tests_0.8.0_arm64.deb
+Size: 13204
+MD5sum: 7a0fde26ffb1601447753bd5af91b97f
+SHA1: 8bfea244fcc756e0a94a8cf9ddfdeaa61b90f5ba
+SHA256: 3e477dcb36093919a4fdb0834b3c1f4918d12721bd8177a09f900815ae339b6c
+SHA512: 1b54e0fcbb4f1e4663d88057de54db335df7994fbeffbfd5408b205a05b4128772ccf79d058784e16ac9438907edd99e762e45fbb088877b06483c75ee805fc4
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: stand-in plugin worker to test a program that drives plugin-hostd
+ A small worker that speaks the same protocol as mod-host and omx-clap-host
+ and can be made to die on cue, so a program that talks to plugin-hostd can
+ be tested against a real daemon without a plugin, a JACK server or any
+ audio. Run it with -L to print the layout it reports. It is installed in
+ /usr/libexec/plugin-hostd/tests, away from the directories programs run
+ from.
+
 Package: plugin-hostd
 Architecture: arm64
 Version: 0.1.0
@@ -12304,6 +12403,35 @@ MD5sum: 2fdd33090a5aadc829e3ad813b4277b2
 SHA1: ae6eebdf77c3046bfb5735ceb90997c4833b927a
 SHA256: 2842f3a997088f6ec90b139a3852d8e7b12dcbcd9c7683cfa5ad923ca11990de
 SHA512: f3e5b9196398978791b02d94b604f49532fcc0f19e72abb136dca2c718313e313c07774ab8971518ac62f0604f49e3d3c30153f83b73583ac664c215f71bcc3d
+Homepage: https://github.com/FreeMixer/plugin-hostd
+Description: run LV2 and CLAP plugins so that one crash cannot stop the show
+ plugin-hostd keeps your effects and instruments running when one of them
+ misbehaves. It gives a controller one mod-host socket and starts each plugin,
+ or each named group of plugins, in a worker process of its own: mod-host for
+ LV2, omx-clap-host for CLAP. If a plugin crashes, only its worker goes down
+ and the daemon brings it back. Audio never passes through the daemon, so it
+ adds no latency: every worker is a JACK client.
+ .
+ A format whose worker is not installed refuses its adds; the other format
+ is unaffected. mod-host is not packaged by Debian: install it from source
+ for LV2 plugins.
+
+Package: plugin-hostd
+Architecture: arm64
+Version: 0.8.0
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 344
+Depends: libmod-host-protocol0 (>= 0.1.0-6~fmx), libc6 (>= 2.34)
+Recommends: omx-clap-host (>= 0.9.0)
+Suggests: mod-host
+Filename: ./arm64/plugin-hostd_0.8.0_arm64.deb
+Size: 106584
+MD5sum: 30d938d84c78a0584dd0884967b5f30e
+SHA1: e31ebc9880583cda18bcfcba2e7141693818a4ac
+SHA256: 4c803d11188380c1c9d50b52c72eb1fcea88b531474ed85f571482fd83d9451e
+SHA512: aa67021ffef058e5e20cad06a690d6588f2c7e2268c20ea8a47fd4d6bba68176b74eba056c1dc9dad49a068f59eff1ee9648aba8b4e7934b3293b373721bb8e2
 Homepage: https://github.com/FreeMixer/plugin-hostd
 Description: run LV2 and CLAP plugins so that one crash cannot stop the show
  plugin-hostd keeps your effects and instruments running when one of them

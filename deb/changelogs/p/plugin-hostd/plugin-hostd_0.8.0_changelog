@@ -1,0 +1,31 @@
+plugin-hostd (0.8.0) unstable; urgency=medium
+
+  * doc: what omx-clap-host must send for the chain, preset, learn and
+    feedback verbs (#131)
+  * tests: a value the plugin moved by itself reaches the controller, a
+    controller's writes none (#131)
+  * protocol: param_set feedback is the declared parameter-feedback event
+    (#131)
+  * verbs: the preset, bundle and learn verbs are relayed and the worker's
+    answer comes back (#131)
+  * supervisor: a chain's LV2 worker runs in the union of its members'
+    bundles under require_pins (#131)
+  * doc: a chain's LV2 worker sees the union of its members' bundles (#131)
+  * packaging: 0.8.0 changelog names the lv2_worker default (#101)
+  * README: who runs an LV2 plugin by default (#101)
+  * tests: the lv2_worker default is auto, the mod-host row is named where it
+    is meant (#101)
+  * lv2_worker defaults to auto: the adapter row first, mod-host for what it
+    refuses (#101)
+  * main: VERSION is 0.8.0 (#135)
+  * packaging: 0.8.0 carries the chain floor, the verb table and the LV2
+    union world (#135)
+  * tests: the LV2 chain test names the union world, not a path the
+    private-refs check refuses (#131)
+  * chain: LV2 chains under require_pins need the union-narrowed world (#131)
+  * protocol: the verb sources are named outside PHD_VERB_ (#131)
+  * protocol: the host verb table, a row per verb and a level per profile
+    (#131)
+  * chain: a chain of one is valid, its floor a declared constant (#131)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 22 Oct 2026 21:33:40 +0000

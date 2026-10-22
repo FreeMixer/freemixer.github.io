@@ -1,0 +1,373 @@
+omx-clap-host (0.14.0) unstable; urgency=medium
+
+  * ci: test-fields runs in the job that has the toolchain and the CLAP
+    headers, not in the contract job (#308)
+  * ci: build against the published omx-contract v3.0.0 and plugin-hostd
+    v0.7.0 (#308)
+  * tests: the omx-delay plugin id is org.openmixer.delay, as omx-plugins
+    0.13.0 ships it (#297)
+  * 0.14.0 changelog: the hosting codes moved here, the six removed,
+    omx-clap-scan --fields, contract.d/3 (K5, #297)
+  * contract.d/3: the packages and CI install and expect omx-clap-core's
+    files there, on omx-contract-devel >= 3.0.0 (K4, #297)
+  * omx-clap-scan --fields: the field dump of one plugin, CLAP through the
+    core's instance, LV2 through the adapter's world (K3, #297)
+  * doc: omx-clap-scan --fields, the field dump plugin-hostd's tables read
+    (K3, #297)
+  * data/hosting: the six codes removed, featuresMissingAtLoad is
+    featuresMissing; the render follows (K2, #297)
+  * data/hosting in: the 16 hosting files of omx-contract, byte for byte;
+    their render includes as omx_vocabulary.h did (K1, #297)
+  * ci: the RPM file-lists check expects the udev rule omx-clap-host now ships
+  * clap_scan_test runs every scanner from a scratch directory (#300)
+  * docs: the idle hold bench says the watts per rate and path, the rest
+    range as the rows have it, and names #298
+  * jack e2e: the held arm reads the device's aggregate, not a literal 10
+    (#296)
+  * clap_unoffered_test compiles the idle hold in beside the core it includes
+    (#296)
+  * core test at ABI 16, and a VERSION move rebuilds the objects that embed
+    it (#296)
+  * docs: the CPU idle hold bench, every path at hold off, 10 and 0 with
+    watts, jalv included (#296, #105)
+  * jack e2e: a quit with a plugin active ends the hold too (#296)
+  * bench: the jalv path's pids survive send's subshell, hostd counts its
+    workers, and the jalv UI is opt-in (#296)
+  * bench: the CPU idle hold as an arm, the device's answer and the window's
+    watts beside each run (#296, #105)
+  * bench: the tools build again under -Werror, the LV2 config's state_root
+    given (#85)
+  * packaging: the udev rule for cpu_dma_latency, in the RPM and the DEB
+    (#296)
+  * omx-clap-host: --idle-hold and the idle_hold command (#296)
+  * Version 0.14.0: the idle hold adds to the ABI (#296)
+  * core: libomx-clap-core holds cpu_dma_latency while an instance is active
+    (#296)
+  * contract: the idle hold's default and the hosting.idle dimension,
+    declared in data/hosting.json (#296)
+  * docs: the hosting comparison names its three follow-up issues (#267)
+  * lv2 tests: the range arm's parameter infos start zeroed, for the
+    compilers that cannot see they are read only once found (#254)
+  * lv2: a control port that declares no bound gets -1e9 or 1e9 on that side,
+    not [0,0] (#254)
+  * lv2 parity: the three swh faults name their cause, the generator's lost
+    activate reset (#230)
+  * lv2: an llext:MidiPort is the only MIDI port its way, and its buffer
+    keeps the stamp zynadd reads past the last event (#284)
+  * lv2: the vendored rtmempool header names its licence (#265)
+  * lv2: the vendored ll-plugins MIDI header names its licence (#284)
+  * lv2: an llext:MidiPort is the MIDI port, over the ll-plugins LV2_MIDI
+    buffer (#284)
+  * review: the configuration-list rescan is reported while the plugin is
+    inactive and dropped while active (#263)
+  * cycle gate test: the dry-cycles count starts one cycle after the size is
+    recorded (#289)
+  * ci: the clean-root consumer runs core_link_test on the Makefile's fixture
+    list, and the test resolves its paths (#288)
+  * host: the host half of clap.audio-ports-config, its rescan the ports
+    rescan the tick reports (#263)
+  * docs: our LV2 adapter against mod-host and jalv, measured (#267)
+  * review: the pool served under the header's spelling, the specification's
+    and the deprecated URI; the maximum honoured; aligned chunks (#265)
+  * fixture: the pool's two URIs declared lv2:Feature, so the validator knows
+    them (#265)
+  * lv2: the rtmempool feature, lv2dynparam's realtime-safe pool, under both
+    its URIs (#265)
+  * review: the warm-up reads the pass-through stage's width without a
+    buffer, the ABI is 15, the scanner says the placement
+  * docs: the desk hosts 433 of 433 CLAP plugins, nothing refused, every file
+    scanned (#270)
+  * docs: the desk hosts 429 of 429 CLAP plugins with the pass-through tools
+    (#270)
+  * tests: the layout checks take the ABI 15 words
+  * host: a plugin with no audio port at all is a pass-through tool (#270)
+  * review: a bundle failure is a reading, a trailing slash is stripped, the
+    reader's contract is tested
+  * abi: the baseline re-recorded at 0.13.0 with bundle_object in the 0.14
+    node (#259)
+  * ci: the consumer steps pass core_link_test its third fixture; a short
+    invocation says so
+  * docs: the desk measures 431 of 433 CLAP plugins hosted, every file
+    scanned (#259)
+  * map: bundle_object opens the node OMX_CLAP_CORE_0.14; 0.13 is frozen by
+    the 0.13.0 release (#259)
+  * Release 0.13.0: every port described, CV and events in the LV2 adapter,
+    CLAP admitted by ports
+  * docs: a bundle directory is listed by its one object; the scanner's code
+    bundle (#259)
+  * abi: bundle_object joins the OMX_CLAP_CORE_0.13 node (#259)
+  * scan and host: a bundle directory is its one shared object, whatever its
+    name
+  * review: the API doc and the reference say the feature list is not read;
+    the measurement says what it measured
+  * docs: the desk measures 427 of 429 CLAP plugins hosted once the ports
+    decide
+  * clap host: a plugin is admitted by its ports; the feature list refuses
+    nothing
+  * ci: OMX_CONTRACT_REF v2.20.0, the release that removes
+    hosting.features.cv-ports (#268)
+  * lv2: the CV-only output arm (64 CV outputs admitted, 65 refused),
+    BUILDING's example code, the fixture comment (#268)
+  * lv2: a CV port counts against the auxiliary limit of 64 a side and
+    nothing else; the cap of 8 goes (#268)
+  * docs: the CLAP page has the transport-control/1 row of clap-devel 1.2.7,
+    cites #263, says what the drafts and the LV2 shim serve (#196)
+  * tests: clap_coverage.py counts the surround and ambisonic draft ids as
+    offered, as the host answers them (#196)
+  * tests: clap_doc_check.sh prints its usage as a string, not a header line
+    by number (#196)
+  * tests: clap_doc_check.sh counts five cells, takes tracked files, wants
+    functions defined (#196)
+  * docs: the CLAP page says refused on the feature list, and calls the
+    16-slot limits untested (#196)
+  * tests: the pass-through arms run under lv2_clap_test's allocation
+    witness; lv2_host_test has none (#253)
+  * docs: the refusal row reads as #252's, its no-audio-output arm a plugin
+    with no port at all (#253)
+  * make test and CI run the CLAP page check with its sabotage arms (#196)
+  * tests: clap_doc_check.sh holds the CLAP page to the headers and to the
+    tests it names (#196)
+  * README: point at the CLAP compatibility page beside the LV2 one (#196)
+  * docs: clap-compatibility.md, every CLAP id the host offers or reads and
+    the test behind it (#196)
+  * make: the event fixture rule compiles its object again, lost in the merge
+    with main (#52)
+  * tests: clap_coverage.py gives a closed host 3 s, and its fake dies 1 s
+    after closing (#196)
+  * tests: clap_coverage.py keeps the host's unsaid count for the run, off
+    the plugin rows (#196)
+  * tests: clap_unoffered_test holds the unoffered flag: the audio role
+    returns, others wait (#196)
+  * map: the note on bind_aux_input sits on its own line, so the exports
+    check reads the symbol (#92)
+  * abi: bind_aux_input joins the 0.13 node, the node of its .so.1 signature
+    (#92)
+  * docs: BUILDING.md says the probe measures missing extensions for hosted
+    plugins only (#196)
+  * tests: clap_coverage.py classifies by codes, reads the configuration,
+    keeps out of /tmp (#196)
+  * host: the unoffered table claims under a flag, counts what it drops and
+    says ids ahead of chat (#196)
+  * scan: a file that gave no listing carries a code in JSON beside its
+    reason (#196)
+  * docs: BUILDING.md names the CLAP coverage probe and what it writes (#196)
+  * tests: clap_coverage.py waits for a host whose socket closed before
+    calling it a hang (#196)
+  * lv2 tests: the event fixture header wraps its comment at the width (#52)
+  * docs: the refusal row names the event MIDI id arm; the MIDI row the 0 id
+    and the mixed ports (#52)
+  * lv2 tests: an atom MIDI port beside an ev:EventPort, in both orders: the
+    first is the note path (#52)
+  * lv2: an event buffer's header rounds up to 8 bytes, so each buffer and
+    its data are 8-aligned (#52)
+  * lv2: an ev:EventPort plugin whose MIDI id is 0 is refused before
+    instantiate too (#52)
+  * make: test-clap-coverage-self in make test and CI, clap-coverage for the
+    desk run (#196)
+  * tests: clap_coverage.py measures which installed CLAP plugins the host
+    hosts and what they miss (#196)
+  * host: an extension a plugin asks for and the host does not offer is said
+    once in its log (#196)
+  * lv2_clap_test: the MIDI-sink arm starts on its own line and its comment
+    wraps at the width (#253)
+  * docs: the pass-through row claims the two tested shapes, the others
+    untested (#253)
+  * lv2_host_test: every control-only and MIDI-sink block runs under the
+    allocation guard (#253)
+  * lv2_clap_test: a MIDI sink through the shim, one note in reads notes 1
+    (#253)
+  * docs: control ports alone and a MIDI sink are hosted as pass-through
+    tools (#253)
+  * lv2: a control-only plugin or a MIDI sink is hosted as a pass-through
+    tool (#253)
+  * lv2 fixture: #ctl-alone and #ctl-only run, #no-ports has no port at all
+    (#253)
+  * docs: the event rows say what the guards and uri-map under the event map
+    prove (#52)
+  * lv2: the event output is read up to its count in frames; uri-map is 0
+    past 16 bits (#52)
+  * docs: the compatibility matrix reads ev:EventPort MIDI ports, and uri-map
+    and event (#52)
+  * lv2: an ev:EventPort supporting midi:MidiEvent is read as the atom MIDI
+    port is (#52)
+  * docs: the design names the instruments design by date, not by a path into
+    another repository (#92)
+  * stage: the bound auxiliary channel count is documented, so make docs is
+    whole (#92)
+  * lv2: the instance offers uri-map and event, the event extension's
+    features (#52)
+  * build: omx-contract 2.19.0, the first whose omx_vocabulary.h declares the
+    layout codes (#92)
+  * clap_host.h: CLAP_HOST_CODE_EXTRA_INPUTS goes again, retired by
+    too-many-ports and raised nowhere (#92)
+  * docs: a buffer-size change is applied on the next tick, the cycles dry
+    until then (#92)
+  * cycle gate, host: a block-size change is recorded on JACK's thread and
+    applied by the tick, a rescan in it answered (#92)
+  * docs: a rescan pending at a rate change or an aux bind is answered as one
+    raised by it (#92)
+  * tests, docs: a sleeping plugin's bound auxiliary output reads silence; a
+    failed reblock described (#92)
+  * stage: a count of bound auxiliary output channels spares the guard when
+    none is bound (#92)
+  * core: a config select refuses is passed over for the next match (#92)
+  * cycle gate: no reblock for an instance its relayout left dead; the
+    failure line says until when (#92)
+  * core: a surround port without clap.surround is refused past the ids the
+    map can name (#92)
+  * core: request_layout's refusal of a caller's mistake empties why, never
+    leaves an older answer (#92)
+  * core: a rate change or aux bind whose deactivate rescanned stops
+    inactive, as a restart does (#92)
+  * core: a refused layout request still reads the description again (#92)
+  * docs: an LV2 port's id is its CLAP index, the LV2 indexes are its map
+    (#92)
+  * docs: the scan's assumed ambisonic configuration includes a get_config
+    that answers false (#92)
+  * host: audio_ports reads the dry state under the lock its writers hold
+    (#92)
+  * host: buffer_size is one call of the gate's resize, a refused activation
+    said (#92)
+  * cycle gate: the resize remakes the carrier's blocks in the closed gate
+    and activates a pending relayout (#92)
+  * make: the instrument comment back over test-jack-synth (#92)
+  * scan: the plugin's name quoted and escaped in the text form (#92)
+  * host: audio_ports says dry for an active instance whose auxiliary blocks
+    are short (#92)
+  * host: every relayout outcome decides the pending activation again (#92)
+  * tests: a fifth sabotage arm drops the auxiliary outputs' non-finite scan
+    (#92)
+  * stage: only bound auxiliary outputs are guarded and silenced (#92)
+  * docs: activate, deactivate and restart say the carrier shuts its cycles
+    out across them (#92)
+  * docs: the audio_ports record, the auxiliary outputs' guard, the scan's
+    refused plugins (#92)
+  * host: a relayout waiting on short blocks activates in the buffer-size
+    callback; a failed re-block is said (#92)
+  * host: audio_ports answers on one line, the ports registered at add, dry
+    said (#92)
+  * scan: one port formatter, names escaped, no JACK names for a plugin the
+    core refuses (#92)
+  * host: a dry cycle clears the note output, so no stale event replays (#92)
+  * ci: the layout sabotage and the auxiliary ports over jack run on every
+    push (#92)
+  * tests: a gate that never closes races the deactivate under TSan, in make
+    test and CI (#92)
+  * tests: a config's main flags decide a match by value, a source's and an
+    effect's request both (#92)
+  * core: restart's -1 names what it is: an inactive instance or a refused
+    activate (#92)
+  * host: a block-size change reads the instance under the relayout's lock,
+    an inactive one left (#92)
+  * abi: request_layout joins the OMX_CLAP_CORE_0.13 node (#92)
+  * host: cycles are shut out across a restart or relayout, and the TSan run
+    covers both (#92)
+  * core: a config matches by its mains, and a refused apply falls back to
+    the config list (#92)
+  * stage: auxiliary outputs silent on every dry path, scanned and clamped as
+    main ones (#92)
+  * abi: ports_rescanned joins the OMX_CLAP_CORE_0.13 node (#92)
+  * core, lv2: an ambisonic port says whether its ACN/SN3D was read or
+    assumed (#92)
+  * docs: a rescan is reported and answered by re-reading, never by a restart
+    (#92)
+  * core, host: a restart stopped by a pending rescan answers its own value,
+    not a failure's (#92)
+  * tests: the N→N rule against a grouped, a split and a side-chained other
+    side (#92)
+  * lv2: rule 3 measures the other side by its main port's width, not its
+    port count (#92)
+  * stage: the warm-up primes every channel of a wide main and every aux
+    block, not the two legs alone (#92)
+  * bench: the stage bench relaxes the four in_cycle stores, run_ports' two
+    with run's (#92)
+  * abi: the soname-1 train's symbols join a new map node,
+    OMX_CLAP_CORE_0.13, since 0.12 is published (#92)
+  * abi: the history says soname 1 ends this train at ABI 14, and BUILDING.md
+    names the .so.1 baselines (#92)
+  * docs: the design names the console's two follow-ups in words, not by
+    private issue (#92)
+  * ci: the DEB and RPM jobs and the release dry run look for
+    libomx-clap-core.so.1 (#92)
+  * docs: the layouts, the aux ports, the codes (#92)
+  * tests: three sabotage arms for the layouts (#92)
+  * scan, pin: the description printed with its JACK names (#92)
+  * host: a JACK port per auxiliary channel, bound to the plugin (#92)
+  * core: the warm-up keeps a rescan its first activate made; only its own
+    deactivate's is dropped (#92)
+  * tests: a relayout's two dry branches heard through the ports (#92)
+  * host: a relayout answers every report and gives the audio role back, as a
+    buffer-size change does (#92)
+  * host: the latency callback and a relayout's request read the JACK ports
+    registered at add (#92)
+  * core: a config naming no port type matches a mono request of one channel
+    or a stereo one of two (#92)
+  * core: a ports rescan is answered by reading the description again, never
+    by an activate (#92)
+  * host: the lane's width is asked of a plugin that offers layouts (#92)
+  * core: request_layout asks a plugin for the carrier's layout (#92)
+  * core: activate answers only the rescan of the deactivate before it, not
+    one made in activate (#92)
+  * scan: the layout comment says which surround ports print no map and how
+    long a map is (#92)
+  * lv2: a surround mask has no bit for an id past CLAP_SURROUND_TSR (#92)
+  * core: a ports rescan is reported once by the tick, never turned into a
+    restart (#92)
+  * core: the host answers clap.surround and clap.ambisonic under their draft
+    ids too (#92)
+  * tests: the surround fake's map is not index order, so the core is seen
+    reading it (#92)
+  * lv2: a typed group is a surround or ambisonic CLAP port (#92)
+  * core: surround and ambisonic ports described through their extensions
+    (#92)
+  * contract: the surround and ambisonic codes (#92)
+  * docs: which LV2 layout twins are proven by value, description or refusal
+    (#92)
+  * lv2: a main channel or aux output the host or the plugin lacks is silence
+    (#92)
+  * lv2: a group of 65 channels is refused port-too-wide, by a generated twin
+    (#92)
+  * tests: hosting-codes-check.sh, no hand-typed hosting code in src/ or lv2/
+  * data: HOSTING_CODES removed; the core's refusals are omx-contract's codes
+  * docs: LV2 layouts read by the port-group rules, groups typed by
+    port-groups.ttl (#92)
+  * lv2: port-group types give a port its kind and channel map (#92)
+  * lv2, effects: the refusal codes are omx-contract's OMX_HOSTING_ macros
+  * build: omx-contract 2.18.0, whose omx_vocabulary.h the sources include
+  * lv2: which ports are main and which auxiliary, by the port-group rules
+    (#92)
+  * lv2: the audio ports as a description, main and auxiliary each side (#92)
+  * abi: the oldest accepted header follows ABI 13 until the first release of
+    soname 1 (#92)
+  * stage: the wide path's dry maps are held; comments say what a two-leg
+    call reads (#92)
+  * tests: the wide fake reverses its channels, so a wet block reads apart
+    from a dry one (#92)
+  * core: run_ports carries both inputs of a stereo input to a mono output
+    (#92)
+  * host: a main of any width is a JACK port per channel (#92)
+  * abi: the baselines of libomx-clap-core.so.1 with the stage's wide bounce
+    appended (#92)
+  * core: run_ports carries a main of any width; the two-leg lane keeps its
+    path (#92)
+  * core: the main pair may differ in width; a mono output is carried to both
+    legs (#92)
+  * core: a port bound after activation is set active, an unbind names no
+    width (#92)
+  * stage: the wide output test hands six buffers to a six-channel port (#92)
+  * abi: the baselines of libomx-clap-core.so.1 with main's full host merged
+    in (#92)
+  * core: a port is bound by its buffers, whatever frames they were bound
+    with (#92)
+  * packaging: libomx-clap-core.so.1 in the spec, the Debian package and CI
+    (#92)
+  * abi: the baselines of libomx-clap-core.so.1 (#92)
+  * core: the bounce at the limits, allocated once (#92)
+  * lv2: the side chains up to 64 ports of 64 channels, the ninth no longer a
+    refusal (#92)
+  * core: every port described, the carrier judged at activation (#92)
+  * core: the port description and the limits of 64 (#92), a new soname major
+  * docs: audio layouts, the design for #92: every port described, the
+    carrier judges the fit
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 22 Oct 2026 00:59:34 +0000

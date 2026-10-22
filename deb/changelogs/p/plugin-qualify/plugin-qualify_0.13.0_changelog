@@ -1,0 +1,48 @@
+plugin-qualify (0.13.0) unstable; urgency=medium
+
+  * hosting-codes: import omx-clap-core's modules as data: sources, so Node
+    18 reads them as modules (#132)
+  * packaging: depend on omx-clap-core-devel 0.14.0, where the hosting codes'
+    TypeScript modules install (#132)
+  * fixtures: fake.clap's scan golden is omx-clap-core 0.14.0's, 23 plugins,
+    wide at six channels (#132)
+  * clap-qualify.test.ts: a plugin needing one of the eleven extensions now
+    qualifies
+  * success-msi fixture: the reference rig's offer carries the eleven new
+    extensions
+  * clap-qualify.c: the host object answers the eleven extensions
+    omx-clap-core's does
+  * OMX_CLAP_HOST_EXTENSIONS: the seventeen omx-clap-core 0.14.0 offers,
+    header order
+  * lv2-measure: the provider's rtmempool kind is a --features word and part
+    of the defaults, as omx-clap-core 0.14.0 offers it (#132)
+  * native: fetch the published omx-clap-core 0.14.0, omx-dsp 0.25.0 and
+    plugin-hostd v0.7.0 (#132)
+  * pnpm-lock: omx-contract 3.0.0, the published release the manifest now
+    names (#132)
+  * test: the leaked-removed-code control builds the code from two parts, so
+    no source names a removed code (#130)
+  * 0.13.0: floors omx-contract >= 3.0.0, omx-clap-lv2 >= 0.13.0;
+    omx-clap-host is a hard dependency (#130)
+  * hosting-suitability: a topology past the auxiliary limit is
+    hosting.topology.too-many-ports; a CLAP's feature list is no longer
+    judged (#130)
+  * hosting codes: HOSTING_CODE reads omx-clap-core's installed TypeScript
+    module, not omx-contract (#130)
+  * the CV arm names no code: the sixteen-CV plugin's reasons equal the plain
+    plugin's
+  * omx-contract 2.20.0: the contract without hosting.features.cv-ports
+  * hosting-suitability: a CV port marks nothing; the host carries CV ports,
+    any number against the auxiliary limit (#125)
+  * conformance: every hosting code and measurement word is omx-contract's
+    (#120)
+  * vocabulary: the measurement words are omx-contract's, the prose stays
+    (#120)
+  * features: a required feature the host lacks is hosting.features.missing
+    (#120)
+  * hosting codes: HOSTING_CODE is omx-contract's HOSTING_*_CODES, flattened
+    (#120)
+  * deps: omx-contract 2.18.0, with HOSTING_*_CODES and vocabulary words
+    (#120)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 22 Oct 2026 05:10:59 +0000

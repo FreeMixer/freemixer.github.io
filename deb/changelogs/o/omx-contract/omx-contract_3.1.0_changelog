@@ -1,0 +1,33 @@
+omx-contract (3.1.0) unstable; urgency=medium
+
+  * resource hints: the LV2 namespace is
+    https://www.openmixer.org/ns/resource-hints#, the serving domain (#140)
+  * curves: an axis missing its unit or its scale is refused once (#141)
+  * text: the wave's effects are named by kernel, effect or public issue, not
+    by design card (#141)
+  * readouts: the bands of one name sit side by side and carry no leading
+    zero (#141)
+  * curves: the why of the curve items cites the public lane issue (#107)
+  * units: dB/oct, a slope in dB per octave, for the key tilt (#107)
+  * readouts: a per-band readout is band<n> and the one-band name, numbered
+    from 1 (#107)
+  * curves: the curve kinds and their axes, declared once (3.1.0, #107)
+  * docs: the declared mask and the declared basis are two words
+  * hints: a unit the carriers have no type for is refused by name
+  * install and CI: the Turtle is installed and its render checked beside the
+    json; make check compiles the hints header; the 3.1.0 changelog names the
+    hints (#119)
+  * render: the CLAP draft as omx_resource_hints.h and the LV2 properties as
+    omx-resource-hints.ttl (render --target lv2), from RESOURCE_HINTS; a
+    conformance per carrier, each sabotaged red and restored (#119)
+  * validate: an item with an extension states a resource, a unit and a basis
+    per hint, in units the carriers type, once (#119)
+  * resource-profile: RESOURCE_HINTS, the seven hints a plugin declares, and
+    the flag unit; the vocabulary renders follow (#119)
+  * schema 3.1.0: a words item takes units, bases and an extension, a word a
+    unit and a basis; word-unit and word-basis refuse a stranger, sabotaged
+    red (#119)
+  * docs: the resource hints, one declaration and the carriers rendered from
+    it (#119)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 09:29:52 +0000

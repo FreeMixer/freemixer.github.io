@@ -1,0 +1,35 @@
+libreac (1.7.2) unstable; urgency=medium
+
+  * release.yml: the publish commits sign with the organisation's commit key
+    (#20)
+  * release.yml: name the secrets the shared workflows read; inherit carries
+    nothing across organisations (#20)
+  * release.yml: grant the permissions the shared build workflows need
+  * libreac 1.7.2
+  * Hold the fuzz coverage to a floor and check it in CI
+  * Create the build directory before fuzz-sabotage logs into it
+  * Give the knock harness's real step range
+  * Pin the scene replay clamp in make test
+  * Wrap two lines past 100 columns
+  * Arm no scene replay for a base past the head-amp table
+  * Document the fuzz harnesses
+  * Run the fuzz harnesses in CI
+  * Plant a one-line mutant per harness and require the fuzzer to find it
+  * Add the coverage witness for the fuzz corpus
+  * Fuzz the pcap reader
+  * Fuzz the grant and the head-amp table behind it
+  * Fuzz the knock against its own safety argument
+  * Fuzz the multi-box registry
+  * Fuzz the scene push framing
+  * Fuzz discovery and the hunt
+  * Fuzz the identity page decode and the box naming
+  * Fuzz the control-plane parsers
+  * Fuzz the audio frame decoders
+  * Generate the fuzz seed corpus from the test fixtures
+  * Build libFuzzer harnesses against a sanitizer copy of libreac.a
+  * Comments state the code's own facts: drop ticket numbers and private-repo
+    citations
+  * Remove the committed push-failure log and ignore it
+  * Remove CHANGELOG.md and every check that read it
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 16:18:30 +0000

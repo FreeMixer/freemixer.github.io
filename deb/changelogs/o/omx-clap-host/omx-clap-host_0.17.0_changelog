@@ -1,0 +1,92 @@
+omx-clap-host (0.17.0) unstable; urgency=medium
+
+  * abi: only a member that points to a structure passes, every member read
+    (#323)
+  * abi: a pointer member whose structure grew is no member change (#323)
+  * abi: the baseline recorded at 0.17.0, the instance's resource hints and
+    four functions in it (#323)
+  * Version 0.17.0: the resource hints join the OMX_CLAP_CORE_0.17 node (#323)
+  * lv2: the adapter reads the resource hints from the TTL (#323)
+  * data: no stated-twice code for the resource hints (#323)
+  * scan: omx-clap-scan writes the plugin's resource hints (#323)
+  * core: the host reads the plugin's resource hints (#323)
+  * data: the codes of the resource-hints dimension (#323)
+  * build: omx-contract 3.1.0 is the floor (#323)
+  * tools: lv2-preset-census counts the presets each LV2 plugin ships
+  * tools: preset-census walks directories and bundles, counts factory presets
+  * host: the preset file as a JSON tree, values written exactly, unknown
+    members kept, base64 (#219)
+  * docs: presets in the worker, its verbs, the file it writes and reads, the
+    refusals (#219)
+  * lv2: ports_connect skips a port whose memory is NULL, as the loop it
+    replaces did (#279)
+  * tools: preset-census counts each plugin's presets, preset-load and state
+  * lv2: port_role zeroes the leg first, the early returns left it unset
+    (#279)
+  * lv2: instance_make binds ports from a role table built at TTL read (#279)
+  * lv2: plugin_process copies its legs through one helper (#280)
+  * ci: the runtime and -dev packages share no file; the shared parent
+    directories dpkg -L prints are not a collision (#309)
+  * ci: the file lists and clean-root checks follow ts/ into the runtime
+    package (#309)
+  * packaging: ts/ ships in omx-clap-core and libomx-clap-core1, not -devel
+    (#309)
+  * 0.15.0: the hosting codes' TypeScript modules move to the runtime package
+    (#309)
+  * BUILDING: clap_chain.h among the installed headers, and the chain's tests
+    (#311)
+  * core test: the chain under ThreadSanitizer, and its publish wait
+    sabotaged red there (#311)
+  * docs: the chain's publish wait is held by its test under ThreadSanitizer
+    (#311)
+  * abi: the baseline recorded at 0.16.0, the chain's four structures and ten
+    functions in it (#311)
+  * Version 0.16.0: the chain joins the OMX_CLAP_CORE_0.16 node (#311)
+  * gitignore: the chain test's binary (#311)
+  * core test: the chain by value, series identity, latency sum, bypass,
+    removal, long cycle, ABI refusal, each guard sabotaged (#311)
+  * docs: the chain's publish is sequentially consistent, and what its tests
+    and sabotage hold (#311)
+  * core: the chain, an ordered list of stages with bypass, summed latency
+    and removal, in clap_chain.h (#311)
+  * core test: exports.sh holds the export list to every header given, not
+    clap_host.h alone (#311)
+  * docs: the chain object of the library, its members, latency, cycle,
+    removal and ABI (#311)
+  * Version 0.15.0: the sized default joins the OMX_CLAP_CORE_0.15 node (#301)
+  * core test: a caller_size shorter than the struct is bounded, not
+    overwritten, canary proven (#301)
+  * core: omx_clap_host_config_default_sized bounds the defaults' stamp to
+    the caller's own sizeof (#301)
+  * docs: an in-process caller's config struct can be smaller than the
+    library's own, and overrun (#301)
+  * docs: the bench's captured machine dumps carry no trailing whitespace
+    (#302)
+  * docs: the chain bench's overrun ratios as the rows give them (#302)
+  * docs: the chain bench at N=4, the verdict against the bar and the one
+    question it leaves (#302)
+  * bench: summary.py's per-plugin table leaves a chain member's node time
+    out, as it has none (#302)
+  * docs: the chain bench's pad latency as the runs read it, three series
+    runs late (#302)
+  * docs: the chain bench, 7 CLAP and 8 LV2 plugins at 96000 and 48000,
+    quanta 64 and 128, hold 10 asked (#302)
+  * docs: the chain's bit identity and the require_pins answer, where it ran
+    and what the pod cannot hold (#302)
+  * bench: summary.py sets the chain beside its series, per rate, quantum and
+    hold, and names what got worse (#302)
+  * bench: the series topology and the chain paths, clap-series, chain-clap,
+    adapter-series, chain-adapter (#302)
+  * tests: chain_identity says a difference's level in dB, and reads the pin
+    off its refusal whole (#302)
+  * omx-clap-host: the chain's blocks aligned to 64 bytes, as a client's port
+    buffer is (#302)
+  * tests: chain_identity, the chain against one client per plugin in series,
+    bit for bit (#302)
+  * omx-clap-host: a chain of instances in one JACK client,
+    OMX_CLAP_HOST_CHAIN, the Stage 0 prototype (#302)
+  * tests: jack_identity records up to six outputs from the same cycles (#302)
+  * docs: the chain prototype and its bench, what Stage 0 builds and how it
+    is judged (#302)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 11:51:19 +0000

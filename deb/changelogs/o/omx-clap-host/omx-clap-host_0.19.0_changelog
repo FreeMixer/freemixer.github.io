@@ -1,0 +1,58 @@
+omx-clap-host (0.19.0) unstable; urgency=medium
+
+  * doc: clap-compatibility.md tries Wayland floating, then X11 (#329)
+  * doc: X11 embedded with no set_parent falls to X11 floating (#329)
+  * tests: a Wayland-only plugin on an X11 session is refused no-display
+    (#329)
+  * window: the Wayland window builds without xcb, and not-built is gone
+    (#329)
+  * clap_scan_test: a plugin that hangs or exits 0 in its entry gives no dump
+    (#303)
+  * 0.19.0: a plugin's window over Wayland first
+  * omx-clap-scan --fields: OMX_CLAP_SCAN_FIELDS_TIMEOUT sets the child's
+    seconds (#303)
+  * clap_scan_test: the abort in the entry gives its reason on stderr,
+    crashed with signal 6 (#303)
+  * doc: a plugin's window is tried over Wayland first, then X11
+  * doc: --fields clap: always names the plugin id (#303)
+  * ci: the build and test job runs make test-jack-window-wl
+  * omx-clap-scan --fields waits for its child through a signal (#303)
+  * tests: make test-jack-window-wl, the window over Wayland first end to end
+  * omx-clap-scan --fields disarms the child's alarm before it writes the
+    dump; the reference says it is never partial (#303)
+  * tests: fake_gui_wl.clap, the window fixture with a Wayland window too
+  * omx-clap-scan --fields takes the dump over a pipe and writes it only when
+    it ends whole (#303)
+  * window: a show tries a Wayland floating window first
+  * window: the APIs a show tries are a table
+  * docs: the adapter seam follow-ups name their issues, #332 #333 #334 (#287)
+  * tools: adapter-seam.sh collates in the C locale (#287)
+  * tools: adapter-seam.sh finds a pipx-style lizard on PATH (#287)
+  * docs: the adapter seam re-measured at main 00a9b2e, the rtmempool pool
+    classed (#287)
+  * docs: adapter seam summary says where the four shared headers are used
+    (#287)
+  * docs: the adapter seam and what a VST3 adapter would cost (#287)
+  * tools: adapter-seam.sh measures the ref the table was read from, 0990c30
+    (#287)
+  * docs: adapter-seam.tsv classes all 321 functions of the LV2 adapter (#287)
+  * tools: adapter-seam.sh measures the adapter seam and counts VST3-only
+    packages (#287)
+  * clap_scan_test checks the values of the field dump; reference and README
+    name --fields (#303)
+  * omx-clap-scan --fields makes the dump in a child: a plugin that aborts in
+    its entry takes the child, not the scanner (#303)
+  * 0.14.0 changelog: the hosting codes moved here, the six removed,
+    omx-clap-scan --fields, contract.d/3 (K5, #297)
+  * contract.d/3: the packages and CI install and expect omx-clap-core's
+    files there, on omx-contract-devel >= 3.0.0 (K4, #297)
+  * omx-clap-scan --fields: the field dump of one plugin, CLAP through the
+    core's instance, LV2 through the adapter's world (K3, #297)
+  * doc: omx-clap-scan --fields, the field dump plugin-hostd's tables read
+    (K3, #297)
+  * data/hosting: the six codes removed, featuresMissingAtLoad is
+    featuresMissing; the render follows (K2, #297)
+  * data/hosting in: the 16 hosting files of omx-contract, byte for byte;
+    their render includes as omx_vocabulary.h did (K1, #297)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 23:19:15 +0000

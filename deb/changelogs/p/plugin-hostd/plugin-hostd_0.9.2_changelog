@@ -1,0 +1,21 @@
+plugin-hostd (0.9.2) unstable; urgency=medium
+
+  * release: plugin-hostd 0.9.2
+  * Name the trailing tab among what the harnesses found
+  * Build against mod-host protocol headers of release 11 or newer
+  * Pass a mutant only when every seed it trips aborts in its own property
+  * Test that a long held gesture is ended whole
+  * Check the round trip of every command, a trailing tab included
+  * Trim a tab at the end of a command as a space is trimmed
+  * Say what the fuzz harnesses prove and how to run them
+  * Fuzz on every push and pull request
+  * Hold the harnesses to a coverage floor
+  * One mutant per property, each found by its own check
+  * Build and run the harnesses: make fuzz and make fuzz-run
+  * Seed both harnesses from the declared protocol
+  * Fuzz the reply stream reader against a reference splitter
+  * Fuzz the command parser and dispatcher against a recorder
+  * End a held gesture whole however long its line is
+  * Refuse the words worker_list, supervisor_reset and quit do not take
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 21:14:13 +0000

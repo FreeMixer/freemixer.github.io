@@ -1,0 +1,18 @@
+omx-clap-host (0.18.0) unstable; urgency=medium
+
+  * tests: the window e2e runs only as pid 1 of its namespace, proves its
+    /tmp, checks the call order (#180)
+  * data: the window codes name no display server (#180)
+  * host: the window's X11-only code under OMX_CLAP_HOST_X11 (#180)
+  * abi: the baseline recorded at 0.18.0, omx_clap_host_offer_gui added (#180)
+  * Version 0.18.0: omx_clap_host_offer_gui joins the OMX_CLAP_CORE_0.18 node
+    (#180)
+  * docs: a plugin's own window in omx-clap-host (#180)
+  * ci: build with xcb and run test-jack-window; the packages require libxcb
+    (#180)
+  * tests: the window fixture and make test-jack-window (#180)
+  * host: a plugin's own window over clap.gui and X11, on request (#180)
+  * data: the codes of the window dimension, hosting.window.* (#180)
+  * core: omx_clap_host_offer_gui hands a plugin the caller's clap.gui (#180)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 21:00:16 +0000

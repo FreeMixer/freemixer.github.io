@@ -1,0 +1,23 @@
+plugin-qualify (0.14.0) unstable; urgency=medium
+
+  * release: plugin-qualify 0.14.0 (#140, #124)
+  * scan.py: walk lilv collections by begin, is_end and next
+  * CI: jsonschema comes with the scanners, before any suite runs
+  * README: the scanned descriptors, descriptor_dir and the file name
+  * Round trip the CLAP fixture set through its scanned descriptors
+  * Both scanners write scanned descriptors into descriptor_dir
+  * Declare descriptor_dir, the descriptor schema and the descriptor codes
+  * clap-qualify scan: each file's SHA-256, audio port types, note port
+    dialects
+  * audit doc: name the retired code without spelling the hosting token the
+    vocabulary conformance reads (#124)
+  * ci: run the overlap audit's self-test (#124)
+  * audit: plugin-qualify against omx-clap-core's compatibility tests, by the
+    numbers (#124)
+  * audit-overlap.sh: the audit's own files are never counted (#124)
+  * audit-overlap.sh: clap-qualify's scan mode and the probing programs as
+    units (#124)
+  * audit-overlap.sh: the overlap numbers, found by name, with a self-test
+    (#124)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 11:23:58 +0000

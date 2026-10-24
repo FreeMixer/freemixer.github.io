@@ -1,0 +1,20 @@
+reac-pw (1.0.34) unstable; urgency=medium
+
+  * release.yml: the publish commits sign with the organisation's commit key
+    (#32)
+  * release.yml: name the secrets the shared workflows read; inherit carries
+    nothing across organisations (#32)
+  * release.yml: grant the permissions the shared build workflows need
+  * test_reac_served_mark: assertions read interfaces the test added, so none
+    is NULL
+  * reac-pw 1.0.34
+  * Ship reac-pw-nm-unmanaged: keep NetworkManager off the interfaces reac-pw
+    serves
+  * Mark every interface a segment comes up on with the alias reac-pw:served
+  * Remove CHANGELOG.md and its CI check; git history is the changelog
+  * reac-pw 1.0.33
+  * reac-capture stops being the door when reac-playback comes back
+  * CHANGELOG: a box with no outputs has no sink (#13)
+  * A box with no outputs has no sink, and its door is reac-capture
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 16:18:34 +0000

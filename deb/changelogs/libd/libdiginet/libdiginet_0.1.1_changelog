@@ -1,0 +1,21 @@
+libdiginet (0.1.1) unstable; urgency=medium
+
+  * 0.1.1: the two transport fixes and the fuzz harnesses (#25)
+  * docs: describe the fuzz harnesses, their properties and how to run them
+    (#21)
+  * ci: fuzz each harness on every push and pull request (#21)
+  * fuzz: hold each harness to a coverage floor and every check to a seed
+    (#21)
+  * session: send a command that completes F0 13 xx 70 in a frame of its own
+    (#21)
+  * session: keep the frame in flight when a wake's send fails (#21)
+  * fuzz: add fuzz_transport, its seeds and its five mutants (#21)
+  * fuzz: add fuzz_codec, its seeds and its four mutants (#21)
+  * fuzz: add fuzz_decode, its seeds and its three mutants (#21)
+  * fuzz: add fuzz_frame, its seeds and its three mutants (#21)
+  * fuzz: add fuzz.h, the sanitizer build and the run and sabotage drivers
+    (#21)
+  * README: drop the desk-test line from the Network section
+  * README: a Network section, what the desk needs from the link
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 24 Oct 2026 23:58:15 +0000

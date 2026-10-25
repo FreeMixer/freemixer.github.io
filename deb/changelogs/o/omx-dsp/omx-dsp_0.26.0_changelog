@@ -1,0 +1,46 @@
+omx-dsp (0.26.0) unstable; urgency=medium
+
+  * Version 0.26.0: the L2 FX wave, FX-1 to FX-8 (#188)
+  * gen-once: the empty-list failure message reads like the others (#231)
+  * debian: run the package build's suite with dpkg's parallel level (#231)
+  * gen-once: read FX_BINS from a file, not from make's stdout (#231)
+  * reverb: the early taps read omx_fdelay, as the FX-7 card says (#229)
+  * oracles: closed forms for the doppler fade and hand-over, the doubler's
+    place, and the wet de-ess (#228)
+  * doubler: a changed voice hands over through a crossfade, one sample
+    inside the reach (#226)
+  * gate: the key listen plays what the detector reads, every key mode (#225)
+  * make test: copy-check runs alone before the parallel suite (#227)
+  * debian: run the package build's suite serially again
+  * gen-once: read the Makefile's lists clear of the parent make's flags
+  * doppler: the hand-over check keeps its maximum by comparison
+  * ci: run make test with one job per CPU
+  * doubler: the vocal doubler face over omx_doppler (FX-8)
+  * reverb: early reflections, tail level, wet duck and wet de-ess (FX-7)
+  * reverb: the return in the kernel: early taps, tail level, duck, de-ess
+  * gate: key listen and key tilt (FX-5)
+  * delay: tempo sync, tape and analog modes, wet duck (FX-4)
+  * delay: tape and analog colours and the wet duck in the kernel
+  * duck: omx_duck_step, one key sample through the follower
+  * mbcomp: a moved MBC_MAX_BANDS is refused by name
+  * comp_key: arm A runs the engaged key path too
+  * comp: the resolve note names the key path's designs
+  * band_dyn, dyneq: say what the attack and release times mean
+  * BUILDING.md: the packaging floor is omx-contract 3.1.0
+  * dyneq, mbcomp: the kernel files require schema 3.1.0
+  * mbcomp: a solo past the band count mutes nothing
+  * doppler: omx_doppler, a detuning read head on the fractional delay
+  * duck: omx_duck, the wet ducker
+  * test: run each new perturbation script's sabotages side by side
+  * mbcomp: controls, readouts and the instance face (FX-3)
+  * comp: the key path, hold and ducker (FX-2)
+  * dyn: a hold and a floor for the compressor
+  * tilt: omx_tilt, a first-order shelf pair about one pivot
+  * build: floor omx-contract 3.1.0
+  * dyneq: clamp every control by its own item, the impl links name them
+  * dyneq: the dynamic EQ face over the EQ face and band_dyn (FX-1)
+  * band_dyn: design B in the library, omx_band_dyn_design()
+  * test/magnitude-sabotage.sh: force C-locale sort in the arm-order check
+    (#161)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 25 Oct 2026 08:25:13 +0000

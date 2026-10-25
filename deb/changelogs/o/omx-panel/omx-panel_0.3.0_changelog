@@ -1,0 +1,34 @@
+omx-panel (0.3.0) unstable; urgency=medium
+
+  * version 0.3.0 (#33)
+  * modgui-import: a template reference is read as mod-ui reads it, so a
+    query, a Mustache tag or a mod-ui route no longer refuses a real bundle,
+    and an escape is refused before existence is asked
+  * docs: a template reference drops its query and fragment and is decoded
+    once, a Mustache tag in it is kept unchecked, the escape is decided
+    before existence, and mod-ui's /img/, /js/, /css/ and /include/ routes
+    are kept as /fonts/ is
+  * modgui-import: a modgui:monitoredOutputs symbol the plugin does not carry
+    is refused MODGUI_PORT_UNKNOWN
+  * modgui-import: a template naming a web address or an absolute path is
+    refused MODGUI_PATH_ESCAPE; mod-ui's /fonts/ route is kept
+  * modgui-import: the file-valued properties, the templates and the
+    resources route are declared, and the importer copies and checks what
+    they name
+  * docs: the importer copies mod-ui's file-valued properties, checks the
+    settings template's images too, keeps mod-ui's /fonts/ route, refuses a
+    web or absolute template reference, and checks a monitoredOutputs symbol
+  * modgui-import: an icon template image the resources directory does not
+    hold is refused MODGUI_IMAGE_NOT_FOUND; the stylesheet is not checked
+  * modgui-import: a modgui:port symbol the plugin does not carry is refused
+    MODGUI_PORT_UNKNOWN
+  * docs: the importer refuses a modgui:port symbol the plugin does not carry
+    and an icon template image the bundle does not hold; the stylesheet is
+    not checked
+  * modgui-import: the known gui properties are mod-ui's whole list, so a
+    bundle carrying javascript or settingsTemplate is no longer refused
+  * docs: the importer knows mod-ui's whole modgui:gui property list,
+    javascript, settingsTemplate, documentation, discussionURL and
+    monitoredOutputs among them
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 25 Oct 2026 22:49:08 +0000

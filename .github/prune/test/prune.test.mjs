@@ -291,6 +291,29 @@ test('rpm: every package is either kept or deleted, once', () => {
   assert.equal(new Set([...kept(r), ...deleted(r)]).size, all.length);
 });
 
+// openmixer#2216: mod-host 5.1.freemixer1 carries libmod-host-protocol.so.0 itself and declares no conflict
+// with the split mod-host-protocol, so while it is served dnf takes it for the soname and mod-host-protocol
+// 11.1.fmx for the name, and the two file-conflict on /usr/lib64/libmod-host-protocol.so.0.1.0
+test('rpm: an old build that carries a soname a split package now provides goes, and the closure does not bring it back', () => {
+  const SO = 'libmod-host-protocol.so.0()(64bit)';
+  const V = '0.10.6.f14a230';
+  const pkgs = parsePrimary(primary([
+    rpmPkg(`mod-host x86_64 ${V}-5.1.freemixer1.fc44`, { provides: [SO] }),
+    rpmPkg(`mod-host-protocol-devel x86_64 ${V}-5.1.freemixer1.fc44`, { source: `mod-host-${V}-5.1.freemixer1.fc44.src.rpm`, requires: [SO] }),
+    rpmPkg(`mod-host x86_64 ${V}-11.1.fmx.fc44`, { requires: ['mod-host-protocol'] }),
+    rpmPkg(`mod-host-protocol x86_64 ${V}-11.1.fmx.fc44`, { source: `mod-host-${V}-11.1.fmx.fc44.src.rpm`, provides: [SO] }),
+    rpmPkg(`mod-host-protocol-devel x86_64 ${V}-11.1.fmx.fc44`, { source: `mod-host-${V}-11.1.fmx.fc44.src.rpm`, requires: [SO] }),
+    rpmPkg('openmixer-server x86_64 0.2.0-1.fc44', { requires: [SO, 'mod-host-protocol'] }),
+  ]), 'fedora/44', 'x86_64');
+  const r = selectRepo(pkgs, []);
+  assert.deepEqual(deleted(r), [
+    `x86_64/mod-host-${V}-5.1.freemixer1.fc44.x86_64.rpm`,
+    `x86_64/mod-host-protocol-devel-${V}-5.1.freemixer1.fc44.x86_64.rpm`,
+  ]);
+  const soProviders = r.keep.filter((k) => pkgs.find((p) => p.file === k.file).provides.some((pr) => pr.name === SO));
+  assert.deepEqual(soProviders.map((k) => k.file), [`x86_64/mod-host-protocol-${V}-11.1.fmx.fc44.x86_64.rpm`]);
+});
+
 // ------------------------------------------------------------------ deb selection
 
 test('deb: duplicate builds go, the highest Debian revision stays', () => {

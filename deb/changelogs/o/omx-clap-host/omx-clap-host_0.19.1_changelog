@@ -1,0 +1,25 @@
+omx-clap-host (0.19.1) unstable; urgency=medium
+
+  * fuzz: the data-hosting seed from data/hosting.json as merged (#326)
+  * 0.19.1: lv2_locate reads a manifest in linear work, and the fuzz
+    harnesses (#326)
+  * lv2_locate_test counts a manifest's readings, not its seconds (#326)
+  * fuzz: a seed floor, the branch a named seed must take (#326)
+  * fuzz: README, and BUILDING.md names the harnesses
+  * ci: fuzz each reader for 60 s on every push and pull request
+  * fuzz: make fuzz-static, each harness linked fully static with a plain
+    driver
+  * fuzz: the coverage floors the seed corpus holds
+  * fuzz: one mutant for each property of each harness
+  * fuzz: seeds for a trailing newline, upper-case escapes and a name first
+  * fuzz: a reader refuses as cleanly when memory runs out
+  * fuzz: make fuzz, fuzz-run, fuzz-sabotage, fuzz-coverage and the corpus
+    targets
+  * fuzz: the seed corpus, written from the tree's own fixtures
+  * lv2_locate reads a manifest in work linear in its size
+  * fuzz: a harness for the manifest the host reads without lilv
+  * fuzz: a harness for the state body of a preset file
+  * fuzz: a harness for the preset file reader
+  * fuzz: count the bytes a reader holds, and hand it exact and padded copies
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 25 Oct 2026 00:27:51 +0000

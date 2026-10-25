@@ -4796,6 +4796,27 @@ Description: Roland REAC protocol library, development files
  Headers and the pkg-config file for building programs against libreac, such
  as a REAC endpoint for a sound server.
 
+Package: libreac-dev
+Architecture: amd64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 390
+Depends: libreac6 (= 1.8.0)
+Filename: ./amd64/libreac-dev_1.8.0_amd64.deb
+Size: 112824
+MD5sum: e3f1f85c56e2dc9430002d5b9bbd49b6
+SHA1: f07c100df4b794bb7bf37dbea06a84fdc0966155
+SHA256: 4ccf9c1777deb05b71106f21513879bcc83469be5c5fdc831925cbdaac4264ba
+SHA512: b290c7d3ba1624d1a6c26a534e9dfaf3141049b3c7254b730182469f598548b72b9dc7c15a8ea3752bebc9637d3a571a9365f1d6b0c355ad7432358928bf79b9
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC protocol library, development files
+ Headers and the pkg-config file for building programs against libreac, such
+ as a REAC endpoint for a sound server.
+
 Package: libreac-tests
 Architecture: amd64
 Version: 1.7.3
@@ -4811,6 +4832,28 @@ MD5sum: 0036b6f491b06ec8f14f902f892966b1
 SHA1: 8d464b8a3bc6dfde41450e078003a64c78d3784d
 SHA256: f9d1110118d3037c2107621bb996a86bd4b1a97a81eb1bfdc432b861d969b352
 SHA512: c20a55284a69d0893fee5a0438d465dd2d592aa2be7c029023719ccccfe6c547a81e1dac780cdee538f7dcc44da776a2c5cea15f7ade8a6c3d82003e34b6113b
+Homepage: https://github.com/FreeREAC/libreac
+Description: software REAC stagebox, to test a program that talks to one
+ fake_box answers on the wire the way a REAC stagebox does, so a program that
+ enrols and plays to a box can be tested without one. It is built from
+ libreac's own objects and needs no other package. It is installed in
+ /usr/libexec/libreac/tests and is of no use to anyone else.
+
+Package: libreac-tests
+Architecture: amd64
+Version: 1.8.0
+Priority: optional
+Section: libs
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 95
+Depends: libc6 (>= 2.34)
+Filename: ./amd64/libreac-tests_1.8.0_amd64.deb
+Size: 32860
+MD5sum: 429f898f2b8fe5508078e74b896367bb
+SHA1: fa8d4115a2f286fa10231ea6780c70810e61a72f
+SHA256: acebcfe02ede97ef1abf2b99cb82b090b96bfc0c14968409a9e428893840f0d0
+SHA512: c53f941bed4b1e58d38bcdf9b7282ccedf9f1c67262b2e53813128e728249b3dd9bd1727240ca3f5367de5b905255be69ded51848248d242c63b97939a47d561
 Homepage: https://github.com/FreeREAC/libreac
 Description: software REAC stagebox, to test a program that talks to one
  fake_box answers on the wire the way a REAC stagebox does, so a program that
@@ -4876,6 +4919,27 @@ MD5sum: b81de42d94a64d95175044fa2bd0cb2b
 SHA1: 8c9429824556d1588b9fc50edd6b04865823387d
 SHA256: a43c39fe5ebc6520e278ea42acdbb611b8ea0e4e91e7104990ba0854dd852b4c
 SHA512: a3b83cbfbbb046e05ba3b4e74742e5589c1dd48d6f8d0d671b9e578916d5ac204260eaafd61ab8348a26009300539de8dbacf9c6f04faef4b923108dfd4c7d78
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC transport layer, development files
+ Headers and the pkg-config file for building programs against libreac-
+ transport.
+
+Package: libreac-transport-dev
+Architecture: amd64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 225
+Depends: libreac-transport7 (= 1.8.0), libreac-dev (= 1.8.0)
+Filename: ./amd64/libreac-transport-dev_1.8.0_amd64.deb
+Size: 67088
+MD5sum: b4415589f1823c661e8f5c9095eaada5
+SHA1: ad09ace15a076f93d96ed9422eef66bb6a1cda30
+SHA256: 182992e12b3b931defcf3aa2b1a742448947f7c044bb91ed916f6a3f380f8c0e
+SHA512: 2af8a6838980eff9f220658ad3c582b21fa235be79594856d2025b124ae4ea6b5846bc848c19347dbf20b81eb64bbac4cf916f3cd497566da55b39ec4716e6c1
 Homepage: https://github.com/FreeREAC/libreac
 Description: Roland REAC transport layer, development files
  Headers and the pkg-config file for building programs against libreac-
@@ -4962,6 +5026,33 @@ Description: Roland REAC transport layer
  The library holds no Linux capability itself; that belongs to the program
  that uses it.
 
+Package: libreac-transport7
+Architecture: amd64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 137
+Depends: libc6 (>= 2.34), libreac6 (>= 1.8.0)
+Filename: ./amd64/libreac-transport7_1.8.0_amd64.deb
+Size: 49712
+MD5sum: d8a15928777b103b36f2fc8547f5affd
+SHA1: 9b7316748d285db736c925f7b6c8ebb75334fc7c
+SHA256: 425fb43e71118c3511ed773d792be9a04aeff6452c4ca707b328d07a0fffca13
+SHA512: 3ed25202aaa46a00bb99ab74cdde64aa87f132a41994dc61e470d5235cef21b9cbc65dfd9e2b96c9695ce947d93026d2a0e51d268a35159f66b1fef148c847d3
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC transport layer
+ libreac-transport carries the REAC protocol of libreac over the network:
+ AF_PACKET frame receive and send over a lock-free ring, a real-time cadence
+ pacer with clock discipline, network interface and VLAN scanning, segment
+ locking, and the slave and master establishment built on libreac's state
+ machines.
+ .
+ The library holds no Linux capability itself; that belongs to the program
+ that uses it.
+
 Package: libreac6
 Architecture: amd64
 Version: 1.7.1
@@ -5034,6 +5125,34 @@ MD5sum: fe1369bc09191f8e9b6f5a3f316d5e71
 SHA1: 9234b4ae69d6325e5cb6439fadb23b85fc95d005
 SHA256: 2324ce983877be927ca44f60c42d631a2d5761a583cc5f357ea5b00bae0ddf9d
 SHA512: a5470decfe3b2cdcd8ed99faf34e5c583bc2746469b8e613a409d9c55a165383fef147c56db9049c82f3d1766be31166f06adb669cb22ec8377c7ef8ad1a9561
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC protocol library
+ libreac speaks Roland REAC, the protocol between Roland digital consoles and
+ their stageboxes, so a Linux machine can sit on a REAC network as an equal:
+ hear a stagebox, enrol it, and read what it is straight from its own frames,
+ its inputs and outputs, its model, its firmware.
+ .
+ It recognises a REAC frame, reads its sequence counter, detects the sample
+ rate, and decodes and encodes the 24-bit audio in both directions. It also
+ implements the REAC control plane: control blocks, head-amp records, box
+ identity, and the master and slave establishment state machines.
+
+Package: libreac6
+Architecture: amd64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 104
+Depends: libc6 (>= 2.17)
+Filename: ./amd64/libreac6_1.8.0_amd64.deb
+Size: 34664
+MD5sum: cc6221cc007a8425f07b76faf0fe3059
+SHA1: 36d307cf586507ceb051e86c70799cf252d09c86
+SHA256: 9082f3f08a4ab6e53e6bc8df49dde8168b8ae280b852c382a7268eb4f4bff6d4
+SHA512: d5ad8d71cea1c2aae9767ec571d15d1dd5d3bc42f4647856688af75cea22825277fedb97c69485745a855a80f3dd5db4d2c20de36ccdecb09926b145c058f442
 Homepage: https://github.com/FreeREAC/libreac
 Description: Roland REAC protocol library
  libreac speaks Roland REAC, the protocol between Roland digital consoles and
@@ -11727,6 +11846,27 @@ Description: Roland REAC protocol library, development files
  Headers and the pkg-config file for building programs against libreac, such
  as a REAC endpoint for a sound server.
 
+Package: libreac-dev
+Architecture: arm64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 390
+Depends: libreac6 (= 1.8.0)
+Filename: ./arm64/libreac-dev_1.8.0_arm64.deb
+Size: 112824
+MD5sum: 2a95ab927a8613c379a5615be6aba7ab
+SHA1: 043c86515c8debb9d51a26535155217b68896654
+SHA256: 48e6d6451ea7abceb75bbdf870a264b12a8cc0b0ea5d6a568f48601d9c8e6eea
+SHA512: 75ed075c347360cf77568fbaeafd9fd9c5273b97d264f37b39b9781ab761d3a0946ebc2c0c5ea0fd4a4200afd44d518a81d6ee485d4867aac677117a417e0f4f
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC protocol library, development files
+ Headers and the pkg-config file for building programs against libreac, such
+ as a REAC endpoint for a sound server.
+
 Package: libreac-tests
 Architecture: arm64
 Version: 1.7.3
@@ -11742,6 +11882,28 @@ MD5sum: cee06366a0686b50928f88019777aaf0
 SHA1: 36f5317bead301d1a6435cf820c33085f5ecd720
 SHA256: 40b687c39c5f94022e66262521d94a2424f29d9f4ec804734071ebaa4e6289b8
 SHA512: 6b42de19dd93c446211b95380fc32781ae26dcda231e0773515f6be03b1aff2894d7c2595da33340d28537756338cd646a7ce6590d7391d8b577574c53742eed
+Homepage: https://github.com/FreeREAC/libreac
+Description: software REAC stagebox, to test a program that talks to one
+ fake_box answers on the wire the way a REAC stagebox does, so a program that
+ enrols and plays to a box can be tested without one. It is built from
+ libreac's own objects and needs no other package. It is installed in
+ /usr/libexec/libreac/tests and is of no use to anyone else.
+
+Package: libreac-tests
+Architecture: arm64
+Version: 1.8.0
+Priority: optional
+Section: libs
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 143
+Depends: libc6 (>= 2.34)
+Filename: ./arm64/libreac-tests_1.8.0_arm64.deb
+Size: 31548
+MD5sum: 9b595698b3051d47419e3fa16165070e
+SHA1: 42bfb158d527108b214e197fd7466c5a0db59fd5
+SHA256: 3800c6874db529e1dcfd854953f1874f830813ccc5437b681b270165d92fa33f
+SHA512: cab7828c5e3f746c0692de8a6e4f0e1caf98617c772ec97532d0114cf057f34304c3c031a8d3d87c0df71aa95e5b0de1719ea17c2aa76a9f1c15a79ef2a6c9f9
 Homepage: https://github.com/FreeREAC/libreac
 Description: software REAC stagebox, to test a program that talks to one
  fake_box answers on the wire the way a REAC stagebox does, so a program that
@@ -11807,6 +11969,27 @@ MD5sum: f86df3b05da48844dd8b1061af9b8ebc
 SHA1: 0134da53d1996243d99099203a5117b483b5ca32
 SHA256: 2a6f60c1b3652d39818cde900b199b2a414e6d5d0c238c03455620b498800c94
 SHA512: 4e9a6ff73b99e0d2f58a606211bb65444fbd48040b9c78c657ec0e11ba2d929a6030b3e9c56f7dc9ec52cc8e68360ed30a0fb42538a00cba6e3a60439bf90839
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC transport layer, development files
+ Headers and the pkg-config file for building programs against libreac-
+ transport.
+
+Package: libreac-transport-dev
+Architecture: arm64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 225
+Depends: libreac-transport7 (= 1.8.0), libreac-dev (= 1.8.0)
+Filename: ./arm64/libreac-transport-dev_1.8.0_arm64.deb
+Size: 67084
+MD5sum: 6156da6acd2191b5650b5daaef7a467c
+SHA1: 53c290a28f003fb24b62a185fb1ba8b0e5fb0dd2
+SHA256: 0d0c59057eef79fe46bbb176c867ba3bb5b28f3112df67adbea2e724e8737f16
+SHA512: 33dde6621a85b5f870ad9e55f52214fff6d1f79e8f4e6c005f231590b06749d0682e5f5acf40cde1327af621b7ca1755efccab55751090e7633fedc8519fe98e
 Homepage: https://github.com/FreeREAC/libreac
 Description: Roland REAC transport layer, development files
  Headers and the pkg-config file for building programs against libreac-
@@ -11893,6 +12076,33 @@ Description: Roland REAC transport layer
  The library holds no Linux capability itself; that belongs to the program
  that uses it.
 
+Package: libreac-transport7
+Architecture: arm64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 144
+Depends: libc6 (>= 2.34), libreac6 (>= 1.8.0)
+Filename: ./arm64/libreac-transport7_1.8.0_arm64.deb
+Size: 47656
+MD5sum: b7f8a28fe718c31f71cf5c90deccf281
+SHA1: 7a7d42babb4554548a55897dbe5482cc23780e2b
+SHA256: f51f44401fb39068c27b2b55d400f8c3f055d4b8bca034d5befa6db802ab99d2
+SHA512: 19077126af64e22c3a83cc6a430b8f5c45cc9bab2449cedb6ef40b2630dc952a068166f5913e454ec83df19323a594bac18a06efc19b1e7ae0facd0581037437
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC transport layer
+ libreac-transport carries the REAC protocol of libreac over the network:
+ AF_PACKET frame receive and send over a lock-free ring, a real-time cadence
+ pacer with clock discipline, network interface and VLAN scanning, segment
+ locking, and the slave and master establishment built on libreac's state
+ machines.
+ .
+ The library holds no Linux capability itself; that belongs to the program
+ that uses it.
+
 Package: libreac6
 Architecture: arm64
 Version: 1.7.1
@@ -11965,6 +12175,34 @@ MD5sum: 4b82e514dadd2f6baac013522a9e6d7d
 SHA1: b0c74a286fc99780ae13c720657118de7d9768c0
 SHA256: 9e66604822837af7cfc841121fc6ad503c0face3e06ad00041fcaf847c065e77
 SHA512: 1868716a4ff4f959b2ad3e1ca79aa1f2b60c5d3b18165be05d430db5f6faf4d832b2bfc572417d852067acdaecf60270be8c250fc05c578fae47f5231d868259
+Homepage: https://github.com/FreeREAC/libreac
+Description: Roland REAC protocol library
+ libreac speaks Roland REAC, the protocol between Roland digital consoles and
+ their stageboxes, so a Linux machine can sit on a REAC network as an equal:
+ hear a stagebox, enrol it, and read what it is straight from its own frames,
+ its inputs and outputs, its model, its firmware.
+ .
+ It recognises a REAC frame, reads its sequence counter, detects the sample
+ rate, and decodes and encodes the 24-bit audio in both directions. It also
+ implements the REAC control plane: control blocks, head-amp records, box
+ identity, and the master and slave establishment state machines.
+
+Package: libreac6
+Architecture: arm64
+Version: 1.8.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libreac
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 144
+Depends: libc6 (>= 2.17)
+Filename: ./arm64/libreac6_1.8.0_arm64.deb
+Size: 33336
+MD5sum: 09e1ebcf3b1c1a93c1e86b33ebb19603
+SHA1: ee3565ce2e46667d94173b99e199583a6d074282
+SHA256: a67075074a20bd8f1a64b94e30e8ac678b4df54810151f59eaab9a178a53e63a
+SHA512: d397688daaaa16960d163c28a2651b8cff297c68376331e34e179c9f79273c84859f6941b74ff90d1705e6380cac0494c2c4ded0d8400432ffe176b0ffc57def
 Homepage: https://github.com/FreeREAC/libreac
 Description: Roland REAC protocol library
  libreac speaks Roland REAC, the protocol between Roland digital consoles and

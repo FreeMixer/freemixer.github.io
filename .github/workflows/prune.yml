@@ -222,6 +222,11 @@ jobs:
     timeout-minutes: 30
     container:
       image: debian:bookworm
+    # the plan-matches step ran under dash after the channel pull and died on `set -o pipefail`
+    # (exit 2, both apply runs of 2026-10-26); every step of this job reads as bash
+    defaults:
+      run:
+        shell: bash
     env:
       HAS_COSIGN: ${{ secrets.RPM_GPG_KEY != '' }}
     steps:

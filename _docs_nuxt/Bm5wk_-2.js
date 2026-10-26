@@ -63,7 +63,7 @@ pre-upgrade copy until you have loaded a session on the new version and are sati
 - \`/usr/lib/openmixer/\`, \`/usr/share/openmixer/\` — package-owned, reinstall instead.
 - The plugin catalog — it ships with the package.
 - The journal — see [logs](logs.md) for collecting a diagnostic snapshot instead.
-`,l='# Configuration files\n\n| Path | Owner | Survives upgrade | What it is |\n|---|---|---|---|\n| `/etc/openmixer/config.json` | `openmixer-server` package | yes (`%config(noreplace)`) | The server\'s startup configuration: console size, gig label, catalog path, network bind. |\n| `/etc/nginx/conf.d/openmixer-web-ui.conf` | `openmixer-web-ui` package | yes (`%config(noreplace)`) | The nginx drop-in: the upstream, the plain listener, and the mask include that reaches the https server block. Names no certificate, so it loads on a console that has none. |\n| `/etc/openmixer/nginx/tls.conf` | `%post` of `openmixer-web-ui` | it is rewritten on every install | The https + HTTP/2 server block, copied from `/usr/share/openmixer/nginx/openmixer-web-ui-tls.conf` **only when the leaf and key are there**. Removed on a full uninstall, and by `enable-nginx-tls.sh` whenever the leaf goes. Edit the shipped file, not this copy. |\n| `/etc/openmixer/tls/{root,console}.{crt,key}` | `%post` of `openmixer-web-ui` (`issue-local-ca.sh`) | yes — never overwritten once present | The console\'s own certificate authority and the leaf nginx serves. Keys are `0600`. Replace either with your own and upgrades will leave it alone; delete `console.crt` and `console.key` to have the next install re-issue. |\n| `~/.config/reac-pw/reac-pw.env` | the mixer\'s Setup screen | yes (no package owns it) | Which NICs face REAC on this host — the transport\'s config-once fact. |\n| `~/.config/reac-pw/<iface>.env` | the mixer\'s Setup screen and the segment\'s `role` | yes (no package owns it) | One per segment: transmit interface, launch role, desk profile, wire pace, segment name. |\n| `<state-dir>/network-settings.json` | the server | yes | The persisted **Setup → Network** values. Outranks CLI and environment. |\n| `<state-dir>/locale-settings.json` | the server | yes | The persisted operator locale. |\n| `<state-dir>/adapters.yaml` | the server | yes | Adapter definitions for the adapter manager. |\n| `<state-dir>/stageboxes.json` | the server | yes | Stagebox names, keyed by box identity, independent of any session. |\n| `~/.config/pipewire/pipewire.conf.d/*.conf` | you | yes | Graph-wide sample rate and quantum. See [clocking](../hardware/clocking-and-sample-rate.md). |\n\n`<state-dir>` is `$XDG_STATE_HOME/openmixer`, or `~/.local/state/openmixer` when\n`XDG_STATE_HOME` is unset. See [state and sessions](state-and-sessions.md).\n\n## `/etc/openmixer/config.json`\n\nThe shipped default is empty — with one boot path there is nothing to select, and every\nknob below has a working default:\n\n```json\n{}\n```\n\nThe recognised shape:\n\n```json\n{\n  "adapter": "software",\n  "device": { "host": "127.0.0.1", "port": 10002, "options": {} },\n  "web":    { "host": "localhost", "port": 8080 },\n  "rig":    { "console": "32:16", "gig": "Saturday", "catalog": "/path/to/catalog.json", "demoSources": true }\n}\n```\n\nEvery field is optional; anything omitted takes its default.\n\n- **`adapter`** — which console family the server drives: `software` (the PipeWire\n  native mix engine — the real mixer), `midas`, `x32`, `roland`, or `mock` for tests.\n  Default `mock`.\n- **`device.host` / `device.port`** — the address of a physical desk, when `adapter`\n  names one. Each adapter supplies its own protocol default port when omitted.\n- **`web.*`** — the bind address and port, as the **lowest** layer of the network\n  resolver: persisted Setup value > CLI flag > environment > **this file** > built-in\n  default (`packages/server/src/network-config.ts`). So `{"web": {"port": 9000}}` here\n  moves the server to 9000, but a `--web-port` or an `OPENMIXER_WEB_PORT` still overrides\n  it for that run. Resolution is per field, so setting only `host` here leaves the port\n  alone. Values are validated on load — a port out of range stops the boot rather than\n  binding something unexpected, and an unknown key inside `web` is rejected rather than\n  ignored. See [ports](ports.md).\n- **`rig.preset`** — **retired.** The console is the only rig; there is no axis to select.\n  A rig axis whose default (`bare`: the configured adapter and nothing else) could not carry\n  audio meant a server started without this file came up mute and never said so. Three names\n  (`bare`, `demo`, `console`) still parse, so a file written before the change does not\n  fail validation on upgrade — but they are ignored, and the server says so at startup.\n  `bare` says it loudly, because that file asked for a rig that no longer exists and is\n  getting a whole console instead. Remove the key.\n- **`rig.console`** — pins the console size as `IN:OUT`, e.g. `"32:16"`. A malformed\n  value is logged and ignored, falling back to detection: a typo must never stop the desk\n  from booting.\n- **`rig.gig`** — a label for the session.\n- **`rig.catalog`** — an explicit plugin-catalog path. Unset means the catalog package\'s\n  own bundled data file.\n\nThe file is validated on load. An unknown adapter name — or a rig preset that was never\na real one — is an error, not a silent fallback.\n\n## Pointing at a different file\n\n```sh\nopenmixer-server --config /etc/openmixer/rig-b.json\n```\n\nor the environment variable `OPENMIXER_CONFIG`. To change it for the service, use a\ndrop-in rather than editing the packaged unit:\n\n```sh\nsystemctl --user edit openmixer-server\n```\n\n```ini\n[Service]\nExecStart=\nExecStart=/usr/bin/openmixer-server --config /etc/openmixer/rig-b.json\n```\n\n## The nginx drop-in\n\nPackage-owned but marked `%config(noreplace)` (the nginx drop-in\'s own `%files` entry in\n`packaging/rpm/openmixer.spec`), so an\nupgrade keeps *your* edited file and drops the package\'s new one beside it as\n`openmixer-web-ui.conf.rpmnew`. That is the opposite of the risk you might expect: your\nchanges are safe, but an upgrade that changes the proxied paths or the upstream will not\nreach you. After an upgrade, check for the `.rpmnew` and merge it:\n\n```sh\nls /etc/nginx/conf.d/openmixer-web-ui.conf.rpmnew && \\\n  diff -u /etc/nginx/conf.d/openmixer-web-ui.conf{,.rpmnew}\nsudo systemctl reload nginx\n```\n',h="# Environment variables\n\nEvery environment variable the openmixer server reads. Anything not listed here is either\na build-time parameter (see [configuration files](config-files.md)) or belongs to the\ntransport (see [the transport's own knobs](#the-transports-knobs)).\n\nAn unset variable always means \"use the default\". The empty string counts as unset for\n`OPENMIXER_CONSOLE`, `OPENMIXER_GIG`, `OPENMIXER_CATALOG` and the network knobs — but not\nfor all of them: `OPENMIXER_ADAPTER=` and `OPENMIXER_DEVICE_HOST=` are *parsed*, fail\ntheir schema (`ServerConfigSchema`'s `adapter` and `device.host` fields) and the server\nexits at boot with a validation error. Unset the variable rather than blanking it.\n\n## Where environment variables sit in the precedence chain\n\nFor the network fields:\n\n```\npersisted Setup value  >  CLI flag  >  environment variable  >  config file  >  built-in default\n```\n\nFor everything else the environment is the override and the config file (or the built-in\ndefault) is the base — the same order, so the whole chain reads one way.\n\n## Startup and configuration\n\n| Variable | Effect | Default |\n|---|---|---|\n| `OPENMIXER_CONFIG` | Path to the JSON server-config file. The `--config` flag outranks it. | `/etc/openmixer/config.json` via the unit |\n| `OPENMIXER_ADAPTER` | Console family: `software`, `midas`, `x32`, `roland`, `mock`. An unknown name is an error. | `mock` (the packaged config selects a rig instead) |\n| `OPENMIXER_RIG` | **Retired.** Named the startup rig while there were two; `bare`, `demo` and `console` still parse and are ignored (the console is the only rig), with a line at startup saying so. | — |\n| `OPENMIXER_CONSOLE` | Pin the console size as `IN:OUT`, e.g. `32:16`. A malformed value is logged and ignored. | detected |\n| `OPENMIXER_GIG` | A label for the session. | unset |\n| `OPENMIXER_CATALOG` | Explicit plugin-catalog JSON path. | the catalog package's bundled data file |\n| `OPENMIXER_STATE_DIR` | Persisted-state directory. The `--state-dir` flag outranks it. | `$XDG_STATE_HOME/openmixer`, else `~/.local/state/openmixer` |\n| `OPENMIXER_ADAPTERS_CONFIG` | Path to the adapter definitions. | `<state-dir>/adapters.yaml` |\n| `OPENMIXER_PERF` | `0` disables the engine's own performance sampling (the seam timings behind `/perf` and the process gauge at `/telemetry/process`). Any other value, or unset, leaves it on. | enabled |\n\n## Network\n\n| Variable | Effect | Default |\n|---|---|---|\n| `OPENMIXER_WEB_HOST` | HTTP bind address. | `localhost` (both loopbacks, nothing else — a LAN device goes through nginx) |\n| `OPENMIXER_WEB_PORT` | HTTP port. | `8080` |\n| `OPENMIXER_MANUAL_DIR` | **Override only — leave it unset.** The console works out where its documentation site is: `/usr/share/openmixer/manual` (the `openmixer-manual` package), else `packages/website/.output/public` in a workspace checkout. It serves whichever it finds at `/help`, so the surface's help deep-links (`/help/manual/user#<anchor>`) resolve offline, on the desk. No site in either → `/help` answers 404 and the console says so in its log rather than faking a page. Set it only for an unusual layout; the RPM may set it, an operator should not have to. Whatever is set must be the build **root**, never a directory inside it — a prerendered page's stylesheet, chunks and fonts sit beside the pages, and the manual's topic pages are under `docs/`, so a subtree serves HTML whose every asset 404s. The console warns at boot when the value is not a site built for this mount. | derived |\n| `OPENMIXER_DEVICE_HOST` | Address of a physical desk, when an adapter drives one. Ignored: the console hardcodes the `software` adapter and overwrites `device` (`console-rig.ts`), as it does `OPENMIXER_ADAPTER`. There is no longer a rig that honours them. | `127.0.0.1` |\n| `OPENMIXER_DEVICE_PORT` | Its port. | per-adapter: Midas `10002`, X32 `10023` |\n| `OPENMIXER_PATCHBAY_HOST` | Bind address of the standalone `openmixer-patchbay` tool (read directly in its `bin/patchbay.ts` entry point). Loopback by default — not reachable from a tablet. | `127.0.0.1` |\n| `OPENMIXER_PATCHBAY_PORT` | Its port (see [ports](ports.md)). | `8890` |\n| `OPENMIXER_PHYSICAL_SURFACES` | `off` keeps this console's hands off every physical control surface (the X-Touch family): it never probes or opens one, and its surface entries report why. Read once at boot. Every launcher of a console that is NOT the live one — a deploy shadow, a preview, a test console — sets it `off`, because the ALSA sequencer is shared by the whole machine and a second console opening the surface stalls the live one (surface map §9). The live unit leaves it unset. | unset (surfaces open) |\n| `OPENMIXER_CONSOLE_DROP_IN` | **Override only — leave it unset.** The systemd unit drop-in `/console/allocation` GENERATES when a reshape is accepted, carrying the size the next boot builds at (`console-allocation-boot.ts`). It sorts after a hand-written `zz-console-*.conf`, so where both exist the generated one wins; a file this console did not generate is left alone and reported, never overwritten. Set by a test to a scratch path; production never sets it, and under a test runner with no value set the console generates NOTHING rather than writing into a real deployment's unit directory. | `$XDG_CONFIG_HOME/systemd/user/openmixer-engine.service.d/zz-console-size.conf` |\n| `OPENMIXER_TLS_CERT_DIR` | **Override only — leave it unset.** Where `/console/addresses` (`console-addresses-row.ts`) reads `console.crt` from, the same directory `issue-local-ca.sh` issues into. Set by a test to a scratch directory; production never sets it. | `/etc/openmixer/tls` |\n\nRemember that a value persisted through **Setup → Network** outranks both of the\nnetwork variables. If setting one appears to do nothing, that is why — check\n`<state-dir>/network-settings.json`.\n\n## Engine behaviour\n\n| Variable | Effect | Default |\n|---|---|---|\n| `OPENMIXER_MOD_HOST_BIN` | Absolute path of the mod-host binary the console spawns — a local build while mod-host itself is under development (ruling 36: published releases by default; set in `~/.config/openmixer/dev.env`). A relative path is refused at startup. | `/usr/bin/mod-host` (the installed release) |\n| `OPENMIXER_PLUGIN_HOSTD_BIN` | Absolute path of the shared plugin supervisor the console spawns when `device.options.modHost.supervisor` is `plugin-hostd` (the dual-run window of `docs/design/specs/2026-09-30-shared-plugin-supervisor.md` §8.1) — a run tree points it at `packages/pipewire-native/tools/plugin-hostd.sh bin`. A relative path is refused at startup. | `plugin-hostd` on PATH |\n| `OPENMIXER_DEMO_SOURCES` | `1` spawns the real, patchable demo source nodes instead of modelling them virtually. | off |\n| `OPENMIXER_REAC_FORCE` | `1` tells the discovery probe to assume it has raw-socket capability rather than testing for it. Useful only when the capability was granted in a way the probe cannot see. | off |\n| `OPENMIXER_RELAY_SETTLE_MS` | Overrides the CAP on the post-pace-write re-lay, in milliseconds. The re-lay normally fires as soon as the graph goes quiet; this only bounds how long it waits when no port churn arrives. For measuring what that bound should be. | 2000 |\n\n## Not for production\n\n| Variable | What it is |\n|---|---|\n| `REACPW_DIR` | Locates a `reac-pw` source checkout **for the RPM build** (`packaging/publish-repo.sh`'s `REACPW_DIR` default). It does not steer the running prober — that takes an injected `reacpwBin` option and otherwise resolves `reac-pw` on `PATH` (`reacPwProber` in `packages/server/src/reac-pw-prober.ts`). Setting it will not make the mixer probe a dev binary. |\n| `OPENMIXER_CATALOG_JSON`, `OPENMIXER_VERSION` | Build-time inputs read by the RPM build script, not by the server. |\n| `OPENMIXER_REPO_BASEURL` | A build ARG of `packaging/image/Containerfile`, not a server variable. It is the dnf repository the console image installs from, substituted into the `.repo` file at image-build time so the host is never baked into a committed file. It must be a plain HTTP tree of directories — the layout `packaging/publish-repo.sh` emits — and never a container registry, which serves OCI manifests and cannot answer a dnf `baseurl`. Setting it on a running console does nothing. |\n| `OPENMIXER_RATCHET_PRUNE`, `OPENMIXER_RATCHET_PRUNE_LOG` | Test infrastructure, read only by `@freemixer/ratchet` under vitest (`packages/ratchet/src/prune.ts`). `OPENMIXER_RATCHET_PRUNE=1` makes a ratchet's shrink-only arms rewrite its debt list, removing the keys that no longer deviate; `=dry` reports them and fails as usual; `OPENMIXER_RATCHET_PRUNE_LOG` names a file that gets one JSON line per key. `harness/lane-finish.sh` step retire-debt sets both. The server never reads them. |\n| `OPENMIXER_KIOSK_URL` | Read by the image's kiosk session script (`packaging/image/usr/share/openmixer/kiosk/gnome-kiosk-script.openmixer.sh`), not by the server: the URL the `desk` variant's Chromium opens at login. A surface-only kiosk points it at another machine's console. | `https://localhost:8443/` |\n\n## The REAC transport's variables\n\n`~/.config/reac-pw/` supplies the transport's *configuration* — interface, role, desk\nmodel, desk profile. It is written by the mixer's Setup screen and documented on its own\npage: [REAC configuration](reac-configuration.md).\n\n## The transport's knobs\n\n`reac-pw` has a small number of behaviour knobs of its own, all default-off and\nbyte-identical on the wire when unset. They are documented in the transport's repository\nat `docs/ENV-KNOBS.md` and listed in `reac-pw --help`:\n\n- `REACPW_GRANT_DWELL_S` — hold the recognised-but-ungranted dwell for a whole number of\n  seconds, for boxes that want a longer wait than the built-in one.\n- `REAC_DEBUG` — set to any value for diagnostic counters on stderr roughly every two\n  seconds: received, duplicate, other-source, bad and gap counts, plus ring statistics.\n  The duplicate counter is what tells you whether you are on a\n  [mirrored port](../hardware/wiring-and-nic.md#never-use-a-mirrored-switch-port) — on a\n  correctly-cabled interface it stays at zero.\n\nSet them in the unit with a drop-in:\n\n```sh\nsystemctl --user edit reac-pw\n```\n\n```ini\n[Service]\nEnvironment=REAC_DEBUG=1\n```\n",d=`# Administrator guide
+`,l='# Configuration files\n\n| Path | Owner | Survives upgrade | What it is |\n|---|---|---|---|\n| `/etc/openmixer/config.json` | `openmixer-server` package | yes (`%config(noreplace)`) | The server\'s startup configuration: console size, gig label, catalog path, network bind. |\n| `/etc/nginx/conf.d/openmixer-web-ui.conf` | `openmixer-web-ui` package | yes (`%config(noreplace)`) | The nginx drop-in: the upstream, the plain listener, and the mask include that reaches the https server block. Names no certificate, so it loads on a console that has none. |\n| `/etc/openmixer/nginx/tls.conf` | `%post` of `openmixer-web-ui` | it is rewritten on every install | The https + HTTP/2 server block, copied from `/usr/share/openmixer/nginx/openmixer-web-ui-tls.conf` **only when the leaf and key are there**. Removed on a full uninstall, and by `enable-nginx-tls.sh` whenever the leaf goes. Edit the shipped file, not this copy. |\n| `/etc/openmixer/tls/{root,console}.{crt,key}` | `%post` of `openmixer-web-ui` (`issue-local-ca.sh`) | yes — never overwritten once present | The console\'s own certificate authority and the leaf nginx serves. Keys are `0600`. Replace either with your own and upgrades will leave it alone; delete `console.crt` and `console.key` to have the next install re-issue. |\n| `~/.config/reac-pw/reac-pw.env` | the mixer\'s Setup screen | yes (no package owns it) | Which NICs face REAC on this host — the transport\'s config-once fact. |\n| `~/.config/reac-pw/<iface>.env` | the mixer\'s Setup screen and the segment\'s `role` | yes (no package owns it) | One per segment: transmit interface, launch role, desk profile, wire pace, segment name. |\n| `<state-dir>/network-settings.json` | the server | yes | The persisted **Setup → Network** values. Outranks CLI and environment. |\n| `<state-dir>/locale-settings.json` | the server | yes | The persisted operator locale. |\n| `<state-dir>/adapters.yaml` | the server | yes | Adapter definitions for the adapter manager. |\n| `<state-dir>/stageboxes.json` | the server | yes | Stagebox names, keyed by box identity, independent of any session. |\n| `~/.config/pipewire/pipewire.conf.d/*.conf` | you | yes | Graph-wide sample rate and quantum. See [clocking](../hardware/clocking-and-sample-rate.md). |\n\n`<state-dir>` is `$XDG_STATE_HOME/openmixer`, or `~/.local/state/openmixer` when\n`XDG_STATE_HOME` is unset. See [state and sessions](state-and-sessions.md).\n\n## `/etc/openmixer/config.json`\n\nThe shipped default is empty — with one boot path there is nothing to select, and every\nknob below has a working default:\n\n```json\n{}\n```\n\nThe recognised shape:\n\n```json\n{\n  "adapter": "software",\n  "device": { "host": "127.0.0.1", "port": 10002, "options": {} },\n  "web":    { "host": "localhost", "port": 8080 },\n  "rig":    { "console": "32:16", "gig": "Saturday", "catalog": "/path/to/catalog.json", "demoSources": true }\n}\n```\n\nEvery field is optional; anything omitted takes its default.\n\n- **`adapter`** — which console family the server drives: `software` (the PipeWire\n  native mix engine — the real mixer), `midas`, `x32`, `roland`, or `mock` for tests.\n  Default `mock`.\n- **`device.host` / `device.port`** — the address of a physical desk, when `adapter`\n  names one. Each adapter supplies its own protocol default port when omitted.\n- **`web.*`** — the bind address and port, as the **lowest** layer of the network\n  resolver: persisted Setup value > CLI flag > environment > **this file** > built-in\n  default (`packages/server/src/network-config.ts`). So `{"web": {"port": 9000}}` here\n  moves the server to 9000, but a `--web-port` or an `OPENMIXER_WEB_PORT` still overrides\n  it for that run. Resolution is per field, so setting only `host` here leaves the port\n  alone. Values are validated on load — a port out of range stops the boot rather than\n  binding something unexpected, and an unknown key inside `web` is rejected rather than\n  ignored. See [ports](ports.md).\n- **`rig.preset`** — **retired.** The console is the only rig; there is no axis to select.\n  A rig axis whose default (`bare`: the configured adapter and nothing else) could not carry\n  audio meant a server started without this file came up mute and never said so. Three names\n  (`bare`, `demo`, `console`) still parse, so a file written before the change does not\n  fail validation on upgrade — but they are ignored, and the server says so at startup.\n  `bare` says it loudly, because that file asked for a rig that no longer exists and is\n  getting a whole console instead. Remove the key.\n- **`rig.console`** — pins the console size as `IN:OUT`, e.g. `"32:16"`. A malformed\n  value is logged and ignored, falling back to detection: a typo must never stop the desk\n  from booting.\n- **`rig.gig`** — a label for the session.\n- **`rig.catalog`** — an explicit plugin-catalog path. Unset means the catalog package\'s\n  own bundled data file.\n\nThe file is validated on load. An unknown adapter name — or a rig preset that was never\na real one — is an error, not a silent fallback.\n\n## Pointing at a different file\n\n```sh\nopenmixer-server --config /etc/openmixer/rig-b.json\n```\n\nor the environment variable `OPENMIXER_CONFIG`. To change it for the service, use a\ndrop-in rather than editing the packaged unit:\n\n```sh\nsystemctl --user edit openmixer-server\n```\n\n```ini\n[Service]\nExecStart=\nExecStart=/usr/bin/openmixer-server --config /etc/openmixer/rig-b.json\n```\n\n## The nginx drop-in\n\nPackage-owned but marked `%config(noreplace)` (the nginx drop-in\'s own `%files` entry in\n`packaging/rpm/openmixer.spec`), so an\nupgrade keeps *your* edited file and drops the package\'s new one beside it as\n`openmixer-web-ui.conf.rpmnew`. That is the opposite of the risk you might expect: your\nchanges are safe, but an upgrade that changes the proxied paths or the upstream will not\nreach you. After an upgrade, check for the `.rpmnew` and merge it:\n\n```sh\nls /etc/nginx/conf.d/openmixer-web-ui.conf.rpmnew && \\\n  diff -u /etc/nginx/conf.d/openmixer-web-ui.conf{,.rpmnew}\nsudo systemctl reload nginx\n```\n',h="# Environment variables\n\nEvery environment variable the openmixer server reads. Anything not listed here is either\na build-time parameter (see [configuration files](config-files.md)) or belongs to the\ntransport (see [the transport's own knobs](#the-transports-knobs)).\n\nAn unset variable always means \"use the default\". The empty string counts as unset for\n`OPENMIXER_CONSOLE`, `OPENMIXER_GIG`, `OPENMIXER_CATALOG` and the network knobs — but not\nfor all of them: `OPENMIXER_ADAPTER=` and `OPENMIXER_DEVICE_HOST=` are *parsed*, fail\ntheir schema (`ServerConfigSchema`'s `adapter` and `device.host` fields) and the server\nexits at boot with a validation error. Unset the variable rather than blanking it.\n\n## Where environment variables sit in the precedence chain\n\nFor the network fields:\n\n```\npersisted Setup value  >  CLI flag  >  environment variable  >  config file  >  built-in default\n```\n\nFor everything else the environment is the override and the config file (or the built-in\ndefault) is the base — the same order, so the whole chain reads one way.\n\n## Startup and configuration\n\n| Variable | Effect | Default |\n|---|---|---|\n| `OPENMIXER_CONFIG` | Path to the JSON server-config file. The `--config` flag outranks it. | `/etc/openmixer/config.json` via the unit |\n| `OPENMIXER_ADAPTER` | Console family: `software`, `midas`, `x32`, `roland`, `mock`. An unknown name is an error. | `mock` (the packaged config selects a rig instead) |\n| `OPENMIXER_RIG` | **Retired.** Named the startup rig while there were two; `bare`, `demo` and `console` still parse and are ignored (the console is the only rig), with a line at startup saying so. | — |\n| `OPENMIXER_CONSOLE` | Pin the console size as `IN:OUT`, e.g. `32:16`. A malformed value is logged and ignored. | detected |\n| `OPENMIXER_GIG` | A label for the session. | unset |\n| `OPENMIXER_CATALOG` | Explicit plugin-catalog JSON path. | the catalog package's bundled data file |\n| `OPENMIXER_STATE_DIR` | Persisted-state directory. The `--state-dir` flag outranks it. | `$XDG_STATE_HOME/openmixer`, else `~/.local/state/openmixer` |\n| `OPENMIXER_DATA_DIR` | The data directory the person profiles live under (profiles-and-layers §6). | `$XDG_DATA_HOME`, else `~/.local/share` |\n| `OPENMIXER_ADAPTERS_CONFIG` | Path to the adapter definitions. | `<state-dir>/adapters.yaml` |\n| `OPENMIXER_PERF` | `0` disables the engine's own performance sampling (the seam timings behind `/perf` and the process gauge at `/telemetry/process`). Any other value, or unset, leaves it on. | enabled |\n\n## Network\n\n| Variable | Effect | Default |\n|---|---|---|\n| `OPENMIXER_WEB_HOST` | HTTP bind address. | `localhost` (both loopbacks, nothing else — a LAN device goes through nginx) |\n| `OPENMIXER_WEB_PORT` | HTTP port. | `8080` |\n| `OPENMIXER_MANUAL_DIR` | **Override only — leave it unset.** The console works out where its documentation site is: `/usr/share/openmixer/manual` (the `openmixer-manual` package), else `packages/website/.output/public` in a workspace checkout. It serves whichever it finds at `/help`, so the surface's help deep-links (`/help/manual/user#<anchor>`) resolve offline, on the desk. No site in either → `/help` answers 404 and the console says so in its log rather than faking a page. Set it only for an unusual layout; the RPM may set it, an operator should not have to. Whatever is set must be the build **root**, never a directory inside it — a prerendered page's stylesheet, chunks and fonts sit beside the pages, and the manual's topic pages are under `docs/`, so a subtree serves HTML whose every asset 404s. The console warns at boot when the value is not a site built for this mount. | derived |\n| `OPENMIXER_DEVICE_HOST` | Address of a physical desk, when an adapter drives one. Ignored: the console hardcodes the `software` adapter and overwrites `device` (`console-rig.ts`), as it does `OPENMIXER_ADAPTER`. There is no longer a rig that honours them. | `127.0.0.1` |\n| `OPENMIXER_DEVICE_PORT` | Its port. | per-adapter: Midas `10002`, X32 `10023` |\n| `OPENMIXER_PATCHBAY_HOST` | Bind address of the standalone `openmixer-patchbay` tool (read directly in its `packages/server/src/patchbay-main.ts` entry point). Loopback by default — not reachable from a tablet. | `127.0.0.1` |\n| `OPENMIXER_PATCHBAY_PORT` | Its port (see [ports](ports.md)). | `8890` |\n| `OPENMIXER_PHYSICAL_SURFACES` | `off` keeps this console's hands off every physical control surface (the X-Touch family): it never probes or opens one, and its surface entries report why. Read once at boot. Every launcher of a console that is NOT the live one — a deploy shadow, a preview, a test console — sets it `off`, because the ALSA sequencer is shared by the whole machine and a second console opening the surface stalls the live one (surface map §9). The live unit leaves it unset. | unset (surfaces open) |\n| `OPENMIXER_CONSOLE_DROP_IN` | **Override only — leave it unset.** The systemd unit drop-in `/console/allocation` GENERATES when a reshape is accepted, carrying the size the next boot builds at (`console-allocation-boot.ts`). It sorts after a hand-written `zz-console-*.conf`, so where both exist the generated one wins; a file this console did not generate is left alone and reported, never overwritten. Set by a test to a scratch path; production never sets it, and under a test runner with no value set the console generates NOTHING rather than writing into a real deployment's unit directory. | `$XDG_CONFIG_HOME/systemd/user/openmixer-engine.service.d/zz-console-size.conf` |\n| `OPENMIXER_TLS_CERT_DIR` | **Override only — leave it unset.** Where `/console/addresses` (`console-addresses-row.ts`) reads `console.crt` from, the same directory `issue-local-ca.sh` issues into. Set by a test to a scratch directory; production never sets it. | `/etc/openmixer/tls` |\n\nRemember that a value persisted through **Setup → Network** outranks both of the\nnetwork variables. If setting one appears to do nothing, that is why — check\n`<state-dir>/network-settings.json`.\n\n## Engine behaviour\n\n| Variable | Effect | Default |\n|---|---|---|\n| `OPENMIXER_MOD_HOST_BIN` | Absolute path of the mod-host binary the console spawns — a local build while mod-host itself is under development (ruling 36: published releases by default; set in `~/.config/openmixer/dev.env`). A relative path is refused at startup. | `/usr/bin/mod-host` (the installed release) |\n| `OPENMIXER_ASSISTANT_ORIGIN` | Where the Nuxt dev server forwards `/api/assistant` (the `omx-assist serve` listener; production nginx does this itself). Set in `~/.config/openmixer/dev.env`. | `http://127.0.0.1:8890` |\n| `OPENMIXER_PLUGIN_HOSTD_BIN` | Absolute path of the shared plugin supervisor the console spawns when `device.options.modHost.supervisor` is `plugin-hostd` (the dual-run window of `docs/design/specs/2026-09-30-shared-plugin-supervisor.md` §8.1) — a run tree points it at `packages/pipewire-native/tools/plugin-hostd.sh bin`. A relative path is refused at startup. | `plugin-hostd` on PATH |\n| `OPENMIXER_DEMO_SOURCES` | `1` spawns the real, patchable demo source nodes instead of modelling them virtually. | off |\n| `OPENMIXER_REAC_FORCE` | `1` tells the discovery probe to assume it has raw-socket capability rather than testing for it. Useful only when the capability was granted in a way the probe cannot see. | off |\n| `OPENMIXER_RELAY_SETTLE_MS` | Overrides the CAP on the post-pace-write re-lay, in milliseconds. The re-lay normally fires as soon as the graph goes quiet; this only bounds how long it waits when no port churn arrives. For measuring what that bound should be. | 2000 |\n\n## Not for production\n\n| Variable | What it is |\n|---|---|\n| `OPENMIXER_CATALOG_JSON`, `OPENMIXER_VERSION` | Build-time inputs read by the RPM build script, not by the server. |\n| `OPENMIXER_REPO_BASEURL` | A build ARG of `packaging/image/Containerfile`, not a server variable. It is the dnf repository the console image installs from, substituted into the `.repo` file at image-build time so the host is never baked into a committed file. It must be a plain HTTP tree of directories — the layout `packaging/publish-repo.sh` emits — and never a container registry, which serves OCI manifests and cannot answer a dnf `baseurl`. Setting it on a running console does nothing. |\n| `OPENMIXER_RATCHET_PRUNE`, `OPENMIXER_RATCHET_PRUNE_LOG` | Test infrastructure, read only by `@freemixer/ratchet` under vitest (`packages/ratchet/src/prune.ts`). `OPENMIXER_RATCHET_PRUNE=1` makes a ratchet's shrink-only arms rewrite its debt list, removing the keys that no longer deviate; `=dry` reports them and fails as usual; `OPENMIXER_RATCHET_PRUNE_LOG` names a file that gets one JSON line per key. `harness/lane-finish.sh` step retire-debt sets both. The server never reads them. |\n| `OPENMIXER_KIOSK_URL` | Read by the image's kiosk session script (`packaging/image/usr/share/openmixer/kiosk/gnome-kiosk-script.openmixer.sh`), not by the server: the URL the `desk` variant's Chromium opens at login. A surface-only kiosk points it at another machine's console. | `https://localhost:8443/` |\n\n## The REAC transport's variables\n\n`~/.config/reac-pw/` supplies the transport's *configuration* — interface, role, desk\nmodel, desk profile. It is written by the mixer's Setup screen and documented on its own\npage: [REAC configuration](reac-configuration.md).\n\n## The transport's knobs\n\n`reac-pw` has a small number of behaviour knobs of its own, all default-off and\nbyte-identical on the wire when unset. They are documented in the transport's repository\nat `docs/ENV-KNOBS.md` and listed in `reac-pw --help`:\n\n- `REACPW_GRANT_DWELL_S` — hold the recognised-but-ungranted dwell for a whole number of\n  seconds, for boxes that want a longer wait than the built-in one.\n- `REAC_DEBUG` — set to any value for diagnostic counters on stderr roughly every two\n  seconds: received, duplicate, other-source, bad and gap counts, plus ring statistics.\n  The duplicate counter is what tells you whether you are on a\n  [mirrored port](../hardware/wiring-and-nic.md#never-use-a-mirrored-switch-port) — on a\n  correctly-cabled interface it stays at zero.\n\nSet them in the unit with a drop-in:\n\n```sh\nsystemctl --user edit reac-pw\n```\n\n```ini\n[Service]\nEnvironment=REAC_DEBUG=1\n```\n",d=`# Administrator guide
 
 Everything a person responsible for the machine needs, as opposed to the person mixing
 on it. If you are setting a rig up for the first time, start with
@@ -612,7 +612,7 @@ selection row at \`/surface/selection\`
 (\`packages/server/src/surface-selection-row.ts\`) — is whole again the moment it
 re-opens, with no separate replay path. The physical X-Touch banks the Context
 anticipates are also real — \`packages/adapter-xtouch/\`.
-`,y=`# 0004 — One canonical device-neutral model with per-device adapters
+`,b=`# 0004 — One canonical device-neutral model with per-device adapters
 
 Status: Accepted (built)
 Date: 2026-06-29
@@ -656,7 +656,7 @@ builds; the three desks are controller adapter types (\`packages/server/src/desk
   honest, so a surface greys out features a given device lacks rather than erroring.
 - Adapter packages are loaded lazily (guarded dynamic \`import()\`), so the server builds
   and tests with no adapter packages present; the built-in \`MockAdapter\` is the default.
-`,b=`# 0005 — Declarative desired-graph reconcile for audio routing
+`,y=`# 0005 — Declarative desired-graph reconcile for audio routing
 
 Status: Accepted (built)
 Date: 2026-06-29
@@ -1620,7 +1620,64 @@ but not yet built, it says that too.
 | [0019](0019-cue-solo-monitor-bus-never-the-mains.md) | Cue/solo is a monitor bus; the monitor auto-takeover is never the mains | Accepted (built; live acceptance pending) |
 | [0020](0020-plugin-tiers-fixed-by-measured-latency.md) | Plugin tiers are fixed by measured latency; LV2 ships as tiered subpackages | Accepted (built, incl. tiered RPM packaging) |
 | [0021](0021-fx-send-return-channels-native-delay-reverb.md) | Time-based FX are send/return channels on the existing summing buses; delay + reverb are native | Accepted (built — mix_delay.h, mix_reverb.h) |
-`,F="# Architecture\n\nDevelopment documentation: how openmixer is built, and why it is built that way. None of\nthis is needed to run a desk — see the [operator manual](../manual/index.md) for that.\n\n- **[Overview](overview.md)** — the layered design: one canonical model driving a\n  software mix engine plus hardware adapters, the server as the single source of truth,\n  surfaces and windows as thin clients, pluggable I/O, C for the hot paths, a modular web\n  UI.\n- **[Technical manual](technical-manual.md)** — the monorepo packages, the canonical\n  model, the software audio engine (PipeWire summing, `mod-host` inserts, `pw-link`\n  reconcile, plugin-delay compensation), the control protocol, the graph-layout engine\n  and the patchbay, and how to add an adapter, a plugin, a probe or a view module.\n- **[Native DSP versus mod-host inserts](native-dsp-vs-modhost-inserts.md)** — which\n  processing is native and which is an LV2 insert, and why the two are never conflated.\n- **[One summing bus](one-summing-bus.md)** — why MAIN, groups, auxes and matrices are all\n  the same weighted-sum operation, the fader as MAIN's coefficient, and why the mono fold\n  and the pan law's centre position are fixed numbers rather than settings.\n- **[The row grammar and conformance](row-grammar-and-conformance.md)** — how every REST entity\n  is built (mold, address codec, field codecs, station, registration), how a surface must derive\n  from the contract instead of hardcoding it, and a sample of the conformance ratchets that hold\n  both mechanically.\n- **[Decision log](decisions/README.md)** — one architecture decision record per\n  significant choice, with its context, the decision and its consequences.\n\nThe specifications and implementation plans these are built on are internal development\nmaterial and are not published here.\n\n## Generated API reference\n\n`pnpm docs:api` runs [TypeDoc](https://typedoc.org) over the packages whose docstrings are rich\nenough to be worth generating from — `declarations`, `core`, `server`, `audio-engine`, `catalog`,\n`patchbay`, `graph-layout`, `discovery`, `adapter-xtouch`, `adapter-midas`, `adapter-roland`,\n`adapter-x32`, `omx-ml` and `assistant` — and writes static HTML to `api-docs/` at the repo root.\nThat directory is generated and git-ignored: it is not a second, hand-kept copy of the API, it is\nthe existing TSDoc comments rendered. Build the dependency closure first (`pnpm -r --filter\n\"@freemixer/server...\" build`) so cross-package types resolve, then run `pnpm docs:api`.\n`typedoc.json` at the repo root is the one place the entry-point list is declared.\n\n**`@freemixer/declarations` is the page to read first.** It holds every value the desk asserts\nabout itself — travels, spans, counts, allowed values, declared defaults — each with the reasoning\nthat fixed the number, and the generated reference is the only place that reasoning is readable\nwithout opening the source. Note what it is *not*: a surface may not import this package. The web\nUI does not list it as a dependency, so an import is a module-resolution error rather than a lint\nwarning somebody suppresses, and `declarations-withheld.test.ts` in core gates `core` against\nre-exporting it. A surface learns these values at runtime from `OPTIONS` — `OPTIONS /api/` for the\nrow-wide ones, `OPTIONS` at an instance for the ones that belong to a device — or it draws nothing.\nRead the generated page to understand what the console publishes and why; derive from `OPTIONS`.\n",H='<!-- SPDX-License-Identifier: GPL-3.0-or-later -->\n# Native built-in DSP vs mod_host plugin inserts\n\n> **Read this before touching the EQ / Gate / Compressor UI or the processor chain.**\n> The two have been repeatedly confused, producing regressions ("this channel has\n> no EQ stage", the EQ curve routed through a plugin, an LV2 "add" offer on the EQ\n> tab). They are **two independent mechanisms**. Do not conflate them.\n\n## 1. Native built-in DSP — the channel\'s OWN processing (always present)\n\nEvery processing channel (input strips; buses that carry processing) has a\n**built-in EQ, gate and compressor that run inside the native C engine**\n(`packages/pipewire-native/src/mixer.c` — a biquad cascade for the EQ, one\n`omx_dynamics` atom for gate/comp). See ADR 0002 (structural DSP is\nPipeWire-native), ADR 0006 (the channel strip is an ordered processor list),\nADR 0009 (C for the hot path).\n\n- **Always there.** There is no "EQ stage" to add and no way to be without one.\n  A fresh channel has a flat EQ (shaping nothing) — that is honest, not a\n  placeholder. You **disable** a block with its on-switch (`EqState.on`,\n  `GateState.on`, `CompState.on`), you never "remove the stage".\n- **State → DSP path.** The model lives in `@freemixer/core` / `@freemixer/catalog`\n  (`EqState`, `GateState`, `CompState`, `defaultEqState()`, `defaultGateState()`,\n  `defaultCompState()`). The web-ui edits it through `useChannelEq` /\n  `useChannelGate` / `useChannelComp`, which emit the **`eq.set` / gate / comp\n  verbs**. The server threads those to the native strip\n  (`gateStateToNativeDyn`, the EQ coeff push, `native.setStripEq/setStripDyn`),\n  where they run as biquads / the dynamics atom. Word-atomic params (JS writes\n  relaxed, the RT thread reads).\n- **The UI.** The EQ / Gate / Compressor tabs draw the native state directly:\n  `EqCurve.vue` (EQ), `GateCurve.vue` (gate), `CompCurve.vue` (comp). These\n  curves ARE the native processor. The EQ RTA pre/post taps read the signal\n  around the native EQ cascade.\n\n## 2. mod_host / LV2 plugin inserts — OPTIONAL, separate, ad-hoc\n\nFree LV2 plugins hosted via **mod-host**, inserted into a channel\'s processor\n**chain** as ad-hoc effects (ADR 0002: inserts = mod-host). This is a *different*\nthing from the built-in DSP above.\n\n- Managed by the **Plugins tab** (the `StripInsertRack` / insert rack) and the\n  chain `StagePanel` — `chainProcessors` / `setProcessorPlugin` /\n  `setProcessorEnabled` / `reorder` verbs. `useChain` / `useInserts`.\n- A chain having "no eq stage" means **no plugin EQ insert** — it says nothing\n  about the channel\'s native EQ, which is always present (§1). Never surface a\n  chain-stage emptiness as "this channel has no EQ".\n- LV2 EQs/dynamics belong ONLY here (the Plugins tab), never as the path to a\n  channel\'s own EQ/gate/comp.\n\n## Rules for anyone (human or agent) working here\n\n1. The **EQ / Gate / Comp tabs edit the NATIVE built-in DSP** (§1), always, for\n   every processing channel. Bind the curve to `eqFor()/gateFor()/compFor()` and\n   emit the native verbs. Do **not** gate the curve on chain-stage presence, and\n   do **not** route the built-in EQ/gate/comp through mod_host / a plugin.\n2. **mod_host inserts live in the Plugins tab** (§2). Do not put an "add plugin"\n   / LV2 affordance on the EQ/Gate/Comp tabs — those tabs are the native DSP.\n3. An empty insert chain renders **nothing** on the native tabs — never a\n   "no … stage" message (`StagePanel` empty state is intentionally silent).\n4. Defaults: gate `on: false`, comp `on: false`, EQ flat & `on: true` (a flat EQ\n   is inert). See `@freemixer/catalog`\'s `default*State()`.\n\nIf a change makes you write "add EQ", "no EQ stage", or route EQ through a\nplugin, stop — you\'re fighting mod_host. Re-read §1.\n',B=`<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+`,H=`# Architecture
+
+Development documentation: how openmixer is built, and why it is built that way. None of
+this is needed to run a desk — see the [operator manual](../manual/index.md) for that.
+
+- **[Overview](overview.md)** — the layered design: one canonical model driving a
+  software mix engine plus hardware adapters, the server as the single source of truth,
+  surfaces and windows as thin clients, pluggable I/O, C for the hot paths, a modular web
+  UI.
+- **[Technical manual](technical-manual.md)** — the monorepo packages, the canonical
+  model, the software audio engine (PipeWire summing, \`mod-host\` inserts, \`pw-link\`
+  reconcile, plugin-delay compensation), the control protocol, the graph-layout engine
+  and the patchbay, and how to add an adapter, a plugin, a probe or a view module.
+- **[Native DSP versus mod-host inserts](native-dsp-vs-modhost-inserts.md)** — which
+  processing is native and which is an LV2 insert, and why the two are never conflated.
+- **[One summing bus](one-summing-bus.md)** — why MAIN, groups, auxes and matrices are all
+  the same weighted-sum operation, the fader as MAIN's coefficient, and why the mono fold
+  and the pan law's centre position are fixed numbers rather than settings.
+- **[The row grammar and conformance](row-grammar-and-conformance.md)** — how every REST entity
+  is built (mold, address codec, field codecs, station, registration), how a surface must derive
+  from the contract instead of hardcoding it, and a sample of the conformance ratchets that hold
+  both mechanically.
+- **[Libraries, tools and apps](libraries.md)** — what each sibling repository is, how
+  openmixer reaches it (link, exec, socket, dlopen, codegen), the dependency graph, the concerns
+  that have exactly one home, and where the tree still differs from that rule.
+- **[The engine and its libraries](engine-and-libraries.md)** — what stays inside an engine stage
+  and why: formulas live in omx-dsp, the graph, the clock and the console's state in the engine;
+  which omx-dsp functions each stage calls, and the formulas still to move.
+- **[Plugin controls and panels](plugin-panels.md)** — what CLAP and LV2 declare, what openmixer
+  adds (parameter contract, panel description, skin packages), where modgui fits, the two GUI
+  doors, and what a third-party plugin gets today.
+- **[Decision log](decisions/README.md)** — one architecture decision record per
+  significant choice, with its context, the decision and its consequences.
+
+The specifications and implementation plans these are built on are internal development
+material and are not published here.
+
+## Generated API reference
+
+\`pnpm docs:api\` runs [TypeDoc](https://typedoc.org) over the packages whose docstrings are rich
+enough to be worth generating from — \`declarations\`, \`core\`, \`server\`, \`audio-engine\`, \`catalog\`,
+\`patchbay\`, \`graph-layout\`, \`discovery\`, \`adapter-xtouch\`, \`adapter-midas\`, \`adapter-roland\`,
+\`adapter-x32\`, \`omx-ml\` and \`assistant\` — and writes static HTML to \`api-docs/\` at the repo root.
+That directory is generated and git-ignored: it is not a second, hand-kept copy of the API, it is
+the existing TSDoc comments rendered. Build the dependency closure first (\`pnpm -r --filter
+"@freemixer/server..." build\`) so cross-package types resolve, then run \`pnpm docs:api\`.
+\`typedoc.json\` at the repo root is the one place the entry-point list is declared.
+
+**\`@freemixer/declarations\` is the page to read first.** It holds every value the desk asserts
+about itself — travels, spans, counts, allowed values, declared defaults — each with the reasoning
+that fixed the number, and the generated reference is the only place that reasoning is readable
+without opening the source. Note what it is *not*: a surface may not import this package. The web
+UI does not list it as a dependency, so an import is a module-resolution error rather than a lint
+warning somebody suppresses, and \`declarations-withheld.test.ts\` in core gates \`core\` against
+re-exporting it. A surface learns these values at runtime from \`OPTIONS\` — \`OPTIONS /api/\` for the
+row-wide ones, \`OPTIONS\` at an instance for the ones that belong to a device — or it draws nothing.
+Read the generated page to understand what the console publishes and why; derive from \`OPTIONS\`.
+`,F='<!-- SPDX-License-Identifier: GPL-3.0-or-later -->\n# Native built-in DSP vs mod_host plugin inserts\n\n> **Read this before touching the EQ / Gate / Compressor UI or the processor chain.**\n> The two have been repeatedly confused, producing regressions ("this channel has\n> no EQ stage", the EQ curve routed through a plugin, an LV2 "add" offer on the EQ\n> tab). They are **two independent mechanisms**. Do not conflate them.\n\n## 1. Native built-in DSP — the channel\'s OWN processing (always present)\n\nEvery processing channel (input strips; buses that carry processing) has a\n**built-in EQ, gate and compressor that run inside the native C engine**\n(`packages/pipewire-native/src/mixer.c` — a biquad cascade for the EQ, one\n`omx_dynamics` atom for gate/comp). See ADR 0002 (structural DSP is\nPipeWire-native), ADR 0006 (the channel strip is an ordered processor list),\nADR 0009 (C for the hot path).\n\n- **Always there.** There is no "EQ stage" to add and no way to be without one.\n  A fresh channel has a flat EQ (shaping nothing) — that is honest, not a\n  placeholder. You **disable** a block with its on-switch (`EqState.on`,\n  `GateState.on`, `CompState.on`), you never "remove the stage".\n- **State → DSP path.** The model lives in `@freemixer/core` / `@freemixer/catalog`\n  (`EqState`, `GateState`, `CompState`, `defaultEqState()`, `defaultGateState()`,\n  `defaultCompState()`). The web-ui edits it through `useChannelEq` /\n  `useChannelGate` / `useChannelComp`, which emit the **`eq.set` / gate / comp\n  verbs**. The server threads those to the native strip\n  (`gateStateToNativeDyn`, the EQ coeff push, `native.setStripEq/setStripDyn`),\n  where they run as biquads / the dynamics atom. Word-atomic params (JS writes\n  relaxed, the RT thread reads).\n- **The UI.** The EQ / Gate / Compressor tabs draw the native state directly:\n  `EqCurve.vue` (EQ), `GateCurve.vue` (gate), `CompCurve.vue` (comp). These\n  curves ARE the native processor. The EQ RTA pre/post taps read the signal\n  around the native EQ cascade.\n\n## 2. mod_host / LV2 plugin inserts — OPTIONAL, separate, ad-hoc\n\nFree LV2 plugins hosted via **mod-host**, inserted into a channel\'s processor\n**chain** as ad-hoc effects (ADR 0002: inserts = mod-host). This is a *different*\nthing from the built-in DSP above.\n\n- Managed by the **Plugins tab** (the `StripInsertRack` / insert rack) and the\n  chain `StagePanel` — `chainProcessors` / `setProcessorPlugin` /\n  `setProcessorEnabled` / `reorder` verbs. `useChain` / `useInserts`.\n- A chain having "no eq stage" means **no plugin EQ insert** — it says nothing\n  about the channel\'s native EQ, which is always present (§1). Never surface a\n  chain-stage emptiness as "this channel has no EQ".\n- LV2 EQs/dynamics belong ONLY here (the Plugins tab), never as the path to a\n  channel\'s own EQ/gate/comp.\n\n## Rules for anyone (human or agent) working here\n\n1. The **EQ / Gate / Comp tabs edit the NATIVE built-in DSP** (§1), always, for\n   every processing channel. Bind the curve to `eqFor()/gateFor()/compFor()` and\n   emit the native verbs. Do **not** gate the curve on chain-stage presence, and\n   do **not** route the built-in EQ/gate/comp through mod_host / a plugin.\n2. **mod_host inserts live in the Plugins tab** (§2). Do not put an "add plugin"\n   / LV2 affordance on the EQ/Gate/Comp tabs — those tabs are the native DSP.\n3. An empty insert chain renders **nothing** on the native tabs — never a\n   "no … stage" message (`StagePanel` empty state is intentionally silent).\n4. Defaults: gate `on: false`, comp `on: false`, EQ flat & `on: true` (a flat EQ\n   is inert). See `@freemixer/catalog`\'s `default*State()`.\n\nIf a change makes you write "add EQ", "no EQ stage", or route EQ through a\nplugin, stop — you\'re fighting mod_host. Re-read §1.\n',B=`<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 # One summing bus
 
 openmixer has exactly one way of adding signals together, and every bus on the console —
@@ -1753,7 +1810,7 @@ is why it is the law and not an option.
   leg setting.
 - [FAQ](https://freemixer.github.io/openmixer-www/faq) for the short version of the two
   rulings above.
-`,G="# Architecture manual\n\nThis manual describes how openmixer is put together: the layers, why they are drawn\nwhere they are, and how data moves through them. It is paired with a\n[decision log](decisions/) that records each significant choice as a standalone ADR.\n\nThroughout, **built** marks something that exists in `packages/` today and **designed**\nmarks something documented as a plan but not yet implemented. The two are kept apart\ndeliberately — the architecture is stable, but only part of it is wired.\n\n## The one idea\n\nEvery digital mixer fuses three things that do not have to be fused: the **control\nsurface** you touch, the **mix engine** that does the DSP, and the **audio I/O** that\ngets sound in and out. openmixer separates them behind a single device-neutral model\nand lets you mix and match:\n\n```\n   control surfaces                 canonical model                  I/O + engines\n   (north, thin clients)            (single source of truth)         (south, sinks)\n\n   web UI (Nuxt/Vue)  ┐                                         ┌─ software engine\n   touch / mouse / kbd ┼─ intents ─▶  @freemixer/core  ──fan──▶ ┤    (native C DSP\n   MCU / X-Touch ──────┤              model + engine    out     │     + mod-host / LV2)\n   another desk ───────┘              capability map            ├─ REAC stagebox I/O\n                                      event fan-out             ├─ console adapter\n                                                                │    (Midas / X32 / Roland)\n                                                                └─ …\n```\n\nA control source emits a **canonical intent** (\"move `input/3`'s fader to 0.7\"). The\nengine holds the canonical state, applies it, and fans the resulting change out to\nevery connected listener. A sink is either a **device adapter** (drives a real\nconsole over its own protocol) or the **software audio engine** (hosts LV2 plugins and\nroutes audio). The surface and the engine never know which sink is behind the model —\nonly the adapter does.\n\nThis is the part worth owning: the neutral model in the middle, and the adapters\naround it. Add a console, a stagebox, or a surface by adding an adapter, not by\ntouching the core.\n\n## The layers\n\n### 1. The canonical model — `@freemixer/core` (built)\n\n`core` is the vocabulary everything else speaks. It has **zero device specifics**.\n\n- **`ChannelId` = `{ kind, index }`.** `kind` is one of `input`, `fxReturn`, `aux`,\n  `mix`, `matrix`, `cue`, `main`, `fxSend`, `dca`, `muteGroup`, `mixMinus`\n  (`packages/core/src/model.ts` is authoritative); `index` is 1-based. A send is\n  not a special type — it is a fader at an input × output intersection.\n- **`ChannelStrip`** carries the per-channel state: `fader`, `mute`, `solo`, `pan`,\n  `gain`, `phantom`, `polarity`, `eq`, `dynamics`, `inserts`, and `sends`.\n- **`FaderLevel` = `{ position, db }`.** Position is an opaque 0..1 surface scalar; dB\n  is carried alongside as a derived read. The device-raw taper stays private to each\n  adapter behind a `FaderScale` ([ADR&nbsp;0011](decisions/0011-fader-position-and-db-with-per-adapter-scale.md)).\n- **`MixerTopology`** is what an adapter reports on connect: the model name, the\n  channel list, stereo pairs, a **capability map** (`has(id, feature)`), and a send\n  matrix spec. Capabilities are mandatory — no desk has every feature, so surfaces\n  grey out what a given device cannot do rather than erroring.\n- **`MixerAdapter` / `MixerReceiver`** are the device-facing contracts. Writes are\n  promises (`setFader`, `setMute`, …); reads are a push observer (`onFader`,\n  `onMeters`, …) because real desks stream state unsolicited after you subscribe.\n- **`MixerEngine`** is the hub's heart. It holds the canonical state for one bound\n  device, forwards intents to the adapter, and *is* the adapter's `MixerReceiver`, so\n  device-pushed state and surface-pushed state share one path and one fan-out.\n\nRouting one source to one sink — \"the Midas surface drives the X32\" — is just\nsubscribing one engine's events and calling another engine's control methods. No\nspecial case.\n\n### 2. The sinks (south)\n\nThere are two kinds of sink, both behind the same `MixerAdapter` contract.\n\n**Console adapters** (built, varying maturity) translate the canonical model to a real\ndesk's remote protocol. They are the *only* code that knows a protocol:\n\n- `adapter-midas` — Midas PRO Series over OSC/UDP (port 10002). The most complete;\n  ported from a working Python proof-of-concept. Fader/mute/solo/gain/name work both\n  directions; cross-point sends and read-side EQ/dynamics/meters are still open.\n- `adapter-x32` — Behringer X32 / Midas M32 over OSC/UDP (port 10023). Substantial:\n  fader/mute/pan/gain/send/name plus `/xremote` keep-alive; `setSolo` and read-side\n  EQ/dynamics/meters are open. It absorbs the X32's quirks (e.g. `/mix/on` is\n  ON=unmuted, inverted to the canonical \"muted\").\n- `adapter-roland` — Roland M-5000 over the RCS control plane. A **documented stub**:\n  fully wired to the interface, but every place the real RCS wire format plugs in is\n  marked `TODO(hardware)` and isolated behind a transport seam. Note: this is the\n  Roland **control** plane, not REAC audio transport — those are separate.\n\n**The software audio engine** (built) — `@freemixer/audio-engine` plus\n`@freemixer/pipewire-native` — *is* the mixer rather than controlling one. It presents\nthe same north-facing `MixerAdapter` contract, so the engine drives it identically to a\nconsole: a web fader moves a software channel exactly as it moves a Midas channel.\n\nThe control face is `SoftwareMixerAdapter` (`software-adapter.ts`), built by the composition\nroot (`software-mixer-loader.ts`): gain/mute are PipeWire node\nvolume, never a mod-host gain plugin. Fader, mute, solo (`setSolo`) and pan (`setPan`)\nare all live on it.\n\n- The **structural** DSP — per-strip gain/fader/pan/polarity, summing, the EQ bank, the\n  gate/comp atom, native delay and reverb — is openmixer's own C `pw_filter` node in\n  `@freemixer/pipewire-native` (`mixer.c`, `mixer_rt.c`, `mix_dsp.h`). The older path\n  that realised buses as PipeWire filter-chain nodes (`bus-node.ts`, `eq-node.ts`)\n  still exists as a fallback; the live rig runs the native node\n  ([ADR&nbsp;0002](decisions/0002-pipewire-native-summing-mod-host-inserts-only.md),\n  [ADR&nbsp;0009](decisions/0009-c-for-hot-paths-pipewire-node-boundary.md)).\n- **LV2 plugin inserts** are a separate layer: an ordered chain hosted by **mod-host**\n  (`ChainManager` / `planChain`), reconciled declaratively\n  ([ADR&nbsp;0006](decisions/0006-ordered-processor-channel-strip.md)). Which of the two\n  layers owns what, and why they must not be conflated, is\n  [native DSP vs mod-host inserts](native-dsp-vs-modhost-inserts.md).\n- Audio is patched by a **declarative desired-graph reconciler** (`DeclarativeAudioGraph`)\n  over PipeWire's `pw-link` (`PipeWireBackend`), in the style of Zynthian's\n  `zynautoconnect` ([ADR&nbsp;0005](decisions/0005-declarative-desired-graph-reconcile.md)).\n\n### 3. The I/O (the southern edge)\n\nThe target deployment feeds the software engine from a **Roland REAC stagebox** over\n**native REAC** — not AES67, not an M-5000 console\n([ADR&nbsp;0001](decisions/0001-native-reac-not-aes67.md)). The stagebox's inputs\narrive as a 40-channel PipeWire source; the mixed buses go back out as a PipeWire sink\nthat re-encodes REAC to the stagebox outputs, which feed the PA.\n\nThe REAC work lives in a **sibling repository, `reac-pw`** (with `libreac`), behind a\nhard boundary: the PipeWire node. openmixer (TypeScript) never touches a REAC byte; it\nonly wires the `reac:capture` / `reac:playback` ports into its mix graph. The REAC\nreceive path and the frame encoder exist and are verified, and so does the master-role\nhandshake that lets openmixer drive a real box: cold-connect → grant → ESTABLISHED →\nsteady 1/s heartbeat, zero drops, verified against a Roland S-0808. openmixer\npackages that master as a unit (`packaging/systemd/reac-pw.service`)\nand probes the box through it (`packages/server/src/reac-pw-prober.ts`). This is the\nC-for-hot-paths boundary\n([ADR&nbsp;0009](decisions/0009-c-for-hot-paths-pipewire-node-boundary.md)).\n\n### 4. The server — `@freemixer/server` (built)\n\nThe server wires one chosen adapter into a `MixerEngine` and exposes it to browsers:\n\n- **REST is the front door.** Every entity is `GET`/`PATCH`/`OPTIONS`-able at\n  `/{root}/{kind}/{index}[/{sub}]`, one `ConsoleResource` declaration per entity, served\n  by the `ResourceRegistry` (`packages/server/src/rest-router.ts`). Around 85 entities\n  serve today, decomposed from an earlier verb-based wire that no longer exists.\n  Any `GET` also takes `?watch=1` to become a live `text/event-stream` of that same\n  body — no separate subscribe verb (`packages/server/src/resource-stream.ts`). It is\n  the only wire: there is no WebSocket.\n\nThe server is the **single source of truth**\n([ADR&nbsp;0003](decisions/0003-server-single-source-of-truth.md)). Every engine event\nlands on the affected row's `?watch=1` stream for *every* watcher, including the client\nthat caused it — so a finger on glass, a motor fader, or a device-side change all\nconverge to the same values on every client. There is no peer-to-peer surface chatter; surfaces talk only to the\nserver.\n\n### 5. The surfaces (north, thin clients) — `@freemixer/web-ui` (built)\n\nThe web UI is a Nuxt 4 single-page app — a live control surface, no SSR. It renders the\nfader wall (level, meter, mute, solo, pan per strip), an insert rack per strip, and an\n**auto-generated plugin editor**: every control widget is chosen from LV2 metadata by\none `widgetFor()` decision table, so there is no per-plugin UI code\n([ADR&nbsp;0010](decisions/0010-metadata-driven-plugin-editor.md)). It is built\ntouch-first with full keyboard navigation, pointer/wheel affordances, and ARIA roles on\nevery control ([ADR&nbsp;0014](decisions/0014-multi-modal-input.md)).\n\nBecause the server is authoritative, a surface is intentionally thin: it sends intents\nand re-renders from broadcasts. Opening the surface on several devices at once gives you\nseveral synchronized views for free — that is the substrate the MCU/X-Touch surfaces (a\nphysical fader bank with motorized, touch-sensing faders that mirrors and drives the desk\nover MIDI) and the multi-window model\n([ADR&nbsp;0015](decisions/0015-modular-multi-window-web-ui.md)) build on: each surface,\nwindow, and physical fader bank is one more client of the one server.\n\n## How a fader move flows (built path)\n\n1. The operator drags a fader in the web UI. The client updates its local state\n   **optimistically** and sends `PATCH /api/channel/{kind}/{index}/fader`.\n2. The server validates the patch, derives dB from the adapter's `FaderScale`, and\n   calls `engine.setFader(...)`.\n3. The engine records the new value, emits a `fader` event, and calls\n   `adapter.setFader(...)`, which writes to the device (a console, or mod-host).\n4. The engine's event lands on the fader row's `?watch=1` stream for **every** watcher.\n   Other clients update; the originating client reconciles its optimistic value against\n   the authoritative one.\n\nA device-originated change (someone moves a real fader) enters at the adapter's\n`MixerReceiver`, takes the same `engine → broadcast` path, and lands on every surface.\nOne path, both directions.\n\n## Cross-cutting principles\n\n- **Configuration over hard-coding.** Endpoints, ports, timeouts, channel lists, strip\n  plugin URIs, and fader tapers are all configuration with sensible defaults — nothing\n  about a device is baked into the wiring.\n- **Pure cores, injected I/O.** The load-bearing logic — the chain reconciler\n  (`planChain`), the graph diff (`DeclarativeAudioGraph.plan`), the mod-host wire\n  codec — is written as pure functions and unit-tested with no socket and no hardware. The stateful drivers are thin shells around them.\n- **Persist by name, never by id.** PipeWire/JACK object ids churn across restart and\n  replug, so routing and scenes must persist by node-name + port-name and re-resolve\n  ([ADR&nbsp;0007](decisions/0007-persist-routing-by-name-not-id.md)).\n- **Degrade, don't crash.** A missing stagebox, an absent adapter package, a dead\n  mod-host, an unreachable discovery NIC — each is reported and worked around, never\n  fatal.\n- **GPL-3, no AGPL copied.** openmixer is GPL-3.0-or-later. MIT/BSD/GPL-2-or-later/GPL-3\n  code may be copied; AGPL code (MOD-UI, Eyevinn, Zrythm) is studied and re-implemented\n  clean, never copied ([ADR&nbsp;0016](decisions/0016-gpl3-no-agpl-code-copied.md)).\n\n## What is built vs designed\n\n| Layer | Built | Designed (not yet built) |\n|---|---|---|\n| Canonical model | full `core` model + engine | — |\n| Software engine | native C DSP node (gain/fader/pan/sum, EQ, gate/comp, delay, reverb, RTA), mod-host insert chains, `pw-link` routing, summing/buses/matrix/DCA/sends | a deeper bus tree (buses are single-tier — enforced in `createManagedBus`) |\n| I/O | REAC discovery probe, head-amp control, packaged `reac-pw` master unit | native REAC audio transport itself stays in the sibling `reac-pw` repo, not here |\n| Server | REST only (~85 `ConsoleResource` entities, each `GET`/`PATCH`/`OPTIONS`-able and `?watch=1`-streamable), `/health`, `/telemetry` | — |\n| Adapters | Midas (mature), X32 (substantial), X-Touch MCU (largest), Roland (stub), `AdapterManager` registry + `adapters.yaml` | Roland RCS wire format (`TODO(hardware)`) |\n| Surfaces | web UI (strips, inserts, auto-editor), MCU/X-Touch, in-app multi-window layout manager, EBU-R128 metering | — |\n\nRead the [decision log](decisions/) next for the reasoning behind each of these\nchoices, or the [technical manual](technical-manual.md) for the concrete\ninterfaces, the full control protocol, and how to add an adapter, plugin, probe, or view\nmodule.\n",W="# The row grammar, the contract, and conformance\n\nHow every REST entity is built, how a surface finds out what it may do without being told in\nadvance, and how the repo keeps both of those true mechanically rather than by review.\n\n## The row grammar\n\nEvery entity the console serves — a fader, a bus, a DCA, a mute group, a matrix point, a\nsession — is one instance of a single grammar, held to mechanically by\n`row-grammar-conformance.test.ts`:\n\n```\nrow = mold(address, fields | derive, station, [ripples], [refusal wording], [lifecycle], [policy])\n```\n\n- **A mold from core** — `ScalarRecordResource`, `CollectionResource`, `LatchResource`,\n  `OperationResource` or `DerivedResource`. No row subclasses `ConsoleResource` directly.\n- **An address codec from core** — `CHANNEL_ADDRESS`, `SINGLETON_ADDRESS`,\n  `fixedKindChannelAddress(kind)`, or a named codec added to core when a genuinely new address\n  shape appears. A row never spells out a `{ parse, canonical }` literal for a shape core already\n  owns.\n- **Field codecs from core** — `bool`, `finiteNumber`, `enumOf`, `text`, `tokenArray`,\n  `nodeIdArray`, `refArray`, `nullableChannelRef`, each with mandatory example vectors. A new\n  value shape gets a new named core codec, never an inline literal in a row file.\n- **A station over the engine's one doorway** — the ONE store's read/write path. Server stations\n  extend `EngineDoorStation`, `StripScopedStation` / `ChannelScopedStation`, or `JsonFileStation`.\n  A shape that fits none of these is a new base, added beside them with its own tests.\n- **Registration at a sanctioned site only** — `console-resources.ts` (composition policy), the\n  constructor registration block of `server.ts`, or `demo-resources.ts`. A row registered\n  anywhere else is invisible to the composition reader.\n- **Lifecycle**, when the row is a collection — `create`/`remove` doors declared on the mold from\n  `@freemixer/core`'s `resource-lifecycle.ts`, never hand-rolled. `OPTIONS` advertises `DELETE`/\n  `POST` only where the door exists; a door that doesn't exist answers `405`, not a refusal code\n  dressed up as one.\n- **Policy** — `{ dirtiesSession?, undoable?, undoBarrier?, undoLabel, undoCoalesce? }`, executed\n  once by the registry for every door. `dirtiesSession` defaults `true`; `undoable` defaults\n  `false` and requires a coded `undoLabel` when set — the registry replays the inverse from the\n  PRIOR field values it read before the write, never a guess.\n\nLaws every row inherits rather than re-deciding: one store (never a second ledger for a fact\nanother component already owns), broadcast only through `broadcastResource`, refusals as codes\n(never English on the wire — the client translates), absence is a fact (no instance is\nnot-found, never a fabricated zero), latches are kept honest by query-and-compare, and an\noperation is the only place \"do\" semantics live.\n\nThe row-grammar test refuses a new `AddressCodec`, `FieldCodec`, or unbased `*Station` outside\n`@freemixer/core` / the shared server bases. The fix is never a suppression: promote the new\nshape into core, name it, give it example vectors, and instantiate it from there.\n\n## The contract drives the surface — nothing is hardcoded\n\n**The console generates its URLs, address spaces and OPTIONS from the contract; a surface asks,\nit does not decide.** `GET` reads a row, `PATCH` writes it, `OPTIONS` reports what THIS instance\ncurrently allows — which fields are writable, what range they accept, whether `DELETE`/`POST`\nexist — and any `GET` takes `?watch=1` to become the same body as a live stream. There is no\nsecond, hand-held list of what a desk supports: a client that imports a constant where the\ncontract already publishes the fact is a deviation, because it is exactly how two surfaces end up\ndisagreeing about the same desk.\n\nThis is enforced, not aspirational: `contract-derivation-conformance.test.ts` scans the web UI for\nplaces that decided something the console already declares — a hardcoded channel count, a\ncapability assumed rather than read, a range checked against a literal instead of the published\none — and keeps a shrink-only work list of what is left to move. `mixer-standard.md` (NORMATIVE)\nstates the rule twice: nothing about a specific desk or show is hardcoded, and a desk does not get\nits own classes — it maps its capabilities onto the standard ones.\n\nPractically, this means: **never write down \"the available options are A, B, C.\"** Describe how\nto ask — `OPTIONS /channel/input/3/headAmp`, or read the `range` a `GET` already carries — because\nthe contract row is free to change and the prose is not.\n\n### Where the declared values live, and why you cannot import them\n\nThe numbers behind those published limits are in `@freemixer/declarations` — every travel, span,\ncount, allowed value and declared default the desk asserts about itself, each carrying the\nreasoning that fixed it. The package depends on nothing, and `@freemixer/core` depends on it and\nmust never re-export it.\n\n**A surface cannot reach it, by construction.** `@freemixer/web-ui` does not list it as a\ndependency, so a client's import of a declared value fails to resolve rather than becoming a lint\nwarning somebody suppresses; `declarations-withheld.test.ts` in core is the gate on the re-export\nhalf. This is the mechanism that makes \"derive from the contract\" true rather than merely\nrequested — a surface has no way to hardcode a limit it can only receive.\n\nThe line the package draws: **what a value MAY BE** is declared here — travels, spans, counts,\nallowed values. **How a value is REALISED** is not — a fader taper, tick geometry, density tokens,\na wire encoding belong to the surface or the adapter that draws or speaks them. Server defensive,\nclient generative, one source: the write door refuses out-of-travel values *by* these\ndeclarations, and a client generates its controls *from* the same ones received over the wire.\nNeither trusts the other, and both are built from one statement of the fact.\n\nOne caution for anything device-dependent: a range that depends on the DEVICE must come from the\ndevice. A channel's gain travel is a property of the preamp patched behind it — a REAC box\ndeclares 0..55 dB, an RME mic input reaches 65 — so a row publishes the patched preamp's own\ndeclaration and never a package constant. Only a constant of the desk itself or of the maths (the\npan travel, the desk's own DSP gain stage) is declared once and for all.\n\n`pnpm docs:api` renders all of it, reasoning included; see\n[the generated API reference](index.md#generated-api-reference).\n\n## Conformance ratchets — a sample of what they guard\n\nThe repo carries around thirty `*-conformance.test.ts` files. Each names a real defect that\nshipped once, reduces it to a mechanical scan, and — by the ratchet rule (R-011) — is checked on\nall four ratchet arms (new drift, a fixed-but-still-listed entry, an entry that no longer matches\nanything, and an entry whose meaning quietly grew) rather than hand-maintained. A few, to show the\nrange:\n\n| Ratchet | Guards against |\n|---|---|\n| `row-grammar-conformance` | A row inventing its own address/field codec or station shape instead of using core's. |\n| `contract-derivation-conformance` | A surface deciding a capability instead of reading it from the contract. |\n| `dispatch-conformance` | Any socket or verb transport reappearing — REST is the only door, permanently. |\n| `model-ownership-conformance` | Console truth (capacity, capability, recall rules) re-implemented in a client instead of read from `@freemixer/core`/the server. |\n| `cast-regression-conformance` | The three `as`-cast shapes that have actually recurred, each swept mechanically. |\n| `comment-narrative-conformance` | A code comment narrating history instead of stating the current contract — git holds history. |\n| `contract-connector-conformance` | A contract column nothing reads — a declared fact with no consumer is a comment pretending to be a law. |\n| `value-in-published-limit-conformance` | A published value that falls outside the range published beside it. |\n| `wire-finite-conformance` | `NaN`/`Infinity` reaching the wire as JSON `null`, which a client then reads as a confident zero. |\n| `silent-write-conformance` | A control that moved on screen while no audio path actually changed. |\n| `restore-announce-conformance` | A restore path (session/scene load) writing a store without also broadcasting it. |\n| `settlement-conformance` | A row answering a write from a read that can still precede it. |\n| `env-var-conformance` | An environment variable the code reads that the admin docs don't document, or vice versa. |\n| `native-capability-conformance` | A capability wired end-to-end in C, N-API and TypeScript that nothing in production ever calls. |\n| `one-intake-conformance` | A second live transport into the web UI — there is exactly one stream and one dialler for it. |\n\nEach file's own header states the defect it was built for in more detail than a table row can;\nread the file before extending or relaxing one.\n\n## Extending the system\n\nThe house laws behind all of the above — ownership, where code lives, the one path to audio,\ntesting the graph rather than the model, the four-armed ratchet, decisions written down as they\nhappen, house style — are in [the rules index](../design/rules/INDEX.md); this page assumes them\nand does not restate them.\n\nFor the concrete steps to add a console adapter, a plugin, a view module or a discovery probe,\nsee [technical manual → Extending](technical-manual.md#extending). An OSC or other new control\nsurface follows the same rule as the web UI: it reads the contract and instantiates from it, and\nmust never grow a private map of addresses.\n",q="# openmixer technical manual\n\nHow openmixer is put together: the canonical model, the software audio engine, the control\nprotocol, and how someone building or extending an installation runs and configures it. Read\nthe [architecture manual](../architecture/overview.md) first for *why* the layers are drawn\nwhere they are; this is the *how*, grounded in the code as it stands today.\n\nThe one idea the whole system turns on: a single device-neutral model sits in the middle,\nthe server owns it as the single source of truth, and everything else — the web surface, the\nsoftware mix engine, the console adapters, the hardware I/O — plugs into it. A surface never\nknows which backend it is driving; only the adapter does.\n\n## The monorepo\n\nA pnpm workspace (`packages/*`) on Node 22+, TypeScript with `strict` +\n`noUncheckedIndexedAccess`, ES modules, Vitest for tests, GPL-3.0-or-later on every file.\n\n```sh\npnpm install\npnpm -r build      # build every package\npnpm -r test       # vitest across the workspace\npnpm -r lint\n```\n\n| Package | Role | Bin |\n|---|---|---|\n| `@freemixer/core` | The canonical model and pure logic: topology, fader scales, sends, DCA and mute-group coupling, scenes/recall-safe, sessions, console allocation, telemetry types, the in-memory `MixerEngine`. No I/O. | — |\n| `@freemixer/audio-engine` | The software mixer: routing/summing/faders/buses plus `mod-host` LV2 inserts — `SoftwareMixer` and its `SoftwareMixerAdapter`. | — |\n| `@freemixer/pipewire-native` | The native libpipewire client and the C DSP engine: event-driven registry (no `pw-dump`, no subprocesses) and the `omx-console` `pw_filter` node — per-strip gain/fader/pan/polarity/summing, EQ biquads, the gate/comp atom, native delay and reverb, the RTA FFT tap, RT load metering. | — |\n| `@freemixer/catalog` | The curated LV2 plugin catalog + descriptors, the EQ band model and biquad maths; a Python scanner/benchmark toolchain. | — |\n| `@freemixer/server` | Fastify: wires an adapter into a `MixerEngine` and serves it as the REST entity API (`?watch=1` for SSE). | `openmixer-server`, `openmixer-console`, `openmixer-clock-drift` |\n| `@freemixer/discovery` | Network device discovery — REAC (L2), Dante (mDNS), AES67 (SAP) probes behind the core `DiscoveryProvider`. | — |\n| `@freemixer/graph-layout` | A pure, zero-dependency layered-DAG auto-arrange for patch graphs (Sugiyama-style). Framework- and language-neutral. | — |\n| `@freemixer/patchbay` | A `GraphSource` abstraction plus a self-contained PipeWire (`pw-dump`/`pw-link`) backend for `graph-layout`. | `openmixer-patchbay` |\n| `@freemixer/web-ui` | The browser mixing surface — a Nuxt 4 / Vue 3 SPA (no SSR), talks to the server over REST, with `?watch=1` SSE for live rows. | — |\n| `@freemixer/website` | The explainer site and these manuals, statically generated for GitHub Pages. | — |\n| `@freemixer/adapter-midas` · `-x32` · `-roland` | Per-console protocol adapters (Midas PRO over OSC, X32/M32 over OSC, Roland M-5000 over RCS). | — |\n| `@freemixer/adapter-xtouch` | The Behringer X-Touch / X-Touch Mini control surface as a bidirectional client — gestures in, motor faders / LEDs / V-Pot rings / scribble strips / meters out. The largest adapter. | — |\n| `@freemixer/assistant` | The console assistant: one chat loop over the same REST entity door, the one backend setting's model (local by default, works with no internet; any OpenAI-compatible endpoint by choice), every write armed by the operator; the CLI and the service behind the web UI's `/assistant` page. | `omx-assist` |\n| `@freemixer/omx-ml` | The AI-feature layer: classic-DSP analyzers as CPU PipeWire nodes plus a GPU-gated out-of-process ONNX/TensorRT inference service. | — |\n\nThe three *console* adapters (Midas, X32, Roland) are **controller desks**: each is one\n`kind: 'surface'` adapter type in the adapter manager (`desk-controller.ts`,\n`2026-09-24-surface-control-map.md` §10) whose bridge carries the desk's controls onto the\nconsole's rows and the rows back onto the desk, as `adapter-xtouch`'s surface does\n(`xtouchRegistration`, registered beside them in `console-rig.ts`). The console's own south\nadapter is the `software` adapter, the real PipeWire mix engine, built by the composition root.\n\n## The canonical model — `@freemixer/core`\n\nEverything the surface and engine speak, with zero device specifics.\n\n- **`ChannelId = { kind, index }`**, `index` 1-based. `kind ∈ input | fxReturn | aux | mix |\n  matrix | cue | main | fxSend | dca | muteGroup | mixMinus` (`core/src/model.ts` is\n  authoritative). A send is not a special kind — it is a fader at an input × output\n  intersection.\n- **`ChannelStrip`** holds the per-channel state: `fader`, `mute`, `solo`, `pan`, `gain`\n  (head-amp), `phantom`, `polarity`, `eq`, `dynamics`, `inserts`, `sends`.\n- **`FaderLevel = { position, db }`** — an opaque 0..1 surface scalar with dB carried\n  alongside; the device-raw taper stays private to each adapter behind a `FaderScale`.\n- **`MixerTopology`** is what an adapter reports on connect: model name, channel list, stereo\n  pairs, a **capability map** (`has(id, feature)`, mandatory — surfaces grey out what a device\n  cannot do), and the send matrix spec.\n- **`MixerEngine`** holds the canonical state for one bound device, forwards intents to the\n  adapter, and *is* the adapter's `MixerReceiver`, so device-pushed and surface-pushed state\n  share one path and one fan-out. Routing one desk to another is `engineA.subscribe(apply to\n  engineB)` — no special case.\n\nThe pure coupling logic also lives here: **DCA** (`dca.ts` — `effectiveChannelGain` = fader ×\nΠ active masters, with VCA nesting and a cycle guard), **mute groups** (`mute-group.ts` —\n`effectiveChannelMute` = individual OR any active group, individual state never overwritten),\n**scenes and recall-safe** (`scene.ts` — `SavedScene`, the `SafeScope` set, and\n`filterSnapshotForRecall` which strips safed channels/scopes before a recall is applied),\n**sessions** (`session.ts`), and **console allocation** (`console-allocation.ts` — the\n`CONSOLE_PRESETS` from 16:8 to 96:32, default 16:8 = 16 inputs, aux 8 / group 4 / matrix 2 /\nDCA 6 / mix-minus 1 / main 2).\n\n## The software audio engine — `@freemixer/audio-engine`\n\nThe running console is `SoftwareMixer` (`software-mixer.ts`). Its rule (ADR&nbsp;0002): the\n**structural DSP is PipeWire-native** — routing, summing, faders and buses are PipeWire nodes\nand links — and **`mod-host` is used only for the LV2 plugin inserts**. It presents the same\nnorth-facing `MixerAdapter` contract as a console (`SoftwareMixerAdapter`), so a web fader\nmoves a software channel exactly as it moves a Midas channel.\n\nWhat is built here today:\n\n- **Declarative routing.** A desired-graph reconciler (`DeclarativeAudioGraph`) diffs the\n  wanted edges against the live graph and applies the difference over `pw-link`\n  (`PipeWireBackend`); it only tears down edges whose destination it manages, and it detects\n  feedback loops. Routing persists by node/port **name**, never by id, because PipeWire ids\n  churn across restart and replug (ADR&nbsp;0007).\n- **Inserts via mod-host.** Each strip carries an ordered LV2 chain. `planChain` is a pure\n  positional diff that keeps the unchanged prefix stable and computes the exact\n  connect/disconnect edges; `ChainManager` drives it over `ModHostClient` (a small, unit-tested\n  line-protocol codec). mod-host bring-up is non-fatal: if it is down the desk still runs and\n  reports the degraded state through `/health`, reconnecting and re-instantiating when it\n  returns.\n- **Summing.** PipeWire filter-chain bus nodes sum their inputs; the MAIN fader is a real\n  managed node. Buses are single-tier today (an input cap of 64 per bus); a deeper bus tree is\n  explicitly not yet built.\n- **The rest of the console.** Aux/group sends with position-based tap resolution, reorderable\n  channel and bus-master chains (with an EQ↔dynamics swap for buses), stereo channel linking,\n  N−1 mix-minus with a per-channel exclude list, the source layer and direct paths, the matrix\n  crosspoints, DCA and mute-group coupling (as control-domain overlays, no audio nodes), a\n  quantum lever (with an adaptive mode), live peak meters (a GStreamer meter source), and EBU\n  R128 loudness.\n- **Plugin delay compensation.** `setPdc` / `applyPdc` / `pdcReport` measure each insert's\n  latency and delay the shorter summing paths to match, so parallel paths stay phase-aligned.\n\nThe **REAC stagebox** audio path is out of this repo by design: it is C in the sibling\n`reac-pw` / `libreac` projects, behind a hard boundary — the PipeWire node (ADR&nbsp;0009).\nThe TypeScript side never touches a REAC byte; it only wires the named `reac:capture` /\n`reac:playback` ports into the mix graph through the same `pw-link` reconciler used for\neverything else. The receive path and the frame encoder exist and are verified upstream; the\nmaster-role handshake and cadence pacer that let openmixer drive a real desk are the remaining\npiece there.\n\n> Note the legacy `AudioEngineAdapter` (`audio-engine/src/adapter.ts`), a simpler\n> plugin-gain adapter whose sends/solo/pan are still `TODO(M3+)`. The running console uses\n> `SoftwareMixerAdapter`, not this; don't confuse the two when reading the tree.\n\n## The catalog — `@freemixer/catalog`\n\n`tools/scan.py` introspects installed LV2 plugins with `lilv` into `PluginDescriptor`s. Each\n`PluginParam` carries what the UI needs — kind (control/patch), symbol, name, min/max/default,\ninteger/toggle/enumeration/logarithmic/trigger flags, unit, scale points. **`widgetFor(param)`**\nis the entire metadata→UI bridge, one decision table that picks a dropdown, toggle, button,\nstepper, log knob, knob, file path, text, or readout (ADR&nbsp;0010) — there is no per-plugin UI\ncode. `palette()` intersects a curated list with what is installed; the curated set is ranked by\n**measured latency** within each role, so live-safe choices lead. The EQ band model (`eq.ts`)\nand biquad maths (`biquad.ts`) group a plugin's ports into bands from their symbols/names/units\n(with a small per-URI override table) and evaluate a magnitude curve — this is what the\ninteractive EQ draws and edits.\n\n## The server — `@freemixer/server`\n\n`MixerServer` is Fastify. It instantiates the configured adapter, wraps it in a\n`MixerEngine`, and puts every engine event on the affected row's `?watch=1` stream\n(ADR&nbsp;0003). A watch opens with a full snapshot of the row — the root stream with a\nsnapshot of every instance — so a late client renders a populated board off one response.\n\nConfiguration is environment-driven, validated with Zod (`config.ts`):\n\n| Env var | Config | Default |\n|---|---|---|\n| `OPENMIXER_ADAPTER` | adapter (`software` / `midas` / `x32` / `roland` / `mock`) | `mock` |\n| `OPENMIXER_DEVICE_HOST` / `_PORT` | device endpoint | `127.0.0.1` / per-adapter |\n| `OPENMIXER_WEB_HOST` / `_PORT` | HTTP bind | `0.0.0.0` / `8080` |\n\n> **Port note.** The web UI does not hardcode a port. It discovers the server endpoint\n> from `GET <origin>/config`; `:8800` survives only as a fourth-precedence fallback applied\n> when the page is itself served from the Nuxt dev port 3000 — the historical dev split\n> (`web-ui/app/utils/serverEndpoints.ts`). A normal run needs no `OPENMIXER_WEB_PORT` at all;\n> the default is `8080` (`core/src/network-defaults.ts`). Failing all of that, the UI falls\n> back to its offline demo.\n\nStructural rows actuate only when the server is built over the live `SoftwareMixer`\nsurface; the plugin rows need a plugin host; the persistence rows their store directories;\nthe adapter rows an `AdapterManager`; discovery a provider; telemetry a source. Each is\nguarded and refuses with an error when its capability is absent — `OPTIONS` reports what an\ninstance currently allows — which is how the mock and console adapters cleanly refuse what\nthey cannot do.\n\n## Running it from a checkout\n\n`pnpm --filter @freemixer/server console` (or `openmixer-server` — the same thing) stands up\na real software mixer with no hardware. It calls `parseConfig` directly with\n`adapter: 'software'`, so it ignores `OPENMIXER_ADAPTER` / `OPENMIXER_DEVICE_*` and honours\nonly the web-bind and catalog env. It sizes a 16:8 desk, models its virtual I/O, brings up\nthe native mixer node, loads the catalog and builds the `SoftwareMixer` over that topology\nwith the allocation seeded. Nodes are torn down on SIGINT/SIGTERM.\n\nThere was a second bin, `openmixer-demo-lab`, which did all of that and then auto-patched\nthe host's detected mics and application streams onto input channels. It was deleted in\n2026-07: it was never packaged, it built its console on the loopback topology this engine\nno longer uses, and — having neither the engine lock nor the single-engine graph guard — a\nlab instance started next to a running console was exactly the node-name collision those\ntwo guards exist to prevent.\n\n`OPENMIXER_CATALOG` points at the plugin catalog JSON; the built-in default is the\n`@freemixer/catalog` package's own `data/catalog.json` (package-relative), so any checkout or\ninstall resolves it — a host that was never scanned just loads an empty catalog. Run the\nscanner (`packages/plugin-qualify/tools/scan.py`) to populate it.\n\n`openmixer-server` boots the console — the only rig. It used to choose by `rig.preset`\nbetween `bare` (the plain server, no engine) and `demo`, later `console`; that axis\ncollapsed in 2026-07 because nothing ever selected `bare`, which was nonetheless the\n*default*. `openmixer-console` (and its former name `openmixer-demo`) is now an exact\nsynonym of `openmixer-server`, kept for muscle memory. A JSON config file is named with\n`--config <file>` or `OPENMIXER_CONFIG`; the bundled\n`packages/server/config/console.config.json` is the shipped default install config (the\nRPM's) and is empty — it has nothing to select. Retired preset names still parse\nand are ignored, with a startup line saying so. Precedence: config file < env\n(`OPENMIXER_CONSOLE`, `OPENMIXER_GIG`, `OPENMIXER_CATALOG`,\n`OPENMIXER_DEMO_SOURCES` map onto the `rig` section); the web\nbinding runs its own per-field chain, persisted > CLI > env > config file > default, into\nwhich the file's `web` block enters at the bottom — the same file-under-env order.\n\n## The control protocol\n\n**REST is the front door.** Every entity — a channel's fader, a bus, a DCA, a mute group, a\nmatrix point, a session, a scene, an adapter, a discovery device, a telemetry row, and so on —\nis declared once as a `ConsoleResource` and served at `/{root}/{kind}/{index}[/{sub}]` by the\n`ResourceRegistry` (`packages/server/src/rest-router.ts`, `console-resources.ts`). `GET` reads\nit, `PATCH` writes it, `OPTIONS` reports what this instance currently allows, and any `GET`\ntakes `?watch=1` to become that same body as a live `text/event-stream` — there is no separate\nsubscribe verb. Around 85 entities serve today, decomposed from an earlier verb-based wire that no longer exists.\n\nThis is the whole of the wire — there is no WebSocket, no frames, no verbs. Every write is a\nREST patch on the fact's own row, and every read rides that row or its `?watch=1` stream.\n`packages/server/src/dispatch-conformance.test.ts` holds the property mechanically at the\nsource, and `packages/web-ui/app/one-intake-conformance.test.ts` holds it on the surface.\n\n## The graph layout engine and the patchbay\n\n`@freemixer/graph-layout` is a pure, zero-dependency library: feed it a `Graph` (nodes with\ndirectional ports, edges between ports) and `layout(graph, opts?)` returns a deterministic 2-D\nplacement — a column per signal-flow layer, nodes ordered to minimise edge crossings, stereo\nhalves kept adjacent — via a Sugiyama-style pipeline (break cycles, assign layers with a role\nfloor + longest path, minimise crossings with the median heuristic, pair stereo mates, assign\ncoordinates). `followSignal(graph, node)` returns a node's whole upstream + downstream path for\nhover-highlighting. Determinism is a hard requirement: equal input yields byte-identical output.\nIt has no DOM, PipeWire, or framework dependency by design, so the same algorithm can be ported\nto helvum (Rust) or qpwgraph (C++).\n\n`@freemixer/patchbay` binds that engine to real audio. It defines a `GraphSource`\n(`snapshot`, `subscribe`, `connect`, `disconnect`) with three implementations — a live\n`PipeWireGraphSource` (pure `pwDumpToGraph` over `pw-dump`, links via `pw-link`, hot-plug by\npolling), an `HttpGraphSource` for the browser, and a `MockGraphSource` for demos and tests.\n`PatchbayHttp` exposes the three operations the graph tab needs over REST — `GET /patchbay/graph`,\n`POST /patchbay/link`, `POST /patchbay/unlink` — which the mixer server mounts, and which the\nstandalone **`openmixer-patchbay`** bin also serves from a bare `node:http` server with no mixer\nattached (`OPENMIXER_PATCHBAY_HOST` / `_PORT`, default `127.0.0.1:8890`). The web-ui Graph tab\nrenders the same shared `GraphCanvas` over whichever source is reachable, falling back to the\ndemo graph. Serving the graphical canvas statically from the standalone bin is a documented\nfollow-up in the spec — the intended path is a Graph-only web-ui bundle, not a second renderer.\n\n## The surface — `@freemixer/web-ui`\n\nA Nuxt 4 SPA (no SSR — it is a live control surface). It is intentionally thin: components read\nstate from module-scoped composables (`useMixer`, `useStructural`, `useChain`, `useSends`,\n`useScenes`, `usePatchbay`, `useGraph`, `useTalkback`, `useCatalog`, `useTheme`,\n`usePersonality`, …) and send intents through them — never a second wire, never a second\nauthoritative copy of state (ADR&nbsp;0015). Every LV2 control renders through the shared param\nwidgets (`ParamControl` over `Encoder`/`Knob`/`EnumSelect`/`NudgeField`/`ToggleSwitch`), and every\ncontrol has keyboard, wheel, an ARIA role, and a double-click reset (ADR&nbsp;0006/0014). The\nsurface can run with no server via clearly-marked offline mocks in several composables, which\nanswer reads and writes locally until a real server is attached.\n\n**Personalities** are pure web-ui data (`app/utils/personalities.ts` + token blocks in\n`app/assets/tokens.css`) — eight of them, `openmixer` plus `classic-analog` /\n`modern-digital` / `vintage` / `midas` / `roland` / `ssl` / `waves`, orthogonal to the\nbrightness theme (`dark` / `hc` / `light`). `PERSONALITIES` in that file is the list. Adding one\nis a CSS block plus a registry entry. The plugin editor's parameter grid sizes its column\ncount to the parameter count instead of scrolling, and skins each panel with a texture and\naccent tinted to the plugin's vendor family, keyed by URI.\n\n## Running and deploying\n\n```sh\npnpm -r build && pnpm -r test          # the whole workspace\n\nOPENMIXER_WEB_PORT=8800 pnpm --filter @freemixer/server console   # a real software desk\npnpm --filter @freemixer/web-ui dev                               # the surface (dev)\npnpm --filter @freemixer/web-ui generate                          # the surface (static)\n\nNUXT_APP_BASE_URL=/openmixer/ pnpm --filter @freemixer/website generate   # the site, for Pages\npnpm --filter @freemixer/website build                                   # the site, for a console\n```\n\nThe website is statically generated, and it has two deployments: GitHub Pages under a project\nsub-path, and the **console itself**, which serves it at `/help` so a desk that is offline at a\ngig still has its manual. A prerendered page names its assets absolutely (`<baseURL>_nuxt/…`),\nso the path prefix is a **build input** — one config, one artifact shape, `NUXT_APP_BASE_URL`\ninjected per deployment. Building for `/` and serving under a prefix 404s every asset and\nleaves the no-script fallback on screen; that was the rig's dead manual on 2026-08-05.\n\nThe console's prefix is `MANUAL_MOUNT` in `@freemixer/core` — the server mounts it, the surface\ndeep-links through it, and `packages/website`'s default `build` script injects it, so\n`pnpm -r build` on a console produces a site the console can serve. Fonts are self-hosted by\n`@nuxt/fonts` into `_fonts/` at build time; nothing on the page reaches the network at runtime,\nwhich is the point of shipping it at all.\n\n**Where the site is, is derived, not configured.** The server looks in\n`/usr/share/openmixer/manual` (the `openmixer-manual` RPM, staged by `scripts/build-rpm.sh` from\n`build:console`) and then in the workspace build root beside its own package, and serves the\nfirst that carries the manual. Finding neither it answers 404 and says so in the log.\n`OPENMIXER_MANUAL_DIR` exists only to override an unusual layout — a parameter the system can\nwork out must never be one an operator has to remember, which is exactly how a rig came to point\nat a path one level too deep with nothing to notice.\n\n## Design principles\n\n- Keep the load-bearing logic **pure and tested without hardware** — the protocol parser, the\n  chain diff (`planChain`), the graph diff, the mod-host codec, the layout engine, each\n  adapter's address mapping. The stateful drivers are thin shells around them, with the transport\n  behind an injectable seam so the protocol is tested with a fake runner. Things that genuinely\n  need hardware — real REAC framing, live PipeWire latency, live-network discovery — are\n  documented test gates verified on the mixing host, not in CI.\n- **GPL-3.0-or-later**, `SPDX-License-Identifier` on every source file. MIT/BSD/GPL code may be\n  copied in; AGPL code is studied and re-implemented clean, never copied (ADR&nbsp;0016).\n\n### Extending\n\n- **A console adapter** — a new `packages/adapter-<name>` implementing core's `MixerAdapter`,\n  translating `{ kind, index }` to the device's address space and absorbing its quirks *there and\n  only there*; supply a `FaderScale`; declare it in core's `DESK_CONTROLLER_TYPES` and give it a\n  family in `desk-controller.ts`. Test the protocol\n  against captured bytes, not hardware.\n- **A plugin** — usable as soon as `scan.py` finds it installed (addressed by LV2 URI + port\n  symbol, no code); add one `{ role, uri, label }` to `catalog/src/curation.ts` to curate it. The\n  auto editor renders it from metadata.\n- **A view module** — a Vue component reading state from a composable and sending intents through\n  it; reuse the param widgets and give every control keyboard/wheel/ARIA/reset.\n- **A discovery probe** — one protocol per probe emitting `DiscoveredDevice`s, degrading (never\n  crashing) on a missing NIC or route; unit-tested against captured packets.\n\nThe [decision log](../architecture/decisions/) records the reasoning behind each choice.\n",U=`# Clocking and sample rate
+`,G="# Architecture manual\n\nThis manual describes how openmixer is put together: the layers, why they are drawn\nwhere they are, and how data moves through them. It is paired with a\n[decision log](decisions/) that records each significant choice as a standalone ADR.\n\nThroughout, **built** marks something that exists in `packages/` today and **designed**\nmarks something documented as a plan but not yet implemented. The two are kept apart\ndeliberately — the architecture is stable, but only part of it is wired.\n\n## The one idea\n\nEvery digital mixer fuses three things that do not have to be fused: the **control\nsurface** you touch, the **mix engine** that does the DSP, and the **audio I/O** that\ngets sound in and out. openmixer separates them behind a single device-neutral model\nand lets you mix and match:\n\n```\n   control surfaces                 canonical model                  I/O + engines\n   (north, thin clients)            (single source of truth)         (south, sinks)\n\n   web UI (Nuxt/Vue)  ┐                                         ┌─ software engine\n   touch / mouse / kbd ┼─ intents ─▶  @freemixer/core  ──fan──▶ ┤    (native C DSP\n   MCU / X-Touch ──────┤              model + engine    out     │     + mod-host / LV2)\n   another desk ───────┘              capability map            ├─ REAC stagebox I/O\n                                      event fan-out             ├─ console adapter\n                                                                │    (Midas / X32 / Roland)\n                                                                └─ …\n```\n\nA control source emits a **canonical intent** (\"move `input/3`'s fader to 0.7\"). The\nengine holds the canonical state, applies it, and fans the resulting change out to\nevery connected listener. A sink is either a **device adapter** (drives a real\nconsole over its own protocol) or the **software audio engine** (hosts LV2 plugins and\nroutes audio). The surface and the engine never know which sink is behind the model —\nonly the adapter does.\n\nThis is the part worth owning: the neutral model in the middle, and the adapters\naround it. Add a console, a stagebox, or a surface by adding an adapter, not by\ntouching the core.\n\n## The layers\n\n### 1. The canonical model — `@freemixer/core` (built)\n\n`core` is the vocabulary everything else speaks. It has **zero device specifics**.\n\n- **`ChannelId` = `{ kind, index }`.** `kind` is one of `input`, `fxReturn`, `aux`,\n  `mix`, `matrix`, `cue`, `main`, `fxSend`, `dca`, `muteGroup`, `mixMinus`\n  (`packages/core/src/model.ts` is authoritative); `index` is 1-based. A send is\n  not a special type — it is a fader at an input × output intersection.\n- **`ChannelStrip`** carries the per-channel state: `fader`, `mute`, `solo`, `pan`,\n  `gain`, `phantom`, `polarity`, `eq`, `dynamics`, `inserts`, and `sends`.\n- **`FaderLevel` = `{ position, db }`.** Position is an opaque 0..1 surface scalar; dB\n  is carried alongside as a derived read. The device-raw taper stays private to each\n  adapter behind a `FaderScale` ([ADR&nbsp;0011](decisions/0011-fader-position-and-db-with-per-adapter-scale.md)).\n- **`MixerTopology`** is what an adapter reports on connect: the model name, the\n  channel list, stereo pairs, a **capability map** (`has(id, feature)`), and a send\n  matrix spec. Capabilities are mandatory — no desk has every feature, so surfaces\n  grey out what a given device cannot do rather than erroring.\n- **`MixerAdapter` / `MixerReceiver`** are the device-facing contracts. Writes are\n  promises (`setFader`, `setMute`, …); reads are a push observer (`onFader`,\n  `onMeters`, …) because real desks stream state unsolicited after you subscribe.\n- **`MixerEngine`** is the hub's heart. It holds the canonical state for one bound\n  device, forwards intents to the adapter, and *is* the adapter's `MixerReceiver`, so\n  device-pushed state and surface-pushed state share one path and one fan-out.\n\nRouting one source to one sink — \"the Midas surface drives the X32\" — is just\nsubscribing one engine's events and calling another engine's control methods. No\nspecial case.\n\n### 2. The sinks (south)\n\nThere are two kinds of sink, both behind the same `MixerAdapter` contract.\n\n**Console adapters** (built, varying maturity) translate the canonical model to a real\ndesk's remote protocol. They are the *only* code that knows a protocol:\n\n- `adapter-midas` — Midas PRO Series over OSC/UDP (port 10002). The most complete;\n  ported from a working Python proof-of-concept. Fader/mute/solo/gain/name work both\n  directions; cross-point sends and read-side EQ/dynamics/meters are still open.\n- `adapter-x32` — Behringer X32 / Midas M32 over OSC/UDP (port 10023). Substantial:\n  fader/mute/pan/gain/send/name plus `/xremote` keep-alive; `setSolo` and read-side\n  EQ/dynamics/meters are open. It absorbs the X32's quirks (e.g. `/mix/on` is\n  ON=unmuted, inverted to the canonical \"muted\").\n- `adapter-roland` — Roland M-5000 over the RCS control plane. A **documented stub**:\n  fully wired to the interface, but every place the real RCS wire format plugs in is\n  marked `TODO(hardware)` and isolated behind a transport seam. Note: this is the\n  Roland **control** plane, not REAC audio transport — those are separate.\n\n**The software audio engine** (built) — `@freemixer/audio-engine` plus\n`@freemixer/pipewire-native` — *is* the mixer rather than controlling one. It presents\nthe same north-facing `MixerAdapter` contract, so the engine drives it identically to a\nconsole: a web fader moves a software channel exactly as it moves a Midas channel.\n\nThe control face is `SoftwareMixerAdapter` (`software-adapter.ts`), built by the composition\nroot (`software-mixer-loader.ts`): gain/mute are PipeWire node\nvolume, never a mod-host gain plugin. Fader, mute, solo (`setSolo`) and pan (`setPan`)\nare all live on it.\n\n- The **structural** DSP — per-strip gain/fader/pan/polarity, summing, the EQ bank, the\n  gate/comp atom, native delay and reverb — is openmixer's own C `pw_filter` node in\n  `@freemixer/pipewire-native` (`mixer.c`, `mixer_rt.c`, `mix_dsp.h`). The older path\n  that realised buses as PipeWire filter-chain nodes (`bus-node.ts`, `eq-node.ts`)\n  still exists as a fallback; the live rig runs the native node\n  ([ADR&nbsp;0002](decisions/0002-pipewire-native-summing-mod-host-inserts-only.md),\n  [ADR&nbsp;0009](decisions/0009-c-for-hot-paths-pipewire-node-boundary.md)).\n- **LV2 plugin inserts** are a separate layer: an ordered chain hosted by **mod-host**\n  (`ChainManager` / `planChain`), reconciled declaratively\n  ([ADR&nbsp;0006](decisions/0006-ordered-processor-channel-strip.md)). Which of the two\n  layers owns what, and why they must not be conflated, is\n  [native DSP vs mod-host inserts](native-dsp-vs-modhost-inserts.md).\n- Audio is patched by a **declarative desired-graph reconciler** (`DeclarativeAudioGraph`)\n  over PipeWire's `pw-link` (`PipeWireBackend`), in the style of Zynthian's\n  `zynautoconnect` ([ADR&nbsp;0005](decisions/0005-declarative-desired-graph-reconcile.md)).\n\n### 3. The I/O (the southern edge)\n\nThe target deployment feeds the software engine from a **Roland REAC stagebox** over\n**native REAC** — not AES67, not an M-5000 console\n([ADR&nbsp;0001](decisions/0001-native-reac-not-aes67.md)). The stagebox's inputs\narrive as a 40-channel PipeWire source; the mixed buses go back out as a PipeWire sink\nthat re-encodes REAC to the stagebox outputs, which feed the PA.\n\nThe REAC work lives in a **sibling repository, `reac-pw`** (with `libreac`), behind a\nhard boundary: the PipeWire node. openmixer (TypeScript) never touches a REAC byte; it\nonly wires the `reac:capture` / `reac:playback` ports into its mix graph. The REAC\nreceive path and the frame encoder exist and are verified, and so does the master-role\nhandshake that lets openmixer drive a real box: cold-connect → grant → ESTABLISHED →\nsteady 1/s heartbeat, zero drops, verified against a Roland S-0808. openmixer\npackages that master as a unit (`packaging/systemd/reac-pw.service`)\nand probes the box through it (`packages/server/src/reac-pw-prober.ts`). This is the\nC-for-hot-paths boundary\n([ADR&nbsp;0009](decisions/0009-c-for-hot-paths-pipewire-node-boundary.md)).\n\n### 4. The server — `@freemixer/server` (built)\n\nThe server wires one chosen adapter into a `MixerEngine` and exposes it to browsers:\n\n- **REST is the front door.** Every entity is `GET`/`PATCH`/`OPTIONS`-able at\n  `/{root}/{kind}/{index}[/{sub}]`, one `ConsoleResource` declaration per entity, served\n  by the `ResourceRegistry` (`packages/server/src/rest-router.ts`). Around 85 entities\n  serve today, decomposed from an earlier verb-based wire that no longer exists.\n  Any `GET` also takes `?watch=1` to become a live `text/event-stream` of that same\n  body — no separate subscribe verb (`packages/server/src/resource-stream.ts`). It is\n  the only wire: there is no WebSocket.\n\nThe server is the **single source of truth**\n([ADR&nbsp;0003](decisions/0003-server-single-source-of-truth.md)). Every engine event\nlands on the affected row's `?watch=1` stream for *every* watcher, including the client\nthat caused it — so a finger on glass, a motor fader, or a device-side change all\nconverge to the same values on every client. There is no peer-to-peer surface chatter; surfaces talk only to the\nserver.\n\n### 5. The surfaces (north, thin clients) — `@freemixer/web-ui` (built)\n\nThe web UI is a Nuxt 4 single-page app — a live control surface, no SSR. It renders the\nfader wall (level, meter, mute, solo, pan per strip), an insert rack per strip, and an\n**auto-generated plugin editor**: every control widget is chosen from LV2 metadata by\none `widgetFor()` decision table, so there is no per-plugin UI code\n([ADR&nbsp;0010](decisions/0010-metadata-driven-plugin-editor.md)). It is built\ntouch-first with full keyboard navigation, pointer/wheel affordances, and ARIA roles on\nevery control ([ADR&nbsp;0014](decisions/0014-multi-modal-input.md)).\n\nBecause the server is authoritative, a surface is intentionally thin: it sends intents\nand re-renders from broadcasts. Opening the surface on several devices at once gives you\nseveral synchronized views for free — that is the substrate the MCU/X-Touch surfaces (a\nphysical fader bank with motorized, touch-sensing faders that mirrors and drives the desk\nover MIDI) and the multi-window model\n([ADR&nbsp;0015](decisions/0015-modular-multi-window-web-ui.md)) build on: each surface,\nwindow, and physical fader bank is one more client of the one server.\n\n## How a fader move flows (built path)\n\n1. The operator drags a fader in the web UI. The client updates its local state\n   **optimistically** and sends `PATCH /api/channel/{kind}/{index}/fader`.\n2. The server validates the patch, derives dB from the adapter's `FaderScale`, and\n   calls `engine.setFader(...)`.\n3. The engine records the new value, emits a `fader` event, and calls\n   `adapter.setFader(...)`, which writes to the device (a console, or mod-host).\n4. The engine's event lands on the fader row's `?watch=1` stream for **every** watcher.\n   Other clients update; the originating client reconciles its optimistic value against\n   the authoritative one.\n\nA device-originated change (someone moves a real fader) enters at the adapter's\n`MixerReceiver`, takes the same `engine → broadcast` path, and lands on every surface.\nOne path, both directions.\n\n## Cross-cutting principles\n\n- **Configuration over hard-coding.** Endpoints, ports, timeouts, channel lists, strip\n  plugin URIs, and fader tapers are all configuration with sensible defaults — nothing\n  about a device is baked into the wiring.\n- **Pure cores, injected I/O.** The load-bearing logic — the chain reconciler\n  (`planChain`), the graph diff (`DeclarativeAudioGraph.plan`), the mod-host wire\n  codec — is written as pure functions and unit-tested with no socket and no hardware. The stateful drivers are thin shells around them.\n- **Persist by name, never by id.** PipeWire/JACK object ids churn across restart and\n  replug, so routing and scenes must persist by node-name + port-name and re-resolve\n  ([ADR&nbsp;0007](decisions/0007-persist-routing-by-name-not-id.md)).\n- **Degrade, don't crash.** A missing stagebox, an absent adapter package, a dead\n  mod-host, an unreachable discovery NIC — each is reported and worked around, never\n  fatal.\n- **GPL-3, no AGPL copied.** openmixer is GPL-3.0-or-later. MIT/BSD/GPL-2-or-later/GPL-3\n  code may be copied; AGPL code (MOD-UI, Eyevinn, Zrythm) is studied and re-implemented\n  clean, never copied ([ADR&nbsp;0016](decisions/0016-gpl3-no-agpl-code-copied.md)).\n\n## What is built vs designed\n\n| Layer | Built | Designed (not yet built) |\n|---|---|---|\n| Canonical model | full `core` model + engine | — |\n| Software engine | native C DSP node (gain/fader/pan/sum, EQ, gate/comp, delay, reverb, RTA), mod-host insert chains, `pw-link` routing, summing/buses/matrix/DCA/sends | a deeper bus tree (buses are single-tier — enforced in `createManagedBus`) |\n| I/O | REAC discovery probe, head-amp control, packaged `reac-pw` master unit | native REAC audio transport itself stays in the sibling `reac-pw` repo, not here |\n| Server | REST only (~85 `ConsoleResource` entities, each `GET`/`PATCH`/`OPTIONS`-able and `?watch=1`-streamable), `/health`, `/telemetry` | — |\n| Adapters | Midas (mature), X32 (substantial), X-Touch MCU (largest), Roland (stub), `AdapterManager` registry + `adapters.yaml` | Roland RCS wire format (`TODO(hardware)`) |\n| Surfaces | web UI (strips, inserts, auto-editor), MCU/X-Touch, in-app multi-window layout manager, EBU-R128 metering | — |\n\nRead the [decision log](decisions/) next for the reasoning behind each of these\nchoices, or the [technical manual](technical-manual.md) for the concrete\ninterfaces, the full control protocol, and how to add an adapter, plugin, probe, or view\nmodule.\n",W="# The row grammar, the contract, and conformance\n\nHow every REST entity is built, how a surface finds out what it may do without being told in\nadvance, and how the repo keeps both of those true mechanically rather than by review.\n\n## The row grammar\n\nEvery entity the console serves — a fader, a bus, a DCA, a mute group, a matrix point, a\nsession — is one instance of a single grammar, held to mechanically by\n`row-grammar-conformance.test.ts`:\n\n```\nrow = mold(address, fields | derive, station, [ripples], [refusal wording], [lifecycle], [policy])\n```\n\n- **A mold from core** — `ScalarRecordResource`, `CollectionResource`, `LatchResource`,\n  `OperationResource` or `DerivedResource`. No row subclasses `ConsoleResource` directly.\n- **An address codec from core** — `CHANNEL_ADDRESS`, `SINGLETON_ADDRESS`,\n  `fixedKindChannelAddress(kind)`, or a named codec added to core when a genuinely new address\n  shape appears. A row never spells out a `{ parse, canonical }` literal for a shape core already\n  owns.\n- **Field codecs from core** — `bool`, `finiteNumber`, `enumOf`, `text`, `tokenArray`,\n  `nodeIdArray`, `refArray`, `nullableChannelRef`, each with mandatory example vectors. A new\n  value shape gets a new named core codec, never an inline literal in a row file.\n- **A station over the engine's one doorway** — the ONE store's read/write path. Server stations\n  extend `EngineDoorStation`, `StripScopedStation` / `ChannelScopedStation`, or `JsonFileStation`.\n  A shape that fits none of these is a new base, added beside them with its own tests.\n- **Registration at a sanctioned site only** — `console-resources.ts` (composition policy), the\n  constructor registration block of `server.ts`, or `demo-resources.ts`. A row registered\n  anywhere else is invisible to the composition reader.\n- **Lifecycle**, when the row is a collection — `create`/`remove` doors declared on the mold from\n  `@freemixer/core`'s `resource-lifecycle.ts`, never hand-rolled. `OPTIONS` advertises `DELETE`/\n  `POST` only where the door exists; a door that doesn't exist answers `405`, not a refusal code\n  dressed up as one.\n- **Policy** — `{ dirtiesSession?, undoable?, undoBarrier?, undoLabel, undoCoalesce? }`, executed\n  once by the registry for every door. `dirtiesSession` defaults `true`; `undoable` defaults\n  `false` and requires a coded `undoLabel` when set — the registry replays the inverse from the\n  PRIOR field values it read before the write, never a guess.\n\nLaws every row inherits rather than re-deciding: one store (never a second ledger for a fact\nanother component already owns), broadcast only through `broadcastResource`, refusals as codes\n(never English on the wire — the client translates), absence is a fact (no instance is\nnot-found, never a fabricated zero), latches are kept honest by query-and-compare, and an\noperation is the only place \"do\" semantics live.\n\nThe row-grammar test refuses a new `AddressCodec`, `FieldCodec`, or unbased `*Station` outside\n`@freemixer/core` / the shared server bases. The fix is never a suppression: promote the new\nshape into core, name it, give it example vectors, and instantiate it from there.\n\n## The contract drives the surface — nothing is hardcoded\n\n**The console generates its URLs, address spaces and OPTIONS from the contract; a surface asks,\nit does not decide.** `GET` reads a row, `PATCH` writes it, `OPTIONS` reports what THIS instance\ncurrently allows — which fields are writable, what range they accept, whether `DELETE`/`POST`\nexist — and any `GET` takes `?watch=1` to become the same body as a live stream. There is no\nsecond, hand-held list of what a desk supports: a client that imports a constant where the\ncontract already publishes the fact is a deviation, because it is exactly how two surfaces end up\ndisagreeing about the same desk.\n\nThis is enforced, not aspirational: `contract-derivation-conformance.test.ts` scans the web UI for\nplaces that decided something the console already declares — a hardcoded channel count, a\ncapability assumed rather than read, a range checked against a literal instead of the published\none — and keeps a shrink-only work list of what is left to move. `mixer-standard.md` (NORMATIVE)\nstates the rule twice: nothing about a specific desk or show is hardcoded, and a desk does not get\nits own classes — it maps its capabilities onto the standard ones.\n\nPractically, this means: **never write down \"the available options are A, B, C.\"** Describe how\nto ask — `OPTIONS /channel/input/3/headAmp`, or read the `range` a `GET` already carries — because\nthe contract row is free to change and the prose is not.\n\n### Where the declared values live, and why you cannot import them\n\nThe numbers behind those published limits are in `@freemixer/declarations` — every travel, span,\ncount, allowed value and declared default the desk asserts about itself, each carrying the\nreasoning that fixed it. The package depends on nothing, and `@freemixer/core` depends on it and\nmust never re-export it.\n\n**A surface cannot reach it, by construction.** `@freemixer/web-ui` does not list it as a\ndependency, so a client's import of a declared value fails to resolve rather than becoming a lint\nwarning somebody suppresses; `declarations-withheld.test.ts` in core is the gate on the re-export\nhalf. This is the mechanism that makes \"derive from the contract\" true rather than merely\nrequested — a surface has no way to hardcode a limit it can only receive.\n\nThe line the package draws: **what a value MAY BE** is declared here — travels, spans, counts,\nallowed values. **How a value is REALISED** is not — a fader taper, tick geometry, density tokens,\na wire encoding belong to the surface or the adapter that draws or speaks them. Server defensive,\nclient generative, one source: the write door refuses out-of-travel values *by* these\ndeclarations, and a client generates its controls *from* the same ones received over the wire.\nNeither trusts the other, and both are built from one statement of the fact.\n\nOne caution for anything device-dependent: a range that depends on the DEVICE must come from the\ndevice. A channel's gain travel is a property of the preamp patched behind it — a REAC box\ndeclares 0..55 dB, an RME mic input reaches 65 — so a row publishes the patched preamp's own\ndeclaration and never a package constant. Only a constant of the desk itself or of the maths (the\npan travel, the desk's own DSP gain stage) is declared once and for all.\n\n`pnpm docs:api` renders all of it, reasoning included; see\n[the generated API reference](index.md#generated-api-reference).\n\n## Conformance ratchets — a sample of what they guard\n\nThe repo carries around thirty `*-conformance.test.ts` files. Each names a real defect that\nshipped once, reduces it to a mechanical scan, and — by the ratchet rule (R-011) — is checked on\nall four ratchet arms (new drift, a fixed-but-still-listed entry, an entry that no longer matches\nanything, and an entry whose meaning quietly grew) rather than hand-maintained. A few, to show the\nrange:\n\n| Ratchet | Guards against |\n|---|---|\n| `row-grammar-conformance` | A row inventing its own address/field codec or station shape instead of using core's. |\n| `contract-derivation-conformance` | A surface deciding a capability instead of reading it from the contract. |\n| `dispatch-conformance` | Any socket or verb transport reappearing — REST is the only door, permanently. |\n| `model-ownership-conformance` | Console truth (capacity, capability, recall rules) re-implemented in a client instead of read from `@freemixer/core`/the server. |\n| `cast-regression-conformance` | The three `as`-cast shapes that have actually recurred, each swept mechanically. |\n| `comment-narrative-conformance` | A code comment narrating history instead of stating the current contract — git holds history. |\n| `contract-connector-conformance` | A contract column nothing reads — a declared fact with no consumer is a comment pretending to be a law. |\n| `value-in-published-limit-conformance` | A published value that falls outside the range published beside it. |\n| `wire-finite-conformance` | `NaN`/`Infinity` reaching the wire as JSON `null`, which a client then reads as a confident zero. |\n| `silent-write-conformance` | A control that moved on screen while no audio path actually changed. |\n| `restore-announce-conformance` | A restore path (session/scene load) writing a store without also broadcasting it. |\n| `settlement-conformance` | A row answering a write from a read that can still precede it. |\n| `env-var-conformance` | An environment variable the code reads that the admin docs don't document, or vice versa. |\n| `native-capability-conformance` | A capability wired end-to-end in C, N-API and TypeScript that nothing in production ever calls. |\n| `one-intake-conformance` | A second live transport into the web UI — there is exactly one stream and one dialler for it. |\n\nEach file's own header states the defect it was built for in more detail than a table row can;\nread the file before extending or relaxing one.\n\n## Extending the system\n\nThe house laws behind all of the above — ownership, where code lives, the one path to audio,\ntesting the graph rather than the model, the four-armed ratchet, decisions written down as they\nhappen, house style — are in [the rules index](../design/rules/INDEX.md); this page assumes them\nand does not restate them.\n\nFor the concrete steps to add a console adapter, a plugin, a view module or a discovery probe,\nsee [technical manual → Extending](technical-manual.md#extending). An OSC or other new control\nsurface follows the same rule as the web UI: it reads the contract and instantiates from it, and\nmust never grow a private map of addresses.\n",q="# openmixer technical manual\n\nHow openmixer is put together: the canonical model, the software audio engine, the control\nprotocol, and how someone building or extending an installation runs and configures it. Read\nthe [architecture manual](../architecture/overview.md) first for *why* the layers are drawn\nwhere they are; this is the *how*, grounded in the code as it stands today.\n\nThe one idea the whole system turns on: a single device-neutral model sits in the middle,\nthe server owns it as the single source of truth, and everything else — the web surface, the\nsoftware mix engine, the console adapters, the hardware I/O — plugs into it. A surface never\nknows which backend it is driving; only the adapter does.\n\n## The monorepo\n\nA pnpm workspace (`packages/*`) on Node 22+, TypeScript with `strict` +\n`noUncheckedIndexedAccess`, ES modules, Vitest for tests, GPL-3.0-or-later on every file.\n\n```sh\npnpm install\npnpm -r build      # build every package\npnpm -r test       # vitest across the workspace\npnpm -r lint\n```\n\n| Package | Role | Bin |\n|---|---|---|\n| `@freemixer/core` | The canonical model and pure logic: topology, fader scales, sends, DCA and mute-group coupling, scenes/recall-safe, sessions, console allocation, telemetry types, the in-memory `MixerEngine`. No I/O. | — |\n| `@freemixer/audio-engine` | The software mixer: routing/summing/faders/buses plus `mod-host` LV2 inserts — `SoftwareMixer` and its `SoftwareMixerAdapter`. | — |\n| `@freemixer/pipewire-native` | The native libpipewire client and the C DSP engine: event-driven registry (no `pw-dump`, no subprocesses) and the `omx-console` `pw_filter` node — per-strip gain/fader/pan/polarity/summing, EQ biquads, the gate/comp atom, native delay and reverb, the RTA FFT tap, RT load metering. | — |\n| `@freemixer/catalog` | The curated LV2 plugin catalog + descriptors, the EQ band model and biquad maths; a Python scanner/benchmark toolchain. | — |\n| `@freemixer/server` | Fastify: wires an adapter into a `MixerEngine` and serves it as the REST entity API (`?watch=1` for SSE). | `openmixer-server`, `openmixer-console`, `openmixer-clock-drift`, `openmixer-patchbay` |\n| `@freemixer/discovery` | Network device discovery — REAC (L2), Dante (mDNS), AES67 (SAP) probes behind the core `DiscoveryProvider`. | — |\n| `@freemixer/graph-layout` | A pure, zero-dependency layered-DAG auto-arrange for patch graphs (Sugiyama-style). Framework- and language-neutral. | — |\n| `@freemixer/patchbay` | A `GraphSource` abstraction plus a PipeWire backend over the native registry client, for `graph-layout`. | — |\n| `@freemixer/web-ui` | The browser mixing surface — a Nuxt 4 / Vue 3 SPA (no SSR), talks to the server over REST, with `?watch=1` SSE for live rows. | — |\n| `@freemixer/website` | The explainer site and these manuals, statically generated for GitHub Pages. | — |\n| `@freemixer/adapter-midas` · `-x32` · `-roland` | Per-console protocol adapters (Midas PRO over OSC, X32/M32 over OSC, Roland M-5000 over RCS). | — |\n| `@freemixer/adapter-xtouch` | The Behringer X-Touch / X-Touch Mini control surface as a bidirectional client — gestures in, motor faders / LEDs / V-Pot rings / scribble strips / meters out. The largest adapter. | — |\n| `@freemixer/assistant` | The console assistant: one chat loop over the same REST entity door, the one backend setting's model (local by default, works with no internet; any OpenAI-compatible endpoint by choice), every write armed by the operator; the CLI and the service behind the web UI's `/assistant` page. | `omx-assist` |\n| `@freemixer/omx-ml` | The AI-feature layer: classic-DSP analyzers as CPU PipeWire nodes plus a GPU-gated out-of-process ONNX/TensorRT inference service. | — |\n\nThe three *console* adapters (Midas, X32, Roland) are **controller desks**: each is one\n`kind: 'surface'` adapter type in the adapter manager (`desk-controller.ts`,\n`2026-09-24-surface-control-map.md` §10) whose bridge carries the desk's controls onto the\nconsole's rows and the rows back onto the desk, as `adapter-xtouch`'s surface does\n(`xtouchRegistration`, registered beside them in `console-rig.ts`). The console's own south\nadapter is the `software` adapter, the real PipeWire mix engine, built by the composition root.\n\n## The canonical model — `@freemixer/core`\n\nEverything the surface and engine speak, with zero device specifics.\n\n- **`ChannelId = { kind, index }`**, `index` 1-based. `kind ∈ input | fxReturn | aux | mix |\n  matrix | cue | main | fxSend | dca | muteGroup | mixMinus` (`core/src/model.ts` is\n  authoritative). A send is not a special kind — it is a fader at an input × output\n  intersection.\n- **`ChannelStrip`** holds the per-channel state: `fader`, `mute`, `solo`, `pan`, `gain`\n  (head-amp), `phantom`, `polarity`, `eq`, `dynamics`, `inserts`, `sends`.\n- **`FaderLevel = { position, db }`** — an opaque 0..1 surface scalar with dB carried\n  alongside; the device-raw taper stays private to each adapter behind a `FaderScale`.\n- **`MixerTopology`** is what an adapter reports on connect: model name, channel list, stereo\n  pairs, a **capability map** (`has(id, feature)`, mandatory — surfaces grey out what a device\n  cannot do), and the send matrix spec.\n- **`MixerEngine`** holds the canonical state for one bound device, forwards intents to the\n  adapter, and *is* the adapter's `MixerReceiver`, so device-pushed and surface-pushed state\n  share one path and one fan-out. Routing one desk to another is `engineA.subscribe(apply to\n  engineB)` — no special case.\n\nThe pure coupling logic also lives here: **DCA** (`dca.ts` — `effectiveChannelGain` = fader ×\nΠ active masters, with VCA nesting and a cycle guard), **mute groups** (`mute-group.ts` —\n`effectiveChannelMute` = individual OR any active group, individual state never overwritten),\n**scenes and recall-safe** (`scene.ts` — `SavedScene`, the `SafeScope` set, and\n`filterSnapshotForRecall` which strips safed channels/scopes before a recall is applied),\n**sessions** (`session.ts`), and **console allocation** (`console-allocation.ts` — the\n`CONSOLE_PRESETS` from 16:8 to 96:32, default 16:8 = 16 inputs, aux 8 / group 4 / matrix 2 /\nDCA 6 / mix-minus 1 / main 2).\n\n## The software audio engine — `@freemixer/audio-engine`\n\nThe running console is `SoftwareMixer` (`software-mixer.ts`). Its rule (ADR&nbsp;0002): the\n**structural DSP is PipeWire-native** — routing, summing, faders and buses are PipeWire nodes\nand links — and **`mod-host` is used only for the LV2 plugin inserts**. It presents the same\nnorth-facing `MixerAdapter` contract as a console (`SoftwareMixerAdapter`), so a web fader\nmoves a software channel exactly as it moves a Midas channel.\n\nWhat is built here today:\n\n- **Declarative routing.** A desired-graph reconciler (`DeclarativeAudioGraph`) diffs the\n  wanted edges against the live graph and applies the difference over `pw-link`\n  (`PipeWireBackend`); it only tears down edges whose destination it manages, and it detects\n  feedback loops. Routing persists by node/port **name**, never by id, because PipeWire ids\n  churn across restart and replug (ADR&nbsp;0007).\n- **Inserts via mod-host.** Each strip carries an ordered LV2 chain. `planChain` is a pure\n  positional diff that keeps the unchanged prefix stable and computes the exact\n  connect/disconnect edges; `ChainManager` drives it over `ModHostClient` (a small, unit-tested\n  line-protocol codec). mod-host bring-up is non-fatal: if it is down the desk still runs and\n  reports the degraded state through `/health`, reconnecting and re-instantiating when it\n  returns.\n- **Summing.** PipeWire filter-chain bus nodes sum their inputs; the MAIN fader is a real\n  managed node. Buses are single-tier today (an input cap of 64 per bus); a deeper bus tree is\n  explicitly not yet built.\n- **The rest of the console.** Aux/group sends with position-based tap resolution, reorderable\n  channel and bus-master chains (with an EQ↔dynamics swap for buses), stereo channel linking,\n  N−1 mix-minus with a per-channel exclude list, the source layer and direct paths, the matrix\n  crosspoints, DCA and mute-group coupling (as control-domain overlays, no audio nodes), a\n  quantum lever (with an adaptive mode), live peak meters (a GStreamer meter source), and EBU\n  R128 loudness.\n- **Plugin delay compensation.** `setPdc` / `applyPdc` / `pdcReport` measure each insert's\n  latency and delay the shorter summing paths to match, so parallel paths stay phase-aligned.\n\nThe **REAC stagebox** audio path is out of this repo by design: it is C in the sibling\n`reac-pw` / `libreac` projects, behind a hard boundary — the PipeWire node (ADR&nbsp;0009).\nThe TypeScript side never touches a REAC byte; it only wires the named `reac:capture` /\n`reac:playback` ports into the mix graph through the same `pw-link` reconciler used for\neverything else. The receive path and the frame encoder exist and are verified upstream; the\nmaster-role handshake and cadence pacer that let openmixer drive a real desk are the remaining\npiece there.\n\n> Note the legacy `AudioEngineAdapter` (`audio-engine/src/adapter.ts`), a simpler\n> plugin-gain adapter whose sends/solo/pan are still `TODO(M3+)`. The running console uses\n> `SoftwareMixerAdapter`, not this; don't confuse the two when reading the tree.\n\n## The catalog — `@freemixer/catalog`\n\n`tools/scan.py` introspects installed LV2 plugins with `lilv` into `PluginDescriptor`s. Each\n`PluginParam` carries what the UI needs — kind (control/patch), symbol, name, min/max/default,\ninteger/toggle/enumeration/logarithmic/trigger flags, unit, scale points. **`widgetFor(param)`**\nis the entire metadata→UI bridge, one decision table that picks a dropdown, toggle, button,\nstepper, log knob, knob, file path, text, or readout (ADR&nbsp;0010) — there is no per-plugin UI\ncode. `palette()` intersects a curated list with what is installed; the curated set is ranked by\n**measured latency** within each role, so live-safe choices lead. The EQ band model (`eq.ts`)\nand biquad maths (`biquad.ts`) group a plugin's ports into bands from their symbols/names/units\n(with a small per-URI override table) and evaluate a magnitude curve — this is what the\ninteractive EQ draws and edits.\n\n## The server — `@freemixer/server`\n\n`MixerServer` is Fastify. It instantiates the configured adapter, wraps it in a\n`MixerEngine`, and puts every engine event on the affected row's `?watch=1` stream\n(ADR&nbsp;0003). A watch opens with a full snapshot of the row — the root stream with a\nsnapshot of every instance — so a late client renders a populated board off one response.\n\nConfiguration is environment-driven, validated with Zod (`config.ts`):\n\n| Env var | Config | Default |\n|---|---|---|\n| `OPENMIXER_ADAPTER` | adapter (`software` / `midas` / `x32` / `roland` / `mock`) | `mock` |\n| `OPENMIXER_DEVICE_HOST` / `_PORT` | device endpoint | `127.0.0.1` / per-adapter |\n| `OPENMIXER_WEB_HOST` / `_PORT` | HTTP bind | `0.0.0.0` / `8080` |\n\n> **Port note.** The web UI does not hardcode a port. It discovers the server endpoint\n> from `GET <origin>/config`; `:8800` survives only as a fourth-precedence fallback applied\n> when the page is itself served from the Nuxt dev port 3000 — the historical dev split\n> (`web-ui/app/utils/serverEndpoints.ts`). A normal run needs no `OPENMIXER_WEB_PORT` at all;\n> the default is `8080` (`core/src/network-defaults.ts`). Failing all of that, the UI falls\n> back to its offline demo.\n\nStructural rows actuate only when the server is built over the live `SoftwareMixer`\nsurface; the plugin rows need a plugin host; the persistence rows their store directories;\nthe adapter rows an `AdapterManager`; discovery a provider; telemetry a source. Each is\nguarded and refuses with an error when its capability is absent — `OPTIONS` reports what an\ninstance currently allows — which is how the mock and console adapters cleanly refuse what\nthey cannot do.\n\n## Running it from a checkout\n\n`pnpm --filter @freemixer/server console` (or `openmixer-server` — the same thing) stands up\na real software mixer with no hardware. It calls `parseConfig` directly with\n`adapter: 'software'`, so it ignores `OPENMIXER_ADAPTER` / `OPENMIXER_DEVICE_*` and honours\nonly the web-bind and catalog env. It sizes a 16:8 desk, models its virtual I/O, brings up\nthe native mixer node, loads the catalog and builds the `SoftwareMixer` over that topology\nwith the allocation seeded. Nodes are torn down on SIGINT/SIGTERM.\n\nThere was a second bin, `openmixer-demo-lab`, which did all of that and then auto-patched\nthe host's detected mics and application streams onto input channels. It was deleted in\n2026-07: it was never packaged, it built its console on the loopback topology this engine\nno longer uses, and — having neither the engine lock nor the single-engine graph guard — a\nlab instance started next to a running console was exactly the node-name collision those\ntwo guards exist to prevent.\n\n`OPENMIXER_CATALOG` points at the plugin catalog JSON; the built-in default is the\n`@freemixer/catalog` package's own `data/catalog.json` (package-relative), so any checkout or\ninstall resolves it — a host that was never scanned just loads an empty catalog. Run the\nscanner (`packages/plugin-qualify/tools/scan.py`) to populate it.\n\n`openmixer-server` boots the console — the only rig. It used to choose by `rig.preset`\nbetween `bare` (the plain server, no engine) and `demo`, later `console`; that axis\ncollapsed in 2026-07 because nothing ever selected `bare`, which was nonetheless the\n*default*. `openmixer-console` (and its former name `openmixer-demo`) is now an exact\nsynonym of `openmixer-server`, kept for muscle memory. A JSON config file is named with\n`--config <file>` or `OPENMIXER_CONFIG`; the bundled\n`packages/server/config/console.config.json` is the shipped default install config (the\nRPM's) and is empty — it has nothing to select. Retired preset names still parse\nand are ignored, with a startup line saying so. Precedence: config file < env\n(`OPENMIXER_CONSOLE`, `OPENMIXER_GIG`, `OPENMIXER_CATALOG`,\n`OPENMIXER_DEMO_SOURCES` map onto the `rig` section); the web\nbinding runs its own per-field chain, persisted > CLI > env > config file > default, into\nwhich the file's `web` block enters at the bottom — the same file-under-env order.\n\n## The control protocol\n\n**REST is the front door.** Every entity — a channel's fader, a bus, a DCA, a mute group, a\nmatrix point, a session, a scene, an adapter, a discovery device, a telemetry row, and so on —\nis declared once as a `ConsoleResource` and served at `/{root}/{kind}/{index}[/{sub}]` by the\n`ResourceRegistry` (`packages/server/src/rest-router.ts`, `console-resources.ts`). `GET` reads\nit, `PATCH` writes it, `OPTIONS` reports what this instance currently allows, and any `GET`\ntakes `?watch=1` to become that same body as a live `text/event-stream` — there is no separate\nsubscribe verb. Around 85 entities serve today, decomposed from an earlier verb-based wire that no longer exists.\n\nThis is the whole of the wire — there is no WebSocket, no frames, no verbs. Every write is a\nREST patch on the fact's own row, and every read rides that row or its `?watch=1` stream.\n`packages/server/src/dispatch-conformance.test.ts` holds the property mechanically at the\nsource, and `packages/web-ui/app/one-intake-conformance.test.ts` holds it on the surface.\n\n## The graph layout engine and the patchbay\n\n`@freemixer/graph-layout` is a pure, zero-dependency library: feed it a `Graph` (nodes with\ndirectional ports, edges between ports) and `layout(graph, opts?)` returns a deterministic 2-D\nplacement — a column per signal-flow layer, nodes ordered to minimise edge crossings, stereo\nhalves kept adjacent — via a Sugiyama-style pipeline (break cycles, assign layers with a role\nfloor + longest path, minimise crossings with the median heuristic, pair stereo mates, assign\ncoordinates). `followSignal(graph, node)` returns a node's whole upstream + downstream path for\nhover-highlighting. Determinism is a hard requirement: equal input yields byte-identical output.\nIt has no DOM, PipeWire, or framework dependency by design, so the same algorithm can be ported\nto helvum (Rust) or qpwgraph (C++).\n\n`@freemixer/patchbay` binds that engine to real audio. It defines a `GraphSource`\n(`snapshot`, `subscribe`, `connect`, `disconnect`) with three implementations — a live\n`PipeWireGraphSource` (pure `pwDumpToGraph` over the native registry mirror, links through\nthe native link-factory, hot-plug by re-reading the mirror), an `HttpGraphSource` for the browser, and a `MockGraphSource` for demos and tests.\n`PatchbayHttp` exposes the three operations the graph tab needs over REST — `GET /patchbay/graph`,\n`POST /patchbay/link`, `POST /patchbay/unlink` — which the mixer server mounts, and which the\nstandalone **`openmixer-patchbay`** bin (`@freemixer/server`'s `patchbay-main.ts`) also serves from a bare `node:http` server with no mixer\nattached (`OPENMIXER_PATCHBAY_HOST` / `_PORT`, default `127.0.0.1:8890`). The web-ui Graph tab\nrenders the same shared `GraphCanvas` over whichever source is reachable, falling back to the\ndemo graph. Serving the graphical canvas statically from the standalone bin is a documented\nfollow-up in the spec — the intended path is a Graph-only web-ui bundle, not a second renderer.\n\n## The surface — `@freemixer/web-ui`\n\nA Nuxt 4 SPA (no SSR — it is a live control surface). It is intentionally thin: components read\nstate from module-scoped composables (`useMixer`, `useStructural`, `useChain`, `useSends`,\n`useScenes`, `usePatchbay`, `useGraph`, `useTalkback`, `useCatalog`, `useTheme`,\n`usePersonality`, …) and send intents through them — never a second wire, never a second\nauthoritative copy of state (ADR&nbsp;0015). Every LV2 control renders through the shared param\nwidgets (`ParamControl` over `Encoder`/`Knob`/`EnumSelect`/`NudgeField`/`ToggleSwitch`), and every\ncontrol has keyboard, wheel, an ARIA role, and a double-click reset (ADR&nbsp;0006/0014). The\nsurface can run with no server via clearly-marked offline mocks in several composables, which\nanswer reads and writes locally until a real server is attached.\n\n**Personalities** are pure web-ui data (`app/utils/personalities.ts` + token blocks in\n`app/assets/tokens.css`) — eight of them, `openmixer` plus `classic-analog` /\n`modern-digital` / `vintage` / `midas` / `roland` / `ssl` / `waves`, orthogonal to the\nbrightness theme (`dark` / `hc` / `light`). `PERSONALITIES` in that file is the list. Adding one\nis a CSS block plus a registry entry. The plugin editor's parameter grid sizes its column\ncount to the parameter count instead of scrolling, and skins each panel with a texture and\naccent tinted to the plugin's vendor family, keyed by URI.\n\n## Running and deploying\n\n```sh\npnpm -r build && pnpm -r test          # the whole workspace\n\nOPENMIXER_WEB_PORT=8800 pnpm --filter @freemixer/server console   # a real software desk\npnpm --filter @freemixer/web-ui dev                               # the surface (dev)\npnpm --filter @freemixer/web-ui generate                          # the surface (static)\n\nNUXT_APP_BASE_URL=/openmixer/ pnpm --filter @freemixer/website generate   # the site, for Pages\npnpm --filter @freemixer/website build                                   # the site, for a console\n```\n\nThe website is statically generated, and it has two deployments: GitHub Pages under a project\nsub-path, and the **console itself**, which serves it at `/help` so a desk that is offline at a\ngig still has its manual. A prerendered page names its assets absolutely (`<baseURL>_nuxt/…`),\nso the path prefix is a **build input** — one config, one artifact shape, `NUXT_APP_BASE_URL`\ninjected per deployment. Building for `/` and serving under a prefix 404s every asset and\nleaves the no-script fallback on screen; that was the rig's dead manual on 2026-08-05.\n\nThe console's prefix is `MANUAL_MOUNT` in `@freemixer/core` — the server mounts it, the surface\ndeep-links through it, and `packages/website`'s default `build` script injects it, so\n`pnpm -r build` on a console produces a site the console can serve. Fonts are self-hosted by\n`@nuxt/fonts` into `_fonts/` at build time; nothing on the page reaches the network at runtime,\nwhich is the point of shipping it at all.\n\n**Where the site is, is derived, not configured.** The server looks in\n`/usr/share/openmixer/manual` (the `openmixer-manual` RPM, staged by `scripts/build-rpm.sh` from\n`build:console`) and then in the workspace build root beside its own package, and serves the\nfirst that carries the manual. Finding neither it answers 404 and says so in the log.\n`OPENMIXER_MANUAL_DIR` exists only to override an unusual layout — a parameter the system can\nwork out must never be one an operator has to remember, which is exactly how a rig came to point\nat a path one level too deep with nothing to notice.\n\n## Design principles\n\n- Keep the load-bearing logic **pure and tested without hardware** — the protocol parser, the\n  chain diff (`planChain`), the graph diff, the mod-host codec, the layout engine, each\n  adapter's address mapping. The stateful drivers are thin shells around them, with the transport\n  behind an injectable seam so the protocol is tested with a fake runner. Things that genuinely\n  need hardware — real REAC framing, live PipeWire latency, live-network discovery — are\n  documented test gates verified on the mixing host, not in CI.\n- **GPL-3.0-or-later**, `SPDX-License-Identifier` on every source file. MIT/BSD/GPL code may be\n  copied in; AGPL code is studied and re-implemented clean, never copied (ADR&nbsp;0016).\n\n### Extending\n\n- **A console adapter** — a new `packages/adapter-<name>` implementing core's `MixerAdapter`,\n  translating `{ kind, index }` to the device's address space and absorbing its quirks *there and\n  only there*; supply a `FaderScale`; declare it in core's `DESK_CONTROLLER_TYPES` and give it a\n  family in `desk-controller.ts`. Test the protocol\n  against captured bytes, not hardware.\n- **A plugin** — usable as soon as `scan.py` finds it installed (addressed by LV2 URI + port\n  symbol, no code); add one `{ role, uri, label }` to `catalog/src/curation.ts` to curate it. The\n  auto editor renders it from metadata.\n- **A view module** — a Vue component reading state from a composable and sending intents through\n  it; reuse the param widgets and give every control keyboard/wheel/ARIA/reset.\n- **A discovery probe** — one protocol per probe emitting `DiscoveredDevice`s, degrading (never\n  crashing) on a missing NIC or route; unit-tested against captured packets.\n\nThe [decision log](../architecture/decisions/) records the reasoning behind each choice.\n",Q=`# Clocking and sample rate
 
 ## Rate and clock are two different things
 
@@ -1987,7 +2044,7 @@ pw-metadata -n settings | grep clock
 The mixer shows the same facts in its **telemetry** panel: the buffer quantum, the
 sample rate and a live xrun counter. If the rate there is not 48000 with a stagebox
 connected, fix that before chasing anything else.
-`,Q=`# REAC stageboxes
+`,U=`# REAC stageboxes
 
 openmixer can take its inputs straight off a Roland REAC stagebox and send its outputs
 back to the box, with no converter box and no audio-over-IP layer in between. The
@@ -2215,8 +2272,9 @@ everything else — the surface, the audio engine, the I/O — plugs into it.
 
 ## Development
 
-- **[Architecture](architecture/index.md)** — the layered design, the technical manual,
-  and the decision log.
+- **[Architecture](architecture/index.md)** — the layered design, the technical manual, the
+  [libraries](architecture/libraries.md) it is built from, how [plugin panels](architecture/plugin-panels.md)
+  are declared, and the decision log.
 - **[Rig hardware map](reference/rig-hardware-map.md)** — the development rig's network
   interfaces, clock master, and where each physical thing is.
 - **[RME Babyface Pro FS notes](reference/babyface-pro-notes.md)** — I/O, clocking and
@@ -2826,9 +2884,9 @@ a laptop in the truck.
 
 **A device typing the address is not the only way in.** The console's own Help → About shows a
 QR code for its address — scan it from a phone or tablet already sitting near a trusted screen
-instead of typing an IP address off a truck floor. It opens the console directly; a device
-meeting this console for the first time still lands here first, on this page's own address,
-which About prints beside the QR.
+instead of typing an IP address off a truck floor. It opens the console directly. A device
+meeting this console for the first time scans About's *second* QR instead, the one beside "New
+device?": it opens this page's own address on the plain port, before anything is trusted.
 
 ## Get the certificate
 
@@ -3067,8 +3125,11 @@ Two instruments with the same name and different jobs:
 
 - **Align** — two microphones on **one source**, made to arrive together. A kick drum with
   a mic inside and one outside; a snare top and bottom; a guitar cabinet with a dynamic and
-  a condenser on it. Its own ROW on the **Analysis** chip (alongside [FBS](fbs.md) and
-  [HRP](hrp.md), which share the same chip), because it is a channel-level instrument.
+  a condenser on it. It is the **Align** card in the channel view's **Effects** block, at the head of the
+  chain beside the [FBS](fbs.md) and [HRP](hrp.md) cards, because it is a channel-level
+  instrument. The card has no lamp: its key value reads **Referenced** once a reference is
+  picked and a dash until then. Tap it to select it; tap it again, double-click it or press
+  Enter to open the Align panel beside the spectrum.
 - **Speakers** — the **loudspeakers in the room**, made to arrive together. The delay stack
   under the balcony, the front fills, the delay towers. It lives in the **PA Setup** tab,
   alongside [Room](room.md) — Speakers and Room are PA setup, not channel processing, so they
@@ -3254,6 +3315,10 @@ channel rather than an unfinished one.
   no audio. Hover it for the device it is waiting on.
 - **TRK** — the channel is playing a recorded track in a
   [virtual soundcheck](recording.md#virtual-soundcheck) instead of its live input.
+- **D1, M2, the link tag** — the groups the channel is in: \`D\` and a number for a DCA, \`M\` and
+  a number for a mute group, and the stereo link. A group's chip is lit while the group is
+  engaged (the DCA is spilled, the mute group mutes). Two draw at most; the rest read \`+n\`.
+  Hover the badges for every group by name.
 - **a dB figure** in an outlined chip — a DCA is pulling on this channel, and the figure is
   the level it actually plays at with every DCA over it applied.
 - **the latency badge** — the path's total in milliseconds, amber above 12 ms. Press it for the
@@ -3279,13 +3344,17 @@ no delay strip does not show one. The spectrum analyser (RTA) is always visible 
 controls, whichever chip you have open. See [EQ and dynamics](eq-dynamics.md) and
 [alignment](alignment.md).
 
-**Analysis** is a stacked chip rather than a single door: alignment, the feedback suppressor and
-the harmonic resonance processor each get a row on it, showing their name, where they stand, and
-their own on/off switch. Click a row's name to bring that one's controls up; throw its switch to
-arm or release it without leaving what you are looking at.
+The **Effects** block draws the strip's chain as cards, in signal order, with a line running
+through them. **Align**, **FBS** and **HRP** are cards like the others, at the head of the
+chain: each shows its name, where it stands, and (FBS and HRP) its own lamp, which arms or
+releases it without leaving what you are looking at. Align has no lamp. On a large screen the
+cards are tiles in a grid; on a phone, tablet or laptop they are one vertical rail. Tap a card
+to select it; tap it again, double-click it or press Enter to open its panel beside the
+spectrum. On a large screen the other tiles fold to narrow bars while one is open, and closing
+the panel unfolds them.
 
 Every stage switches in and out with the same switch — the EQ, the gate, the compressor, the
-analyser and the two correctors all read the same way, on the chip and in the controls beside it.
+analyser and the two correctors all read the same way, on the card and in the controls beside it.
 
 Each stage's controls window carries **copy** and **paste** in its top corner: copy takes that
 one stage from this channel, and paste puts it on another. Paste stays dim until the clipboard
@@ -3299,7 +3368,13 @@ reordering, and the plugin rack is where you move inserts within the chain.
 
 The channel view's header line repeats the facts that change what you are hearing:
 
-- **STEREO** — the strip is a linked or stereo pair, and its controls move both legs.
+- **SOURCE** — the glass naming the stagebox and the port this input is patched from. It reads
+  *unpatched* in amber when nothing feeds the channel, and a source that has left the rig is
+  shaded in place.
+- **ST** — lit while the strip is a stereo pair, dark while it is mono. It is an indication,
+  not a switch: the patch decides a channel's width, and its controls move both legs.
+- The **trim** and **phantom** glasses — the preamp's gain in its own unit, and the 48 V legend,
+  lit amber while phantom power is on. They fold away first when the window narrows.
 - **NO DEVICE** (red) — the source this channel is patched from is not on the rig. Hover it for
   the reason.
 - **NOT LANDED** (amber) — a head-amp setting, phantom power or the pad, was sent to the box
@@ -3343,15 +3418,16 @@ The cards read top to bottom in the channel's own order:
 - **Input** — gain, pad, 48 V and polarity. On a strip with no head amp (a bus, or a channel
   with nothing patched to a preamp) the whole card is greyed and says why; it is never hidden,
   so you can always see that the channel has no input stage rather than wondering where it went.
-- **one card per processing stage** — Gate, EQ, Compressor, Drive, Delay and Reverb — **in the
+- **one card per processing stage** — Gate, EQ, Compressor, and the effects every strip carries
+  as plugins (Drive, Delay, Reverb and the rest) — **in the
   order this channel actually runs them**. If you drag the processing tabs into a different
   order, the cards follow, because both read the same channel setting. Each card has the
   section's on/off switch beside its name.
 - **Fader** — the fader, pan, mute and the channel's meter.
 - **Sends** — one bar per destination.
 
-Gate, EQ, Compressor and Drive draw a small picture of what they are doing — the gate and
-compressor curves, the EQ response, the drive's shape. Delay and Reverb carry encoders only.
+Gate, EQ and Compressor draw a small picture of what they are doing — the gate and compressor
+curves, the EQ response. The effects carry encoders only.
 The pictures are there to be read, not grabbed: to edit a curve by hand, open the section.
 
 **Every encoder is the real control.** Turn one and the channel changes, exactly as it would on
@@ -3514,6 +3590,14 @@ Every control is keyboard-reachable: arrows nudge, Enter toggles a filter.
 The curve is drawn from what is actually shaping the signal — the EQ in the channel's EQ
 stage plus the built-in high-pass and low-pass — not from a generic picture.
 
+The two filters are drawn here, but they run at the head of the channel, straight after the
+trim: the gate and the compressor always hear the filtered signal, wherever you place them in
+the chain. Each filter has its own switch. Switching the EQ out takes the bands out of the
+sound but not off the screen: the curve keeps every band as you set it, and any filter that is
+on, and dims, so you can keep shaping it and switch it back in. A band switched off stays drawn
+too, dimmed. A multitrack recording takes the input before the filters, so a virtual soundcheck
+plays it back through them once.
+
 This is a **dynamic-band** EQ, not a fixed-band one: a channel opens with a handful of
 starter bands, and from there you add, drag and remove bands freely — bands sort by
 frequency and renumber as you go, so there is no "band 3" that stays band 3. That differs
@@ -3586,10 +3670,12 @@ takes one of them.
 
 ## Native FX
 
-The channel's own send-type effects — **Delay** and **Reverb** today, and chorus or flanger when
-those land — share one chip, **Native FX**, in the processing view's channel block beside
-**Analysis**. It is built the same way: one row per effect, always listed whether it is on or off,
-each showing its name and its own on/off switch. Hover a name to see its current settings.
+The channel's own send-type effect — the **Delay** — has a chip, **Native FX**, in the processing
+view's channel block beside **Analysis**. It is built the same way: one row per effect, always
+listed whether it is on or off, each showing its name and its own on/off switch. Hover a name to
+see its current settings. The reverb, chorus, flanger, pitch shifter, de-esser, rotary speaker,
+phaser, tremolo and graphic EQ are not on this chip: each is a plugin on the strip's chain with a
+tab of its own (below).
 
 | Control | What it does |
 |---|---|
@@ -3600,54 +3686,68 @@ An effect that is on also appears in the channel's processing chain as a stage o
 you drag it to a new place like any other stage; switched off, it leaves the chain but keeps its
 place in the processing order. This chip is a stand-in until a better way of laying out the native effects arrives.
 
-## The FX page
+## The effects in the channel workspace
 
-The **FX** page shows the selected strip's effects chain, and below it one effect's whole panel:
-every parameter, and its curve when it has one. It follows channel select the way the processing
-view does, so selecting another strip shows that strip's chain.
+There is no separate FX page. The selected channel has one workspace, the processing view, and the
+effects chain sits in it the way the channel overview lays a channel out: the channel's own
+controls first, then the chain (every stage in the order the audio runs, then the plugins and the
+limiter), then the output block with sends and PA setup. It follows channel select, so selecting
+another strip shows that strip's chain.
+
+Choosing an effect opens its whole panel in place: every parameter, and its curve when it has
+one, across the full width of the lower row. While an effect's panel is open the analyser trace is
+not drawn; choosing EQ or a dynamics stage brings it back.
 
 | Control | What it does |
 |---|---|
-| **An effect in the chain bar** | Shows that effect's panel below the bar. |
+| **An effect's chip in the chain** | Opens that effect's whole panel in place. |
 | **An effect's switch** | Bypasses that effect or brings it back. |
-| **The arrows beside the bar** | Move the selected effect earlier or later in the chain. |
-| **\`+\`** | Opens the plugin picker for the strip's inserts, with delay, reverb, modulation and saturation listed first. |
+| **The arrows beside the chain, or dragging a chip** | Move the effect earlier or later in the chain. |
+| **The plugins chip's picker** | Adds a plugin to the strip's inserts, with delay, reverb, modulation and saturation listed first. |
 
-In the processing view each effect is a small chip with its name, its switch, one key value
-(a delay's time, for example) and a \`›\`. Tapping the chip opens the FX page at that effect. The
-page remembers, for each strip, the effect you last looked at and opens on it again.
+Each effect is a small chip with its name, its switch, one key value (a delay's time, for
+example) and a \`›\`. The chip has no parameter control of its own; the panel it opens does.
+
+An effect's panel opens on a bar: the effect's name in a glass at the left, then its on switch.
 
 ## Delay
 
-The **Delay** tab is the channel's own effect delay — the musical one, not an alignment.
+The **Delay** tab is the channel's own effect delay — the musical one, not an alignment. It is the
+omx delay plugin, which sits on every strip after the tremolo and before the reverb and
+arrives bypassed. The tab is the plugin's panel, with the console's tempo sync under it. Remove
+the plugin from the chain and the tab goes with it; add it back from the chain's plugin menu.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. |
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
 | **Time** | Up to 2000 ms, in milliseconds. |
-| **Sync** | Follow the console's tempo instead of a figure in milliseconds. |
-| **Division** | With sync on, the note the delay lands on — quarter, eighth, dotted eighth, eighth triplet. The resolved milliseconds are shown live beside it. |
 | **Feedback** | How much of the output goes back in. It stops short of 1, so it cannot run away. |
 | **Mix** | Dry to wet. |
 | **Tone** | Darkens the repeats. |
 | **Ping-pong** | Alternates the repeats between the two sides. |
+| **Sync** | Follow the console's tempo instead of a figure in milliseconds. |
+| **Division** | With sync on, the note the delay lands on — quarter, eighth, dotted eighth, eighth triplet. |
 
-The console's tempo is set from the header's tap-tempo control, so a delay on sync follows
-the song rather than a number you worked out once.
+**Sync is the console's, not the plugin's.** With **Sync** on, the console works out the time the
+division lasts at the current tempo and sets the plugin's **Time** to it, so **Time** shows the
+milliseconds the delay is really running. Every tempo change — typed, tapped from the header's
+tap-tempo control, or recalled with a show — sets it again, so a delay on sync follows the song
+rather than a number you worked out once. Turn **Sync** off and the delay keeps the last time it
+was given.
 
-The Delay tab is offered where the console has native effects and the console profile ships
-a delay section. A profile modelled on a desk that has no delay strip does not show it.
-
-**What this stage guarantees:** Every sample this stage produces is a finite number — never NaN, never infinite. Bypassed, this stage's output is identical to its input, sample for sample. The output is an exact copy of the input, delayed by the reported number of samples.
+A saved session that holds a delay setting of its own opens with that setting on the plugin:
+bypassed or in as saved, with the same values, and the same sync and division.
 
 ## Reverb
 
-The **Reverb** tab is the channel's own reverb. Five algorithms — **room**, **plate**, **hall**,
-**reverse** and **gated** — share one set of controls.
+The **Reverb** tab is the channel's own reverb: the omx reverb plugin, which sits on every strip
+after the delay and arrives bypassed. The tab is the plugin's panel. Remove the plugin from the
+chain and the tab goes with it; add it back from the chain's plugin menu. Five algorithms —
+**room**, **plate**, **hall**, **reverse** and **gated** — share one set of controls.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. |
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
 | **Algorithm** | Room, plate, hall, reverse or gated. |
 | **Size** | How big the space is. |
 | **Damping** | How fast the top end dies away in it. The same setting is the same filter whatever rate the desk is clocked at, so a session moved between a 44.1 or 48 kHz stage box and the desk's 96 kHz keeps its sound. |
@@ -3675,43 +3775,31 @@ A per-channel reverb is convenient and it is not the only way: an aux feeding a 
 bus gives one tail that several channels share, which is usually what a mix wants. See
 [sends, buses, groups and DCAs](sends-buses-dcas.md).
 
-**What this stage guarantees:** Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample. The reverb tail always decays to silence — it never sustains or grows on its own.
-
 ## Drive
 
 The **Drive** tab is the channel's saturator — the one control on the strip that is there to
-add colour rather than to correct something. It sits after the compressor and before the
-delay and reverb, so what it colours is the channel as you have already shaped it.
-
-**The picture beside the controls is the curve the desk is running.** Input along the bottom,
-output up the side, and the straight diagonal is what the channel would do if the stage did
-nothing. The further the curve leaves that line, the harder the signal is being squeezed — turn
-**Drive** up and you watch it bend. A curve that has stopped being a straight line is a sound
-that has stopped being clean, which is the whole point of the section.
-
-The picture draws the shape, the mix and the trim. It does not draw **auto gain**, because that
-is measured from the signal as it plays rather than being a property of the curve, and it does
-not draw **band** or **HF roll-off**, because those are choices about frequency and this picture
-has no frequency axis — this chapter is where that is written down, not a line under the curve:
-move **Character** or **Band** and watch the picture stay still, and it will be obvious why.
-
-The **?** button in the DRIVE header opens this chapter over the desk, without leaving the mix.
+add colour rather than to correct something. It is the omx drive plugin, which sits on every
+strip after the compressor and before the modulation and the delay, and arrives bypassed, so what
+it colours is the channel as you have already shaped it. The tab is the plugin's panel. Remove the
+plugin from the chain and the tab goes with it; add it back from the chain's plugin menu.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. Off, it costs nothing at all. |
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
 | **Curve** | The shape of the knee. **Soft** is the firmest and cleanest, **tape** is gentler, **tube** is the widest and richest. **Exciter** is different: instead of fading between the clean and driven sounds it ADDS the driven band on top of the whole channel, which is what an enhancer does. |
 | **Drive** | How hard the signal is pushed into the curve. At 0 dB it barely does anything; turn it up until you hear it. |
 | **Character** | Which harmonics you get. All the way down is the plain curve: odd harmonics only, the hard, edgy kind. Turning it up shifts the signal off centre inside the curve, so the two halves of the wave are treated differently and even harmonics appear — the warm, thick kind. All the way up they lead by a good margin at normal drive settings; push Drive past about 15 dB and the clipping's own odd harmonics take over again whatever this knob says. |
-| **Even bias bar** | Reads Character back as one number: how far up its travel the even-harmonic bias is set, 0 to 100 %. It follows the knob; it is not something you set, and it is not a measurement of what came out — how much even harmonic you actually get depends on how hard you are driving the curve. |
 | **Band** | Which part of the sound is driven. **Full** is everything, **low** is below the band frequency, **high** is above it, and **tilt** drives the top harder than the bottom without changing the tone. |
-| **Band** (frequency) | Where that split sits. |
+| **Band Frequency** | Where that split sits. |
 | **Mix** | How much of the driven sound you hear against the clean one. At 0 % the channel passes through exactly as it came in. |
-| **Trim** | Level after the stage, so you can switch it in and out against the same loudness. |
-| **Auto gain** | On by default. The desk measures the level going in and coming out and matches them, so turning Drive up changes the colour and not the loudness. |
-| **Stereo link** | On a stereo channel, one gain path for both sides, so nothing can pull the image off centre. |
-| **HF roll-off** | Off, 12 kHz or 16 kHz. Tames the fizz an exciter can put on top. |
-| **Oversampling** | 1×, 2× or 4×, and 4× is the default. Higher settings run the saturator at a multiple of the console's rate so the harmonics it makes stay where they belong instead of folding back down into the music. Leave it at 4× unless you are short of CPU. |
+| **Trim** | Level after the drive, so you can switch it in and out against the same loudness. |
+| **Auto Gain** | On by default. The plugin measures the level going in and coming out and matches them, so turning Drive up changes the colour and not the loudness. |
+| **Stereo Link** | On a stereo channel, one gain path for both sides, so nothing can pull the image off centre. |
+| **HF Roll-off** | Off, 12 kHz or 16 kHz. Tames the fizz an exciter can put on top. |
+| **Oversampling** | 1×, 2× or 4× the console's rate. 4×, the default, keeps the harmonics it makes where they belong instead of folding back down into the music. |
+
+A saved session that holds a drive setting of its own opens with that setting on the plugin,
+bypassed or in as saved, with the same values and the same oversampling.
 
 ### What the three shapes sound like
 
@@ -3737,104 +3825,159 @@ but tips the balance with a shelf, and then takes the same shelf back out afterw
 tilts is how hard each octave hits the knee, not the tone of what comes out.
 
 **Why auto gain is measured and not a table.** A saturator gets louder as you drive it, and how
-much louder depends on the material, not only on the setting. The desk therefore measures the
+much louder depends on the material, not only on the setting. The plugin therefore measures the
 level going into the stage and the level coming out of it over the same short window and matches
 them. Below about −90 dBFS it holds the last figure instead of tracking, because a ratio taken on
 silence is not a measurement. That is why turning Drive up changes the colour and not the
 loudness, and why the correction follows a fader move.
 
-**It costs a little latency while it is on** — 0.75 ms at 4× and 0.50 ms at 2×, and the panel
-shows the exact number in samples. That is normal for any oversampled processor; it means a channel with
-Drive on is a fraction of a millisecond behind one without it, which matters if the two are
-two microphones on the same source. It is zero while the stage is off.
+**It costs a little latency** — the oversampler's own, a fraction of a millisecond at 4×, which the
+plugin reports and the console compensates like any plugin's. It means a channel with Drive in is a
+fraction of a millisecond behind one without it, which matters if the two are two microphones on
+the same source.
 
-**What this stage guarantees:** Every sample this stage produces is a finite number — never NaN, never infinite. Bypassed, this stage's output is identical to its input, sample for sample. At its default settings, this stage passes audio through unchanged in level.
+## Rotary speaker
+
+The **Rotary** tab is the organ cabinet: the channel split at 800 Hz into a low band played
+through a spinning drum and a high band through a spinning horn, each rotor moving its sound toward
+you and away (the pitch wobble) and around you (the level swirl). It is the omx rotary plugin, on
+every strip after the drive and before the chorus, and it arrives bypassed. The tab is the
+plugin's panel.
+
+| Control | What it does |
+|---|---|
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
+| **Speed** | **Stop**, **Slow** (chorale) or **Fast** (tremolo); it comes up at Slow. A change never jumps: the horn reaches its new speed in about a second and the heavier drum in about five, and Stop lets both coast down to rest. |
+| **Horn Slow / Horn Fast** | The horn's two speeds, 0.1 to 2 Hz and 3 to 10 Hz; they come up at 0.8 and 6.8 Hz. |
+| **Drum Slow / Drum Fast** | The drum's two speeds, 0.1 to 2 Hz and 3 to 10 Hz; they come up at 0.7 and 5.9 Hz. |
+| **Accel** | Scales every speed change, 0.25 to 4 ×; it comes up at 1. At 2 the rotors take twice as long to spin up and down. |
+| **Balance** | Drum against horn, −100 to +100 %; it comes up at 0. −100 is the drum alone, +100 the horn alone; the far rotor is turned down, never the near one up. |
+| **Mix** | Dry to wet, 0 to 100 %; it comes up at 100 %, the cabinet's sound alone. |
 
 ## Chorus
 
 The **Chorus** tab thickens a channel by mixing it with copies of itself whose delay is swept
 slowly up and down — a few milliseconds of wobble that the ear hears as several performers
-instead of one. It runs after the drive and before the delay, and it arrives switched off.
+instead of one. It is the omx chorus plugin, on every strip after the drive and before the delay,
+and it arrives bypassed. The tab is the plugin's panel.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. Off, it costs nothing at all. |
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
 | **Rate** | How fast the copies sweep, 0.05 to 8 Hz. Well under 1 Hz is a gentle shimmer; push past about 3 Hz and it stops sounding like a chorus and starts sounding like vibrato. |
 | **Depth** | How far the delay swings above its 10 ms base, 0 to 12 ms. More depth is a wider, more obvious detune. |
 | **Voices** | How many swept copies run at once, spread evenly around the sweep, 1 to 4. More voices is a smoother, denser ensemble. |
 | **Mix** | Dry to wet, 0 to 100 %. |
 
-**What this stage guarantees:** Every sample this stage produces is a finite number — never NaN,
-never infinite. Bypassed, this stage's output is identical to its input, sample for sample.
-
 ## Flanger
 
 The **Flanger** tab is the jet-plane sweep: one copy of the channel at a very short, moving
-delay, mixed back with the original so a comb of notches glides up and down the spectrum. It
-runs after the chorus and before the delay, and it arrives switched off.
+delay, mixed back with the original so a comb of notches glides up and down the spectrum. It is
+the omx flanger plugin, on every strip after the chorus and before the delay, and it arrives
+bypassed. The tab is the plugin's panel.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. Off, it costs nothing at all. |
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
 | **Rate** | How fast the sweep travels, 0.05 to 5 Hz. |
 | **Depth** | How far the delay swings above its 0.5 ms base, 0 to 5 ms — how much of the spectrum the notches cross. |
 | **Feedback** | Signed, −0.95 to 0.95. Positive values sharpen the peaks into a metallic ring; negative values hollow the sound out. Near either end it rings hard. |
 | **Mix** | Dry to wet, 0 to 100 %. |
 
-**What this stage guarantees:** Every sample this stage produces is a finite number — never NaN,
-never infinite. Bypassed, this stage's output is identical to its input, sample for sample.
-
 ## Pitch
 
-The **Pitch** stage shifts the channel up or down without changing its speed, by reading the signal
-twice through a short moving delay and crossfading between the two reads. It runs after the flanger
-and before the delay, and it arrives switched off. No strip panel draws it yet; it is reached through
-its row, \`/channel/{kind}/{index}/pitch\`.
+The **Pitch** tab shifts the channel up or down without changing its speed, by reading the signal
+twice through a short moving delay and crossfading between the two reads. It is the omx pitch
+plugin, on every strip after the flanger and before the phaser, and it arrives bypassed. The tab is
+the plugin's panel. Remove the plugin from the chain and the tab goes with it; add it back from the
+chain's plugin menu.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. Off, the channel passes through exactly as it came in. |
+| **Bypass** | In or out. Bypassed, the channel passes through exactly as it came in and it costs nothing at all. |
 | **Semitones** | The coarse shift, −12 to +12 in whole semitones; it comes up at 0. |
 | **Cents** | The fine shift, −50 to +50 cents; it comes up at 0. |
 | **Mix** | Dry to wet, 0 to 100 %; it comes up at 100 %, the shifted signal alone. |
 
-The shifted signal is read from up to 40 ms back, so the wet part sits slightly behind the dry
-one; that is the effect's own time, not a delay the console adds to the channel.
+**At 100 % mix the channel is about 20 ms late, and the console knows it.** The shifted signal is
+read from a moving point up to 40 ms back, so with only the wet signal on the channel, the plugin
+reports that delay — half its window, 1920 samples at 96 kHz — and the console counts it in the
+channel's latency like any plugin's. Below 100 % it reports nothing: the dry part of the blend stays
+on time and the shifted part sits a little behind it, which is the effect's own sound.
+
+A saved session that holds a pitch setting of its own opens with that setting on the plugin:
+bypassed or in as saved, with the same values.
+
+## Phaser
+
+The **Phaser** tab is the swirling sweep of a cascade of allpass filters: a few notches, set by the
+section count, glide up and down the spectrum together. It is the omx phaser plugin, on every strip
+after the pitch stage and before the tremolo, and it arrives bypassed. The tab is the plugin's panel.
+Remove the plugin from the chain and the tab goes with it; add it back from the chain's plugin menu.
+
+| Control | What it does |
+|---|---|
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
+| **Rate** | How fast the sweep travels, 0.05 to 5 Hz; it comes up at 0.5 Hz. |
+| **Base** | The lowest frequency the notches reach, 50 Hz to 2 kHz; it comes up at 200 Hz. |
+| **Depth** | How far the sweep climbs above the base, 0 to 6 octaves; it comes up at 4 (200 Hz to 3.2 kHz). At 0 the notches stand still. |
+| **Stages** | 2 to 12 sections; every two make one notch, so the default 6 gives three. An odd count runs as the even count below it. Changing it can click once. |
+| **Feedback** | Signed, −0.9 to 0.9; it comes up at 0.4. Further from zero the notches sharpen into a resonant ring. |
+| **Mix** | Dry to wet, 0 to 100 %; it comes up at 50 %, where the notches are deepest. |
+
+The sweep never climbs above 16 kHz: when base and depth would take it higher, it stops there.
+
+## Tremolo
+
+The **Tremolo** tab moves the channel's level up and down with one slow oscillator — the classic
+amp tremolo — or, in **Pan** mode, moves it from side to side. It is the omx tremolo plugin, on
+every strip after the phaser and before the delay, so the delay and the reverb carry the
+movement whole, and it arrives bypassed. The tab is the plugin's panel.
+
+| Control | What it does |
+|---|---|
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
+| **Mode** | **Tremolo** (the level) or **Pan** (the position); it comes up at Tremolo. |
+| **Rate** | How fast the level or the position moves, 0.1 to 20 Hz; it comes up at 4 Hz. |
+| **Depth** | How far it moves, 0 to 100 %; it comes up at 50 %. |
+| **Mix** | Dry to wet, 0 to 100 %; it comes up at 100 %. The movement only ever turns the level down, never up. |
 
 ## De-esser
 
 The **De-esser** tab turns down the hard "s", "sh" and "t" sounds of a voice — and only while
-they are there. It listens to the band where sibilance lives, and when that band gets louder than
-you asked for it pulls it down; the rest of the time it does nothing at all. It sits after the EQ
-and before the compressor, so the compressor never reacts to an "s" the de-esser has already
-dealt with.
+they are there. It is the omx de-esser plugin, which sits on every strip after the EQ and before
+the compressor and arrives bypassed, so the compressor never reacts to an "s" the de-esser has
+already dealt with. The tab is the plugin's panel. Remove the plugin from the chain and the tab
+goes with it; add it back from the chain's plugin menu. It listens to the band where sibilance
+lives, and when that band gets louder than you asked for it pulls it down; the rest of the time
+it does nothing at all.
 
-**The GR bar is what it is doing right now.** It reads the reduction the engine is actually
-applying, measured in the stage, and it is drawn against the deepest cut the **Range** control
-can make — a full bar is the stage at its floor. While no sibilant is crossing the threshold it
-sits empty, which is the normal state. If the channel has no measurement it reads **—**, never a
+**The GR bar is what it is doing right now.** It reads the reduction the plugin itself reports,
+and it is drawn against the deepest cut the **Range** control can make — a full bar is the
+plugin at its floor. A deep reading holds for a moment so you can see it, then recovers at the
+plugin's own **Release**. While no sibilant is crossing the threshold it sits empty, which is the
+normal state, and bypassed it is empty too. With no de-esser in the chain it reads **—**, never a
 made-up 0.
 
-The **?** button in the DE-ESSER header opens this chapter over the desk, without leaving the mix.
+A saved session that holds a de-esser setting of its own opens with that setting on the plugin:
+bypassed or in as saved, with the same values.
 
 | Control | What it does |
 |---|---|
-| **On** | In or out. Off, the channel passes through exactly as it came in. |
-| **Mode** | **Split** cuts only the sibilant band and leaves the rest of the voice alone — the default, and the one to reach for first. **Wideband** turns the whole channel down while the "s" lasts, the older broadcast behaviour; some operators prefer it on a shouted vocal. |
-| **Frequency** | The centre of the band the de-esser listens to, from 2 kHz to 16 kHz; it comes up at 7 kHz. Sweep it while the singer says "s" and stop where the reduction bites hardest. |
+| **Bypass** | In or out. Bypassed, the channel passes through exactly as it came in. |
+| **Mode** | **Split** cuts only the sibilant band and leaves the rest of the voice alone — the one to reach for first. **Wideband** turns the whole channel down while the "s" lasts, the older broadcast behaviour; some operators prefer it on a shouted vocal. |
+| **Freq** | The centre of the band the de-esser listens to, from 2 kHz to 16 kHz; it comes up at 7 kHz. Sweep it while the singer says "s" and stop where the reduction bites hardest. |
 | **Width** | How wide that band is, in octaves (0.25 to 4, default 1). Narrow catches a single whistle; wide catches a whole spread of hiss. |
 | **Threshold** | The sibilant level, −60 to 0 dB, above which reduction starts. Default −30 dB. |
 | **Ratio** | How hard it bites once the band is over the threshold, 1:1 to 20:1. Default 4:1. |
 | **Range** | The deepest cut it may ever make, −24 to 0 dB, however loud the "s". Default −12 dB. This is what keeps a de-esser from lisping. |
 | **Attack** | How quickly the reduction arrives when an "s" starts, 0.1 to 50 ms. Default 1 ms — sibilance is fast. |
-| **Release** | How quickly the channel recovers after the "s" ends, 5 to 500 ms. Default 60 ms. |
+| **Release** | How quickly the channel recovers after the "s" ends, 5 to 500 ms. Default 60 ms. The GR bar recovers at the same pace. |
 
-**If it does not seem to do anything:** turn **On** on, ask for an "s", and watch the GR bar.
-Empty bar — the threshold is above the sibilant, or the frequency is off the voice's "s"; lower
-the threshold or sweep the frequency. Bar pinned full and the voice sounds lispy — raise the
-threshold or bring **Range** up towards 0.
-
-**What this stage guarantees:** Every sample this stage produces is a finite number — never NaN, never infinite. This stage's internal state never settles into denormal numbers that could stall the audio thread. Bypassed, this stage's output is identical to its input, sample for sample. This stage never adds gain — its output level never exceeds what came in.
+**If it does not seem to do anything:** take it out of bypass, ask for an "s", and watch the GR
+bar. Empty bar — the threshold is above the sibilant, or the frequency is off the voice's "s";
+lower the threshold or sweep the frequency. Bar pinned full and the voice sounds lispy — raise
+the threshold or bring **Range** up towards 0.
 
 ## Limiter
 
@@ -3875,6 +4018,21 @@ this bus to measure.
 
 **What this stage guarantees:** Every sample this stage produces is a finite number — never NaN, never infinite. Bypassed, this stage's output is identical to its input, sample for sample.
 
+## Graphic EQ
+
+The **Graphic EQ** tab is 31 faders, one for each third of an octave from 20 Hz to 20 kHz: the
+system EQ you tune a PA or a wedge with. It is the omx geq plugin, on every strip as the last of
+the effects, after the reverb, and it arrives bypassed. The tab is the plugin's panel. Remove the
+plugin from the chain and the tab goes with it; add it back from the chain's plugin menu.
+
+| Control | What it does |
+|---|---|
+| **Bypass** | In or out. Bypassed, it costs nothing at all. |
+| **20 Hz … 20 kHz** | One level per band, lowest first, each −15 to +15 dB. They come up at 0 dB, flat. |
+
+The bands are designed for the console's sample rate, so the lowest ones keep their shape at
+192 kHz as well as at 48 kHz.
+
 ## Alignment
 
 Two more tabs — **Align** and **Speakers** — are the time-alignment instruments, and they
@@ -3885,6 +4043,11 @@ are a different job from the Delay above. See [alignment](alignment.md).
 The EQ, gate and compressor are the mixer's **own** processing, not LV2 plugins loaded
 into a chain. They are always there, they cost no plugin slot, and they do not depend on
 anything being installed.
+
+The reverb, chorus, flanger, pitch shifter, de-esser, rotary speaker, phaser, tremolo and graphic
+EQ are the other way round: each is one of the console's own plugins (the omx plugins), built into
+the mixer, so nothing has to be installed either. Every strip carries each one, bypassed, at its
+place in the chain; its tab is the plugin's panel, and while it is bypassed it costs nothing.
 
 Plugin inserts are a separate, ordered chain on the same channel — see
 [plugins and the rack](plugins.md). The two are never the same thing, and a plugin EQ in
@@ -3945,9 +4108,11 @@ armed.
 ![Layouts, Processing, EQ, FBS](images/fbs-1.png)
 *Feedback suppression: the mode, sensitivity, notch Q and merge radius, over the channel's own filter curve.*
 
-The **Analysis** chip in the channel view's CHANNEL block, on its **FBS** row (alongside
-**Align** and **HRP**, which share the same chip). It has two views of its own, picked from
-the bar above it:
+The **FBS** card in the channel view's **Effects** block, at the head of the chain beside the
+**Align** and **HRP** cards. The card shows its name, a lamp that arms and releases it, and
+where it stands as its key value: **OFF**, **ARM** or **HOT**. Tap the card to select it; tap
+it again, double-click it or press Enter to open its panel beside the spectrum, which stays on
+screen. The panel has two views of its own, picked from the bar above it:
 
 - **Settings** — the controls.
 - **Filters** — the roster of what has been planted, so it scrolls in its own view instead
@@ -4226,9 +4391,12 @@ It is **per channel** and **off by default**.
 ![Layouts, Processing, EQ, HRP](images/hrp-1.png)
 *The harmonic processor armed in Monitor on a channel with no signal: the header reads Listening, the amount and the band budget are live, and the detected, proposed and active blocks stay empty until the analyser hears something. Adaptive adds the correction; Monitor only listens.*
 
-The **Analysis** chip in the channel view's CHANNEL block, on its **HRP** row (alongside
-**Align** and **FBS**, which share the same chip). It is offered on input channels; a bus has
-no harmonic processor, so the row is simply not there.
+The **HRP** card in the channel view's **Effects** block, at the head of the chain beside the
+**Align** and **FBS** cards. The card shows its name, a lamp that switches it on and off, and
+its mode as the key value: **OFF**, **MON** or **AUTO**. Tap the card to select it; tap it
+again, double-click it or press Enter to open its panel beside the spectrum, which stays on
+screen. It is offered on input channels; a bus has no harmonic processor, so the card is
+simply not there.
 
 **Off, the panel is just the switch and the mode ladder.** The header reads *Harmonic
 resonance · Off* and there is nothing else to see, because nothing is being measured.
@@ -4451,6 +4619,15 @@ replace it.
 A panel can be split off, resized at its gutter, grouped with others into a tab strip,
 minimised, maximised, floated over the rest, or closed. Drag a panel's titlebar onto
 another panel to tab them together, or onto an edge to split.
+
+### A panel's titlebar
+
+Every panel, docked or floating, has the same titlebar: its name (or its tab strip), a glass
+naming what it acts on when it acts on one thing (\`CH 12\`), a lamp that lights while a change is
+on its way to the desk and settles when the desk has it, the **pin**, one **dock menu** and
+close. The dock menu docks the panel right, left or at the bottom, floats it, gives it the full
+page, pops it out to its own window or minimises it. **Float** is greyed with its reason when
+two panels already float.
 
 The **Layouts** panel lists every saved arrangement as a chip; the lit one is active, press
 another to switch, and a shipped arrangement is tagged **preset**.
@@ -4966,15 +5143,17 @@ If the main meter moves and nothing comes out, that route is where to look:
 [the main output is silent](../troubleshooting/silent-main.md).
 `,ge=`# The console menus
 
-Six menus sit across the top of the header: **Setup**, **Patch**, **Scenes**, **Meters**,
-**Layouts** and **Help**. Everything the desk can show is behind one of them, and this page is the
+Five menus sit across the top of the header: **Setup**, **Patch**, **Meters**, **Layouts** and
+**Help**. Everything the desk can show is behind one of them, and this page is the
 list — one line per item, with a link to the page that explains it properly.
 
 ![The console menus, with Setup open](images/menus-1.png)
 *The header menus: one is open at a time, a click on an item runs it and closes the menu.*
 
-One menu is open at a time. Clicking an item does the thing and closes the menu; a click
-anywhere else, or the \`Esc\` key, closes it without doing anything.
+One menu is open at a time: opening another closes the first. Clicking an item does the thing and
+closes the menu; a click anywhere else, or the \`Esc\` key, closes it without doing anything. The
+menus are built from the console's own list of what it can show, so a panel that exists is in its
+menu.
 
 The items land in one of two places, and it is worth knowing which:
 
@@ -4987,24 +5166,39 @@ The items land in one of two places, and it is worth knowing which:
 
 ## Setup
 
-Fourteen panels, all of them in the config zone.
+Sixteen panels in three groups, all of them in the config zone: **Session**, **Console
+defaults** and **Rig**.
+
+**Session** is the show you are running.
+
+| Item | What it is |
+|---|---|
+| **Set up a show** | The guided assistant that takes a bare console to a patched, named show. See [the Setup panels](setup.md#show-setup-assistant). |
+| **Sessions** | The saved consoles on this server. See [scenes and sessions](scenes-sessions.md#sessions). |
+| **Scenes** | Store and recall named mix snapshots, with recall-safe. A show that recalls scenes can dock the Scenes panel (Layouts, then Add panel) to keep recall one tap away. See [scenes and sessions](scenes-sessions.md#scenes). |
+
+**Console defaults** are what a fresh strip or a fresh session starts from.
+
+| Item | What it is |
+|---|---|
+| **Come-up gain** | What a fresh strip starts at. See [the channel strip](channel-strip.md#gain-staging). |
+| **Gestures** | Encoder double-tap and long-press timing. See [the Setup panels](setup.md#gestures). |
+| **Interface takeover** | Whether the console holds the audio interface exclusively. See [the Setup panels](setup.md#interface-takeover). |
+| **Preferences** | Theme, accent, finish and language. See [console profiles and the look](look.md). |
+
+**Rig** is the hardware and the network the console runs on.
 
 | Item | What it is |
 |---|---|
 | **Allocation** | How many channels and buses this console has. See [the Setup panels](setup.md#allocation). |
 | **Adapters** | The I/O endpoints and control surfaces the console talks to. See [the Setup panels](setup.md#adapters). |
-| **MIDI Controllers** | The control surfaces that are configured, whether each is present, and the autodetect button. See [the Setup panels](setup.md#control-surfaces). |
-| **Gestures** | Encoder double-tap and long-press timing. See [the Setup panels](setup.md#gestures). |
-| **Interface takeover** | Whether the console holds the audio interface exclusively. See [the Setup panels](setup.md#interface-takeover). |
-| **Come-up gain** | What a fresh strip starts at. See [the channel strip](channel-strip.md). |
 | **Discovery** | Network audio devices found on the wire. See [the Setup panels](setup.md#discovery). |
 | **Stageboxes** | The boxes this console knows. See [the Setup panels](setup.md#stageboxes). |
-| **Clock** | The graph clock and the REAC wire clock. See [the clock](reac-clock.md). |
 | **RME TotalMix** | The internal routing of an RME interface, owned by the console. See [the Setup panels](setup.md#rme-totalmix). |
-| **Network** | The address and port the server is answering on. See [the Setup panels](setup.md#network). |
 | **Plugin analysis** | Plugin cost measured on this machine against the figures the catalog ships. See [the Setup panels](setup.md#plugin-analysis). |
-| **Sessions** | The saved consoles on this server. See [scenes and sessions](scenes-sessions.md). |
-| **Preferences** | Theme, accent, finish and language. See [console profiles and the look](look.md). |
+| **MIDI Controllers** | The control surfaces that are configured, whether each is present, and the autodetect button. See [the Setup panels](setup.md#control-surfaces). |
+| **Clock** | The graph clock and the REAC wire clock. See [the clock](reac-clock.md). |
+| **Network** | The address and port the server is answering on. See [the Setup panels](setup.md#network). |
 
 ## Patch
 
@@ -5016,12 +5210,6 @@ Four work-zone panels.
 | **Matrix** | The crosspoint matrix. See [the matrix and outputs](matrix-outputs.md). |
 | **Graph** | The same routing as a node canvas. See [the patchbay and the graph](patchbay.md#the-graph). |
 | **Source layer** | Named inputs with their head-amp and direct paths. See [the patchbay and the graph](patchbay.md#the-source-layer). |
-
-## Scenes
-
-| Item | What it is |
-|---|---|
-| **Scenes** | Store and recall named mix snapshots, with recall-safe. See [scenes and sessions](scenes-sessions.md). |
 
 ## Meters
 
@@ -5060,6 +5248,7 @@ which is exactly when you are most likely to want it.
 | **Plugin catalog** | [The plugin catalog](plugin-catalog/index.md) — every plugin measured, by family. |
 | **Keyboard shortcuts** | [The keyboard reference](keyboard.md). |
 | **Frequently asked questions** | The FAQ on the project's public site. This one needs the internet; the rest do not. |
+| **Assistant** | The desk assistant, in a new browser tab, so this desk stays as you left it. |
 | **About** | What the console reports about itself: its build, its model, whether this surface is linked to it and whether the plugin host is up. |
 
 The first three open a **panel over the desk**, not a new page: the meters keep moving, the
@@ -5074,8 +5263,9 @@ browser made up would describe the wrong thing.
 **About** also carries a QR code for this console's own address, below the build — scan it from
 a phone or tablet to open the same console there. A device meeting this console for the first
 time lands on the [trust page](../install/trust-the-console.md) instead of the console itself,
-because it has not yet been told to trust the certificate the console issued itself; the code
-beside the QR names that page's address too.
+because it has not yet been told to trust the certificate the console issued itself — so About
+carries a second QR, for that page's address: scan it first on a new device, install the
+certificate, then scan the console's own QR.
 
 The menu also carries a one-line reminder of the faster way to get help — hold any control
 for half a second, or tap its ⓘ mark on a touchscreen. See
@@ -5158,8 +5348,8 @@ The **Meter bridge** chip shows the full metering picture with peak-hold and cli
 indication across the console.
 
 Beside the mains it carries an **EBU R128 loudness** meter: momentary, short-term and
-integrated LUFS with true-peak, against a −23 target. It is measured in the engine when a
-server is running, and estimated from the mains otherwise.
+integrated LUFS, the loudness range and the true peak, against your target (see
+[Loudness on MAIN](#loudness-on-main)).
 
 ## Meters on the strips
 
@@ -5169,6 +5359,21 @@ linked or stereo strip, each with peak-hold.
 The **state dot** at the top of the tile is the fast read across a whole wall: grey for
 silence, green for signal, red for clip, and a distinct colour when a feedback ring has
 been flagged on that channel.
+
+## Loudness on MAIN
+
+The meter bridge shows MAIN's loudness the way a broadcast meter does: momentary (M, the last 400 ms), short-term
+(S, the last 3 s), integrated (I, gated, since the last reset) and the loudness range (LRA), all measured by the
+EBU R 128 method on the signal that leaves the console, after the MAIN fader. Next to them are the true-peak
+hold in dBTP and the limiter's ceiling, also in dBTP.
+
+- **Target.** Pick -14, -16 or -23 LUFS, or nudge it in half-LU steps. The bars and the integrated value are
+  coloured against it (within one LU is on target). The target belongs to the show.
+- **Reset.** Restarts the integrated value, the range and the true-peak hold. Start it when the programme starts.
+- **True-peak over.** A true peak above 0 dBTP, which a sample-peak meter can miss because it happens between
+  samples, latches the over badge and counts it. It stays lit until you press Clear.
+- **Only while you look.** The console measures loudness only while the bridge is on screen or a take is
+  recording MAIN. With nobody looking, the readings show dashes and an over cannot be caught.
 
 ## Latency
 
@@ -5410,6 +5615,19 @@ What it cannot do is route to ports that do not exist. A device presenting a dif
 of ports under a different profile is the classic cause of a silent output; see
 [the main output is silent](../troubleshooting/silent-main.md).
 
+## Remembered routes to absent devices
+
+A link you make by hand straight into a console port, with qpwgraph or \`pw-link\`, is
+remembered: when the device behind it goes away and comes back, the console puts the link
+back. A device that never comes back leaves that memory behind.
+
+Once a device has been away for 14 days, the patchbay lists its remembered routes under
+**Remembered routes to absent devices**, with the day it was last seen. **Forget** removes the
+memory of one route; like every removal on the desk it asks first unless confirmations are
+switched off in Setup. The console never forgets a route on its own, and forgetting changes no
+link that exists now. The number of days is a console setting, \`absentDays\` on
+\`/patchbay/externalHorizon\` (1 to 365).
+
 ## Exclusive control
 
 The console can take exclusive control of the device outputs, severing every non-mixer
@@ -5428,7 +5646,7 @@ that is only ever a mixer — see
 The same graph engine runs as a standalone tool, \`openmixer-patchbay\`: a small server that
 exposes the machine's live PipeWire routing with no mixer attached. It is useful as a
 plain patchbay in its own right.
-`,ye=`# Analysis and metering
+`,be=`# Analysis and metering
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
 
@@ -5478,10 +5696,8 @@ name or description — our reading, not the plugin's claim.
 | Calf Analyzer | lv2-calf-plugins | conditional — wants MIDI in, which an insert never carries | 0 ms | zero | 0.08 % | ok / ok / ok / ok | yes |  |
 | Bit Meter | lv2-x42-plugins | unknown — stability never measured | — | unknown | — | — / — / — / — | no |  |
 | EBU R128 Meter | lv2-x42-plugins | unknown — stability never measured | — | unknown | — | — / — / — / — | no |  |
-| Frequency tracker | lv2-swh-plugins | unknown — not soaked at every rate | — | unknown | 0.03 % | blast / blast / blast / blast | no |  |
 | GxTuner | lv2-guitarix-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.38 % | ok / ok / ok / ok | no |  |
 | Hilbert transformer | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 1.031 ms | low | 0.26 % | ok / ok / ok / ok | no |  |
-| LSP Latency Meter | lsp-plugins-lv2 | unknown — not soaked at every rate | — | unknown | 0.03 % | ok / ok / ok / dies | no |  |
 | LSP Spectrum Analyzer x1 | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.18 % | ok / ok / ok / ok | no |  |
 | LSP Spectrum Analyzer x12 | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.50 % | ok / ok / ok / ok | no |  |
 | LSP Spectrum Analyzer x16 | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.61 % | ok / ok / ok / ok | no |  |
@@ -5495,12 +5711,14 @@ name or description — our reading, not the plugin's claim.
 | Surround Level 4 | lv2-x42-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.17 % | ok / ok / ok / ok | no |  |
 | Surround Level 5 | lv2-x42-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.18 % | ok / ok / ok / ok | no |  |
 | Surround Level 8 | lv2-x42-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.23 % | ok / ok / ok / ok | no |  |
+| Frequency tracker | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | — | unknown | 0.03 % | blast / blast / blast / blast | no |  |
+| LSP Latency Meter | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | — | unknown | 0.03 % | ok / ok / ok / dies | no |  |
 | LSP Phase Detector | lsp-plugins-lv2 | unsuitable — costs more of a core than one insert may | 0 ms | zero | 1.65 % | ok / ok / ok / ok | yes |  |
 | LUFS Meter | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.11 % | ok / ok / ok / ok | no |  |
 | LUFS Meter (Multichannel) | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 1.07 % | ok / ok / ok / ok | no |  |
 | Peak meter | lv2-ll-plugins | unsuitable — has no audio output, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
 | Peak meter (Stereo) | lv2-ll-plugins | unsuitable — has no audio output, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
-`,be=`# Delay
+`,ye=`# Delay
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
 
@@ -5544,10 +5762,6 @@ name or description — our reading, not the plugin's claim.
 | ZamGrains | lv2-zam-plugins | suitable | 0 ms | zero | 0.12 % | ok / ok / ok / ok | yes |  |
 | Allpass delay line, linear interpolation | lv2-swh-plugins | unknown — latency never measured | — | unknown | 0.06 % | ok / ok / ok / ok | yes |  |
 | C* Scape - Stereo delay + Filters | caps-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.12 % | ok / ok / ok / ok | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
-| Calf Compensation Delay Line | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.12 % | ok / ok / ok / blast | no |  |
-| Calf Reverse Delay | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.13 % | ok / ok / dies / dies | no |  |
-| Calf Vintage Delay | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.16 % | ok / ok / ok / blast | no |  |
-| Delayorama | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.06 % | dies / dies / dies / dies | no |  |
 | Fractionally Addressed Delay Line | lv2-swh-plugins | unknown — latency never measured | — | unknown | 0.26 % | ok / ok / ok / ok | yes |  |
 | GxEchoCat | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 2.00 % | dies / ok / ok / ok | no |  |
 | GxTubeDelay | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.61 % | dies / ok / ok / ok | no |  |
@@ -5559,9 +5773,13 @@ name or description — our reading, not the plugin's claim.
 | Reverse Delay (5s max) | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.08 % | dies / ok / ok / ok | no |  |
 | StereoCrossDelay | lv2-stereocrossdelay | unknown — not soaked at every rate | 0 ms | zero | 0.28 % | dies / dies / ok / ok | no | Stereo cross-feed echo (L/R delay with ratio, feedback, cross-mix, loop LP/HP). |
 | Tape Delay Simulation | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | — | unknown | 0.07 % | dies / dies / dies / dies | no |  |
-| ZamDelay | lv2-zam-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.10 % | ok / ok / ok / dies | no |  |
+| Calf Compensation Delay Line | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.12 % | ok / ok / ok / blast | no |  |
+| Calf Reverse Delay | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.13 % | ok / ok / dies / dies | no |  |
+| Calf Vintage Delay | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.16 % | ok / ok / ok / blast | no |  |
+| Delayorama | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.06 % | dies / dies / dies / dies | no |  |
 | PitchedDelay | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.08 % | ok / ok / ok / ok | no |  |
 | Tal-Dub-3 | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.43 % | ok / ok / ok / ok | no |  |
+| ZamDelay | lv2-zam-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.10 % | ok / ok / ok / dies | no |  |
 `,ve=`# Dynamics
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
@@ -5638,21 +5856,15 @@ name or description — our reading, not the plugin's claim.
 | LSP Loudness Compensator Mono | lsp-plugins-lv2 | conditional — cost spikes far above its own median | 42.667 ms | high | 0.34 % | ok / ok / ok / ok | yes |  |
 | LSP Loudness Compensator Stereo | lsp-plugins-lv2 | conditional — its latency changes with its own controls | 42.667 ms | high | 0.42 % | ok / ok / ok / ok | yes |  |
 | Lookahead limiter | lv2-swh-plugins | conditional — its latency changes with its own controls | 1000.500 ms | high | 0.07 % | ok / ok / ok / ok | yes |  |
-| ADClip7 | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.74 % | ok / ok / ok / dies | no | Extra — loudness clipper, superseded by ADClip8 and three times its cost. |
 | ADClip8 | lv2-airwindows | unknown — not soaked at every rate | 0.010 ms | low | 0.21 % | ok / ok / dies / ok | no | Extra — loudness clipper with a one-frame delay. |
 | BitShiftGain | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.03 % | dies / ok / ok / ok | no | Extra — exact 6 dB-step gain utility, proven bit-exact. |
 | BitShiftPan | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.03 % | dies / ok / ok / ok | no | Extra — bit-shift pan/gain utility. |
 | CS10QM-SC | lv2-eq10q | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.15 % | ok / ok / ok / ok | no |  |
 | CS10QS-SC | lv2-eq10q | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.17 % | ok / ok / ok / ok | no |  |
-| Calf Gate | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.11 % | ok / ok / blast / blast | no |  |
-| Calf Multiband Compressor | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 2.15 % | ok / ok / blast / blast | no |  |
-| Calf Multiband Gate | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 2.01 % | blast / blast / blast / blast | no |  |
 | Calf Sidechain Compressor | lv2-calf-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.24 % | ok / ok / ok / ok | no |  |
 | Calf Sidechain Gate | lv2-calf-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.13 % | ok / ok / ok / ok | no |  |
-| Calf Transient Designer | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.34 % | ok / ok / blast / blast | no |  |
 | EveryTrim | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.18 % | dies / ok / ok / ok | no | Extra — per-leg/M/S trim utility, proven exact (+6.000 dB on L, R untouched). |
 | Gate | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.07 % | ok / ok / dies / ok | no |  |
-| GxExpander | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.11 % | ok / ok / ok / dies | no |  |
 | GxRedeye Big Chump | lv2-guitarix-plugins | unknown — stability never measured | 0.073 ms | low | 0.94 % | — / — / — / — | no |  |
 | GxRedeye Chump | lv2-guitarix-plugins | unknown — stability never measured | 0.063 ms | low | 0.67 % | — / — / — / — | no |  |
 | GxRedeye Vibro Chump | lv2-guitarix-plugins | unknown — stability never measured | 0.177 ms | low | 1.29 % | — / — / — / — | no |  |
@@ -5732,12 +5944,18 @@ name or description — our reading, not the plugin's claim.
 | ZamGate | lv2-zam-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.39 % | ok / ok / ok / ok | no |  |
 | ZamGateX2 | lv2-zam-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.61 % | ok / ok / ok / ok | no |  |
 | dRowAudio Tremolo | DISTRHO-Ports | unknown — not yet racked and unracked a thousand times | 0 ms | zero | — | ok / ok / ok / ok | no |  |
+| ADClip7 | lv2-airwindows | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.74 % | ok / ok / ok / dies | no | Extra — loudness clipper, superseded by ADClip8 and three times its cost. |
+| Calf Gate | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.11 % | ok / ok / blast / blast | no |  |
 | Calf Limiter | lv2-calf-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 4.990 ms | low | 0.26 % | ok / ok / ok / ok | no |  |
+| Calf Multiband Compressor | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 2.15 % | ok / ok / blast / blast | no |  |
+| Calf Multiband Gate | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 2.01 % | blast / blast / blast / blast | no |  |
 | Calf Multiband Limiter | lv2-calf-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 7.979 ms | low | 2.71 % | ok / ok / ok / ok | no |  |
 | Calf Sidechain Limiter | lv2-calf-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 7.979 ms | low | 2.91 % | ok / ok / ok / ok | no |  |
+| Calf Transient Designer | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.34 % | ok / ok / blast / blast | no |  |
+| GxExpander | lv2-guitarix-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.11 % | ok / ok / ok / dies | no |  |
 | LSP Autogain Stereo | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.57 % | ok / ok / ok / ok | no |  |
-| LSP Beat Breather Mono | lsp-plugins-lv2 | unsuitable — costs more of a core than one insert may | 278.604 ms | high | 2.23 % | ok / ok / ok / dies | no |  |
-| LSP Beat Breather Stereo | lsp-plugins-lv2 | unsuitable — costs more of a core than one insert may | 278.604 ms | high | 2.86 % | ok / ok / dies / dies | no |  |
+| LSP Beat Breather Mono | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | 278.604 ms | high | 2.23 % | ok / ok / ok / dies | no |  |
+| LSP Beat Breather Stereo | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | 278.604 ms | high | 2.86 % | ok / ok / dies / dies | no |  |
 | LSP GOTT Compressor LeftRight | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 5.000 ms | low | 2.46 % | ok / ok / ok / ok | no |  |
 | LSP Multiband Clipper Mono | lsp-plugins-lv2 | unsuitable — costs more of a core than one insert may | 122.760 ms | high | 1.86 % | ok / ok / ok / ok | yes |  |
 | LSP Multiband Clipper Stereo | lsp-plugins-lv2 | unsuitable — costs more of a core than one insert may | 122.760 ms | high | 2.62 % | ok / ok / ok / ok | yes |  |
@@ -5767,7 +5985,7 @@ name or description — our reading, not the plugin's claim.
 | LSP Trigger MIDI Mono | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.07 % | ok / ok / ok / ok | yes |  |
 | LSP Trigger MIDI Stereo | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.08 % | ok / ok / ok / ok | yes |  |
 | Roth-AIR | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | — | unknown | — | dies / dies / dies / dies | no |  |
-| ZaMaximX2 | lv2-zam-plugins | unsuitable — costs more of a core than one insert may | 5.000 ms | low | 8.72 % | ok / ok / dies / dies | no |  |
+| ZaMaximX2 | lv2-zam-plugins | unsuitable — its soak failed at the console's own rate | 5.000 ms | low | 8.72 % | ok / ok / dies / dies | no |  |
 `,xe=`# Equalisers
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
@@ -5813,11 +6031,7 @@ name or description — our reading, not the plugin's claim.
 | LSP Filter Stereo | lsp-plugins-lv2 | conditional — cost spikes far above its own median | 0 ms | zero | 0.43 % | ok / ok / ok / ok | yes |  |
 | C* Eq10 - 10-band equalizer | caps-lv2 | unknown — not soaked at every rate | 0 ms | zero | 0.08 % | dies / ok / ok / ok | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
 | C* Eq10X2 - 10-band equalizer | caps-lv2 | unknown — not soaked at every rate | 0 ms | zero | 0.14 % | dies / ok / ok / ok | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
-| Calf Equalizer 12 Band | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.22 % | ok / ok / blast / dies | no |  |
-| Calf Equalizer 5 Band | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.13 % | ok / ok / blast / dies | no |  |
-| Calf Equalizer 8 Band | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.15 % | ok / ok / blast / dies | no |  |
 | EQ | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.19 % | dies / ok / ok / ok | no | Extra — three-band EQ with dB ranges; works but +12 dB treble drives a -6 dBFS sine to 6.8 % THD. |
-| GxMuff | lv2-guitarix-plugins | unknown — not soaked at every rate | — | unknown | 0.25 % | ok / ok / ok / dies | no |  |
 | LSP Graphic Equalizer x16 LeftRight | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 1.79 % | ok / ok / ok / ok | no |  |
 | LSP Graphic Equalizer x16 MidSide | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 1.78 % | ok / ok / ok / ok | no |  |
 | LSP Graphic Equalizer x16 Mono | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 1.07 % | ok / ok / ok / ok | no |  |
@@ -5832,12 +6046,13 @@ name or description — our reading, not the plugin's claim.
 | LSP Sidechain Matcher Mono | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 42.667 ms | high | 0.50 % | ok / ok / ok / ok | no |  |
 | LSP Sidechain Matcher Stereo | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 42.667 ms | high | 0.89 % | ok / ok / ok / ok | no |  |
 | MDA MultiBand | lv2-mdala-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.06 % | dies / dies / ok / ok | no |  |
-| Triple band parametric with shelves | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.09 % | ok / ok / ok / dies | no |  |
 | ZamDynamicEQ | lv2-zam-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.49 % | ok / ok / ok / ok | no |  |
-| ZamEQ2 | lv2-zam-plugins | unknown — not soaked at every rate | — | unknown | — | dies / dies / dies / dies | no |  |
-| ZamGEQ31 | lv2-zam-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.10 % | ok / ok / dies / dies | no |  |
-| Calf Equalizer 30 Band | lv2-calf-plugins | unsuitable — costs more of a core than one insert may | 0 ms | zero | 3.40 % | ok / ok / blast / blast | no |  |
+| Calf Equalizer 12 Band | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.22 % | ok / ok / blast / dies | no |  |
+| Calf Equalizer 30 Band | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 3.40 % | ok / ok / blast / blast | no |  |
+| Calf Equalizer 5 Band | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.13 % | ok / ok / blast / dies | no |  |
+| Calf Equalizer 8 Band | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.15 % | ok / ok / blast / dies | no |  |
 | EQinox | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.79 % | ok / ok / ok / ok | no |  |
+| GxMuff | lv2-guitarix-plugins | unsuitable — its soak failed at the console's own rate | — | unknown | 0.25 % | ok / ok / ok / dies | no |  |
 | LSP Graphic Equalizer x32 LeftRight | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 3.28 % | ok / ok / ok / ok | no |  |
 | LSP Graphic Equalizer x32 MidSide | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 3.26 % | ok / ok / ok / ok | no |  |
 | LSP Graphic Equalizer x32 Stereo | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 3.34 % | ok / ok / ok / ok | no |  |
@@ -5851,6 +6066,9 @@ name or description — our reading, not the plugin's claim.
 | LSP Parametric Equalizer x8 Stereo | lsp-plugins-lv2 | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.46 % | ok / ok / ok / ok | no |  |
 | Luftikus | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.28 % | ok / ok / ok / ok | no |  |
 | Multiband EQ | lv2-swh-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 3.927 ms | low | 0.15 % | ok / ok / ok / ok | no |  |
+| Triple band parametric with shelves | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.09 % | ok / ok / ok / dies | no |  |
+| ZamEQ2 | lv2-zam-plugins | unsuitable — its soak failed at the console's own rate | — | unknown | — | dies / dies / dies / dies | no |  |
+| ZamGEQ31 | lv2-zam-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.10 % | ok / ok / dies / dies | no |  |
 `,Te=`# Filters
 
 Governed by: \`docs/design/specs/2026-07-15-plugin-catalog-tiered-packaging.md\`
@@ -5892,10 +6110,7 @@ name or description — our reading, not the plugin's claim.
 | XLowpass | lv2-airwindows | suitable | 0 ms | zero | 0.28 % | ok / ok / ok / ok | yes | Extra — distorted lowpass, -13.2 dB at defaults. |
 | XRegion | lv2-airwindows | suitable | 0 ms | zero | 0.35 % | ok / ok / ok / ok | yes | Extra — distorted region filter, -13.1 dB at defaults. |
 | 4 x 4 pole allpass | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.11 % | dies / dies / blast / ok | no |  |
-| Calf Emphasis | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.28 % | ok / ok / ok / blast | no |  |
 | Calf Envelope Filter | lv2-calf-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.71 % | ok / ok / ok / ok | no |  |
-| Calf Filter | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.16 % | ok / ok / blast / blast | no |  |
-| Calf Filterclavier | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.16 % | ok / ok / ok / blast | no |  |
 | Comb Splitter | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.05 % | ok / ok / ok / ok | no |  |
 | GLAME Butterworth Highpass | lv2-swh-plugins | unknown — stability never measured | 0 ms | zero | 0.06 % | — / — / — / — | no |  |
 | GLAME Butterworth Lowpass | lv2-swh-plugins | unknown — stability never measured | 0 ms | zero | 0.06 % | — / — / — / — | no | GLAME Butterworth Lowpass — measured ~98.81 ms round-trip. |
@@ -5905,14 +6120,17 @@ name or description — our reading, not the plugin's claim.
 | Glame Highpass Filter | lv2-swh-plugins | unknown — stability never measured | 0 ms | zero | 0.07 % | — / — / — / — | no |  |
 | Glame Lowpass Filter | lv2-swh-plugins | unknown — stability never measured | 0 ms | zero | 0.07 % | — / — / — / — | no |  |
 | Hermes Filter | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.28 % | dies / dies / dies / ok | no |  |
-| LS Filter | lv2-swh-plugins | unknown — not soaked at every rate | — | unknown | 0.10 % | ok / ok / dies / dies | no |  |
-| MDA RezFilter | lv2-mdala-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.10 % | dies / dies / dies / dies | no |  |
 | MDA TalkBox | lv2-mdala-plugins | unknown — latency never measured | — | unknown | 0.28 % | ok / ok / ok / ok | yes |  |
 | SubsOnly | lv2-airwindows | unknown — reports a latency it does not keep | 3.906 ms | low | 0.64 % | ok / ok / ok / ok | yes | Not recommended — mix-check tool that passes only the subs (rejects 1 kHz by 41.7 dB), 3.7 ms of group delay with no latency port, and a 61x denormal cost blow-up in silence unless the host sets FTZ/DAZ (mod-host does). |
 | Bankstown | lv2-bankstown | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.21 % | ok / ok / ok / ok | no |  |
+| Calf Emphasis | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.28 % | ok / ok / ok / blast | no |  |
+| Calf Filter | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.16 % | ok / ok / blast / blast | no |  |
+| Calf Filterclavier | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.16 % | ok / ok / ok / blast | no |  |
 | Calf Vocoder | lv2-calf-plugins | unsuitable — costs more of a core than one insert may | — | unknown | 2.86 % | ok / ok / ok / ok | no |  |
-| Gx Tape Stereo | lv2-guitarix-plugins | unsuitable — costs more of a core than one insert may | 0.010 ms | low | 5.65 % | ok / ok / ok / dies | no |  |
+| Gx Tape Stereo | lv2-guitarix-plugins | unsuitable — its soak failed at the console's own rate | 0.010 ms | low | 5.65 % | ok / ok / ok / dies | no |  |
 | GxTape | lv2-guitarix-plugins | unsuitable — costs more of a core than one insert may | 0.010 ms | low | 2.88 % | ok / ok / ok / ok | yes |  |
+| LS Filter | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | — | unknown | 0.10 % | ok / ok / dies / dies | no |  |
+| MDA RezFilter | lv2-mdala-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.10 % | dies / dies / dies / dies | no |  |
 | Tal-Filter | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | — | unknown | — | ok / ok / ok / ok | no |  |
 | Tal-Filter-2 | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0.031 ms | low | 1.32 % | ok / ok / ok / ok | no |  |
 `,Se=`# The plugin catalog
@@ -6597,18 +6815,18 @@ the console's own audio thread. Figures are at 96 kHz; the columns are explained
 | Vibrato | lv2-airwindows | suitable | 0 ms | zero | 0.40 % | ok / ok / ok / ok | yes | Extra — proven vibrato (±3.5 % / ±60 cents at depth 0.5, none at the default depth 0). |
 | LSP Flanger Mono | lsp-plugins-lv2 | conditional — its latency changes with its own controls | 0 ms | zero | 0.16 % | ok / ok / ok / ok | yes |  |
 | LSP Flanger Stereo | lsp-plugins-lv2 | conditional — its latency changes with its own controls | 0 ms | zero | 0.29 % | ok / ok / ok / ok | yes |  |
-| C* ChorusI - Mono chorus/flanger | caps-lv2 | unknown — not soaked at every rate | 0 ms | zero | 0.07 % | dies / dies / dies / dies | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
-| Calf Flanger | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.13 % | ok / ok / ok / blast | no |  |
-| Calf Multi Chorus | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.29 % | ok / ok / ok / blast | no |  |
-| Calf Phaser | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.32 % | ok / ok / ok / blast | no |  |
-| Calf Pulsator | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.35 % | ok / ok / blast / blast | no |  |
-| Calf Ring Modulator | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.47 % | ok / ok / blast / blast | no |  |
-| Flanger | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.11 % | dies / dies / dies / dies | no |  |
 | GxTubeTremelo | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.71 % | dies / ok / ok / ok | no |  |
-| LSP Chorus Mono | lsp-plugins-lv2 | unknown — not soaked at every rate | 0 ms | zero | 0.43 % | ok / ok / ok / dies | no |  |
-| LSP Chorus Stereo | lsp-plugins-lv2 | unknown — not soaked at every rate | 0 ms | zero | 0.86 % | ok / ok / dies / dies | no |  |
-| Multivoice Chorus | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.06 % | dies / dies / dies / dies | no |  |
 | Ringmod with two inputs | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.02 % | ok / ok / ok / ok | no |  |
+| C* ChorusI - Mono chorus/flanger | caps-lv2 | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.07 % | dies / dies / dies / dies | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
+| Calf Flanger | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.13 % | ok / ok / ok / blast | no |  |
+| Calf Multi Chorus | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.29 % | ok / ok / ok / blast | no |  |
+| Calf Phaser | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.32 % | ok / ok / ok / blast | no |  |
+| Calf Pulsator | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.35 % | ok / ok / blast / blast | no |  |
+| Calf Ring Modulator | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.47 % | ok / ok / blast / blast | no |  |
+| Flanger | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.11 % | dies / dies / dies / dies | no |  |
+| LSP Chorus Mono | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.43 % | ok / ok / ok / dies | no |  |
+| LSP Chorus Stereo | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.86 % | ok / ok / dies / dies | no |  |
+| Multivoice Chorus | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.06 % | dies / dies / dies / dies | no |  |
 | Tal-Vocoder-II | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | — | unknown | 0.90 % | ok / ok / ok / ok | no |  |
 | The Pilgrim | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.24 % | ok / ok / ok / ok | no |  |
 | dRowAudio: Flanger | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.06 % | ok / ok / ok / ok | no |  |
@@ -6639,22 +6857,22 @@ name or description — our reading, not the plugin's claim.
 | x42-Autotune (scales) | lv2-x42-plugins | conditional — wants MIDI in, which an insert never carries | 21.323 ms | high | 0.18 % | ok / ok / ok / ok | yes |  |
 | Bode frequency shifter | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 0.708 ms | low | 0.31 % | ok / ok / ok / ok | no |  |
 | Bode frequency shifter (CV) | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 2.083 ms | low | 0.33 % | ok / ok / ok / ok | no |  |
-| Calf Bass Enhancer | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.34 % | ok / ok / ok / blast | no |  |
-| Calf Exciter | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.33 % | blast / blast / blast / blast | no |  |
 | Gxdetune | lv2-guitarix-plugins | unknown — stability never measured | 0 ms | zero | 1.55 % | — / — / — / — | no |  |
 | Noise repellent | lv2-noise-repellent | unknown — stability never measured | 0 ms | zero | 0.77 % | — / — / — / — | no |  |
 | Noise repellent Adaptive | lv2-noise-repellent | unknown — stability never measured | 0 ms | zero | 1.19 % | — / — / — / — | no |  |
 | Rate shifter | lv2-swh-plugins | unknown — latency never measured | — | unknown | 0.04 % | ok / ok / ok / ok | yes |  |
 | dm-GrainDelay | lv2-dm-graindelay | unknown — stability never measured | — | unknown | — | — / — / — / — | no | NOT RECOMMENDED — broken as installed. |
+| Calf Bass Enhancer | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.34 % | ok / ok / ok / blast | no |  |
+| Calf Exciter | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.33 % | blast / blast / blast / blast | no |  |
 | Higher Quality Pitch Scaler | lv2-swh-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 15.969 ms | high | 2.28 % | ok / ok / ok / ok | no |  |
 | Noise repellent | lv2-noise-repellent | unsuitable — costs more of a core than one insert may | 0 ms | zero | 1.51 % | — / — / — / — | no |  |
 | Noise repellent Adaptive | lv2-noise-repellent | unsuitable — costs more of a core than one insert may | 0 ms | zero | 2.30 % | — / — / — / — | no |  |
-| Rubber Band Live Mono Pitch Shifter | lv2-rubberband-plugins | unsuitable — costs more of a core than one insert may | 48.552 ms | high | 4.01 % | ok / ok / ok / dies | no |  |
-| Rubber Band Live Stereo Pitch Shifter | lv2-rubberband-plugins | unsuitable — costs more of a core than one insert may | 48.552 ms | high | 5.16 % | ok / ok / dies / dies | no |  |
-| Rubber Band Mono Pitch Shifter | lv2-rubberband-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 84.979 ms | high | 2.86 % | ok / ok / ok / dies | no |  |
-| Rubber Band R3 Mono Pitch Shifter | lv2-rubberband-plugins | unsuitable — costs more of a core than one insert may | 65.625 ms | high | 7.51 % | ok / ok / dies / dies | no |  |
-| Rubber Band R3 Stereo Pitch Shifter | lv2-rubberband-plugins | unsuitable — costs more of a core than one insert may | 65.625 ms | high | 14.60 % | ok / ok / dies / dies | no |  |
-| Rubber Band Stereo Pitch Shifter | lv2-rubberband-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 84.979 ms | high | 5.48 % | ok / ok / dies / dies | no |  |
+| Rubber Band Live Mono Pitch Shifter | lv2-rubberband-plugins | unsuitable — its soak failed at the console's own rate | 48.552 ms | high | 4.01 % | ok / ok / ok / dies | no |  |
+| Rubber Band Live Stereo Pitch Shifter | lv2-rubberband-plugins | unsuitable — its soak failed at the console's own rate | 48.552 ms | high | 5.16 % | ok / ok / dies / dies | no |  |
+| Rubber Band Mono Pitch Shifter | lv2-rubberband-plugins | unsuitable — its soak failed at the console's own rate | 84.979 ms | high | 2.86 % | ok / ok / ok / dies | no |  |
+| Rubber Band R3 Mono Pitch Shifter | lv2-rubberband-plugins | unsuitable — its soak failed at the console's own rate | 65.625 ms | high | 7.51 % | ok / ok / dies / dies | no |  |
+| Rubber Band R3 Stereo Pitch Shifter | lv2-rubberband-plugins | unsuitable — its soak failed at the console's own rate | 65.625 ms | high | 14.60 % | ok / ok / dies / dies | no |  |
+| Rubber Band Stereo Pitch Shifter | lv2-rubberband-plugins | unsuitable — its soak failed at the console's own rate | 84.979 ms | high | 5.48 % | ok / ok / dies / dies | no |  |
 | Vocoder | lv2-vocoder-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | — / — / — / — | no |  |
 `,Ee=`# What to reach for
 
@@ -6695,20 +6913,20 @@ the budget mid-show. Sorted by latency at 96 kHz.
 | C* PlateX2 - Stereo in/out Versatile plate reverb | caps-lv2 | Reverb | 0 ms | 0.28 % | suitable | no |
 | Calf Compressor | lv2-calf-plugins | Dynamics | 0 ms | 0.22 % | conditional — wants MIDI in, which an insert never carries | yes |
 | Calf Deesser | lv2-calf-plugins | Dynamics | 0 ms | 0.17 % | conditional — wants MIDI in, which an insert never carries | yes |
-| Calf Equalizer 8 Band | lv2-calf-plugins | Equalisers | 0 ms | 0.15 % | unknown — not soaked at every rate | yes |
-| Calf Exciter | lv2-calf-plugins | Pitch and spectral | 0 ms | 0.33 % | unknown — not soaked at every rate | yes |
-| Calf Filter | lv2-calf-plugins | Filters | 0 ms | 0.16 % | unknown — not soaked at every rate | yes |
-| Calf Flanger | lv2-calf-plugins | Modulation | 0 ms | 0.13 % | unknown — not soaked at every rate | yes |
-| Calf Gate | lv2-calf-plugins | Dynamics | 0 ms | 0.11 % | unknown — not soaked at every rate | yes |
+| Calf Equalizer 8 Band | lv2-calf-plugins | Equalisers | 0 ms | 0.15 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Exciter | lv2-calf-plugins | Pitch and spectral | 0 ms | 0.33 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Filter | lv2-calf-plugins | Filters | 0 ms | 0.16 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Flanger | lv2-calf-plugins | Modulation | 0 ms | 0.13 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Gate | lv2-calf-plugins | Dynamics | 0 ms | 0.11 % | unsuitable — its soak failed at the console's own rate | yes |
 | Calf Mono Compressor | lv2-calf-plugins | Dynamics | 0 ms | 0.26 % | conditional — wants MIDI in, which an insert never carries | yes |
-| Calf Multi Chorus | lv2-calf-plugins | Modulation | 0 ms | 0.29 % | unknown — not soaked at every rate | yes |
-| Calf Multiband Compressor | lv2-calf-plugins | Dynamics | 0 ms | 2.15 % | unknown — not soaked at every rate | yes |
-| Calf Phaser | lv2-calf-plugins | Modulation | 0 ms | 0.32 % | unknown — not soaked at every rate | yes |
-| Calf Reverb | lv2-calf-plugins | Reverb | 0 ms | 0.35 % | unknown — not soaked at every rate | yes |
+| Calf Multi Chorus | lv2-calf-plugins | Modulation | 0 ms | 0.29 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Multiband Compressor | lv2-calf-plugins | Dynamics | 0 ms | 2.15 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Phaser | lv2-calf-plugins | Modulation | 0 ms | 0.32 % | unsuitable — its soak failed at the console's own rate | yes |
+| Calf Reverb | lv2-calf-plugins | Reverb | 0 ms | 0.35 % | unsuitable — its soak failed at the console's own rate | yes |
 | Calf Rotary Speaker | lv2-calf-plugins | Saturation and amp simulation | 0 ms | 0.39 % | conditional — wants MIDI in, which an insert never carries | yes |
 | Calf Saturator | lv2-calf-plugins | Saturation and amp simulation | 0 ms | 0.25 % | conditional — wants MIDI in, which an insert never carries | yes |
 | Calf Tape Simulator | lv2-calf-plugins | Saturation and amp simulation | 0 ms | 1.68 % | conditional — wants MIDI in, which an insert never carries | yes |
-| Calf Vintage Delay | lv2-calf-plugins | Delay | 0 ms | 0.16 % | unknown — not soaked at every rate | yes |
+| Calf Vintage Delay | lv2-calf-plugins | Delay | 0 ms | 0.16 % | unsuitable — its soak failed at the console's own rate | yes |
 | Capacitor2 | lv2-airwindows | Filters | 0 ms | 0.26 % | suitable | no |
 | Chebyshev distortion | lv2-swh-plugins | Saturation and amp simulation | 0 ms | 0.19 % | unknown — not soaked at every rate | no |
 | Console7Buss | lv2-airwindows | Saturation and amp simulation (inferred from the name) | 0 ms | 0.40 % | suitable | no |
@@ -6716,11 +6934,11 @@ the budget mid-show. Sorted by latency at 96 kHz.
 | DJ EQ | lv2-swh-plugins | Equalisers | 0 ms | 0.08 % | suitable | no |
 | DJ flanger | lv2-swh-plugins | Modulation | 0 ms | 0.06 % | suitable | no |
 | DeBess | lv2-airwindows | Dynamics (inferred from the description) | 0 ms | 0.70 % | suitable | no |
-| Delayorama | lv2-swh-plugins | Delay | 0 ms | 0.06 % | unknown — not soaked at every rate | no |
+| Delayorama | lv2-swh-plugins | Delay | 0 ms | 0.06 % | unsuitable — its soak failed at the console's own rate | no |
 | Dragonfly Hall Reverb | lv2-dragonfly-reverb | Reverb | 0 ms | 1.57 % | unsuitable — allocates, locks or calls the system inside the audio callback | yes |
 | Dragonfly Plate Reverb | lv2-dragonfly-reverb | Reverb | 0 ms | 0.24 % | unsuitable — allocates, locks or calls the system inside the audio callback | yes |
 | Dragonfly Room Reverb | lv2-dragonfly-reverb | Reverb | 0 ms | 1.53 % | unsuitable — allocates, locks or calls the system inside the audio callback | yes |
-| Flanger | lv2-swh-plugins | Modulation | 0 ms | 0.11 % | unknown — not soaked at every rate | no |
+| Flanger | lv2-swh-plugins | Modulation | 0 ms | 0.11 % | unsuitable — its soak failed at the console's own rate | no |
 | GLAME Butterworth Highpass | lv2-swh-plugins | Filters | 0 ms | 0.06 % | unknown — stability never measured | yes |
 | GT10QM | lv2-eq10q | Dynamics | 0 ms | 0.09 % | suitable | yes |
 | GVerb | lv2-swh-plugins | Reverb | 0 ms | 0.27 % | unknown — not yet racked and unracked a thousand times | no |
@@ -6732,8 +6950,8 @@ the budget mid-show. Sorted by latency at 96 kHz.
 | Karaoke | lv2-swh-plugins | Filters | 0 ms | 0.03 % | suitable | no |
 | LFO Phaser | lv2-swh-plugins | Modulation | 0 ms | 0.11 % | suitable | no |
 | LSP Artistic Delay Stereo | lsp-plugins-lv2 | Delay | 0 ms | 0.08 % | suitable | yes |
-| LSP Chorus Mono | lsp-plugins-lv2 | Modulation | 0 ms | 0.43 % | unknown — not soaked at every rate | yes |
-| LSP Chorus Stereo | lsp-plugins-lv2 | Modulation | 0 ms | 0.86 % | unknown — not soaked at every rate | yes |
+| LSP Chorus Mono | lsp-plugins-lv2 | Modulation | 0 ms | 0.43 % | unsuitable — its soak failed at the console's own rate | yes |
+| LSP Chorus Stereo | lsp-plugins-lv2 | Modulation | 0 ms | 0.86 % | unsuitable — its soak failed at the console's own rate | yes |
 | LSP Compressor Mono | lsp-plugins-lv2 | Dynamics | 0 ms | 0.07 % | unknown — not yet racked and unracked a thousand times | yes |
 | LSP Compressor Stereo | lsp-plugins-lv2 | Dynamics | 0 ms | 0.12 % | unknown — not yet racked and unracked a thousand times | yes |
 | LSP Delay Compensator Mono | lsp-plugins-lv2 | Delay | 0 ms | 0.03 % | suitable | yes |
@@ -6755,7 +6973,7 @@ the budget mid-show. Sorted by latency at 96 kHz.
 | LSP Parametric Equalizer x16 Stereo | lsp-plugins-lv2 | Equalisers | 0 ms | 0.47 % | unsuitable — allocates, locks or calls the system inside the audio callback | yes |
 | LSP Sidechain Compressor Stereo | lsp-plugins-lv2 | Dynamics | 0 ms | 0.12 % | unknown — not yet racked and unracked a thousand times | yes |
 | MDA RoundPan | lv2-mdala-plugins | Spatial | 0 ms | 0.11 % | suitable | no |
-| Multivoice Chorus | lv2-swh-plugins | Modulation | 0 ms | 0.06 % | unknown — not soaked at every rate | no |
+| Multivoice Chorus | lv2-swh-plugins | Modulation | 0 ms | 0.06 % | unsuitable — its soak failed at the console's own rate | no |
 | Plate reverb | lv2-swh-plugins | Reverb | 0 ms | 0.29 % | unknown — not yet racked and unracked a thousand times | no |
 | PurestDrive | lv2-airwindows | Saturation and amp simulation | 0 ms | 0.26 % | suitable | yes |
 | Reverse Delay (5s max) | lv2-swh-plugins | Delay | 0 ms | 0.08 % | unknown — not soaked at every rate | no |
@@ -6765,8 +6983,8 @@ the budget mid-show. Sorted by latency at 96 kHz.
 | Valve saturation | lv2-swh-plugins | Saturation and amp simulation | 0 ms | 0.12 % | suitable | yes |
 | Verbity | lv2-airwindows | Reverb | 0 ms | 0.28 % | suitable | yes |
 | ZamCompX2 | lv2-zam-plugins | Dynamics | 0 ms | 0.13 % | unknown — not yet racked and unracked a thousand times | yes |
-| ZamDelay | lv2-zam-plugins | Delay | 0 ms | 0.10 % | unknown — not soaked at every rate | yes |
-| ZamGEQ31 | lv2-zam-plugins | Equalisers | 0 ms | 0.10 % | unknown — not soaked at every rate | yes |
+| ZamDelay | lv2-zam-plugins | Delay | 0 ms | 0.10 % | unsuitable — its soak failed at the console's own rate | yes |
+| ZamGEQ31 | lv2-zam-plugins | Equalisers | 0 ms | 0.10 % | unsuitable — its soak failed at the console's own rate | yes |
 | ZamGateX2 | lv2-zam-plugins | Dynamics | 0 ms | 0.61 % | unknown — not yet racked and unracked a thousand times | yes |
 | ZamVerb | lv2-zam-plugins | Reverb | 0 ms | 5.73 % | — | yes |
 | abGate | lv2-abGate | Dynamics | 0 ms | 0.02 % | suitable | yes |
@@ -6781,7 +6999,7 @@ the budget mid-show. Sorted by latency at 96 kHz.
 | C* Eq4p - 4-band parametric equaliser | caps-lv2 | Equalisers | 0.031 ms | 0.07 % | suitable | no |
 | C* EqFA4p - 4-band parametric shelving equalizer | caps-lv2 | Equalisers | 0.031 ms | 0.07 % | suitable | no |
 | Retro Flanger | lv2-swh-plugins | Modulation | 0.198 ms | 0.19 % | suitable | no |
-| ZamTube | lv2-zam-plugins | Saturation and amp simulation | 0.333 ms | 4.57 % | unsuitable — costs more of a core than one insert may | yes |
+| ZamTube | lv2-zam-plugins | Saturation and amp simulation | 0.333 ms | 4.57 % | unsuitable — its soak failed at the console's own rate | yes |
 | x42-dpl - Digital Peak Limiter Mono | lv2-x42-plugins | Dynamics | 1.333 ms | 0.06 % | suitable | yes |
 | x42-dpl - Digital Peak Limiter Stereo | lv2-x42-plugins | Dynamics | 1.333 ms | 0.08 % | suitable | yes |
 | Calf Limiter | lv2-calf-plugins | Dynamics | 4.990 ms | 0.26 % | unsuitable — allocates, locks or calls the system inside the audio callback | yes |
@@ -6802,10 +7020,10 @@ for a different job, the harmonic processor above being the clearest case.
 | Plugin | Package | Kind | Latency at 96 kHz | Cost at 96 kHz | Host | Offered by the console |
 |:---|:---|:---|---:|---:|:---|:---|
 | Multiband EQ | lv2-swh-plugins | Equalisers | 3.927 ms | 0.15 % | unsuitable — allocates, locks or calls the system inside the audio callback | no |
-| ZaMaximX2 | lv2-zam-plugins | Dynamics | 5.000 ms | 8.72 % | unsuitable — costs more of a core than one insert may | yes |
+| ZaMaximX2 | lv2-zam-plugins | Dynamics | 5.000 ms | 8.72 % | unsuitable — its soak failed at the console's own rate | yes |
 | LSP Multiband Limiter Stereo | lsp-plugins-lv2 | Dynamics | 10.000 ms | 1.44 % | unsuitable — allocates, locks or calls the system inside the audio callback | yes |
 | Tape Delay Simulation | lv2-swh-plugins | Delay | — | 0.07 % | unknown — not yet racked and unracked a thousand times | no |
-| ZamEQ2 | lv2-zam-plugins | Equalisers | — | — | unknown — not soaked at every rate | yes |
+| ZamEQ2 | lv2-zam-plugins | Equalisers | — | — | unsuitable — its soak failed at the console's own rate | yes |
 | x42 - Preset Convolver Stereo | lv2-x42-plugins | Reverb | — | 0.02 % | unknown — stability never measured | yes |
 
 ## What the console offers
@@ -7018,7 +7236,6 @@ name or description — our reading, not the plugin's claim.
 | Infinity | lv2-airwindows | conditional — its latency changes with its own controls | 15.906 ms | high | 0.48 % | ok / ok / ok / ok | yes | Studio, not recommended: an infinite-hold reverb by design (feedback infinite at defaults) — the tail does not decay and a sustained tone holds at -11..-16 dBFS. |
 | Infinity2 | lv2-airwindows | conditional — its latency changes with its own controls | 12.604 ms | high | 0.53 % | ok / ok / ok / ok | yes | Studio, not recommended: at defaults (feedback=1) it raises a sustained -6 dBFS sine to +3.9 dBFS peak within a second and holds there. |
 | C* Plate - Versatile plate reverb | caps-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.26 % | ok / ok / ok / ok | no | Verified at 192 kHz, 2026-09-05. |
-| Calf Reverb | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.35 % | ok / dies / dies / dies | no |  |
 | Classic Reverb RE-03 | lv2-classicreverb-re03 | unknown — not soaked at every rate | 0 ms | zero | 0.39 % | dies / ok / ok / ok | no | Classic Reverb RE-03 — reverse-engineered clone of Kjaerhus Classic Reverb (DPF, 2x2). |
 | GVerb | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.27 % | ok / ok / ok / ok | no |  |
 | Galactic | lv2-airwindows | unknown — reports a latency it does not keep | 94.375 ms | high | 0.40 % | ok / ok / ok / ok | yes | Studio, not recommended for the live desk: 100 %-wet by default with a 95.7 ms wet onset and a tail still -32 dB re peak at 2 s; the v34.0 build also lacks the 2026-08-24 right-channel dither fix. |
@@ -7035,6 +7252,7 @@ name or description — our reading, not the plugin's claim.
 | x42 - Preset Convolver Mono | lv2-x42-plugins | unknown — stability never measured | — | unknown | 0.02 % | — / — / — / — | no |  |
 | x42 - Preset Convolver Mono => Stereo | lv2-x42-plugins | unknown — stability never measured | — | unknown | 0.02 % | — / — / — / — | no |  |
 | x42 - Preset Convolver Stereo | lv2-x42-plugins | unknown — stability never measured | — | unknown | 0.02 % | — / — / — / — | no |  |
+| Calf Reverb | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.35 % | ok / dies / dies / dies | no |  |
 | CloudReverb | lv2-cloudreverb | unsuitable — costs more of a core than one insert may | 0 ms | zero | 3.06 % | — / — / — / — | no | Extra, not a default pick. |
 | Dragonfly Early Reflections | lv2-dragonfly-reverb | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.29 % | ok / ok / ok / ok | no | Dragonfly Early Reflections — an early-reflections-only processor, NOT a reverb with a tail: at 20 m the reflections span 8.6-162 ms and are gone by 200 ms (-114 dB), so it fails the generic reverb oracle by design, not by fault. |
 | Dragonfly Hall Reverb | lv2-dragonfly-reverb | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 1.57 % | ok / ok / ok / ok | no | Dragonfly Hall — the live-tier hall. |
@@ -7042,8 +7260,8 @@ name or description — our reading, not the plugin's claim.
 | Dragonfly Room Reverb | lv2-dragonfly-reverb | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 1.53 % | ok / ok / ok / ok | no | Dragonfly Room — a live-tier room/ambience reverb. |
 | HybridReverb2 | lv2-hybridreverb2 | unsuitable — allocates, locks or calls the system inside the audio callback | — | unknown | 0.02 % | ok / ok / ok / ok | no | Not recommended: functionally dead in a headless host. |
 | KlangFalter | DISTRHO-Ports | unsuitable — needs a host facility the audio thread will not become | 0 ms | zero | 0.06 % | ok / ok / ok / ok | no |  |
-| MatrixVerb | lv2-airwindows | unsuitable — costs more of a core than one insert may | 25.719 ms | high | 7.20 % | ok / ok / ok / dies | no | Studio, not recommended: 51.3 ms wet onset at 100 % wet with no latency port, a tail that does not decay within 2 s, and the family's second-dearest plugin (7.3 % of a core per instance at 96 k). |
-| Reverb | lv2-airwindows | unsuitable — costs more of a core than one insert may | 0 ms | zero | 6.09 % | ok / ok / ok / dies | no | Extra — the plain 'Reverb': a clean decaying tail, but 7.1 % of a core per instance at 96 k, the family's third-dearest plugin. |
+| MatrixVerb | lv2-airwindows | unsuitable — its soak failed at the console's own rate | 25.719 ms | high | 7.20 % | ok / ok / ok / dies | no | Studio, not recommended: 51.3 ms wet onset at 100 % wet with no latency port, a tail that does not decay within 2 s, and the family's second-dearest plugin (7.3 % of a core per instance at 96 k). |
+| Reverb | lv2-airwindows | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 6.09 % | ok / ok / ok / dies | no | Extra — the plain 'Reverb': a clean decaying tail, but 7.1 % of a core per instance at 96 k, the family's third-dearest plugin. |
 | Tal-Reverb | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 1.58 % | ok / ok / ok / ok | no |  |
 | Tal-Reverb-II | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | — | ok / ok / ok / ok | no |  |
 | Tal-Reverb-III | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.86 % | ok / ok / ok / ok | no |  |
@@ -7169,14 +7387,12 @@ name or description — our reading, not the plugin's claim.
 | BassDrive | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.71 % | dies / dies / ok / ok | no | Extra — bass drive/amp colour, +7.6 dB at defaults. |
 | C* AmpVTS - Tube amp + Tone stack | caps-lv2 | unknown — not yet racked and unracked a thousand times | 0.010 ms | low | 3.02 % | ok / ok / dies / ok | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
 | Cabs | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.68 % | dies / ok / ok / ok | no | Extra — guitar cabinet sim (HPStack default). |
-| Calf Crusher | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.38 % | ok / ok / blast / blast | no |  |
 | Chebyshev distortion | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.19 % | blast / blast / blast / ok | no |  |
 | Console0Buss | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.20 % | dies / ok / ok / ok | no | Extra — Console0 buss half; -7.4 dB at defaults. |
 | Console0Channel | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.20 % | dies / ok / ok / ok | no | Extra — Console0 channel half. |
 | Console7Cascade | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 1.20 % | dies / ok / ok / ok | no | Extra — the heavier Console7 channel variant; about 2.3 times Console7Channel's cost with a 1-frame delay at 192 k. |
 | Console7Crunch | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 1.20 % | dies / ok / ok / ok | no | Extra — Console7 channel with added crunch; same cost tier as Cascade. |
 | Decimator | lv2-swh-plugins | unknown — latency never measured | — | unknown | 0.03 % | ok / ok / ok / ok | yes |  |
-| Dirt | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.39 % | ok / ok / dies / dies | no | Extra — dirt/distortion; a 2-frame rate-dependent delay at 192 k the scan could not reconcile. |
 | Gx Alembic | lv2-guitarix-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.40 % | dies / dies / dies / ok | no |  |
 | Gx Studio Preamp Mono | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 1.14 % | dies / ok / ok / ok | no |  |
 | Gx Studio Preamp Stereo | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 2.40 % | dies / ok / ok / ok | no |  |
@@ -7191,15 +7407,17 @@ name or description — our reading, not the plugin's claim.
 | GxTiltTone | lv2-guitarix-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.71 % | dies / ok / ok / ok | no |  |
 | MDA Bandisto | lv2-mdala-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.08 % | dies / ok / ok / ok | no |  |
 | Smooth Decimator | lv2-swh-plugins | unknown — latency never measured | — | unknown | 0.04 % | ok / ok / ok / ok | yes |  |
-| VyNil (Vinyl Effect) | lv2-swh-plugins | unknown — not soaked at every rate | 0.010 ms | low | 0.16 % | dies / dies / ok / dies | no |  |
-| Wave shaper | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.08 % | dies / dies / dies / dies | no |  |
 | ZOutputStage | lv2-airwindows | unknown — not soaked at every rate | 0 ms | zero | 0.25 % | dies / ok / ok / ok | no | Extra — Z-series output-stage colour. |
-| Calf Psychoachoustic Clipper | lv2-calf-plugins | unsuitable — costs more of a core than one insert may | 5.333 ms | low | 3.07 % | blast / blast / blast / blast | no |  |
+| Calf Crusher | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.38 % | ok / ok / blast / blast | no |  |
+| Calf Psychoachoustic Clipper | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 5.333 ms | low | 3.07 % | blast / blast / blast / blast | no |  |
 | Calf Vinyl | lv2-calf-plugins | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.14 % | ok / ok / ok / ok | no |  |
-| PointyGuitar | lv2-airwindows | unsuitable — costs more of a core than one insert may | 0 ms | zero | 11.81 % | ok / ok / dies / dies | no | Not recommended — guitar amp sim and the family's CPU outlier: 11.9 % of a core per instance at 96 k (22.5 % at 192 k). |
+| Dirt | lv2-airwindows | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.39 % | ok / ok / dies / dies | no | Extra — dirt/distortion; a 2-frame rate-dependent delay at 192 k the scan could not reconcile. |
+| PointyGuitar | lv2-airwindows | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 11.81 % | ok / ok / dies / dies | no | Not recommended — guitar amp sim and the family's CPU outlier: 11.9 % of a core per instance at 96 k (22.5 % at 192 k). |
 | Swanky Amp | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 10.667 ms | high | 3.10 % | ok / ok / ok / ok | no |  |
 | Temper | DISTRHO-Ports | unsuitable — costs more of a core than one insert may | 0.021 ms | low | 3.29 % | ok / ok / ok / ok | no |  |
-| ZamTube | lv2-zam-plugins | unsuitable — costs more of a core than one insert may | 0.333 ms | low | 4.57 % | ok / ok / ok / dies | no |  |
+| VyNil (Vinyl Effect) | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0.010 ms | low | 0.16 % | dies / dies / ok / dies | no |  |
+| Wave shaper | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.08 % | dies / dies / dies / dies | no |  |
+| ZamTube | lv2-zam-plugins | unsuitable — its soak failed at the console's own rate | 0.333 ms | low | 4.57 % | ok / ok / ok / dies | no |  |
 | dRowAudio: Distortion | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.08 % | ok / ok / ok / ok | no |  |
 | dRowAudio: Distortion Shaper | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.09 % | ok / ok / ok / ok | no |  |
 `,Ie=`# Spatial
@@ -7221,10 +7439,10 @@ name or description — our reading, not the plugin's claim.
 | MDA Stereo | lv2-mdala-plugins | suitable | 0 ms | zero | 0.03 % | ok / ok / ok / ok | yes |  |
 | Stereo Balance Control | lv2-x42-plugins | suitable | 0 ms | zero | 0.07 % | ok / ok / ok / ok | yes |  |
 | C* Wider - Stereo image Synthesis | caps-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.06 % | ok / ok / ok / ok | no | Functional oracle verified at 48/96 kHz, not yet re-run at the rig's 192 kHz. |
-| Calf Haas Stereo Enhancer | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.14 % | ok / ok / blast / blast | no |  |
-| Calf Multi Spread | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.37 % | ok / ok / blast / blast | no |  |
-| Calf Multiband Enhancer | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 2.02 % | ok / ok / blast / blast | no |  |
-| Calf Stereo Tools | lv2-calf-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.21 % | blast / blast / blast / blast | no |  |
+| Calf Haas Stereo Enhancer | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.14 % | ok / ok / blast / blast | no |  |
+| Calf Multi Spread | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.37 % | ok / ok / blast / blast | no |  |
+| Calf Multiband Enhancer | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 2.02 % | ok / ok / blast / blast | no |  |
+| Calf Stereo Tools | lv2-calf-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.21 % | blast / blast / blast / blast | no |  |
 | Srsly2 | lv2-airwindows | unsuitable — costs more of a core than one insert may | 0 ms | zero | 5.34 % | ok / ok / ok / ok | yes | Not recommended — stereo widener (a decorrelator, the worst case on any mono destination) and dear: 5.2 % of a core per instance at 96 k. |
 | StereoSourceSeparation | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 42.677 ms | high | 0.16 % | ok / ok / ok / ok | no |  |
 | The Function | DISTRHO-Ports | unsuitable — allocates, locks or calls the system inside the audio callback | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
@@ -7295,7 +7513,6 @@ name or description — our reading, not the plugin's claim.
 | Carla-Patchbay (CV) | lv2-carla | unknown — stability never measured | — | unknown | 0.11 % | ok / ok / ok / ok | no |  |
 | Crossfade | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
 | Crossfade (4 outs) | lv2-swh-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
-| Exponential signal decay | lv2-swh-plugins | unknown — not soaked at every rate | 0 ms | zero | 0.03 % | ok / ok / blast / blast | no |  |
 | Function modf (A) | lv2-ll-plugins | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
 | LR2MS | lv2-eq10q | unknown — not soaked at every rate | 0 ms | zero | 0.05 % | dies / ok / ok / ok | no |  |
 | LSP A/B Tester x2 Mono | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
@@ -7319,8 +7536,6 @@ name or description — our reading, not the plugin's claim.
 | LSP Oscilloscope x2 | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 2.05 % | ok / ok / ok / ok | no |  |
 | LSP Profiler Mono | lsp-plugins-lv2 | unknown — latency never measured | — | unknown | 0.03 % | ok / ok / ok / ok | yes |  |
 | LSP Profiler Stereo | lsp-plugins-lv2 | unknown — latency never measured | — | unknown | 0.03 % | ok / ok / ok / ok | yes |  |
-| LSP Referencer Mono | lsp-plugins-lv2 | unknown — not soaked at every rate | 0 ms | zero | 0.86 % | ok / ok / ok / dies | no |  |
-| LSP Referencer Stereo | lsp-plugins-lv2 | unknown — not soaked at every rate | 0 ms | zero | 1.70 % | ok / ok / ok / dies | no |  |
 | LSP Return Mono | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
 | LSP Return Stereo | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
 | LSP Send Mono | lsp-plugins-lv2 | unknown — not yet racked and unracked a thousand times | 0 ms | zero | 0.03 % | ok / ok / ok / ok | no |  |
@@ -7362,6 +7577,7 @@ name or description — our reading, not the plugin's claim.
 | Control Port Exponential | lv2-x42-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
 | Control Port Logarithm | lv2-x42-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
 | Control2MIDI | lv2-ll-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | — / — / — / — | no |  |
+| Exponential signal decay | lv2-swh-plugins | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.03 % | ok / ok / blast / blast | no |  |
 | Function abs (A) | lv2-ll-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | — / — / — / — | no |  |
 | Function abs (C) | lv2-ll-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | — / — / — / — | no |  |
 | Function acos (A) | lv2-ll-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | — / — / — / — | no |  |
@@ -7402,6 +7618,8 @@ name or description — our reading, not the plugin's claim.
 | Klaviatur | lv2-ll-plugins | unsuitable — has no audio input, so it is not an insert | — | unknown | — | — / — / — / — | no |  |
 | LFO | lv2-carla | unsuitable — has no audio input, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
 | LSP Oscilloscope x4 | lsp-plugins-lv2 | unsuitable — costs more of a core than one insert may | 0 ms | zero | 4.87 % | ok / ok / ok / ok | no |  |
+| LSP Referencer Mono | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 0.86 % | ok / ok / ok / dies | no |  |
+| LSP Referencer Stereo | lsp-plugins-lv2 | unsuitable — its soak failed at the console's own rate | 0 ms | zero | 1.70 % | ok / ok / ok / dies | no |  |
 | MIDI Channel A/B | lv2-carla | unsuitable — has no audio input, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
 | MIDI Channel Filter | lv2-carla | unsuitable — has no audio input, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
 | MIDI Channelize | lv2-carla | unsuitable — has no audio input, so it is not an insert | — | unknown | — | ok / ok / ok / ok | no |  |
@@ -7464,7 +7682,8 @@ Each plugin in the picker carries up to four chips after its name:
 ## The generated editor
 
 Tap a plugin to open its editor. There is no hand-built panel per plugin: the editor reads
-the plugin's own LV2 metadata and generates the right controls — knobs (linear or
+the plugin's own description — its LV2 metadata, or for the console's own plugins the
+description the console serves for them — and generates the right controls — knobs (linear or
 logarithmic), toggles, steppers, dropdowns for enumerated choices, file pickers for things
 like impulse responses.
 
@@ -7474,6 +7693,42 @@ LV2 **presets** load from the same place.
 
 The consequence of generating editors is that a plugin the project has never seen works
 the day it is installed.
+
+## The console's own plugins
+
+Some plugins are the console's own — the **omx** plugins, built into the mixer, so nothing has to
+be installed for them. Their editor is the same generated one, drawn from the description the
+console serves.
+
+Nine of them sit on every strip from the start, bypassed, each with a tab of its own: the
+**de-esser**, **rotary** speaker, **chorus**, **flanger**, **pitch** shifter, **phaser**,
+**tremolo**, **reverb** and **graphic EQ**. Their controls are in
+[EQ and dynamics](eq-dynamics.md#reverb). Remove one and its tab goes with it; add it back from
+this picker.
+
+Two more are added from the picker like any other plugin:
+
+**omx transient** shapes the attack and the sustain of a sound — more snap on a drum, less ring
+after it — from the signal's own envelope, with no threshold to set.
+
+| Control | What it does |
+|---|---|
+| **Attack** | More or less of each hit's front edge, −24 to +24 dB; 0 changes nothing. |
+| **Sustain** | More or less of what rings on after the hit, −24 to +24 dB. |
+| **Attack Time** | How long the front edge it acts on lasts, 2 to 50 ms. |
+| **Sustain Time** | How long the ring it acts on lasts, 50 to 2000 ms. |
+| **Output** | The level out, −24 to +12 dB. |
+
+**omx limiter** is a look-ahead, true-peak brickwall for an insert: it keeps whatever comes
+through under the ceiling. On a bus or the MAIN output the console's own
+[limiter](eq-dynamics.md#limiter) does the same job as the last stage before the fader; this one
+is for a point the stage cannot reach.
+
+| Control | What it does |
+|---|---|
+| **Ceiling** | The level nothing passes, −12 to 0 dBFS. |
+| **Lookahead** | How far ahead it looks for a peak, 0.5 to 5 ms. |
+| **Release** | How quickly it lets go once the peak has passed, 1 to 1000 ms. |
 
 ## Order is signal order
 
@@ -7485,7 +7740,7 @@ There are two racks — one for the selected **channel**, one for the selected *
 so a loudspeaker-management chain on an output works exactly like inserts on a channel.
 
 Between the units, dashed chips mark the chain's named **feed points** — \`Pre-EQ\`, \`Post-EQ\`,
-\`Pre-Fader\`, \`Post-Insert-A\` and the rest — at the place each one taps. A send or a recorder set
+\`Pre-Fader\`, \`Post-Fader\` and the rest the console offers — at the place each one taps. A send or a recorder set
 to that point hears the chain up to there and nothing after it, which is how you see at a glance
 whether a send takes a plugin's latency with it.
 
@@ -7890,7 +8145,7 @@ other: the same moment in Post-Trim, Pre-Fader and Post-Fader is the same frame.
   different thing from recording its audio.
 - [The clock](reac-clock.md) — the rate a take is made at.
 - [Metering and latency](metering-latency.md) — the xrun counter.
-`,Fe=`# Room
+`,He=`# Room
 
 Governed by: \`docs/design/specs/2026-09-08-room-analysis.md\`
 
@@ -7985,6 +8240,27 @@ the re-sweep, no separate button for it. A **residual** figure appears beside th
 proposal once the fresh curve has a reading at that frequency: how much of the mode is left
 after the cut, so you can see what it bought.
 
+## Sub-array placement
+
+Governed by: \`docs/design/specs/2026-09-26-sub-array-placement.md\`
+
+The **Sub array** panel on the PA Setup tab suggests how to place the subwoofers before you
+measure anything. Type three facts about the venue: the **Depth** the stage gives the sub
+array (front to back, in metres), how many **Boxes** you have, and the **Design frequency** —
+the frequency the array is steered for, where the rear null or the cardioid peak lands. Each
+input takes only what the console accepts; a value outside its travel is refused, never
+clamped.
+
+The console answers with two or three placements, one card each: a **Cardioid (gradient)** pair,
+an **End-fire** pair and, when more than two boxes are on hand, an **End-fire** line. A card
+reads the **Spacing** between boxes, the **Depth used**, the **Delays** and **Polarity** for
+each box, the **Design** frequency it was placed at and the frequency above which **Grating
+lobes** come back. A placement that does not fit the venue is shown with its reason — never
+dropped and never re-fitted to a different frequency.
+
+Nothing here measures the room: the cards are the textbook placement for the geometry you
+typed. Check the result with the Room panel above once the boxes are in place.
+
 ## Related
 
 - [Alignment](alignment.md) — Speakers, the PA Setup tab's other half, this reuses the same
@@ -7993,7 +8269,7 @@ after the cut, so you can see what it bought.
 - [EQ and dynamics](eq-dynamics.md) — where an applied room-mode cut lands, tagged the same way
   an FBS or HRP band is.
 - [Recording](recording.md) — the take RT60 is read from.
-`,He=`# The analyser
+`,Fe=`# The analyser
 
 The analyser draws a live spectrum: frequency across, level up. It is how you see what a
 microphone is actually picking up, where a room resonates, and which frequency is ringing
@@ -8031,7 +8307,8 @@ Anything real playing brings the whole spectrum back, its quiet detail included.
 |---|---|
 | **Source** | Which strip is analysed — an input, a bus, or the mains. |
 | **Tilt** | The reference slope the trace is drawn against. |
-| **Peak** | The loudest band right now, its frequency and its level. |
+| **The source glass** | What the trace is of, and which tap is on screen. |
+| **Peak** | The loudest band right now, its frequency and its level, in a glass. |
 | **Peak hold** | Leaves a mark at each band's highest reading so a transient does not vanish before you have read it. |
 | **Meter colour** | Colours the trace by level instead of drawing it in one colour. |
 | **Tap** | Whether the trace is taken **Pre** the EQ, **Post** the EQ, or **Both** at once. |
@@ -8057,8 +8334,7 @@ The tilt changes the **display** and never the audio.
 **Pre** is what arrives at the EQ. **Post** is what leaves it. **Both** draws them
 together, which is what you want while you are working: with **Δ EQ** on, the shaded gap
 between them is exactly what your EQ is doing, drawn on the material rather than as a
-theoretical curve. **Δ DRIVE** does the same for the drive stage: the signal entering it is
-drawn as a ghost under the signal leaving it, so the harmonics the drive added read as the gap.
+theoretical curve.
 
 If a source is **muted**, the panel says so. A post-EQ trace on a muted channel is floored;
 a trace that is still painting is the pre-EQ input, which is a useful thing to see and a
@@ -8098,7 +8374,7 @@ The channel view's second row holds two pictures, side by side:
 | Window | What you see |
 |---|---|
 | **The EQ graph + RTA window** | The analyser, with the channel's EQ response over it — on every chip, always. |
-| **The FX space's curve window** | The picture of the chip you have open — the gate's or compressor's transfer curve with its live gain reduction, the drive's shaper, the delay's tap train, the reverb's decay — beside the chips it belongs to. |
+| **The FX space's curve window** | The picture of the chip you have open — the gate's or compressor's transfer curve with its live gain reduction — beside the chips it belongs to. |
 
 Neither window takes the other's place. Opening the gate shows the gate's curve next to the
 chips and leaves the spectrum where it was, so you can read the notch you are cutting and the
@@ -8656,6 +8932,10 @@ command line and the environment at the next boot; empty it and the lower layers
 The server does not re-bind a running listener, so a change is flagged **takes effect on
 restart** rather than pretending to have applied.
 
+Edits here are held until you apply them: the footer counts the fields that differ from what
+the desk holds, **Apply** sends them together and **Revert** drops them. Both are greyed while
+nothing differs.
+
 ## OSC control
 
 Not a panel: the console speaks OSC to any controller or script that sends it UDP datagrams,
@@ -8735,6 +9015,17 @@ The connection indicator is the first thing to read when something seems wrong. 
 board. Every control works and nothing touches audio. It is a good way to learn the desk
 and a bad surprise mid-show — see
 [the web UI cannot reach the server](../troubleshooting/web-ui-cannot-reach-server.md).
+
+### The read-outs
+
+Three glasses in the header are read-outs, not buttons:
+
+- The **identity glass**, left beside the openmixer mark, carries the session name and the
+  console profile's label. Hover it for the input and strip counts.
+- The **scene glass** carries the current scene's number and name. As the window narrows the
+  name folds away and the number stays.
+- The **clock glass** carries the sample rate and the clock master. Its lamp lights amber when
+  the clock needs attention; in a narrow window the text folds away and the lamp stays.
 
 Beside the emergency buttons sits the always-visible **cue and monitor** block. It is
 console-wide state, reachable from any bank; see [cue, solo and the monitor](cue-solo.md).
@@ -8891,7 +9182,7 @@ A few things are not where you would first look:
   the header; see [recording](recording.md).
 - **The manual, the plugin catalogue, the shortcuts and the FAQ** are under the header's
   **Help** menu, and the first three open over the desk rather than replacing it.
-`,Ue=`# Talkback and test signals
+`,Qe=`# Talkback and test signals
 
 The built-in signal sources live in the **Talkback** module. It is not one of the default
 chips — add it from the header's **LAYOUTS** menu to put it on screen, or pop it into its
@@ -8936,7 +9227,7 @@ it.
 
 A generator is a real source and it stays on until switched off. It is worth a glance at
 the Talkback chip before doors.
-`,Qe=`# The stagebox is not establishing
+`,Ue=`# The stagebox is not establishing
 
 ## Symptom
 
@@ -9685,4 +9976,4 @@ for manual patching. It is opt-in; see
 Xruns make everything click. A stagebox that sounds granular while the rest of the graph
 is clean is a different fault: see
 [granulated or stuttery box audio](granulated-audio.md).
-`,s=[{slug:"install",label:"Install"},{slug:"manual",label:"Operator manual"},{slug:"hardware",label:"Hardware"},{slug:"admin",label:"Administration"},{slug:"troubleshooting",label:"Troubleshooting"},{slug:"architecture",label:"Architecture"}],$e=Object.assign({"../../../../docs/admin/backup.md":r,"../../../../docs/admin/config-files.md":l,"../../../../docs/admin/env-vars.md":h,"../../../../docs/admin/index.md":d,"../../../../docs/admin/logs.md":c,"../../../../docs/admin/ports.md":u,"../../../../docs/admin/reac-configuration.md":p,"../../../../docs/admin/services.md":m,"../../../../docs/admin/state-and-sessions.md":k,"../../../../docs/architecture/decisions/0001-native-reac-not-aes67.md":g,"../../../../docs/architecture/decisions/0002-pipewire-native-summing-mod-host-inserts-only.md":w,"../../../../docs/architecture/decisions/0003-server-single-source-of-truth.md":f,"../../../../docs/architecture/decisions/0004-canonical-model-and-adapters.md":y,"../../../../docs/architecture/decisions/0005-declarative-desired-graph-reconcile.md":b,"../../../../docs/architecture/decisions/0006-ordered-processor-channel-strip.md":v,"../../../../docs/architecture/decisions/0007-persist-routing-by-name-not-id.md":x,"../../../../docs/architecture/decisions/0008-dca-as-control-domain-gain-coupling.md":T,"../../../../docs/architecture/decisions/0009-c-for-hot-paths-pipewire-node-boundary.md":S,"../../../../docs/architecture/decisions/0010-metadata-driven-plugin-editor.md":A,"../../../../docs/architecture/decisions/0011-fader-position-and-db-with-per-adapter-scale.md":P,"../../../../docs/architecture/decisions/0012-adapter-manager-menus-and-files.md":z,"../../../../docs/architecture/decisions/0013-telemetry-measured-in-the-engine.md":C,"../../../../docs/architecture/decisions/0014-multi-modal-input.md":E,"../../../../docs/architecture/decisions/0015-modular-multi-window-web-ui.md":R,"../../../../docs/architecture/decisions/0016-gpl3-no-agpl-code-copied.md":M,"../../../../docs/architecture/decisions/0017-per-destination-output-trim-floor.md":I,"../../../../docs/architecture/decisions/0018-clock-force-rate-live-lever-hardware-probe.md":D,"../../../../docs/architecture/decisions/0019-cue-solo-monitor-bus-never-the-mains.md":L,"../../../../docs/architecture/decisions/0020-plugin-tiers-fixed-by-measured-latency.md":_,"../../../../docs/architecture/decisions/0021-fx-send-return-channels-native-delay-reverb.md":O,"../../../../docs/architecture/decisions/README.md":N,"../../../../docs/architecture/index.md":F,"../../../../docs/architecture/native-dsp-vs-modhost-inserts.md":H,"../../../../docs/architecture/one-summing-bus.md":B,"../../../../docs/architecture/overview.md":G,"../../../../docs/architecture/row-grammar-and-conformance.md":W,"../../../../docs/architecture/technical-manual.md":q,"../../../../docs/hardware/clocking-and-sample-rate.md":U,"../../../../docs/hardware/index.md":Q,"../../../../docs/hardware/reac-boxes.md":X,"../../../../docs/hardware/wiring-and-nic.md":V,"../../../../docs/index.md":j,"../../../../docs/install/first-boot.md":K,"../../../../docs/install/first-session.md":Z,"../../../../docs/install/image.md":Y,"../../../../docs/install/index.md":J,"../../../../docs/install/packages.md":$,"../../../../docs/install/services.md":ee,"../../../../docs/install/trust-the-console.md":ne,"../../../../docs/install/upgrading.md":te,"../../../../docs/manual/alignment.md":oe,"../../../../docs/manual/channel-strip.md":ae,"../../../../docs/manual/cue-solo.md":se,"../../../../docs/manual/eq-dynamics.md":ie,"../../../../docs/manual/fbs.md":re,"../../../../docs/manual/head-amp.md":le,"../../../../docs/manual/hrp.md":he,"../../../../docs/manual/index.md":de,"../../../../docs/manual/keyboard.md":ce,"../../../../docs/manual/layouts.md":ue,"../../../../docs/manual/lcr.md":pe,"../../../../docs/manual/look.md":me,"../../../../docs/manual/matrix-outputs.md":ke,"../../../../docs/manual/menus.md":ge,"../../../../docs/manual/metering-latency.md":we,"../../../../docs/manual/patchbay.md":fe,"../../../../docs/manual/plugin-catalog/analysis.md":ye,"../../../../docs/manual/plugin-catalog/delay.md":be,"../../../../docs/manual/plugin-catalog/dynamics.md":ve,"../../../../docs/manual/plugin-catalog/equalisers.md":xe,"../../../../docs/manual/plugin-catalog/filters.md":Te,"../../../../docs/manual/plugin-catalog/index.md":Se,"../../../../docs/manual/plugin-catalog/instruments.md":Ae,"../../../../docs/manual/plugin-catalog/midi.md":Pe,"../../../../docs/manual/plugin-catalog/modulation.md":ze,"../../../../docs/manual/plugin-catalog/pitch-and-spectral.md":Ce,"../../../../docs/manual/plugin-catalog/recommendations.md":Ee,"../../../../docs/manual/plugin-catalog/reverb.md":Re,"../../../../docs/manual/plugin-catalog/saturation-and-amps.md":Me,"../../../../docs/manual/plugin-catalog/spatial.md":Ie,"../../../../docs/manual/plugin-catalog/uncategorised.md":De,"../../../../docs/manual/plugin-catalog/utility.md":Le,"../../../../docs/manual/plugins.md":_e,"../../../../docs/manual/reac-clock.md":Oe,"../../../../docs/manual/recording.md":Ne,"../../../../docs/manual/room.md":Fe,"../../../../docs/manual/rta.md":He,"../../../../docs/manual/scenes-sessions.md":Be,"../../../../docs/manual/sends-buses-dcas.md":Ge,"../../../../docs/manual/setup.md":We,"../../../../docs/manual/surface.md":qe,"../../../../docs/manual/talkback.md":Ue,"../../../../docs/troubleshooting/box-not-establishing.md":Qe,"../../../../docs/troubleshooting/granulated-audio.md":Xe,"../../../../docs/troubleshooting/index.md":Ve,"../../../../docs/troubleshooting/plugin-catalog-empty.md":je,"../../../../docs/troubleshooting/poisoned-autosave.md":Ke,"../../../../docs/troubleshooting/silent-main.md":Ze,"../../../../docs/troubleshooting/web-ui-cannot-reach-server.md":Ye,"../../../../docs/troubleshooting/xrun-driver-election.md":Je});function en(e){const n=e.lastIndexOf("/docs/");return n<0?e:e.slice(n+6)}function nn(e){const n=e.replace(/\.md$/,"");return n==="index"?"":n.replace(/\/index$/,"")}function tn(e,n){const t=/^#\s+(.+)$/m.exec(e);return t?.[1]?t[1].trim():(n.split("/").pop()??n).replace(/\.md$/,"")}function on(e){if(e==="index.md")return!0;const n=e.split("/")[0];return s.some(t=>t.slug===n)}const a=new Map(Object.entries($e).map(([e,n])=>({docPath:en(e),source:n})).filter(({docPath:e})=>on(e)).map(({docPath:e,source:n})=>{const t=s.find(i=>i.slug===e.split("/")[0]),o={docPath:e,slug:nn(e),...t?{section:t}:{},title:tn(n,e),source:n};return[o.slug,o]})),sn=new Set([...a.values()].map(e=>e.docPath));function rn(e){return a.get(e.replace(/^\/+|\/+$/g,""))}function an(e){return e.toLowerCase().replace(/[`*_]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"section"}const ln=(()=>{const e=new Map;for(const n of a.values())if(n.section?.slug==="manual")for(const[,t]of n.source.matchAll(/^#{1,3}\s+(.+)$/gm)){const o=an(t??"");e.has(o)||e.set(o,n.slug)}return e})();export{s as D,ln as M,sn as R,nn as a,rn as d,an as s};
+`,s=[{slug:"install",label:"Install"},{slug:"manual",label:"Operator manual"},{slug:"hardware",label:"Hardware"},{slug:"admin",label:"Administration"},{slug:"troubleshooting",label:"Troubleshooting"},{slug:"architecture",label:"Architecture"}],$e=Object.assign({"../../../../docs/admin/backup.md":r,"../../../../docs/admin/config-files.md":l,"../../../../docs/admin/env-vars.md":h,"../../../../docs/admin/index.md":d,"../../../../docs/admin/logs.md":c,"../../../../docs/admin/ports.md":u,"../../../../docs/admin/reac-configuration.md":p,"../../../../docs/admin/services.md":m,"../../../../docs/admin/state-and-sessions.md":k,"../../../../docs/architecture/decisions/0001-native-reac-not-aes67.md":g,"../../../../docs/architecture/decisions/0002-pipewire-native-summing-mod-host-inserts-only.md":w,"../../../../docs/architecture/decisions/0003-server-single-source-of-truth.md":f,"../../../../docs/architecture/decisions/0004-canonical-model-and-adapters.md":b,"../../../../docs/architecture/decisions/0005-declarative-desired-graph-reconcile.md":y,"../../../../docs/architecture/decisions/0006-ordered-processor-channel-strip.md":v,"../../../../docs/architecture/decisions/0007-persist-routing-by-name-not-id.md":x,"../../../../docs/architecture/decisions/0008-dca-as-control-domain-gain-coupling.md":T,"../../../../docs/architecture/decisions/0009-c-for-hot-paths-pipewire-node-boundary.md":S,"../../../../docs/architecture/decisions/0010-metadata-driven-plugin-editor.md":A,"../../../../docs/architecture/decisions/0011-fader-position-and-db-with-per-adapter-scale.md":P,"../../../../docs/architecture/decisions/0012-adapter-manager-menus-and-files.md":z,"../../../../docs/architecture/decisions/0013-telemetry-measured-in-the-engine.md":C,"../../../../docs/architecture/decisions/0014-multi-modal-input.md":E,"../../../../docs/architecture/decisions/0015-modular-multi-window-web-ui.md":R,"../../../../docs/architecture/decisions/0016-gpl3-no-agpl-code-copied.md":M,"../../../../docs/architecture/decisions/0017-per-destination-output-trim-floor.md":I,"../../../../docs/architecture/decisions/0018-clock-force-rate-live-lever-hardware-probe.md":D,"../../../../docs/architecture/decisions/0019-cue-solo-monitor-bus-never-the-mains.md":L,"../../../../docs/architecture/decisions/0020-plugin-tiers-fixed-by-measured-latency.md":_,"../../../../docs/architecture/decisions/0021-fx-send-return-channels-native-delay-reverb.md":O,"../../../../docs/architecture/decisions/README.md":N,"../../../../docs/architecture/index.md":H,"../../../../docs/architecture/native-dsp-vs-modhost-inserts.md":F,"../../../../docs/architecture/one-summing-bus.md":B,"../../../../docs/architecture/overview.md":G,"../../../../docs/architecture/row-grammar-and-conformance.md":W,"../../../../docs/architecture/technical-manual.md":q,"../../../../docs/hardware/clocking-and-sample-rate.md":Q,"../../../../docs/hardware/index.md":U,"../../../../docs/hardware/reac-boxes.md":X,"../../../../docs/hardware/wiring-and-nic.md":V,"../../../../docs/index.md":j,"../../../../docs/install/first-boot.md":K,"../../../../docs/install/first-session.md":Z,"../../../../docs/install/image.md":Y,"../../../../docs/install/index.md":J,"../../../../docs/install/packages.md":$,"../../../../docs/install/services.md":ee,"../../../../docs/install/trust-the-console.md":ne,"../../../../docs/install/upgrading.md":te,"../../../../docs/manual/alignment.md":oe,"../../../../docs/manual/channel-strip.md":ae,"../../../../docs/manual/cue-solo.md":se,"../../../../docs/manual/eq-dynamics.md":ie,"../../../../docs/manual/fbs.md":re,"../../../../docs/manual/head-amp.md":le,"../../../../docs/manual/hrp.md":he,"../../../../docs/manual/index.md":de,"../../../../docs/manual/keyboard.md":ce,"../../../../docs/manual/layouts.md":ue,"../../../../docs/manual/lcr.md":pe,"../../../../docs/manual/look.md":me,"../../../../docs/manual/matrix-outputs.md":ke,"../../../../docs/manual/menus.md":ge,"../../../../docs/manual/metering-latency.md":we,"../../../../docs/manual/patchbay.md":fe,"../../../../docs/manual/plugin-catalog/analysis.md":be,"../../../../docs/manual/plugin-catalog/delay.md":ye,"../../../../docs/manual/plugin-catalog/dynamics.md":ve,"../../../../docs/manual/plugin-catalog/equalisers.md":xe,"../../../../docs/manual/plugin-catalog/filters.md":Te,"../../../../docs/manual/plugin-catalog/index.md":Se,"../../../../docs/manual/plugin-catalog/instruments.md":Ae,"../../../../docs/manual/plugin-catalog/midi.md":Pe,"../../../../docs/manual/plugin-catalog/modulation.md":ze,"../../../../docs/manual/plugin-catalog/pitch-and-spectral.md":Ce,"../../../../docs/manual/plugin-catalog/recommendations.md":Ee,"../../../../docs/manual/plugin-catalog/reverb.md":Re,"../../../../docs/manual/plugin-catalog/saturation-and-amps.md":Me,"../../../../docs/manual/plugin-catalog/spatial.md":Ie,"../../../../docs/manual/plugin-catalog/uncategorised.md":De,"../../../../docs/manual/plugin-catalog/utility.md":Le,"../../../../docs/manual/plugins.md":_e,"../../../../docs/manual/reac-clock.md":Oe,"../../../../docs/manual/recording.md":Ne,"../../../../docs/manual/room.md":He,"../../../../docs/manual/rta.md":Fe,"../../../../docs/manual/scenes-sessions.md":Be,"../../../../docs/manual/sends-buses-dcas.md":Ge,"../../../../docs/manual/setup.md":We,"../../../../docs/manual/surface.md":qe,"../../../../docs/manual/talkback.md":Qe,"../../../../docs/troubleshooting/box-not-establishing.md":Ue,"../../../../docs/troubleshooting/granulated-audio.md":Xe,"../../../../docs/troubleshooting/index.md":Ve,"../../../../docs/troubleshooting/plugin-catalog-empty.md":je,"../../../../docs/troubleshooting/poisoned-autosave.md":Ke,"../../../../docs/troubleshooting/silent-main.md":Ze,"../../../../docs/troubleshooting/web-ui-cannot-reach-server.md":Ye,"../../../../docs/troubleshooting/xrun-driver-election.md":Je});function en(e){const n=e.lastIndexOf("/docs/");return n<0?e:e.slice(n+6)}function nn(e){const n=e.replace(/\.md$/,"");return n==="index"?"":n.replace(/\/index$/,"")}function tn(e,n){const t=/^#\s+(.+)$/m.exec(e);return t?.[1]?t[1].trim():(n.split("/").pop()??n).replace(/\.md$/,"")}function on(e){if(e==="index.md")return!0;const n=e.split("/")[0];return s.some(t=>t.slug===n)}const a=new Map(Object.entries($e).map(([e,n])=>({docPath:en(e),source:n})).filter(({docPath:e})=>on(e)).map(({docPath:e,source:n})=>{const t=s.find(i=>i.slug===e.split("/")[0]),o={docPath:e,slug:nn(e),...t?{section:t}:{},title:tn(n,e),source:n};return[o.slug,o]})),sn=new Set([...a.values()].map(e=>e.docPath));function rn(e){return a.get(e.replace(/^\/+|\/+$/g,""))}function an(e){return e.toLowerCase().replace(/[`*_]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"section"}const ln=(()=>{const e=new Map;for(const n of a.values())if(n.section?.slug==="manual")for(const[,t]of n.source.matchAll(/^#{1,3}\s+(.+)$/gm)){const o=an(t??"");e.has(o)||e.set(o,n.slug)}return e})();export{s as D,ln as M,sn as R,nn as a,rn as d,an as s};

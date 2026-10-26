@@ -1,0 +1,17 @@
+plugin-hostd (0.12.0) unstable; urgency=medium
+
+  * ci: the deb install job takes the channel's contract data packages; the
+    fuzz mutant cites protocol.h:53
+  * plugin-hostd-contract depends on omx-clap-core-contract
+  * One name per refusal number: the shared ones are omx-clap-core's
+    reply.host.*
+  * release: plugin-hostd 0.12.0
+  * README: the daemon's verbs are declared in its contract directory
+  * Hold the declared verbs to the daemon on its socket
+  * The instance-unknown refusal is -3, the number the daemon answers
+  * Ship the contract directory's files in a noarch plugin-hostd-contract
+    package
+  * Read the daemon's own verbs from the rendered header, not from protocol.h
+  * Declare the daemon's own verbs and reply codes in its contract directory
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 26 Oct 2026 17:23:21 +0000

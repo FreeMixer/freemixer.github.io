@@ -1023,6 +1023,37 @@ Description: PipeWire-native Roland REAC endpoint
  sub-interfaces and real-time scheduling. A small system service keeps
  NetworkManager off the network interfaces reac-pw serves.
 
+Package: reac-pw
+Architecture: amd64
+Version: 1.0.36
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 285
+Depends: libc6 (>= 2.38), libpipewire-0.3-0t64 (>= 0.3.65), libreac-transport7 (>= 1.8.0), libreac6 (>= 1.8.0), init-system-helpers (>= 1.52), pipewire, libcap2-bin, iproute2
+Filename: ./amd64/reac-pw_1.0.36_amd64.deb
+Size: 102416
+MD5sum: ac2a694c1d236017cc1b6cf00b8ebfb0
+SHA1: 6f4ddee1c0653b1601ee5a3e495f7e89dd05e388
+SHA256: e6e4ab89204eb7b7ef7be438e9432017aa5d64063a79ab187db1afa40f9ce34a
+SHA512: cecf9eef7375f6d9f8de1bf1d2d2253247b1cbdfc0c25fa227f18f1519fa410a53d7492f0d0e48ae81335913a63581b793373a4b84c7ce523c26e94bed12cfb3
+Homepage: https://github.com/FreeREAC/reac-pw
+Description: PipeWire-native Roland REAC endpoint
+ reac-pw puts Roland REAC stageboxes on your Linux audio graph. Plug a box into
+ a network port and its inputs appear as PipeWire capture channels and its
+ outputs as playback channels, sized and named from what the box itself says
+ on the wire, with its firmware alongside. No configuration and no model list
+ to keep up to date.
+ .
+ It can also be the master of a REAC segment, driving the clock so that a
+ stagebox slaves to this machine, or a slave that locks to a desk's cadence
+ and returns its inputs upstream.
+ .
+ The package runs reac-pw as a user service, without root: it gives the
+ daemon the file capabilities it needs for raw network frames, VLAN
+ sub-interfaces and real-time scheduling. A small system service keeps
+ NetworkManager off the network interfaces reac-pw serves.
+
 Package: reac-stageboxes
 Architecture: amd64
 Version: 0.1.0
@@ -1843,6 +1874,37 @@ MD5sum: 2cd27c3d8286e6e967b6821baea6c25f
 SHA1: 3531fd07673eae007748bd35dd92e6c994f20b0b
 SHA256: e857029cecf5972b829bbc5e6bc74bc8b0c8d217a23f22b36fbd03ea01e8759d
 SHA512: a101681cc32a2e738364bc6d4f021b7521d100d2437b09e07c3b5726c05d064343227c6efe5ec45defe810b21e0b1707088ed0e1f9b8acf7f02b2db0a2c0d75f
+Homepage: https://github.com/FreeREAC/reac-pw
+Description: PipeWire-native Roland REAC endpoint
+ reac-pw puts Roland REAC stageboxes on your Linux audio graph. Plug a box into
+ a network port and its inputs appear as PipeWire capture channels and its
+ outputs as playback channels, sized and named from what the box itself says
+ on the wire, with its firmware alongside. No configuration and no model list
+ to keep up to date.
+ .
+ It can also be the master of a REAC segment, driving the clock so that a
+ stagebox slaves to this machine, or a slave that locks to a desk's cadence
+ and returns its inputs upstream.
+ .
+ The package runs reac-pw as a user service, without root: it gives the
+ daemon the file capabilities it needs for raw network frames, VLAN
+ sub-interfaces and real-time scheduling. A small system service keeps
+ NetworkManager off the network interfaces reac-pw serves.
+
+Package: reac-pw
+Architecture: arm64
+Version: 1.0.36
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 317
+Depends: libc6 (>= 2.38), libpipewire-0.3-0t64 (>= 0.3.65), libreac-transport7 (>= 1.8.0), libreac6 (>= 1.8.0), init-system-helpers (>= 1.52), pipewire, libcap2-bin, iproute2
+Filename: ./arm64/reac-pw_1.0.36_arm64.deb
+Size: 98356
+MD5sum: de95212ec049f6c001b142eb08ded01a
+SHA1: a399db4a97adfd51979994f65b34ccb59068d3e2
+SHA256: b85bd7ebc1ffc3531dcf26b008d1af7b7d68a551f36deffdb96e120fe231bc8d
+SHA512: 8c302d4ebee0c2bc6c9852a34e1a3a96a1b58420d49f89bb9b7151f6f44a2a7978c50cccb859bf49eb6b8b98ab2e44fbdfa878362cc8ff2bc233ce07dc756100
 Homepage: https://github.com/FreeREAC/reac-pw
 Description: PipeWire-native Roland REAC endpoint
  reac-pw puts Roland REAC stageboxes on your Linux audio graph. Plug a box into

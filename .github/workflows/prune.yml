@@ -390,6 +390,9 @@ jobs:
     timeout-minutes: 60
     container:
       image: debian:bookworm
+    defaults:
+      run:
+        shell: bash
     steps:
       - run: apt-get update -qq && apt-get install -y --no-install-recommends git curl ca-certificates
       - uses: actions/setup-node@v4

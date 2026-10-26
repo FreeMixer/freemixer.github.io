@@ -1,0 +1,20 @@
+omx-contract (3.3.0) unstable; urgency=medium
+
+  * release: omx-contract 3.3.0
+  * test: the packaging tests read three packages, and hold omx-contract-data
+  * packaging: the run-time data in omx-contract-data, a noarch package (#150)
+  * docs: how a package declares its verbs, and why the kind is a minor
+  * test: a package's verbs installed, rendered from the directory and
+    refused by code
+  * semver: a verb added is minor, a verb removed is major
+  * render: omx_host_verbs.h, every verb of the read and what each host owes
+    it
+  * schema: the verbs kind, reply codes and the hosts a verb names
+  * private-refs-check reads a tree another user owns, as a CI container
+    checks it out (#1478)
+  * public-sources exempts the shared private-refs gate, which names what it
+    forbids (#1478)
+  * Add the shared private-refs gate with its self-test to the Makefile and
+    CI (#1478)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 26 Oct 2026 11:17:59 +0000

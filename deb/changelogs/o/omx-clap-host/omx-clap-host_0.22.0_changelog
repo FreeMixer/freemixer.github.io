@@ -1,0 +1,21 @@
+omx-clap-host (0.22.0) unstable; urgency=medium
+
+  * release: omx-clap-core 0.22.0
+  * host_verbs_check: a verb AWAITING names is held until a package declares
+    it
+  * Keep the verbs header in the host's sources, out of the installed core
+    headers
+  * Document the host verbs declaration and the contract package
+  * Ship the contract directory files in a noarch omx-clap-core-contract
+    package
+  * Hold the host to its installed verb declarations, and every source to
+    their macros
+  * Name the declared verbs by their rendered macros, not plugin-hostd's
+    protocol.h
+  * Declare the host verbs in data/verbs.json, rendered once for both hosts
+  * README, doc, packaging: we host CLAP and LV2, the adapter named as the
+    mapping it is (#352)
+  * docs: the LV2 matrix says what each host proves, plugin-hostd's column
+    what its tests run (#352)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 26 Oct 2026 15:00:30 +0000

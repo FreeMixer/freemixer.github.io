@@ -21,7 +21,8 @@
 fixed): <code>trim/HPF → insert A → gate → EQ → dynamics → insert B → fader → insert post</code>. This mirrors <code>channel-signal-flow-and-send-taps.md</code> and the WING default
 (<code>Gate → Insert 1 → EQ → Comp → Fader → Insert 2</code>), with insert A pre-dynamics,
 insert B pre-fader, and a first-class post-fader insert slot. The operator may
-reorder any of these per channel.</p>
+reorder any of these per channel. The native stages' own order is the declared walk
+(stageNodePlacements), not a list here.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>

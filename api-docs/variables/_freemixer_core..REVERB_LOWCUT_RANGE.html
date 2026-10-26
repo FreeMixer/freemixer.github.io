@@ -12,13 +12,8 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">REVERB_LOWCUT_RANGE</a></li></ul>
 <h1>Variable REVERB_LOWCUT_RANGE<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">REVERB_LOWCUT_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">10</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Hz&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The reverb's LOW cut, as an instance of <a href="_freemixer_core..REVERB_CUT_RANGE.html" class="tsd-kind-variable">REVERB_CUT_RANGE</a> — same bounds, its own
-come-up value. <code>0</code> reads as &quot;none&quot; (<code>mix_reverb.h</code>), which is also <code>DEFAULT_REVERB_STATE</code>'s
-seed, so a fresh reverb's low cut and its declared default are the same fact stated once.</p>
-<p>Split from <a href="_freemixer_core..REVERB_CUT_RANGE.html" class="tsd-kind-variable">REVERB_CUT_RANGE</a> rather than adding <code>default</code> there: the low and high cut
-share ONE travel (the C imposes one constraint on both) but do NOT share one come-up value, and
-a <code>default</code> on the shared range could only be honest for one of the two fields that read it.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">REVERB_LOWCUT_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">10</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Hz&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The reverb's LOW cut, as an instance of REVERB_CUT_RANGE — same bounds, its own come-up value. <code>0</code> reads as &quot;none&quot; (<code>mix_reverb.h</code>), which is also <code>DEFAULT_REVERB_STATE</code>'s seed, so a fresh reverb's low cut and its declared default are the same fact stated once. Split from REVERB_CUT_RANGE rather than adding <code>default</code> there: the low and high cut share ONE travel (the C imposes one constraint on both) but do NOT share one come-up value, and a <code>default</code> on the shared range could only be honest for one of the two fields that read it.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type Declaration</h4>
@@ -34,7 +29,11 @@ a <code>default</code> on the shared range could only be honest for one of the t
 <li class="tsd-parameter">
 <h5 id="step"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">10</span></h5></li>
 <li class="tsd-parameter">
-<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;Hz&quot;</span></h5></li></ul></div></div>
+<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;Hz&quot;</span></h5></li></ul></div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/reverb.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

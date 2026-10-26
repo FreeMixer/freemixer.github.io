@@ -21,7 +21,7 @@ scene.</p>
 those rows into at the moment a recall needs one, and it is discarded again. A stored mask
 beside the rows would be a second owner of every channel's fact.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RecallSafeMask</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channels">channels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ChannelSafe.html" class="tsd-signature-type tsd-kind-interface">ChannelSafe</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RecallSafeMask</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channels">channels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ChannelSafe.html" class="tsd-signature-type tsd-kind-interface">ChannelSafe</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#patch">patch</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -30,13 +30,22 @@ beside the rows would be a second owner of every channel's fact.</p>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-index-list"><a href="#channels" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>channels</span></a>
+<a href="#patch" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>patch</span></a>
 </div></section></div></details></section></section>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="channels"><code class="tsd-tag">Readonly</code><span>channels</span><a href="#channels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">channels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ChannelSafe.html" class="tsd-signature-type tsd-kind-interface">ChannelSafe</a><span class="tsd-signature-symbol">[]</span></div></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">channels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ChannelSafe.html" class="tsd-signature-type tsd-kind-interface">ChannelSafe</a><span class="tsd-signature-symbol">[]</span></div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="patch"><code class="tsd-tag">Readonly</code><span>patch</span><a href="#patch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">patch</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Console-level patch safe: the recall leaves BOTH patch layers (<code>/patch/input</code> — every
+channel's <code>sources</code> trio — and <code>/patch/output</code> — every output's <code>routeTo</code>/<code>unpatched</code>)
+exactly as they are live. No per-channel row can speak for the console, so the derivation
+from the rows always answers <code>false</code>; a cue's scope is what sets it (cue-list spec §2, §7.1).</p>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -52,7 +61,7 @@ beside the rows would be a second owner of every channel's fact.</p>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#channels"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>channels</span></a></div></details></div></details></div>
+<div><a href="#channels"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>channels</span></a><a href="#patch"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>patch</span></a></div></details></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">

@@ -29,6 +29,9 @@ the same pipeline for every row.</p>
 <p>A settlement never REJECTS. The station attaches the door's refusal logging (an engine refusal
 lands late and is reported the moment it arrives — CONTRIBUTING §3), so what reaches the
 pipeline is a promise that resolves once the store has stopped moving.</p>
+<p>It resolves to a <a href="../interfaces/_freemixer_core..NotLanded.html" class="tsd-kind-interface">NotLanded</a> when the door REFUSED: the registry answers that write
+refused, with the marker's code, and never <code>applied</code> (actuator contract §6g — the refusal used
+to exist only in the journal while the wire said 200 applied).</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

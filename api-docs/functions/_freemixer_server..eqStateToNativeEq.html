@@ -17,9 +17,10 @@
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="eqstatetonativeeq"><span class="tsd-kind-call-signature">eqStateToNativeEq</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">eq</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..EqState.html" class="tsd-signature-type tsd-kind-interface">EqState</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">sampleRate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MixerStripEq</span><a href="#eqstatetonativeeq" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Map a console <a href="../interfaces/_freemixer_core..EqState.html" class="tsd-kind-interface">EqState</a> to the native mixer's EQ coefficient set — RBJ curves →
-biquad coeffs computed in TS (<a href="_freemixer_core.eq.eqCoeffs.html" class="tsd-kind-function">eqCoeffs</a>), plus the whole-EQ <code>on</code> flag. The C only
-RUNS the resulting cascade.</p>
+<div class="tsd-comment tsd-typography"><p>Map a console <a href="../interfaces/_freemixer_core..EqState.html" class="tsd-kind-interface">EqState</a> to the native mixer's EQ push — its two banks: the bands' RBJ
+curves → biquad coeffs (<a href="_freemixer_core.eq.eqCoeffs.html" class="tsd-kind-function">eqCoeffs</a>) with the whole-EQ <code>on</code> flag, and the head filters'
+sections (<a href="_freemixer_core.eq.passFilterCoeffs.html" class="tsd-kind-function">passFilterCoeffs</a>), which the strip runs at its head with the trim whatever
+<code>on</code> says (lean-engine spec §4.1a). The C only RUNS them.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>

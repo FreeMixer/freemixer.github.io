@@ -13,8 +13,9 @@
 <li><a href="" aria-current="page">TelemetrySink</a></li></ul>
 <h1>Type Alias TelemetrySink</h1></div>
 <div class="tsd-signature"><span class="tsd-kind-type-alias">TelemetrySink</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">report</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..LatencyReport.html" class="tsd-signature-type tsd-kind-interface">LatencyReport</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
-<div class="tsd-comment tsd-typography"><p>What one tick delivers: the polled report, or <code>undefined</code> on a console that has no latency
-source — the tick still fires, because the other gauges ride it.</p>
+<div class="tsd-comment tsd-typography"><p>What one tick delivers: the polled report, or <code>undefined</code> — either because the console has no
+latency source at all, or because the one it has could not make a truthful report this tick.
+The tick still fires, because the other gauges ride it.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type Declaration</h4>

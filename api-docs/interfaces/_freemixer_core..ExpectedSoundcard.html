@@ -15,7 +15,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>One local sound card the session EXPECTS.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ExpectedSoundcard</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#deviceid">deviceId</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#nodes">nodes</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ExpectedSoundcard</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#deviceid">deviceId</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#nodes">nodes</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -32,11 +32,19 @@
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="deviceid"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>device<wbr/>Id</span><a href="#deviceid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">deviceId</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The PipeWire <code>device.id</code> this card's nodes share (<code>IoNode.deviceId</code>) — the stable
-identity the restore diff matches on when present. Absent for a session saved before this
-field, or for a card whose nodes never carried one; the diff then falls back to matching
-by <a href="#name" class="tsd-kind-property">name</a> (the pre-#833 behaviour).</p>
+<div class="tsd-signature"><span class="tsd-kind-property">deviceId</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>The PipeWire <code>device.id</code> this card's nodes share (<code>IoNode.deviceId</code>) — a NUMBER, because
+that is what an id is (R-082), and a per-boot HANDLE, because that is all a <code>device.id</code>
+ever is. It rides BESIDE <a href="#name" class="tsd-kind-property">name</a> and never instead of it: within one boot it matches a
+card whose EDID-derived label moved (issue #833); across a reboot it simply stops matching
+and the diff falls back to <a href="#name" class="tsd-kind-property">name</a>, which is the pre-#833 behaviour and the honest
+floor. Absent for a card whose nodes never carried one.</p>
+<p>A session saved before R-082 (issue #893) carries this as TEXT (<code>&quot;57&quot;</code>, from when the wire
+published it that way) — the type here says <code>number</code> for what a boot from now on writes,
+not for what an old file on disk holds. <code>diffHardware</code>'s numeric match reads a live
+<code>Set&lt;number&gt;</code>, so the mismatched type never matches and falls back to <a href="#name" class="tsd-kind-property">name</a> exactly
+as an absent handle would. Never migrated in place: the next save rebuilds this from the
+live <code>IoNode.deviceId</code> (already a number), so the field is a genuine number from then on.</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>

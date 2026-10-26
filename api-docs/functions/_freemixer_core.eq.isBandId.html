@@ -15,16 +15,17 @@
 <section class="tsd-panel">
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="isbandid"><span class="tsd-kind-call-signature">isBandId</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-kind-parameter">value</span> <span class="tsd-signature-keyword">is</span> <span class="tsd-signature-type">string</span><a href="#isbandid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="isbandid"><span class="tsd-kind-call-signature">isBandId</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-kind-parameter">value</span> <span class="tsd-signature-keyword">is</span> <span class="tsd-signature-type">number</span><a href="#isbandid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Whether this is a band ID — a BARE POSITIVE INTEGER, spelled without a sign, a leading zero or
-anything else (<code>&quot;1&quot;</code>, <code>&quot;12&quot;</code>; never <code>&quot;0&quot;</code>, <code>&quot;01&quot;</code>, <code>&quot;1.5&quot;</code>, <code>&quot;sort&quot;</code>).</p>
+<div class="tsd-comment tsd-typography"><p>Whether this is a band ID — a BARE POSITIVE INTEGER (<code>1</code>, <code>12</code>; never <code>0</code>, <code>1.5</code>, or a value
+wearing quotes).</p>
 <p>ONE predicate, read by both ends of the same fact: the band ADDRESS resolves nothing else
 (#159 — &quot;the id is a bare number&quot;), so anything the STORE holds outside this shape would be a
 band nobody can address. <code>withBandIds</code> therefore treats an id failing this test exactly as it
-treats a missing one, and mints. That keeps two promises at once: every band is reachable at
-<code>/eq/bands/{bandId}</code>, and a show written by an older build still opens — it is renamed, not
-refused.</p>
+treats a missing one, and mints — UNLESS it is the pre-R-082 TEXT shape (<code>&quot;1&quot;</code>, issue #894),
+which <a href="_freemixer_core.eq.withBandIds.html" class="tsd-kind-function">withBandIds</a> coerces on the way in rather than reminting, so an old show's bands
+keep the numbers the operator is looking at.</p>
+<p>A JSON number is what an id is (R-082, <code>an internal spec</code>): a genuine minted integer identity is declared <code>integer</code>, never text.</p>
 <p>It is also what frees the rest of the <code>/eq/bands/</code> namespace: a word like <code>sort</code> cannot be
 mistaken for a band, so an OPERATION may live beside the members without shadowing one (#173).</p>
 </div>
@@ -32,7 +33,7 @@ mistaken for a band, so an OPERATION may live beside the members without shadowi
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">unknown</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-kind-parameter">value</span> <span class="tsd-signature-keyword">is</span> <span class="tsd-signature-type">string</span></h4></div></li></ul></section></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-kind-parameter">value</span> <span class="tsd-signature-keyword">is</span> <span class="tsd-signature-type">number</span></h4></div></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

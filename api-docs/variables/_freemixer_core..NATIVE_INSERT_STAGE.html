@@ -12,11 +12,8 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">NATIVE_INSERT_STAGE</a></li></ul>
 <h1>Variable NATIVE_INSERT_STAGE<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">NATIVE_INSERT_STAGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">6</span></div>
-<div class="tsd-comment tsd-typography"><p>The first stage id that names an insert point — <code>mix_order.h</code>'s <code>OMX_STAGE_INSERT</code>. Point <code>k</code>
-is <code>NATIVE_INSERT_STAGE + k</code>. A RANGE and not one shared id because the walk dedupes by id,
-and one id would let a strip carry exactly one insert.
-<code>chain-order-contract.test.ts</code> reads the C header and pins this against it.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">NATIVE_INSERT_STAGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">3</span></div>
+<div class="tsd-comment tsd-typography"><p>The first stage id that names a plugin step: the highest stage id plus one (<code>OMX_STAGE_INSERT</code>).</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

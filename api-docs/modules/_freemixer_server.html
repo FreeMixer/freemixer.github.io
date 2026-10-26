@@ -111,12 +111,11 @@ surface: every entity supports <code>GET</code> (seed state, <code>?watch=1</cod
 
 <h2 id="adapters-are-loaded-lazily" class="tsd-anchor-link">Adapters are loaded lazily<a href="#adapters-are-loaded-lazily" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>The real device adapters (<code>@freemixer/adapter-midas</code>, <code>-x32</code>, <code>-roland</code>) live in
-this monorepo as separate packages, but the server never statically imports them:
-it codes to the <code>@freemixer/core</code> <code>MixerAdapter</code> interface and resolves the
-concrete adapter with a guarded dynamic <code>import()</code> only when that adapter is
-selected (<code>adapter-loader.ts</code>) — so this package <strong>builds and tests with no
-adapter packages installed as a runtime dependency</strong>. Selecting a name whose
-package isn't installed fails at boot with an actionable error. The built-in
+this monorepo as separate packages. The server reaches them as controller desks
+(<code>desk-controller.ts</code>, <code>2026-09-24-surface-control-map.md</code> §10): each is one
+<code>kind: 'surface'</code> adapter type in the adapter manager, beside the X-Touch, whose
+bridge carries the desk's faders and keys onto the console's rows and back. The
+console's own south adapter is built by its composition root. The built-in
 <code>MockAdapter</code> (hardware-free) ships here as the default and as the test surface;
 <code>software</code> (the PipeWire-native <code>@freemixer/audio-engine</code> mixer) is also built in.</p>
 <h2 id="test" class="tsd-anchor-link">Test<a href="#test" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>

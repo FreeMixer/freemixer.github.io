@@ -84,9 +84,9 @@ into a genuine, gentler EXPANDER: 1 is off (no expansion at all), a low ratio (e
 ratio (the default) reads as a hard gate. This is the SAME <code>ratio</code> the compressor's
 ACT-ABOVE atom carries, mirrored here for the gate's ACT-BELOW atom — see
 <code>@freemixer/server</code>'s <code>gateStateToNativeDyn</code>, which threads it straight onto
-<code>native.setStripDyn</code>'s below-mode <code>ratio</code>. The default (<code>GATE_DEFAULT_RATIO</code> in
-<code>@freemixer/catalog/gate</code>) is chosen so a freshly-seeded gate reads exactly as hard as
-the pre-ratio model did (see that constant's doc for the derivation).</p>
+<code>native.setStripDyn</code>'s below-mode <code>ratio</code>. The default (<code>GATE_LIMITS.ratio.default</code> in
+<code>@freemixer/core</code>'s strip-dynamics-limits) is chosen so a freshly-seeded gate reads exactly as hard as
+the pre-ratio model did (see that entry's comment for the derivation).</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="releasems"><span>release<wbr/>Ms</span><a href="#releasems" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>

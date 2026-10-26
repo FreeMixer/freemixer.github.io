@@ -14,12 +14,12 @@
 <h1>Interface PatchbayDevicesMessage</h1></div>
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>Served at <code>GET /patchbay/devices</code> / broadcast on device hot-plug: every patchable
-Device the desk sees, unified — local interfaces (a card's Sink + Source folded
+<a href="_freemixer_core..Device.html" class="tsd-kind-interface">Device</a> the desk sees, unified — local interfaces (a card's Sink + Source folded
 by <code>device.id</code>), REAC stageboxes, and loose app streams, each carrying its <code>inPorts</code>
 (what the desk takes audio FROM) and <code>outPorts</code> (what the desk routes audio TO). The
 superset that <code>patchbay.stageboxes</code> is a <code>kind:'stagebox'</code>-filtered view of.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PatchbayDevicesMessage</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#devices">devices</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">Device</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;patchbay.devices&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PatchbayDevicesMessage</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#devices">devices</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..Device.html" class="tsd-signature-type tsd-kind-interface">Device</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;patchbay.devices&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -35,7 +35,7 @@ superset that <code>patchbay.stageboxes</code> is a <code>kind:'stagebox'</code>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="devices"><code class="tsd-tag">Readonly</code><span>devices</span><a href="#devices" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">devices</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">Device</span><span class="tsd-signature-symbol">[]</span></div></section>
+<div class="tsd-signature"><span class="tsd-kind-property">devices</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..Device.html" class="tsd-signature-type tsd-kind-interface">Device</a><span class="tsd-signature-symbol">[]</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="type"><code class="tsd-tag">Readonly</code><span>type</span><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;patchbay.devices&quot;</span></div></section></section></details></div>

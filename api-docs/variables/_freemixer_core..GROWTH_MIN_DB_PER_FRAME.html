@@ -13,16 +13,12 @@
 <li><a href="" aria-current="page">GROWTH_MIN_DB_PER_FRAME</a></li></ul>
 <h1>Variable GROWTH_MIN_DB_PER_FRAME<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">GROWTH_MIN_DB_PER_FRAME</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.8</span></div>
-<div class="tsd-comment tsd-typography"><p>Minimum least-squares slope, in dB PER FRAME, over <a href="_freemixer_core..GROWTH_WINDOW_FRAMES.html" class="tsd-kind-variable">GROWTH_WINDOW_FRAMES</a> for a
-bin to count as &quot;running away&quot; rather than merely holding level. Set with real margin on
-BOTH sides — comfortably above measurement jitter on a held tone or a quiet/broadband
-mix (well under 0.2 dB/frame in practice) and comfortably below a genuine feedback ramp,
-which climbs several dB across a handful of ~20 ms hops as it heads toward clipping.
-Issue #91's acceptance bar is &quot;arming must never burst-alarm on non-growing content&quot;, so
-this errs conservative (under-fire a marginal ramp) rather than tight (risk a false
-alarm) — <a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a> also requires the window's end to sit above its start, a
-cheap belt-and-braces check against a fit dragged positive by one mid-window wobble.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>Minimum least-squares slope, in dB PER FRAME, over GROWTH_WINDOW_FRAMES for a bin to count as &quot;running away&quot; rather than merely holding level. Set with real margin on BOTH sides — comfortably above measurement jitter on a held tone or a quiet/broadband mix (well under 0.2 dB/frame in practice) and comfortably below a genuine feedback ramp, which climbs several dB across a handful of ~20 ms hops as it heads toward clipping. The acceptance bar is &quot;arming must never burst-alarm on non-growing content&quot;, so this errs conservative (under-fire a marginal ramp) rather than tight (risk a false alarm) — the ramp gate (<code>omx_fbs_is_growing</code>) also requires the window's end to sit above its start, a cheap belt-and-braces check against a fit dragged positive by one mid-window wobble.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/fbs.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

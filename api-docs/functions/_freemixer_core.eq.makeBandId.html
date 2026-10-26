@@ -15,13 +15,13 @@
 <section class="tsd-panel">
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="makebandid"><span class="tsd-kind-call-signature">makeBandId</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">existing</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><a href="#makebandid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="makebandid"><span class="tsd-kind-call-signature">makeBandId</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">existing</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#makebandid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>A fresh band id: the LOWEST number not already used in <code>existing</code> — deterministic, so
 add/remove keeps stable, collision-free ids without a shared counter or a clock read.</p>
 <p>The id is a bare number and it is NOT the band's position: <code>/eq/bands/</code> already names the
 collection, so a <code>band-</code> prefix would only repeat it. Minting is 1-BASED deliberately — no band
-ever holds <code>&quot;0&quot;</code>, so a caller still addressing the first band by its position is answered
+ever holds <code>0</code>, so a caller still addressing the first band by its position is answered
 no-such-instance on its first call rather than silently moving the band above the one it meant.</p>
 <p>FILLING THE GAP IS THE POINT (operator, 2026-08-13): <em>&quot;if he removes 5, we must not renumber.
 But if he adds another one, we can reuse the 5 without a problem.&quot;</em> Removing band 5 of six
@@ -34,7 +34,7 @@ an operator reads at a glance small and dense instead of drifting upward all sho
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">existing</span>: <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">[]</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4></div></li></ul></section></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4></div></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

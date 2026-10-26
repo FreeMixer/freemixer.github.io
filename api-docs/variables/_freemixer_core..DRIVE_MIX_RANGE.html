@@ -12,14 +12,8 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">DRIVE_MIX_RANGE</a></li></ul>
 <h1>Variable DRIVE_MIX_RANGE<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">DRIVE_MIX_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">100</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">100</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.1</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;%&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The wet/dry, as a PERCENT — the unit a drive control is read in on every desk that has one.</p>
-<p>Deliberately not <a href="_freemixer_core..NORMALIZED_RANGE.html" class="tsd-kind-variable">NORMALIZED_RANGE</a> (which is unitless 0..1): a mix a surface must label
-&quot;0.35&quot; when the operator thinks in &quot;35 %&quot; is a control whose declaration is fighting its
-reader. The kernel divides by 100 where it resolves the atom, in one place.</p>
-<p>The come-up is 100 %, not the reverb's modest 30: a saturator's insert use is IN the path. The
-<code>exciter</code> curve seeds itself lower, in the controller, because that is a property of the
-TOPOLOGY and not of the travel.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">DRIVE_MIX_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">100</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">100</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.1</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;%&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The wet/dry, as a PERCENT — the unit a drive control is read in on every desk that has one. Deliberately not NORMALIZED_RANGE (which is unitless 0..1): a mix a surface must label &quot;0.35&quot; when the operator thinks in &quot;35 %&quot; is a control whose declaration is fighting its reader. The kernel divides by 100 where it resolves the atom, in one place. The come-up is 100 %, not the reverb's modest 30: a saturator's insert use is IN the path. The <code>exciter</code> curve seeds itself lower (DRIVE_EXCITER_SEED), because that is a property of the TOPOLOGY and not of the travel.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type Declaration</h4>
@@ -35,7 +29,11 @@ TOPOLOGY and not of the travel.</p>
 <li class="tsd-parameter">
 <h5 id="step"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">0.1</span></h5></li>
 <li class="tsd-parameter">
-<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;%&quot;</span></h5></li></ul></div></div>
+<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;%&quot;</span></h5></li></ul></div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/drive.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -16,11 +16,9 @@
 <div class="tsd-comment tsd-typography"><p>The travels CORE declares, per fact and per field — what a <code>coreLimits</code> pointer resolves
 through. Each entry POINTS at the module that owns the fact; no number is spelled here, so the
 table cannot become a second declaration of a travel it merely indexes.</p>
-<p>A field absent from a fact's entry resolves to <code>absent</code>, not to a guess: <code>delay</code>'s <code>feedback</code>,
-<code>mix</code> and <code>tone</code> are normalized 0..1 and belong to the normalized vocabulary rather than here,
-and <code>reverb</code>'s <code>size</code>/<code>damping</code>/<code>width</code>/<code>mix</code> are the same. Filling those is a later pass —
-the ledger shows what is missing rather than hiding it.</p>
-<p>EXPORTED so <code>harness/contract-limits-gen.mjs</code> can resolve the <code>pan</code>/<code>delay</code>/<code>reverb</code>/<code>drive</code>
+<p>A field absent from a fact's entry resolves to <code>absent</code>, not to a guess: the ledger shows what is
+missing rather than hiding it.</p>
+<p>EXPORTED so <code>harness/contract-limits-gen.mjs</code> can resolve the <code>pan</code>
 facts the same way <code>boundsOf</code> does (R-056 §F7) — the generator reads this map rather than
 re-declaring which facts are <code>coreLimits</code>-sourced, which would be a second list of the same
 fact that could drift from <code>CHANNEL_CONTRACT</code>'s own <code>range.kind</code>.</p>

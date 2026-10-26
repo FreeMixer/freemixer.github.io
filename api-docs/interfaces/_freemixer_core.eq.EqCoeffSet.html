@@ -13,8 +13,9 @@
 <li><a href="" aria-current="page">EqCoeffSet</a></li></ul>
 <h1>Interface EqCoeffSet</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>A whole strip's EQ as an ordered biquad-coefficient cascade (bands low→high, then the
-HPF/LPF Butterworth sections) — the shape the native mixer's <code>mixerSetStripEq</code> takes.</p>
+<div class="tsd-comment tsd-typography"><p>An ordered biquad-coefficient cascade — the EQ's bands low→high (<a href="../functions/_freemixer_core.eq.eqCoeffs.html" class="tsd-kind-function">eqCoeffs</a>) or the head
+filters' HPF then LPF Butterworth sections (<a href="../functions/_freemixer_core.eq.passFilterCoeffs.html" class="tsd-kind-function">passFilterCoeffs</a>); each is one bank of the
+native mixer's <code>mixerSetStripEq</code> push.</p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">EqCoeffSet</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#bands">bands</a><span class="tsd-signature-symbol">:</span> <a href="_freemixer_core.eq.EqCoeffBand.html" class="tsd-signature-type tsd-kind-interface">EqCoeffBand</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#count">count</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">

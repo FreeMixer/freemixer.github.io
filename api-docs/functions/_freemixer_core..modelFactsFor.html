@@ -21,6 +21,9 @@
 read only when no device answers, and the caller learns which so it can decide whether the
 result is worth a warning (a <code>table</code> answer for a DECLARED box is worth one; for a <code>virtual</code>
 box it is the whole point of the box and is not).</p>
+<p>A model that leaves its width to the box (<code>widthDeclaredByBox</code>, the S-4000S) has no table width:
+with no device it answers the entry's own configuration (<code>configured</code>) or, with none, <code>{0, 0}</code>
+and <code>unconfigured</code> — not yet known, never a guess.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>

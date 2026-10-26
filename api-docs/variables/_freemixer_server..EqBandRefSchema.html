@@ -12,10 +12,11 @@
 <li><a href="../modules/_freemixer_server..html"></a></li>
 <li><a href="" aria-current="page">EqBandRefSchema</a></li></ul>
 <h1>Variable EqBandRefSchema<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">EqBandRefSchema</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ZodString</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-signature"><span class="tsd-kind-variable">EqBandRefSchema</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ZodNumber</span><span class="tsd-signature-symbol"> = ...</span></div>
 <div class="tsd-comment tsd-typography"><p>A band address: the band's stable ID, and nothing else. A positional index is NOT a band
 address — it renumbers when the curve grows or shrinks, so a caller holding one aims at
 whichever band happens to have moved into that slot. An unknown id is a no-op.</p>
+<p>A minted integer identity (R-082, issue #894): a JSON number, never text.</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

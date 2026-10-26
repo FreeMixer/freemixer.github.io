@@ -17,35 +17,13 @@
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="planstereosourcepatch"><span class="tsd-kind-call-signature">planStereoSourcePatch</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">endpoint</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StereoEndpoint</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">asStereoChannel</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_server..StereoSourcePatchOp.html" class="tsd-signature-type tsd-kind-interface">StereoSourcePatchOp</a><span class="tsd-signature-symbol">[]</span><a href="#planstereosourcepatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p><strong>Patchbay stereo-source split — the mapping for a stereo (2-port) source patched onto
-the mixer.</strong> DEFAULT (<code>asStereoChannel</code> omitted/<code>false</code>): a genuine stereo source (both
-<code>endpoint.l</code> AND <code>endpoint.r</code> present) SPLITS across TWO CONSECUTIVE MONO channels —
-<code>channel</code> (same kind, same index) takes the L leg, the NEXT channel (same kind,
-<code>index + 1</code>) takes the R leg — so the operator gets two independently pannable mono
-strips and neither leg is ever silently dropped. Pass <code>asStereoChannel: true</code> to instead
-keep BOTH legs on the ONE <code>channel</code> as a single stereo pair (what
-<a href="../classes/_freemixer_server..StructuralDspController.html#assignsource" class="tsd-kind-method">StructuralDspController.assignSource</a> already does for any endpoint it is given —
-a native mixer group then sizes that one channel as a 2-wide strip per its declared
-import('@freemixer/core').ChannelWidth). A MONO source (<code>endpoint.r</code> undefined)
-always yields the one op, regardless of the flag — there is nothing to split.</p>
-<p>Pure + synchronous (no engine access) so the mapping is unit-tested in isolation; see
-<a href="../classes/_freemixer_server..StructuralDspController.html#assignstereosource" class="tsd-kind-method">StructuralDspController.assignStereoSource</a> for the verb that applies it live.</p>
-</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span>
-<div class="tsd-comment tsd-typography"><p>the target channel — the split's L half (or the sole channel when folded)</p>
-</div></li>
-<li><span><span class="tsd-kind-parameter">endpoint</span>: <span class="tsd-signature-type">StereoEndpoint</span></span>
-<div class="tsd-comment tsd-typography"><p>the source endpoint; <code>r</code> present marks it a stereo (2-port) source</p>
-</div></li>
-<li><span><span class="tsd-kind-parameter">asStereoChannel</span>: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></span>
-<div class="tsd-comment tsd-typography"><p>fold both legs onto the one <code>channel</code> instead of splitting (default <code>false</code>)</p>
-</div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_server..StereoSourcePatchOp.html" class="tsd-signature-type tsd-kind-interface">StereoSourcePatchOp</a><span class="tsd-signature-symbol">[]</span></h4><p>the channel(s) to patch, in L-then-R order — one entry (mono, or folded stereo),
-or two (the default stereo split)</p>
-</div></li></ul></section></div>
+<li><span><span class="tsd-kind-parameter">channel</span>: <a href="../interfaces/_freemixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a></span></li>
+<li><span><span class="tsd-kind-parameter">endpoint</span>: <span class="tsd-signature-type">StereoEndpoint</span></span></li>
+<li><span><span class="tsd-kind-parameter">asStereoChannel</span>: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_freemixer_server..StereoSourcePatchOp.html" class="tsd-signature-type tsd-kind-interface">StereoSourcePatchOp</a><span class="tsd-signature-symbol">[]</span></h4></div></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

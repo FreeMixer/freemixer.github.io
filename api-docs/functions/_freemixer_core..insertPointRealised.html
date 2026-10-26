@@ -17,10 +17,10 @@
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="insertpointrealised"><span class="tsd-kind-call-signature">insertPointRealised</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">at</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#insertpointrealised" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Whether a hosted plugin declared at <code>at</code> RUNS there. Two kinds of place qualify: a point the
-lane walk cuts at (<a href="../variables/_freemixer_core..NATIVE_INSERT_POINTS.html" class="tsd-kind-variable">NATIVE_INSERT_POINTS</a>) and <code>Top-Of-Ch</code>, where the mixer threads the
-plugin between the channel's source and the node's strip input, which is that place exactly.
-Anywhere else the substrate threads the plugin at the head regardless of what the slot says.</p>
+<div class="tsd-comment tsd-typography"><p>Whether a hosted plugin declared at <code>at</code> RUNS there: a point inside the chain's span, which runs
+from Post-Trim to Pre-Fader (<a href="../variables/_freemixer_core..NATIVE_INSERT_POINTS.html" class="tsd-kind-variable">NATIVE_INSERT_POINTS</a>). The span's two boundaries are no
+place for a plugin (<code>2026-10-02-plugin-slot-row-and-one-chain.md</code> §3.5): <code>Top-Of-Ch</code> is before
+the trim and <code>Post-Fader</code> after the fader, and both stay pick-off points.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>

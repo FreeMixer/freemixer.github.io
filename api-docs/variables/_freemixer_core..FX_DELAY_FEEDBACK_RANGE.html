@@ -12,12 +12,8 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">FX_DELAY_FEEDBACK_RANGE</a></li></ul>
 <h1>Variable FX_DELAY_FEEDBACK_RANGE<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">FX_DELAY_FEEDBACK_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.3</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.99</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The FX delay's REGENERATION travel — how much of the wet tail feeds back in.</p>
-<p>Stops short of 1: unity feedback is a runaway the kernel hard-clamps anyway, so offering it
-would draw travel the DSP refuses. Not <a href="_freemixer_core..NORMALIZED_RANGE.html" class="tsd-kind-variable">NORMALIZED_RANGE</a> for exactly that reason — it
-is a 0..1 quantity whose top the DSP does not accept, and a control must not offer a value its
-actuator will eat.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">FX_DELAY_FEEDBACK_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.3</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.99</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The FX delay's REGENERATION travel — how much of the wet tail feeds back in. Stops short of 1: unity feedback is a runaway the kernel hard-clamps anyway, so offering it would draw travel the DSP refuses. Not NORMALIZED_RANGE for exactly that reason — it is a 0..1 quantity whose top the DSP does not accept, and a control must not offer a value its actuator will eat.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type Declaration</h4>
@@ -33,7 +29,11 @@ actuator will eat.</p>
 <li class="tsd-parameter">
 <h5 id="step"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">0</span></h5></li>
 <li class="tsd-parameter">
-<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;&quot;</span></h5></li></ul></div></div>
+<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;&quot;</span></h5></li></ul></div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/delay.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

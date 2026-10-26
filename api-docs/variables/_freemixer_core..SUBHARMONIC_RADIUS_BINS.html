@@ -13,13 +13,12 @@
 <li><a href="" aria-current="page">SUBHARMONIC_RADIUS_BINS</a></li></ul>
 <h1>Variable SUBHARMONIC_RADIUS_BINS<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">SUBHARMONIC_RADIUS_BINS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span></div>
-<div class="tsd-comment tsd-typography"><p>How far (bins) around bin/2 and bin/3 <a href="../functions/_freemixer_core..pshr.html" class="tsd-kind-function">pshr</a> scans for a sub-harmonic line. A true
-half/third partial lands mid-bin in the worst case (bin/2 and bin/3 are rarely integers)
-and spectral leakage smears it one bin further; ±2 covers both. Measured on the #116
-live-music corpus: every false positive's sub-line sat inside this window. Deliberately
-NOT wider — at low bins the window is already a large fraction of an octave, and widening
-it would start reading unrelated program lines as &quot;sub-harmonics&quot; of real feedback.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>How far (bins) around bin/2 and bin/3 PSHR (<code>omx_fbs_pshr</code>) scans for a sub-harmonic line. A true half/third partial lands mid-bin in the worst case (bin/2 and bin/3 are rarely integers) and spectral leakage smears it one bin further; ±2 covers both. Measured on the #116 live-music corpus: every false positive's sub-line sat inside this window. Deliberately NOT wider — at low bins the window is already a large fraction of an octave, and widening it would start reading unrelated program lines as &quot;sub-harmonics&quot; of real feedback.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/fbs.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

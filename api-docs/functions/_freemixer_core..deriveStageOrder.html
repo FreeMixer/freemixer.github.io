@@ -15,23 +15,22 @@
 <section class="tsd-panel">
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="derivestageorder"><span class="tsd-kind-call-signature">deriveStageOrder</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">chain</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..NativeStageId.html" class="tsd-signature-type tsd-kind-type-alias">NativeStageId</a><span class="tsd-signature-symbol">[]</span><a href="#derivestageorder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="derivestageorder"><span class="tsd-kind-call-signature">deriveStageOrder</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">chain</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">inProcess</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..NativeStageId.html" class="tsd-signature-type tsd-kind-type-alias">NativeStageId</a><span class="tsd-signature-symbol">[]</span><a href="#derivestageorder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Derive the native stage-order step list from a strip's chain — the built-in stage nodes AND
-the strip's racked insert points, in chain order, as their stage ids. This is exactly what
-feeds <code>mixerSetStripChainOrder</code>: the control thread resolves the strip's <code>chain</code> to this
-list, the native side publishes it torn-free and walks it.</p>
-<p><code>trim</code> and <code>fader</code> are skipped — they are the pipeline's fill and sum boundaries, not
-filters. An <code>insert</code> contributes a step only when it HOSTS a live plugin at a point the walk
-can cut at (<a href="../variables/_freemixer_core..NATIVE_INSERT_POINTS.html" class="tsd-kind-variable">NATIVE_INSERT_POINTS</a>): an empty slot declares a place and costs nothing,
-a plugin at <code>Top-Of-Ch</code> is threaded ahead of the node's strip input instead, and one at
-<code>Post-Fader</code> has no in-lane realisation at all.</p>
+<div class="tsd-comment tsd-typography"><p>The walk's step list alone (<a href="_freemixer_core..deriveChainWalk.html" class="tsd-kind-function">deriveChainWalk</a>'s <code>steps</code>): exactly what feeds
+<code>mixerSetStripChainOrder</code>. The control thread resolves the strip's <code>chain</code> to this list, the
+native side publishes it torn-free and walks it.</p>
+<p><code>trim</code> and <code>fader</code> are skipped — they are the pipeline's fill and sum boundaries, not filters,
+and an empty slot declares a place and costs nothing.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">chain</span>: <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">[]</span></span>
 <div class="tsd-comment tsd-typography"><p>the strip's processor chain</p>
+</div></li>
+<li><span><span class="tsd-kind-parameter">inProcess</span>: <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = NO_SLOTS</span></span>
+<div class="tsd-comment tsd-typography"><p>processor id → plugin slot, for the items bound in-process on this strip</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="../types/_freemixer_core..NativeStageId.html" class="tsd-signature-type tsd-kind-type-alias">NativeStageId</a><span class="tsd-signature-symbol">[]</span></h4><p>the native stage ids in run order</p>
 </div></li></ul></section></div>

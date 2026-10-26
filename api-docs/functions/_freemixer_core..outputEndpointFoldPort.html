@@ -25,7 +25,7 @@ legs named the SAME port. Two single-leg routes onto one port are raw-summed by 
 fold gain, so correlated/centre material lands ~+6 dB hot — &quot;even at minimum vol it is too
 much&quot;. Both legs of one bus on one port is not two destinations: it is ONE fold destination,
 realised by a single native <code>channels == 1</code> / <code>OMX_ROUTE_FOLD</code> route running
-<code>omx_fold_gain(busL, busR, …)</code> at <a href="../variables/_freemixer_core..MONO_FOLD_COEF.html" class="tsd-kind-variable">MONO_FOLD_COEF</a>. So <code>{L:x, R:x}</code> is the
+<code>omx_route_fold_gain(busL, busR, …)</code> at <a href="../variables/_freemixer_core..MONO_FOLD_COEF.html" class="tsd-kind-variable">MONO_FOLD_COEF</a>. So <code>{L:x, R:x}</code> is the
 CANONICAL, round-trippable way to say &quot;fold this stereo bus onto that one mono port&quot; — the
 expression #142's per-leg model otherwise left the operator with no way to write.</p>
 <p>A LONE <code>{L:x}</code> is deliberately NOT a fold: #142/#275 ships per-leg routing so a stereo bus's L

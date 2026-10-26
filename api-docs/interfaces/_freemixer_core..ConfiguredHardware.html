@@ -19,7 +19,7 @@ used these devices&quot;, this says &quot;the operator told reac-pw to go find t
 out there probing for it right now&quot;. A configured box that never establishes is missing
 hardware even in a session that patches nothing to it.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ConfiguredHardware</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#stageboxes">stageboxes</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredStagebox.html" class="tsd-signature-type tsd-kind-interface">ConfiguredStagebox</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ConfiguredHardware</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#soundcards">soundcards</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredSoundcard.html" class="tsd-signature-type tsd-kind-interface">ConfiguredSoundcard</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stageboxes">stageboxes</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredStagebox.html" class="tsd-signature-type tsd-kind-interface">ConfiguredStagebox</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#surfaces">surfaces</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredSurface.html" class="tsd-signature-type tsd-kind-interface">ConfiguredSurface</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -27,15 +27,29 @@ hardware even in a session that patches nothing to it.</p>
 <div class="tsd-accordion-details">
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-index-list"><a href="#stageboxes" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stageboxes</span></a>
+<div class="tsd-index-list"><a href="#soundcards" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>soundcards?</span></a>
+<a href="#stageboxes" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stageboxes</span></a>
+<a href="#surfaces" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>surfaces?</span></a>
 </div></section></div></details></section></section>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
 <section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="soundcards"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>soundcards</span><a href="#soundcards" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">soundcards</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredSoundcard.html" class="tsd-signature-type tsd-kind-interface">ConfiguredSoundcard</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The soundcards the operator DECLARED the show needs (R-089) — a <code>soundcard</code> adapter entry
+each. Absent for a caller that declares none, which is the pre-R-089 behaviour.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="stageboxes"><code class="tsd-tag">Readonly</code><span>stageboxes</span><a href="#stageboxes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">stageboxes</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredStagebox.html" class="tsd-signature-type tsd-kind-interface">ConfiguredStagebox</a><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>The REAC boxes configured on this rig.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="surfaces"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>surfaces</span><a href="#surfaces" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">surfaces</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_freemixer_core..ConfiguredSurface.html" class="tsd-signature-type tsd-kind-interface">ConfiguredSurface</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>The control surfaces the operator DECLARED (R-089) — every <code>kind: 'surface'</code> adapter entry.
+A touch screen is a browser window, never an adapter entry, so it is never here.</p>
 </div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -52,7 +66,7 @@ hardware even in a session that patches nothing to it.</p>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#stageboxes"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stageboxes</span></a></div></details></div></details></div>
+<div><a href="#soundcards"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>soundcards</span></a><a href="#stageboxes"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>stageboxes</span></a><a href="#surfaces"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>surfaces</span></a></div></details></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">

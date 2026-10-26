@@ -12,9 +12,9 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">patchEndpointArray</a></li></ul>
 <h1>Variable patchEndpointArray<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">patchEndpointArray</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..FieldCodec.html" class="tsd-signature-type tsd-kind-interface">FieldCodec</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..ServedPatchEndpoint.html" class="tsd-signature-type tsd-kind-interface">ServedPatchEndpoint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>A channel's INPUT source set with NO roster behind it — every leg must be a port name, and an
-identity leg is refused <code>BOX_INPUT_UNRESOLVED</code> because nothing here can address a box.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">patchEndpointArray</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..FieldCodec.html" class="tsd-signature-type tsd-kind-interface">FieldCodec</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..DeclaredPatchEndpoint.html" class="tsd-signature-type tsd-kind-interface">DeclaredPatchEndpoint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>A channel's INPUT source set with NO roster behind it — every box is off stage, so an identity
+leg is accepted as the identity and waits (§0 of the node-capabilities spec, #1912).</p>
 <p>The shape a console composed without a stagebox roster gets (the row tests, a desk with no
 stagebox cache). A console that HAS one builds its codec with
 <a href="../functions/_freemixer_core..patchEndpointArrayVia.html" class="tsd-kind-function">patchEndpointArrayVia</a> — see <code>buildPatchCrosspointRows</code>.</p>

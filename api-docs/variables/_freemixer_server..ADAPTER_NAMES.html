@@ -13,10 +13,10 @@
 <li><a href="" aria-current="page">ADAPTER_NAMES</a></li></ul>
 <h1>Variable ADAPTER_NAMES<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">ADAPTER_NAMES</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">&quot;midas&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;x32&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;roland&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;software&quot;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>Names of the adapters the server can instantiate. <code>midas</code>/<code>x32</code>/<code>roland</code> are
-lazily-loaded peer packages; <code>software</code> ships in this package and is the
-PipeWire-native import('@freemixer/audio-engine').SoftwareMixer — the running
-console (faders + summing on PipeWire, plugin inserts on mod-host).</p>
+<div class="tsd-comment tsd-typography"><p>The names the <code>adapter</code> config key accepts. Nothing reads the key (listed #409 debt in
+<code>config-conformance.test.ts</code>): the composition root builds the <code>software</code> adapter, the
+PipeWire-native import('@freemixer/audio-engine').SoftwareMixer, and the three
+desks are controller adapter types in the adapter manager (surface map §10).</p>
 <p><code>mock</code> was here and is GONE (operator ruling 2026-08-14, task #33): it named a desk that
 synthesised eight input channels, no buses and no graph, and it was the DEFAULT — so a
 zero-config <code>openmixer-server</code> came up as a console that could never carry audio and never

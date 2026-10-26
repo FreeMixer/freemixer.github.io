@@ -37,6 +37,7 @@ is a not-found, never a defaulted channel.</p>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-index-list"><a href="#path" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>path</span></a>
+<a href="#policy" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>policy</span></a>
 </div></section>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
@@ -79,7 +80,23 @@ report a refusal instead of resolving successfully against nothing</p>
 <div class="tsd-comment tsd-typography"><p>The path template, e.g. <code>/channel/{kind}/{index}/headAmp</code>. Braced segments become
 <a href="../types/_freemixer_core..ResourceId.html" class="tsd-kind-type-alias">ResourceId</a> keys. One template per entity type; instances differ only by id.</p>
 </div><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/_freemixer_core..ConsoleResource.html">ConsoleResource</a>.<a href="../interfaces/_freemixer_core..ConsoleResource.html#path">path</a></p></aside></section></section></details>
+<p>Implementation of <a href="../interfaces/_freemixer_core..ConsoleResource.html">ConsoleResource</a>.<a href="../interfaces/_freemixer_core..ConsoleResource.html#path">path</a></p></aside></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="policy"><code class="tsd-tag">Readonly</code><span>policy</span><a href="#policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">policy</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core..ResourcePolicy.html" class="tsd-signature-type tsd-kind-type-alias">ResourcePolicy</a><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>NEVER JOURNALED, and DECLARED so — the safety law, stated rather than left to absence
+(<code>2026-09-01-undo-history.md</code> §4, amended 2026-09-26; <code>journal-population-conformance</code>).</p>
+<p>A mute is a momentary performance gesture. An undo that flips one mid-song puts a channel
+somebody killed on purpose back on the PA, and a VISIBLE list with selective revert is
+strictly more dangerous than a single Ctrl+Z: it hands the operator a button that un-mutes a
+channel killed four minutes ago (<a href="http://2026-07-16-undo-redo.md">2026-07-16-undo-redo.md</a> Exclusions; adversarial pass A3).
+So the write never enters the journal at all — a mute flip records nothing, and the cursor
+cannot arrive anywhere near it because there is nothing there.</p>
+<p>Journaling it and refusing to replay it was weighed and rejected: an un-actionable entry
+still costs a slot in a bounded ring, and a show is mostly mutes — the fader moves an
+operator actually wants back would be evicted by the latches they can never undo.</p>
+</div><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/_freemixer_core..ConsoleResource.html">ConsoleResource</a>.<a href="../interfaces/_freemixer_core..ConsoleResource.html#policy">policy</a></p></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -191,7 +208,7 @@ Pure: a read may not bind, seed, or persist anything.</p>
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Constructors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Constructors</summary>
 <div><a href="#constructor"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Constructor"><use href="../assets/icons.svg#icon-512"></use></svg><span>constructor</span></a></div></details>
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#path"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>path</span></a></div></details>
+<div><a href="#path"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>path</span></a><a href="#policy"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>policy</span></a></div></details>
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
 <div><a href="#canonicalid"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>canonical<wbr/>Id</span></a><a href="#capabilities"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>capabilities</span></a><a href="#instances"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>instances</span></a><a href="#patch"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>patch</span></a><a href="#project"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>project</span></a><a href="#read"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>read</span></a></div></details></div></details></div>
 <div class="site-menu">

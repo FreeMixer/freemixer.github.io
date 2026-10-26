@@ -12,9 +12,13 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">DETECTOR_OVERSAMPLINGS</a></li></ul>
 <h1>Variable DETECTOR_OVERSAMPLINGS<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">DETECTOR_OVERSAMPLINGS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">&quot;auto&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;off&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;4x&quot;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The detector-oversampling CHOICE (never the engaged state) — <a href="../types/_freemixer_core..DetectorOversampling.html" class="tsd-kind-type-alias">DetectorOversampling</a>.</p>
-</div></div>
+<div class="tsd-signature"><span class="tsd-kind-variable">DETECTOR_OVERSAMPLINGS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">&quot;auto&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;off&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;4x&quot;</span><span class="tsd-signature-symbol">]</span></div>
+<div class="tsd-comment tsd-typography"><p>The compressor's detector oversampling: <code>auto</code> runs the control path at 4x only while the attack is faster than DETECTOR_OVERSAMPLE_AUTO_MS, <code>off</code> never, <code>4x</code> always (omx-dsp's OMX_DYN_OVS_AUTO, _OFF and _X4, in that order, so the index mapping holds). The ids are the console's wire vocabulary (<code>CompState.detectorOversampling</code>, what the dynamics row's OPTIONS publishes and a session stores), so the console re-exports this set; it comes up <code>auto</code>.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/comp.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

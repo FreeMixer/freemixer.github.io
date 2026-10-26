@@ -15,7 +15,7 @@
 <section class="tsd-panel">
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="roommoderesidualdb"><span class="tsd-kind-call-signature">roomModeResidualDb</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">curve</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..RoomTransferBin.html" class="tsd-signature-type tsd-kind-interface">RoomTransferBin</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">hz</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#roommoderesidualdb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="roommoderesidualdb"><span class="tsd-kind-call-signature">roomModeResidualDb</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">dsp</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..DspKernels.html" class="tsd-signature-type tsd-kind-interface">DspKernels</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">curve</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..RoomTransferBin.html" class="tsd-signature-type tsd-kind-interface">RoomTransferBin</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">hz</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#roommoderesidualdb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>The residual height of <code>hz</code> in a FRESH transfer curve — the re-sweep reading spec §4/§6
 increment 6 asks for, &quot;so the operator sees what the cut bought&quot;. Same measure a proposal's
@@ -23,11 +23,13 @@ own <code>aboveMedianDb</code> started from (the curve's own median magnitude), 
 the ROOM tab is streaming right now: the client's re-sweep is watching this same live row, not
 a new capture mechanism (§4's own ruling — the engine learns nothing new for a re-sweep).</p>
 <p>Floored at <code>0</code>: a bin that reads BELOW the curve's own median is not a negative mode, it is a
-resolved one, and the honest number for &quot;resolved&quot; is zero, not a sign nobody asked to see.</p>
+resolved one, and the honest number for &quot;resolved&quot; is zero, not a sign nobody asked to see.
+The reading is omx-dsp's <code>omx_room_mode_residual_db</code>, through the DSP door (#1908).</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">dsp</span>: <a href="../interfaces/_freemixer_core..DspKernels.html" class="tsd-signature-type tsd-kind-interface">DspKernels</a></span></li>
 <li><span><span class="tsd-kind-parameter">curve</span>: <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..RoomTransferBin.html" class="tsd-signature-type tsd-kind-interface">RoomTransferBin</a><span class="tsd-signature-symbol">[]</span></span></li>
 <li><span><span class="tsd-kind-parameter">hz</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section></div>

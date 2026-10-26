@@ -32,7 +32,7 @@ that error but costs 1.98x the CPU on every stage; an EQ is LINEAR, so oversampl
 nothing at all. The ruling: match the prototype BY COEFFICIENT DESIGN, at the rate the desk
 runs.</p>
 <p>THE DESIGNS, per kind — each one measured against its analogue prototype by
-<code>packages/pipewire-native/tools/eq-matched-probe.c</code>, which prints the before/after table:</p>
+omx-dsp's <code>test/kernels/eq_design.c</code> (eqp_prototype_checks), which asserts the before/after:</p>
 <ul>
 <li><strong>peaking, lowShelf, highShelf</strong> — matched-Z pole/zero placement (Vicanek, <em>Matched Second
 Order Digital Filters</em>, 2016). Every pole and zero of the prototype is finite, so <code>exp(sT)</code>
@@ -42,13 +42,25 @@ shelf, whose DC gain is the shelf gain). A peaking section is a zero pair at <co
 pair at <code>f0/sqrt(A)</code> (swapped for the low shelf), both damped <code>1/(2Q)</code>.</li>
 <li><strong>lowpass</strong> — matched-Z poles, but the prototype's two zeros are at <code>s = infinity</code> and the
 map has nowhere to put them, so the numerator is instead FITTED to the prototype's
-magnitude at DC, at <code>f0</code> and at Nyquist (Vicanek's construction for the same reason).</li>
+magnitude at DC, at <code>f0</code> and at Nyquist (Vicanek's construction for the same reason).
+Near Nyquist the poles hand over to the prewarped bilinear pair across a corner band that
+depends on Q, and above Q = 1/√2 the Nyquist target hands over to the cookbook's Nyquist
+zero along with them: omx_eq_design's low-pass (omx-dsp#105, #116, #119), transcribed term for
+term (<a href="_freemixer_core.eq.lowpassHandover.html" class="tsd-kind-function">lowpassHandover</a>) so the curve draws what the engine runs.</li>
 <li><strong>notch</strong> — matched-Z poles under the cookbook's own numerator, which already IS the
 matched-Z zero pair (<code>{1, -2cos(w0), 1}</code> puts both zeros exactly on the unit circle at
 <code>f0</code>), so only the denominator changes and the null at <code>f0</code> stays exact.</li>
 <li><strong>highpass</strong> — UNCHANGED, still the cookbook's. Measured first: over the 20-1000 Hz its
 pass filter serves, the bilinear error is 0.005 dB at 96 kHz — there is nothing to fix, and
 the fitted alternative is infeasible over much of the space and worse where it is not.</li>
+<li><strong>bandpass</strong> — the cookbook's, constant 0 dB peak, ON PURPOSE and not for the highpass's
+reason: the de-esser's split mode (<code>2026-09-22-native-deesser-stage.md</code> §1) rests on this
+section's complement <code>1 − B</code> never exceeding unity, and with the cookbook denominator that
+complement IS the cookbook notch — same denominator, numerators summing to it, <code>|B|² + |N|² = 1</code> on the unit circle, an identity. The matched-Z <code>notch</code> above also stays at or under
+unity on every sweep tried (20 Hz–Nyquist, four rates, every de-esser centre and width),
+but nothing in its construction proves it, and a guarantee is a closed form or it is a
+measurement. A bandpass is never an EQ band, so the ruling's accuracy argument does not
+reach it; the bound does.</li>
 </ul>
 <p>A 0 dB peaking or shelf section is still EXACTLY identity — zeros and poles are designed by
 the same call with the same arguments when <code>A = 1</code>, so they cancel term for term and the

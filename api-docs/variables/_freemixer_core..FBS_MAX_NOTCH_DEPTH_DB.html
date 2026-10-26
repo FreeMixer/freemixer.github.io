@@ -13,16 +13,12 @@
 <li><a href="" aria-current="page">FBS_MAX_NOTCH_DEPTH_DB</a></li></ul>
 <h1>Variable FBS_MAX_NOTCH_DEPTH_DB<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">FBS_MAX_NOTCH_DEPTH_DB</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">18</span></div>
-<div class="tsd-comment tsd-typography"><p>THE NOTCH DEPTH LAW: the deepest cut any machine planter may propose from one reading, in dB.</p>
-<p>A number, not a literal at the call site, because two planters now lean on it. FBS derives a
-candidate's depth from the peak-to-average ratio around its bin and stops here; Room Analysis
-derives a mode's depth from its height above the median curve and is held to the SAME ceiling
-(<a href="http://2026-09-08-room-analysis.md">2026-09-08-room-analysis.md</a> §4 — &quot;never more than the FBS notch depth law&quot;). Written twice as
-<code>18</code> those two bounds would be equal by coincidence and could drift apart in silence.</p>
-<p>It is a CEILING ON THE PROPOSAL, not the final gain: a band that lands as a rampable BELL is
-bounded again by <code>EQ_GAIN_RANGE</code>, which is tighter. A planter must honour both and REPORT when
-either bit, never quietly deliver a shallower cut than it was asked for.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>THE NOTCH DEPTH LAW: the deepest cut any machine planter may propose from one reading, in dB. A number, not a literal at the call site, because two planters now lean on it. FBS derives a candidate's depth from the peak-to-average ratio around its bin and stops here; Room Analysis derives a mode's depth from its height above the median curve and is held to the SAME ceiling (the room-analysis design — &quot;never more than the FBS notch depth law&quot;). Written twice as <code>18</code> those two bounds would be equal by coincidence and could drift apart in silence. It is a CEILING ON THE PROPOSAL, not the final gain: a band that lands as a rampable BELL is bounded again by <code>EQ_GAIN_RANGE</code>, which is tighter. A planter must honour both and REPORT when either bit, never quietly deliver a shallower cut than it was asked for.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/fbs.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -13,11 +13,7 @@
 <li><a href="" aria-current="page">NATIVE_STAGE_ID</a></li></ul>
 <h1>Variable NATIVE_STAGE_ID<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">NATIVE_STAGE_ID</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_freemixer_core..NativeStageKind.html" class="tsd-signature-type tsd-kind-type-alias">NativeStageKind</a><span class="tsd-signature-symbol">,</span> <a href="../types/_freemixer_core..NativeStageId.html" class="tsd-signature-type tsd-kind-type-alias">NativeStageId</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>Processor kind → native stage id. A TABLE rather than an index into
-<a href="_freemixer_core..NATIVE_STAGE_KINDS.html" class="tsd-kind-variable">NATIVE_STAGE_KINDS</a>, because the correspondence with the C enum is a CONTRACT: reading
-it off an array's order makes reordering that array silently renumber every stage, and the
-renumbering is invisible to everything that spells the ids through this table.
-<code>chain-order-contract.test.ts</code> reads the C header and pins these numbers against it.</p>
+<div class="tsd-comment tsd-typography"><p>Stage kind → native stage id, ascending id: the C <code>enum omx_stage</code>'s values.</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

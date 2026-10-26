@@ -12,15 +12,10 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">NATIVE_STAGE_KINDS</a></li></ul>
 <h1>Variable NATIVE_STAGE_KINDS<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">NATIVE_STAGE_KINDS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">[</span><br/>    <span class="tsd-signature-type">&quot;gate&quot;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-type">&quot;eq&quot;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-type">&quot;dynamics&quot;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-type">&quot;drive&quot;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-type">&quot;delay&quot;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-type">&quot;reverb&quot;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The reorderable NATIVE processing stages, in canonical (default) order. This is the
-vocabulary of the native per-strip stage-order descriptor (<code>@freemixer/pipewire-native</code>
-<code>mixer.c</code> / <code>mix_order.h</code>): the INDEX of a kind here IS its native stage id — so this
-list MUST stay aligned with that package's <code>MIXER_STAGE</code> (gate 0, eq 1, dynamics 2,
-delay 3, reverb 4). <code>trim</code> (scratch fill) and <code>fader</code> (fader/sum) are NOT native stages —
-they are the pipeline's fixed boundaries, so they are absent here. Nor is <code>insert</code> a KIND
-in this list: an insert point is a step in the same walk but it runs no kernel of ours, so
-it carries its own id range (<a href="_freemixer_core..NATIVE_INSERT_STAGE.html" class="tsd-kind-variable">NATIVE_INSERT_STAGE</a>) rather than a kernel's.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">NATIVE_STAGE_KINDS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">&quot;gate&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;eq&quot;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">&quot;dynamics&quot;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> = ...</span></div>
+<div class="tsd-comment tsd-typography"><p>The native stages whose row is served, in DEFAULT-WALK order (the stage files' <code>order</code>
+anchors, §3.2). A kernel that walks before its row is served (<code>contract: null</code>) is in
+<a href="_freemixer_core..NATIVE_DEFAULT_WALK.html" class="tsd-kind-variable">NATIVE_DEFAULT_WALK</a> and the id space, and not here.</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

@@ -12,11 +12,13 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">SafeScope</a></li></ul>
 <h1>Type Alias SafeScope</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">SafeScope</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;fader&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;mute&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;sends&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;eq&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;dyn&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;inserts&quot;</span></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">SafeScope</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;fader&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;mute&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;sends&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;eq&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;dyn&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;inserts&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;patch&quot;</span></div>
 <div class="tsd-comment tsd-typography"><p>The parameter groups a channel can be recall-safed independently. The software
 engine holds each strip's EQ, dynamics and inserts as one ordered processing chain,
 so <code>eq</code> / <code>dyn</code> / <code>inserts</code> all guard that chain together (safing any of the three
-preserves it); <code>fader</code> / <code>mute</code> / <code>sends</code> guard their own fields.</p>
+preserves it); <code>fader</code> / <code>mute</code> / <code>sends</code> guard their own fields. <code>patch</code> guards the
+channel's input patch — its <code>sources</code> trio — and is the same word a cue's scope uses to
+keep a scene's routing off the console (cue-list spec §2): ONE vocabulary for both.</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

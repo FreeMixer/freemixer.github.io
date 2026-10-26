@@ -24,9 +24,9 @@ field added to a row's declaration, a value added to a member set. That is
 <a href="../functions/_freemixer_core..contractStructure.html" class="tsd-kind-function">contractStructure</a>'s subject, and the version ratchet refuses a structure change
 without a bump.</li>
 <li><strong>MAJOR</strong> rises only for a break, as <code>an internal spec</code> defines one.</li>
-<li><strong>Neither</strong> rises for a state-only change — a default's value, a bound moving outward. It
-is still LISTED in the version in flight, because <code>contract-changes.md</code> is the human's
-mirror of the derived diff.</li>
+<li><strong>Neither</strong> rises for a state-only change — a default's value, a bound moving outward. The
+commit that does change the version names it in its subject (<code>contract &lt;version&gt;: ...</code>);
+git history is the changelog.</li>
 </ul>
 <p><code>1.0</code> and not <code>0.1</code>: the contract this names is the one a live console has served since deploy
 #66. The declaration is new; the surface is not.</p>

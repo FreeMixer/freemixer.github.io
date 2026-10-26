@@ -12,13 +12,16 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">EqBandType</a></li></ul>
 <h1>Type Alias EqBandType</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">EqBandType</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;bell&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;lowShelf&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;highShelf&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;notch&quot;</span></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">EqBandType</span><span class="tsd-signature-symbol">:</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bell&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;lowShelf&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;highShelf&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;notch&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;allpass1&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;allpass2&quot;</span></div>
 <div class="tsd-comment tsd-typography"><p>What SHAPE a parametric band takes.</p>
 <p>Deliberately WITHOUT <code>hpf</code>/<code>lpf</code>: the channel's high- and low-cut are the two dedicated
 <a href="../interfaces/_freemixer_core..PassFilter.html" class="tsd-kind-interface">PassFilter</a>s (<a href="../interfaces/_freemixer_core..EqState.html#hpf" class="tsd-kind-property">EqState.hpf</a> / <a href="../interfaces/_freemixer_core..EqState.html#lpf" class="tsd-kind-property">EqState.lpf</a>), a fixed pair with a
 Butterworth SLOPE rather than a Q, and no lifecycle — a channel cannot be without them. A band
 of the same name would be a second address reaching the same cascade for the same fact, which
 is the one thing an entity map exists to prevent.</p>
+<p><code>allpass1</code>/<code>allpass2</code> are the phase tool (first- and second-order all-pass, −90°/−180° at the
+corner, unity magnitude everywhere): gain is ignored by both, <code>Q</code> by <code>allpass1</code>
+(an internal spec §2, the all-pass row).</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

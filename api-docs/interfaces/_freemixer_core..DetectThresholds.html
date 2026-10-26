@@ -13,7 +13,7 @@
 <li><a href="" aria-current="page">DetectThresholds</a></li></ul>
 <h1>Interface DetectThresholds</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The full detector contract — every gate <a href="../classes/_freemixer_core..PersistenceTracker.html#push" class="tsd-kind-method">PersistenceTracker.push</a> confirms on,
+<div class="tsd-comment tsd-typography"><p>The full detector contract — every gate the C engine (<code>omx_fbs_push</code>) confirms on,
 promoted here from the module consts so a per-channel <code>sensitivity</code> can relax them (via
 <a href="../functions/_freemixer_core..thresholdsFor.html" class="tsd-kind-function">thresholdsFor</a>) without touching the corpus-tuned SAFE DEFAULT (<a href="../variables/_freemixer_core..DEFAULT_THRESHOLDS.html" class="tsd-kind-variable">DEFAULT_THRESHOLDS</a>, built byte-for-byte from those consts). The first four are the
 historical instantaneous/persistence bar; the growth/sub-clean gates below were module
@@ -58,29 +58,29 @@ plateau sat at −25…−36 dBFS while the corpus-silent shallow floor bottoms 
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="growthconfirmframes"><code class="tsd-tag">Readonly</code><span>growth<wbr/>Confirm<wbr/>Frames</span><a href="#growthconfirmframes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">growthConfirmFrames</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Consecutive <a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a> frames required before the ramp route confirms
+<div class="tsd-comment tsd-typography"><p>Consecutive the ramp gate (<code>omx_fbs_is_growing</code>) frames required before the ramp route confirms
 (was <a href="../variables/_freemixer_core..GROWTH_CONFIRM_FRAMES.html" class="tsd-kind-variable">GROWTH_CONFIRM_FRAMES</a>).</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="growthmaxdipdb"><code class="tsd-tag">Readonly</code><span>growth<wbr/>Max<wbr/>Dip<wbr/>Db</span><a href="#growthmaxdipdb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">growthMaxDipDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p><a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a>'s per-hop dip allowance, also the plateau route's no-decay bar
+<div class="tsd-comment tsd-typography"><p>the ramp gate (<code>omx_fbs_is_growing</code>)'s per-hop dip allowance, also the plateau route's no-decay bar
 (was <a href="../variables/_freemixer_core..GROWTH_MAX_DIP_DB.html" class="tsd-kind-variable">GROWTH_MAX_DIP_DB</a>).</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="growthmaxsingleframeshare"><code class="tsd-tag">Readonly</code><span>growth<wbr/>Max<wbr/>Single<wbr/>Frame<wbr/>Share</span><a href="#growthmaxsingleframeshare" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">growthMaxSingleFrameShare</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p><a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a>'s single-frame-share cap — the #106 attack rejector (was <a href="../variables/_freemixer_core..GROWTH_MAX_SINGLE_FRAME_SHARE.html" class="tsd-kind-variable">GROWTH_MAX_SINGLE_FRAME_SHARE</a>).</p>
+<div class="tsd-comment tsd-typography"><p>the ramp gate (<code>omx_fbs_is_growing</code>)'s single-frame-share cap — the #106 attack rejector (was <a href="../variables/_freemixer_core..GROWTH_MAX_SINGLE_FRAME_SHARE.html" class="tsd-kind-variable">GROWTH_MAX_SINGLE_FRAME_SHARE</a>).</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="growthmindbperframe"><code class="tsd-tag">Readonly</code><span>growth<wbr/>Min<wbr/>Db<wbr/>Per<wbr/>Frame</span><a href="#growthmindbperframe" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">growthMinDbPerFrame</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p><a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a>'s least-squares slope bar (was <a href="../variables/_freemixer_core..GROWTH_MIN_DB_PER_FRAME.html" class="tsd-kind-variable">GROWTH_MIN_DB_PER_FRAME</a>).</p>
+<div class="tsd-comment tsd-typography"><p>the ramp gate (<code>omx_fbs_is_growing</code>)'s least-squares slope bar (was <a href="../variables/_freemixer_core..GROWTH_MIN_DB_PER_FRAME.html" class="tsd-kind-variable">GROWTH_MIN_DB_PER_FRAME</a>).</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="growthmintotalrisedb"><code class="tsd-tag">Readonly</code><span>growth<wbr/>Min<wbr/>Total<wbr/>Rise<wbr/>Db</span><a href="#growthmintotalrisedb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">growthMinTotalRiseDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p><a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a>'s end-to-end rise bar (was <a href="../variables/_freemixer_core..GROWTH_MIN_TOTAL_RISE_DB.html" class="tsd-kind-variable">GROWTH_MIN_TOTAL_RISE_DB</a>).</p>
+<div class="tsd-comment tsd-typography"><p>the ramp gate (<code>omx_fbs_is_growing</code>)'s end-to-end rise bar (was <a href="../variables/_freemixer_core..GROWTH_MIN_TOTAL_RISE_DB.html" class="tsd-kind-variable">GROWTH_MIN_TOTAL_RISE_DB</a>).</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="paprdb"><code class="tsd-tag">Readonly</code><span>papr<wbr/>Db</span><a href="#paprdb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>

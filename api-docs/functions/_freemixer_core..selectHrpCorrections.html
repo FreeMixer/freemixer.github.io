@@ -15,20 +15,31 @@
 <section class="tsd-panel">
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="selecthrpcorrections"><span class="tsd-kind-call-signature">selectHrpCorrections</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">candidates</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..HrpCandidate.html" class="tsd-signature-type tsd-kind-interface">HrpCandidate</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">collisionCents</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..HrpCandidate.html" class="tsd-signature-type tsd-kind-interface">HrpCandidate</a><span class="tsd-signature-symbol">[]</span><a href="#selecthrpcorrections" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="selecthrpcorrections"><span class="tsd-kind-call-signature">selectHrpCorrections</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">dsp</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..DspKernels.html" class="tsd-signature-type tsd-kind-interface">DspKernels</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">candidates</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..HrpCandidate.html" class="tsd-signature-type tsd-kind-interface">HrpCandidate</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">collisionCents</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..HrpCandidate.html" class="tsd-signature-type tsd-kind-interface">HrpCandidate</a><span class="tsd-signature-symbol">[]</span><a href="#selecthrpcorrections" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>The globally ranked, collision-free correction list (§29 + §30).</p>
-<p>Collisions resolve FIRST, and greedily from the strongest down: a candidate within
-<code>collisionCents</code> of an already-kept one is the same spectral region and is discarded —
+<p>A candidate that scores nothing (zero, negative or NaN) is not a candidate and is dropped
+before ranking, not ranked last: &quot;nothing to correct&quot; and &quot;the weakest correction&quot; are
+different facts. Collisions resolve FIRST, and greedily from the strongest down: a candidate
+within <code>collisionCents</code> of an already-kept one is the same spectral region and is discarded —
 &quot;merge or select the stronger&quot; (§30), done as selection because a bell deepened by a
-near-twin is not a correction anybody measured. Resolving before the caller's capacity
-cap matters: a discarded near-twin must not occupy a rank a distant candidate deserved.</p>
+near-twin is not a correction anybody measured. A candidate with no usable frequency has no
+distance to anything and counts as colliding with whatever is already kept. Resolving before
+the caller's capacity cap matters: a discarded near-twin must not occupy a rank a distant
+candidate deserved.</p>
 <p>The result is ordered strongest-first so the caller's budget takes the head of the list —
 §29's &quot;available EQ slots → strongest corrections&quot; as an array slice.</p>
+<p>THE LAW IS omx-dsp's <code>omx_hrp_select</code>, which the live LV2 insert also runs, so the console
+chooses the same corrections: this calls it through the DSP door (#1908). It works in float32: a
+score, a frequency and the threshold are rounded to float before anything is compared, and two
+scores that differ below float precision are a TIE, which the voice id then the harmonic decide.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">dsp</span>: <a href="../interfaces/_freemixer_core..DspKernels.html" class="tsd-signature-type tsd-kind-interface">DspKernels</a></span>
+<div class="tsd-comment tsd-typography"><p>the DSP door</p>
+</div></li>
 <li><span><span class="tsd-kind-parameter">candidates</span>: <span class="tsd-signature-keyword">readonly</span> <a href="../interfaces/_freemixer_core..HrpCandidate.html" class="tsd-signature-type tsd-kind-interface">HrpCandidate</a><span class="tsd-signature-symbol">[]</span></span>
 <div class="tsd-comment tsd-typography"><p>every stable voice's proposals, any order</p>
 </div></li>

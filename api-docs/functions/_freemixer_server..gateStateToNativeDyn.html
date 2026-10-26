@@ -24,7 +24,7 @@ field's doc), not derived from the knee width. A hard knee (<code>kneeDb: 0</cod
 <code>kneeStartDb</code>/<code>kneeEndDb</code>/<code>rangeDb</code> remain the LOCAL curve-shape approximation
 (<code>@freemixer/catalog/gate</code>'s <code>gateGainDb</code>, unchanged), which the native atom matches
 exactly only when <code>ratio</code> sits at the knee-implied value (<code>1 + |rangeDb| / width</code> — the
-default, <code>GATE_DEFAULT_RATIO</code> in <code>@freemixer/catalog/gate</code>, is chosen to match the
+default, <code>GATE_LIMITS.ratio.default</code> in <code>@freemixer/core</code>, is chosen to match the
 DEFAULT knee/range exactly); dialling <code>ratio</code> away from that value is precisely what
 turns the drawn hard-gate shape into a genuinely gentler expander on the LIVE signal,
 even though the static curve line keeps drawing the same knee — the live GR overlay

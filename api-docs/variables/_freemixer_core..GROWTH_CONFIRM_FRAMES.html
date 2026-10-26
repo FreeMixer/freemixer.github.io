@@ -13,16 +13,12 @@
 <li><a href="" aria-current="page">GROWTH_CONFIRM_FRAMES</a></li></ul>
 <h1>Variable GROWTH_CONFIRM_FRAMES<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">GROWTH_CONFIRM_FRAMES</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span></div>
-<div class="tsd-comment tsd-typography"><p>How many CONSECUTIVE frames <a href="../functions/_freemixer_core..isGrowing.html" class="tsd-kind-function">isGrowing</a> must hold before a bin confirms — the
-time-domain tiebreak for the one shape a single window cannot judge (issue #106): a
-smooth musical crescendo. Within one window a +6 dB swell (live corpus: a C6 at
-1 049 Hz, <code>[-53.7, -51.4, -50.4, -48, -47.3]</code>) is indistinguishable from slow
-feedback — the difference is only visible on the NEXT hop, where a crescendo peaks
-and plateaus (the window's rise collapses) while feedback keeps climbing. Requiring
-the gate to hold twice in a row costs a clean ramp nothing — its gate is already true
-while persistence is still arming — and blocks the swell that peaks the very frame it
-would have confirmed.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>How many CONSECUTIVE frames the ramp gate (<code>omx_fbs_is_growing</code>) must hold before a bin confirms — the time-domain tiebreak for the one shape a single window cannot judge: a smooth musical crescendo. Within one window a +6 dB swell (live corpus: a C6 at 1 049 Hz, <code>[-53.7, -51.4, -50.4, -48, -47.3]</code>) is indistinguishable from slow feedback — the difference is only visible on the NEXT hop, where a crescendo peaks and plateaus (the window's rise collapses) while feedback keeps climbing. Requiring the gate to hold twice in a row costs a clean ramp nothing — its gate is already true while persistence is still arming — and blocks the swell that peaks the very frame it would have confirmed.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/fbs.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

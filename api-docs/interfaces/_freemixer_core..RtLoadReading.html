@@ -19,9 +19,15 @@ consumed and the cycle deadline was missed. <code>busyPeak</code> is peak-held b
 cleared on read (each reading answers &quot;since the previous one&quot;); <code>overruns</code> counts
 measured missed deadlines cumulatively; <code>cycles</code> counts measured cycles — 0 means the
 engine has not processed yet, so the reading carries no signal.</p>
+<p>TWO DIFFERENT MISSED DEADLINES ride here (<code>an internal spec</code>), and reading one for the other is what let the desk look
+clean while it glitched: <code>overruns</code> is OUR DSP against its own compute budget, while
+<code>driverXruns</code>/<code>driverXrunNs</code> are the GRAPH DRIVER's loss, read by the RT callback out of
+PipeWire's <code>spa_io_clock.xrun</code>. Neither is <code>pw-top</code>'s per-node <code>ERR</code> count — that one has
+its own probe (<code>xrun-probe.ts</code>), its own feed and its own rows (<code>/clock/warnings</code>,
+<code>/telemetry/latency</code>).</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RtLoadReading</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#busyema">busyEma</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#busypeak">busyPeak</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#cycles">cycles</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#overruns">overruns</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="17312">
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RtLoadReading</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#busyema">busyEma</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#busypeak">busyPeak</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#cycles">cycles</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#driverxrunns">driverXrunNs</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#driverxruns">driverXruns</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#overruns">overruns</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel tsd-hierarchy" data-refl="23294">
 <h4>Hierarchy (<a href="../hierarchy.html#@freemixer/core..RtLoadReading">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">RtLoadReading</span>
@@ -37,6 +43,8 @@ engine has not processed yet, so the reading carries no signal.</p>
 <div class="tsd-index-list"><a href="#busyema" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>busy<wbr/>Ema</span></a>
 <a href="#busypeak" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>busy<wbr/>Peak</span></a>
 <a href="#cycles" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cycles</span></a>
+<a href="#driverxrunns" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>driver<wbr/>Xrun<wbr/>Ns</span></a>
+<a href="#driverxruns" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>driver<wbr/>Xruns</span></a>
 <a href="#overruns" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>overruns</span></a>
 </div></section></div></details></section></section>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -58,9 +66,25 @@ engine has not processed yet, so the reading carries no signal.</p>
 <div class="tsd-comment tsd-typography"><p>Cumulative count of measured cycles.</p>
 </div></section>
 <section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="driverxrunns"><code class="tsd-tag">Readonly</code><span>driver<wbr/>Xrun<wbr/>Ns</span><a href="#driverxrunns" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">driverXrunNs</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>The graph driver's accumulated xrun duration in NANOSECONDS (<code>spa_io_clock.xrun</code>,
+PipeWire's own unit, carried across unchanged) — the driver's total since the driver
+started, which may predate this engine.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="driverxruns"><code class="tsd-tag">Readonly</code><span>driver<wbr/>Xruns</span><a href="#driverxruns" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">driverXruns</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+<div class="tsd-comment tsd-typography"><p>Cycles in which the graph driver's accumulated xrun duration GREW — the driver xrun
+events the engine's own RT callback witnessed. An engine that joined a graph already
+losing time does not inherit that history: its first cycle read is a baseline.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="overruns"><code class="tsd-tag">Readonly</code><span>overruns</span><a href="#overruns" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">overruns</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Cumulative count of cycles whose busy time reached the whole budget.</p>
+<div class="tsd-comment tsd-typography"><p>Cumulative count of cycles whose busy time reached the whole COMPUTE budget — the
+engine's own missed deadline. It says nothing about a cycle the DRIVER could not
+deliver; that is <a href="#driverxruns" class="tsd-kind-property">driverXruns</a>.</p>
 </div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -77,7 +101,7 @@ engine has not processed yet, so the reading carries no signal.</p>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#busyema"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>busy<wbr/>Ema</span></a><a href="#busypeak"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>busy<wbr/>Peak</span></a><a href="#cycles"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cycles</span></a><a href="#overruns"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>overruns</span></a></div></details></div></details></div>
+<div><a href="#busyema"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>busy<wbr/>Ema</span></a><a href="#busypeak"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>busy<wbr/>Peak</span></a><a href="#cycles"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cycles</span></a><a href="#driverxrunns"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>driver<wbr/>Xrun<wbr/>Ns</span></a><a href="#driverxruns"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>driver<wbr/>Xruns</span></a><a href="#overruns"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>overruns</span></a></div></details></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">

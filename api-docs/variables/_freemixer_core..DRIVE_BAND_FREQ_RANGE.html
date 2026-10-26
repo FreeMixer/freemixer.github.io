@@ -12,13 +12,8 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">DRIVE_BAND_FREQ_RANGE</a></li></ul>
 <h1>Variable DRIVE_BAND_FREQ_RANGE<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">DRIVE_BAND_FREQ_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Hz&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The band split / tilt corner, in Hz. ONE travel for all three band modes, because the C
-imposes one constraint on all of them: it is the corner of a single biquad, and the split's
-other half is <code>x − LP(x)</code>.</p>
-<p>The full audio band, not the channel filters' narrower HPF/LPF pair — the same reasoning
-<a href="_freemixer_core..REVERB_CUT_RANGE.html" class="tsd-kind-variable">REVERB_CUT_RANGE</a> records: a surface narrower than the row removes reach the console
-genuinely has.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">DRIVE_BAND_FREQ_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Hz&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The band split / tilt corner, in Hz. ONE travel for all three band modes, because the C imposes one constraint on all of them: it is the corner of a single biquad, and the split's other half is <code>x − LP(x)</code>. The full audio band, not the channel filters' narrower HPF/LPF pair — the same reasoning REVERB_CUT_RANGE records: a surface narrower than the row removes reach the console genuinely has.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type Declaration</h4>
@@ -34,7 +29,11 @@ genuinely has.</p>
 <li class="tsd-parameter">
 <h5 id="step"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">1</span></h5></li>
 <li class="tsd-parameter">
-<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;Hz&quot;</span></h5></li></ul></div></div>
+<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;Hz&quot;</span></h5></li></ul></div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/drive.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -12,18 +12,13 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">BUS_INPUT_CAP</a></li></ul>
 <h1>Variable BUS_INPUT_CAP<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">BUS_INPUT_CAP</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = MAX_INPUT_CHANNELS</span></div>
-<div class="tsd-comment tsd-typography"><p>The input cap a summing bus can be sized to — <strong>the engine's declared input ceiling</strong>, read
-from <code>@freemixer/declarations</code> rather than re-typed here. A gig with more than this many
-inputs needs more than one engine node; below it a bus is sized to <code>min(N, BUS_INPUT_CAP)</code>.</p>
-<p>It was a literal 64 until 2026-09-15, said to mirror the engine's <code>MAX_BUS_INPUTS</code> — and it
-did, but that 64 was the PipeWire builtin mixer's single-tier fan-in (8 × 8), never the
-engine's bound: the native node has allocated <code>OMX_MAX_STRIPS</code> (128) strips all along. Two
-literals agreeing by hand is how the console came to refuse a 96-channel desk it could carry.
-<code>native-input-ceiling.test.ts</code> holds this to the C header; spec
-<code>an internal spec</code> §9 carries the ruling and the measured
-cost of width.</p>
-</div></div>
+<div class="tsd-signature"><span class="tsd-kind-variable">BUS_INPUT_CAP</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">128</span></div>
+<div class="tsd-comment tsd-typography"><p>The input cap a summing bus can be sized to — <strong>the engine's declared input ceiling</strong>, read from the engine's declarations rather than re-typed here. A gig with more than this many inputs needs more than one engine node; below it a bus is sized to <code>min(N, BUS_INPUT_CAP)</code>. It was a literal 64 until 2026-09-15, said to mirror the engine's <code>MAX_BUS_INPUTS</code> — and it did, but that 64 was the PipeWire builtin mixer's single-tier fan-in (8 × 8), never the engine's bound: the native node has allocated <code>OMX_MAX_STRIPS</code> (128) strips all along. Two literals agreeing by hand is how the console came to refuse a 96-channel desk it could carry. the engine's conformance test holds this to the C header; the console allocation design carries the ruling and the measured cost of width.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/mixmatrix.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

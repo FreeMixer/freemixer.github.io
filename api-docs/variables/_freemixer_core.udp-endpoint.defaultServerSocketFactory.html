@@ -13,7 +13,9 @@
 <li><a href="" aria-current="page">defaultServerSocketFactory</a></li></ul>
 <h1>Variable defaultServerSocketFactory<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">defaultServerSocketFactory</span><span class="tsd-signature-symbol">:</span> <a href="../types/_freemixer_core.udp-endpoint.ServerSocketFactory.html" class="tsd-signature-type tsd-kind-type-alias">ServerSocketFactory</a><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>Default factory: a real IPv4 UDP datagram socket, address reuse on.</p>
+<div class="tsd-comment tsd-typography"><p>Default factory: a real IPv4 UDP datagram socket, address reuse OFF. A listening port has
+one owner: with SO_REUSEADDR on both, a second endpoint would bind the same unicast port and
+Linux would hand each datagram to only one of them, silently (audit 2026-09-25 P5).</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

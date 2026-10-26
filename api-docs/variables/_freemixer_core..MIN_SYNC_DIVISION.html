@@ -13,7 +13,8 @@
 <li><a href="" aria-current="page">MIN_SYNC_DIVISION</a></li></ul>
 <h1>Variable MIN_SYNC_DIVISION<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">MIN_SYNC_DIVISION</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The smallest musical division the FX delay's sync mode accepts (a 64th note in beats).</p>
+<div class="tsd-comment tsd-typography"><p>The smallest musical division a plugin item's tempo sync accepts (a 64th note in beats; the
+delay's item, <code>PluginItemJson.tempo</code>, #1024).</p>
 <p><code>&lt;= 0</code> is refused outright — <code>syncDivision × 60000 / bpm</code> would resolve to 0 ms — and the row
 clamps to the smallest division that still resolves to real time.</p>
 </div></div>

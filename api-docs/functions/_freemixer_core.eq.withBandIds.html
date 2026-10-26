@@ -26,7 +26,13 @@ band — it is one whose identity has not been assigned yet, and leaving it unas
 unaddressable at <code>/eq/bands/{bandId}</code> forever (measured on the rig 2026-08-13: bands stored
 with <code>id: null</code>, reachable only by position, which is what #159 retired).</p>
 <p>A list where no band declares an id mints <code>1, 2, 3, …</code>. A MIXED list mints around what is
-already taken, so <code>[{id:'2'}, {no id}]</code> yields <code>2</code> and <code>1</code> rather than two bands sharing <code>2</code>.</p>
+already taken, so <code>[{id:2}, {no id}]</code> yields <code>2</code> and <code>1</code> rather than two bands sharing <code>2</code>.</p>
+<p>READ-COMPAT (issue #894): a session saved before R-082 carries <code>id</code> as TEXT (<code>&quot;1&quot;</code>) — this
+coerces that exact shape to the equivalent number rather than treating it as no id and
+minting a fresh one, which is what would otherwise silently renumber every band in an old
+show on its first load. Never migrated in place (the house pattern <code>session.ts</code>'s
+<code>ExpectedSoundcard.deviceId</code> fallback set for issue #893): the file on disk is untouched
+until the next save, which writes the real number.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>

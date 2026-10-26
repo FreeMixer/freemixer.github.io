@@ -13,14 +13,12 @@
 <li><a href="" aria-current="page">GROWTH_MAX_SINGLE_FRAME_SHARE</a></li></ul>
 <h1>Variable GROWTH_MAX_SINGLE_FRAME_SHARE<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">GROWTH_MAX_SINGLE_FRAME_SHARE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.5</span></div>
-<div class="tsd-comment tsd-typography"><p>Cap on the share of the window's total rise a SINGLE frame may carry. Feedback is
-exponential in amplitude ⇒ linear in dB ⇒ its rise is distributed roughly evenly across
-the window; a musical attack / re-articulation puts almost the whole rise in one hop
-(the exact shape behind every one of issue #106's 72 live false positives). One half is
-generous to real ramps (an even N-frame ramp puts 1/(N−1) per hop) and fatal to steps.
-A side effect worth knowing: a 2-sample window can never pass (one hop IS the whole
-rise), so confirmation always rests on at least three frames of actual ramp evidence.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>Cap on the share of the window's total rise a SINGLE frame may carry. Feedback is exponential in amplitude ⇒ linear in dB ⇒ its rise is distributed roughly evenly across the window; a musical attack / re-articulation puts almost the whole rise in one hop (the exact shape behind every one of the 72 live false positives of the live-music corpus). One half is generous to real ramps (an even N-frame ramp puts 1/(N−1) per hop) and fatal to steps. A side effect worth knowing: a 2-sample window can never pass (one hop IS the whole rise), so confirmation always rests on at least three frames of actual ramp evidence.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/fbs.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

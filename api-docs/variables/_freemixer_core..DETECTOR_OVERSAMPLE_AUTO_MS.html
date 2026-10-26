@@ -13,10 +13,12 @@
 <li><a href="" aria-current="page">DETECTOR_OVERSAMPLE_AUTO_MS</a></li></ul>
 <h1>Variable DETECTOR_OVERSAMPLE_AUTO_MS<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">DETECTOR_OVERSAMPLE_AUTO_MS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.5</span></div>
-<div class="tsd-comment tsd-typography"><p>Where <code>auto</code> engages, in milliseconds of attack (operator ruling, 2026-09-14). The C side's
-<code>OMX_DYN_OVS_AUTO_MS</code> is the same number and <code>detector-oversampling.test.ts</code> holds them
-equal — two thresholds would be two compressors.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>The shortest attack, in ms, at which the compressor's detector does not alias. Below it the compressor engages its 4x control path, which adds 72 samples of latency; a zero-latency band has no such path, so its attack travel stops at this floor.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/band_dyn.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

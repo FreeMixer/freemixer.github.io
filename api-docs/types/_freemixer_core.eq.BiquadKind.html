@@ -12,8 +12,12 @@
 <li><a href="../modules/_freemixer_core.eq.html">eq</a></li>
 <li><a href="" aria-current="page">BiquadKind</a></li></ul>
 <h1>Type Alias BiquadKind</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">BiquadKind</span><span class="tsd-signature-symbol">:</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;peaking&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;lowShelf&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;highShelf&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;highpass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;lowpass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;notch&quot;</span></div>
-<div class="tsd-comment tsd-typography"><p>The RBJ biquad kind that realises an EQ section.</p>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">BiquadKind</span><span class="tsd-signature-symbol">:</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;peaking&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;lowShelf&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;highShelf&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;highpass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;lowpass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;notch&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;bandpass&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;allpass1&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;allpass2&quot;</span></div>
+<div class="tsd-comment tsd-typography"><p>The RBJ biquad kind that realises an EQ section — plus <code>bandpass</code>, which no EQ band is: it is
+the de-esser's detector band (<code>2026-09-22-native-deesser-stage.md</code> §1, gate line 2), minted here
+because the pair it forms with the cookbook notch is a property of the DESIGN and not of the
+stage that runs it. <code>allpass1</code> is the dynamic EQ's first-order section (the <code>{k, 1, 0, k, 0}</code> transfer of libomxdsp's
+<code>omx_allpass1_coef_d</code>); <code>allpass2</code> is the phase tool's, the twin of <code>omx_allpass2_design</code> (<code>omx_allpass.h</code>).</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">

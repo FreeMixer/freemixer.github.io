@@ -13,16 +13,14 @@
 <li><a href="" aria-current="page">NATIVE_INSERT_POINTS</a></li></ul>
 <h1>Variable NATIVE_INSERT_POINTS<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">NATIVE_INSERT_POINTS</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../types/_freemixer_core..TapPointId.html" class="tsd-signature-type tsd-kind-type-alias">TapPointId</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The tap points the native lane walk can CUT at — where a hosted plugin's send/return detour
-can sit, in walk order. Mirrors <code>mix_order.h</code>'s <code>OMX_MAX_INSERTS</code>, and the index of a point
-here IS its native point index, so a slot's declared place and the port pair it uses can
-never disagree.</p>
-<p>Two catalogued points are deliberately absent, and neither is an oversight:</p>
+<div class="tsd-comment tsd-typography"><p>The tap points inside the chain's span (<code>2026-10-02-plugin-slot-row-and-one-chain.md</code> §3.1), in
+walk order: where a plugin item may be declared. A plugin's place in the walk is its position in
+the chain, and which port pair it uses is its trip (<a href="../functions/_freemixer_core..deriveChainWalk.html" class="tsd-kind-function">deriveChainWalk</a>), never its point.</p>
+<p>Two catalogued points are deliberately absent, and neither is an oversight — they are the
+chain's two boundaries (§3.5):</p>
 <ul>
-<li><code>Top-Of-Ch</code> is BEFORE the trim fill, outside the walk. It needs no detour: a plugin
-declared there is threaded between the channel's source and the node's strip input, which
-is exactly that place, and is what import('@freemixer/audio-engine').SoftwareMixer
-has laid since the chain edges came back.</li>
+<li><code>Top-Of-Ch</code> is BEFORE the trim fill, outside the walk: a pick-off, and no place for a
+plugin.</li>
 <li><code>Post-Fader</code> is AFTER the fader coefficient, which is applied during the SUM
 (<code>2026-08-07-one-summing-bus.md</code>: <code>bus[n] = coef(s,b) x tap(s,b)[n]</code>). A detour there
 would have to sit between the coefficient and the accumulation, per bus — a different

@@ -13,16 +13,12 @@
 <li><a href="" aria-current="page">PSHR_MIN_DB</a></li></ul>
 <h1>Variable PSHR_MIN_DB<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">PSHR_MIN_DB</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">10</span></div>
-<div class="tsd-comment tsd-typography"><p>Minimum <a href="../functions/_freemixer_core..pshr.html" class="tsd-kind-function">pshr</a> (dB) for a candidate frame to count as sub-harmonic-CLEAN.
-Evidence-set on the #116 corpus, margin on both sides: the four live false positives
-(musical overtones at 1 869.1 / 832.0 / 263.7 / 228.5 Hz) read PSHR between −10.2 and
-+8.8 dB across their windows — never a 5-frame sub-clean stretch, and the single
-closest approach (+8.8) is isolated between frames at ≈ −1 and −10 — while the
-committed #106 injected ramp reads ≥ +12.2 dB from its second frame on (its frame 0
-sits at +9.4, costing exactly one frame of confirm latency, pinned in the corpus
-test). A static program line at f/2 of REAL feedback also clears this fast: the
-runaway gains several dB per hop on anything static, so the deferral is transient.</p>
-</div></div>
+<div class="tsd-comment tsd-typography"><p>Minimum PSHR (<code>omx_fbs_pshr</code>) (dB) for a candidate frame to count as sub-harmonic-CLEAN. Evidence-set on the #116 corpus, margin on both sides: the four live false positives (musical overtones at 1 869.1 / 832.0 / 263.7 / 228.5 Hz) read PSHR between −10.2 and +8.8 dB across their windows — never a 5-frame sub-clean stretch, and the single closest approach (+8.8) is isolated between frames at ≈ −1 and −10 — while the committed #106 injected ramp reads ≥ +12.2 dB from its second frame on (its frame 0 sits at +9.4, costing exactly one frame of confirm latency, pinned in the corpus test). A static program line at f/2 of REAL feedback also clears this fast: the runaway gains several dB per hop on anything static, so the deferral is transient.</p>
+</div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/fbs.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

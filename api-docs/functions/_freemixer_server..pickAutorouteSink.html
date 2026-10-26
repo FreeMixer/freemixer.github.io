@@ -21,7 +21,8 @@
 sinks: the host's default sink when it is enumerated, else the first local-hardware
 sink, else the first sink at all. <code>avoidIds</code> excludes the demo's own virtual nodes
 (their loopback sink sides are enumerated as patchable sinks — auto-routing the main
-into one of them would just re-create the no-consumer loop). Portless nodes are
+into one of them would just re-create the no-consumer loop), and a mixer-owned node
+(<code>isMixerInternalNode</code> — the parking sink included) is never eligible. Portless nodes are
 never picked (nothing to <code>pw-link</code> to). Returns <code>undefined</code> when no eligible sink
 exists (CI / headless), so the caller can skip cleanly.</p>
 </div>

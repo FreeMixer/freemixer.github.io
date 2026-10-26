@@ -12,12 +12,8 @@
 <li><a href="../modules/_freemixer_core..html"></a></li>
 <li><a href="" aria-current="page">FX_DELAY_TIME_RANGE</a></li></ul>
 <h1>Variable FX_DELAY_TIME_RANGE<code class="tsd-tag">Const</code></h1></div>
-<div class="tsd-signature"><span class="tsd-kind-variable">FX_DELAY_TIME_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">300</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;ms&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The FX delay's time travel. <code>max</code> is the NATIVE ring's ceiling — the same number as
-<code>OMX_FXDELAY_MAX_MS</code> in <code>mix_delay.h</code>, pinned to it by <code>output-delay-ceiling.test.ts</code>.</p>
-<p>Distinct from the per-route ALIGNMENT delay (<code>OUTPUT_DELAY_RANGE</code>, 1 s, <code>OMX_DELAY_MAX_MS</code>):
-one is a musical echo with feedback and mix, the other is a pure latency. Two facts, two
-rings, two ceilings — sharing the word &quot;delay&quot; is why they keep being confused for each other.</p>
+<div class="tsd-signature"><span class="tsd-kind-variable">FX_DELAY_TIME_RANGE</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><br/>    <span class="tsd-kind-property">default</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">300</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">defaultFrom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;desk&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">max</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2000</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">min</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;ms&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p>The FX delay's time travel. <code>max</code> is the NATIVE ring's ceiling — the same number as <code>OMX_FXDELAY_MAX_MS</code> in <code>omx_delay.h</code>, pinned to it by the engine's conformance test. Distinct from the per-route ALIGNMENT delay (<code>OUTPUT_DELAY_RANGE</code>, 1 s, <code>OMX_DELAY_MAX_MS</code>): one is a musical echo with feedback and mix, the other is a pure latency. Two facts, two rings, two ceilings — sharing the word &quot;delay&quot; is why they keep being confused for each other.</p>
 </div>
 <div class="tsd-type-declaration">
 <h4>Type Declaration</h4>
@@ -33,7 +29,11 @@ rings, two ceilings — sharing the word &quot;delay&quot; is why they keep bein
 <li class="tsd-parameter">
 <h5 id="step"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">step</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">1</span></h5></li>
 <li class="tsd-parameter">
-<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;ms&quot;</span></h5></li></ul></div></div>
+<h5 id="unit"><code class="tsd-tag">Readonly</code><span class="tsd-kind-property">unit</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;ms&quot;</span></h5></li></ul></div>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-see">
+<h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>data/kernels/delay.json</p>
+</div></div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -15,7 +15,7 @@
 <section class="tsd-panel">
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="hrpresonancescore"><span class="tsd-kind-call-signature">hrpResonanceScore</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">cutDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">voiceConfidence</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">partialConfidence</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#hrpresonancescore" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="hrpresonancescore"><span class="tsd-kind-call-signature">hrpResonanceScore</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">dsp</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/_freemixer_core..DspKernels.html" class="tsd-signature-type tsd-kind-interface">DspKernels</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">cutDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">voiceConfidence</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">partialConfidence</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#hrpresonancescore" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>§24's resonance score, the documented formula: the AUTHORISED CUT (which already folds in
 the measured deviation, the excess threshold and the operator's amount — see
@@ -27,10 +27,14 @@ partial's attribution.</p>
 is binary (§13 — only a stable voice produces candidates at all), and an ambiguous
 attribution is unmeasurable (§11/§54 — it never becomes a deviation, so it never scores).
 Any unusable input scores zero: a NaN weight would poison every comparison it meets.</p>
+<p>The score is omx-dsp's <code>omx_hrp_resonance_score</code>, in float, through the DSP door (#1908).</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">dsp</span>: <a href="../interfaces/_freemixer_core..DspKernels.html" class="tsd-signature-type tsd-kind-interface">DspKernels</a></span>
+<div class="tsd-comment tsd-typography"><p>the DSP door</p>
+</div></li>
 <li><span><span class="tsd-kind-parameter">cutDb</span>: <span class="tsd-signature-type">number</span></span>
 <div class="tsd-comment tsd-typography"><p>the authorised cut as a positive magnitude, dB</p>
 </div></li>

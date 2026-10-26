@@ -19,17 +19,12 @@
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>The ONE spelling a tap is SERVED as — the resolved <a href="../types/_freemixer_core..TapPreset.html" class="tsd-kind-type-alias">TapPreset</a>, or an explicit
 <code>{ position }</code> unchanged.</p>
-<p><code>pre</code> / <code>post</code> stay valid INPUT for ever: they are what the retiring verbs send and what an
-older client writes, and <a href="../types/_freemixer_core..SendTapSpec.html" class="tsd-kind-type-alias">SendTapSpec</a> accepts them by design. What they must not do is
-come back out. A row that echoes whichever spelling it happens to hold serves two vocabularies
-on one field, and a client cannot round-trip its own write — measured on the live rig
-2026-08-16: <code>PATCH {&quot;tap&quot;:&quot;Post-All&quot;}</code> read back <code>'post'</code>, while a mix-minus send on the same
-row read <code>'Post-Fader'</code>. A tap picker rendering the row's own value cannot match it against
-the options it just offered.</p>
-<p>The two are not even the same point: <code>post</code> resolves to <code>Post-All</code> (after the whole chain,
-post-fader inserts included) and <code>Post-Fader</code> is the fader's own output, one stage earlier. So
-the collapse is not cosmetic — a reader comparing <code>tap === 'post'</code> is asking a question the
-answer cannot be trusted to mean.</p>
+<p><a href="../types/_freemixer_core..SendTapSpec.html" class="tsd-kind-type-alias">SendTapSpec</a> accepts <code>pre</code> / <code>post</code>; they never come back out. A row that echoes
+whichever spelling it happens to hold serves two vocabularies on one field, and a client cannot
+round-trip its own write: a tap picker rendering the row's own value cannot match it against the
+options it just offered. The served point is also one the row OFFERS: <code>post</code> serves
+<code>Post-Fader</code>, never <code>Post-All</code>, which no captured set holds, so a PATCH echoing the read value
+lands (#1988).</p>
 <p>Accept many, serve one: <code>contract exact, not more not less</code> applied to a field's VALUE space
 rather than to its field set.</p>
 </div>

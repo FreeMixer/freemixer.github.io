@@ -13,8 +13,11 @@
 <li><a href="" aria-current="page">HISTORY_ENTRY_PATH</a></li></ul>
 <h1>Variable HISTORY_ENTRY_PATH<code class="tsd-tag">Const</code></h1></div>
 <div class="tsd-signature"><span class="tsd-kind-variable">HISTORY_ENTRY_PATH</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;/history/entries/{id}&quot;</span><span class="tsd-signature-symbol"> = &#39;/history/entries/{id}&#39;</span></div>
-<div class="tsd-comment tsd-typography"><p>ONE entry of the undo/redo stack, addressed by its stable sequence id (a stringified number,
-so it takes <a href="_freemixer_core..STORED_ID_ADDRESS.html" class="tsd-kind-variable">STORED_ID_ADDRESS</a>'s shape rather than a new codec).</p>
+<div class="tsd-comment tsd-typography"><p>ONE entry of the undo/redo stack, addressed by its stable sequence id — an INTEGER
+(<code>UndoStack</code>'s <code>++seq</code>), parsed by <code>namedIntegerAddress</code> (<code>HISTORY_ENTRY_ID_ADDRESS</code>,
+<code>history-entry-row.ts</code>) rather than <a href="_freemixer_core..STORED_ID_ADDRESS.html" class="tsd-kind-variable">STORED_ID_ADDRESS</a>: unlike a stored item's id, this
+one is never a name, so canonical decimal is the whole address space and <code>0x1</code>/<code>1e0</code>/<code>01</code> name
+nothing (issue #895).</p>
 <p><code>/history/cursor</code> only ever answers the TOP of each stack (<code>undoLabel</code>/<code>redoLabel</code>); the stack
 itself was fully materialised in <code>UndoStack</code> and never addressable, so a client could not show
 &quot;3 steps back is Gain on CH3&quot; — only push the undo button and find out.</p>

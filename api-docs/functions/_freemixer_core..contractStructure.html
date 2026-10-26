@@ -18,8 +18,10 @@
 <div class="tsd-signature tsd-anchor-link" id="contractstructure"><span class="tsd-kind-call-signature">contractStructure</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">sheet</span><span class="tsd-signature-symbol">?:</span> <a href="../interfaces/_freemixer_core..ConsoleContractSheet.html" class="tsd-signature-type tsd-kind-interface">ConsoleContractSheet</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><a href="#contractstructure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>THE DECLARATION SET, hashed — the contract's GRAMMAR with every number removed.</p>
-<p>Which rows exist, which fields each declares, which are per-instance, and the MEMBERS of every
-enumerated field. Not the bounds, not the step, not the unit, not the default.</p>
+<p>Which rows exist, which fields each declares, which are per-instance, the MEMBERS of every
+enumerated field, and every derived row's declared wire SHAPE (field names at every depth, wire
+types, optionality — <code>row-shapes.ts</code>). Not the bounds, not the step, not the unit, not the
+default.</p>
 <p>That split is the whole point. A limit moving from 36 to 40 dB changes the fingerprint and not
 this; a field appearing, a row landing or a value joining a menu changes both. So the version
 ratchet can demand a MINOR BUMP for the second and merely a listed line for the first, which

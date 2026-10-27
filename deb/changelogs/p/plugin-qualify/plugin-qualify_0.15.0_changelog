@@ -1,0 +1,59 @@
+plugin-qualify (0.15.0) unstable; urgency=medium
+
+  * release: plugin-qualify 0.15.0
+  * plugin-qualify-sync: the console's other tier is a second record, not a
+    second plugin
+  * lv2-loader: a manifest that leaves lv2, rdfs or rdf undeclared still reads
+  * descriptors test: the LV2 fixtures now hold fourteen plugins
+  * Test the LV2 latency and cost on plugins whose delay is known, down to
+    the record (#163)
+  * Record the figures a run could not take, named by hosting code (#163)
+  * lv2-measure: measure the latency and the cost at the run's rate (#163)
+  * plugin-qualify adjust --history: the command, --pins with the adjusted
+    verdict, the README (#158)
+  * Write the second verdict into the qualification record's history block
+    (#158)
+  * Decide the second verdict from one history record: demote, promote on
+    cost alone, never lift (#158)
+  * Read plugin-hostd's running-history file by its grammar (#158)
+  * ci: cancel superseded pull request runs, skip the package dry run a pull
+    request cannot change
+  * probe-runner test: the shared host fixture is add and remove, as the
+    admission now sends (#159)
+  * Admit a plugin under mod-host with add and remove only (#159)
+  * Write the runs that share a record file as one record, so the tiers
+    survive (#152)
+  * State the roster fact instead of pointing into a private repo (#152)
+  * Test the 2026-10-26 admission rows, the sabotage of the host run, and the
+    mod-host helper (#152)
+  * --all covers the LV2 bundles on the LV2 path as it covers CLAP (#152)
+  * Measure mod-host and jalv verdicts by running the plugin, record the
+    console's two tiers (#152)
+  * README: measured and declared host profiles, the console's two tiers,
+    --all over LV2 (#152)
+  * Remove the --no-host-sweep flag nothing read
+  * debian: dh_installsystemd installs the sync's units where the release
+    reads them
+  * plugin-qualify-sync: its help and its entry point name it with a colon
+  * README: qualifying every plugin on a machine
+  * packaging: the sync as a service, after boot and when a plugin is
+    installed
+  * fixtures: the crashing and the hanging CLAP in a directory of their own
+  * plugin-qualify-sync: qualify every plugin once, and again when its files
+    change
+  * One writer for whole files; a record says what it did not measure
+  * probe runner: a wall clock per run, and the LV2 child the run located
+  * fixtures: a CLAP that crashes when it is loaded and one that hangs in
+    process()
+  * clap-loader: the --all hint says to set LV2_PATH, not unset it (#66)
+  * lv2-measure: say what soak mode does, not what it doesn't (#37)
+  * hostingLine reads the measurer's record with extractJsonRecord (#35)
+  * lv2-loader: a bundle on LV2_PATH is a directory holding manifest.ttl (#66)
+  * CI: add the channel with the add-openmixer action
+  * README: add the repository by installing openmixer-release
+  * ci: the shared build workflows are called at v1, the released ref, not
+    main
+  * packaging: require the runtime omx-clap-core for the hosting codes'
+    modules, not -devel
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 27 Oct 2026 10:55:36 +0000

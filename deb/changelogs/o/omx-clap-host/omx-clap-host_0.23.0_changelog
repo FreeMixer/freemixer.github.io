@@ -1,0 +1,26 @@
+omx-clap-host (0.23.0) unstable; urgency=medium
+
+  * Changelog 0.23.0: the scan labels and remote-control pages, the xruns line
+  * ci: read data/ back through omx-contract v3.4.0, the release whose render
+    spells the _RESP macros (#371)
+  * doc: the xruns line on the feedback port, and what PipeWire's libjack
+    reports of an xrun (#371)
+  * tests: the xruns line over jack, and each guard of the host's side broken
+    and seen red (#371)
+  * xrun_report_test: 1.6 million increments from eight threads, so a plain
+    increment always loses some (#371)
+  * omx-clap-host writes xruns <count> on its feedback port (#371)
+  * xrun_report.h: when a worker's xrun count is due on the feedback port
+    (#371)
+  * data: declare the xruns line the worker writes on its feedback port (#371)
+  * Drop the parameter-contract migration ABI; 0.23.0 (#154, #184)
+  * The host's refusal numbers are the rendered OMX_REPLY_HOST_*_RESP, not
+    defines of its own (plugin-hostd#176)
+  * One test harness module for lv2_parity.py and clap_coverage.py
+  * omx-clap-scan --json writes enum labels and remote-control pages
+  * docs: the hosting comparison quotes coverage on one set, ours, mod-host
+    and jalv (#360)
+  * CI: add the OpenMixer repository with the add-openmixer action
+  * Install the OpenMixer repository from the openmixer-release package
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 27 Oct 2026 10:22:15 +0000

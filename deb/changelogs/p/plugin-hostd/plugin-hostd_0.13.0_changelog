@@ -1,0 +1,64 @@
+plugin-hostd (0.13.0) unstable; urgency=medium
+
+  * release: 0.13.0 changelog lists the history, the planner, the LV2 latency
+    and the CI savings
+  * CI: give build and test 60 minutes
+  * tests: make the two chain sabotage texts unique, and catch the two
+    mutants no test noticed
+  * fuzz: point the mutant citations at src/verbs.c and fuzz_command.c as the
+    batch lays them out
+  * release: plugin-hostd 0.13.0
+  * sabotage: name the CLAP note-onset text by its closing parenthesis
+  * fuzz: the chain mutant applies past the new plan handler
+  * Answer plan, plan_get and plan_clear: gather the members, apply the
+    segments as chains, keep the ones that did not change
+  * Add the grouping planner as a pure function, and the reader of the cost
+    in a qualification record
+  * Declare plan, plan_get and plan_clear, the grouping reasons and the
+    grouping settings
+  * Bench: document the new modes and fields, run the unit tests in CI (#188)
+  * Bench: table.sh renders the chains and grouping rows as markdown (#188)
+  * Bench: plan and pool modes beside individual and chain (#188)
+  * Bench: repeat each row and write the median with its spread (#188)
+  * Bench: a fixed stress load, with and without it as two rows (#188)
+  * Bench: count xruns and read the latency JACK reports (#188)
+  * Bench schema: xruns, latency_frames, stress, repeats and spread; modes
+    plan and pool (#188)
+  * Probe runner: copy lv2_measure's latency and cost into the LV2 grid point
+    (#200)
+  * README: grouped workers against one process per plugin, measured
+  * Expect history.json in the contract package's file list, and cite the
+    design note by name
+  * Count each worker's windows and deaths into the history; history_get and
+    history_clear
+  * Give the history summary as one word, and a save a full interval from the
+    first tick
+  * Read a worker's CPU time and Pss from /proc
+  * Keep a running history of each plugin on this machine
+  * Take the machine class from one place, src/machine.c
+  * Move the directory and fsync helpers of the pin store into src/fsutil.c
+  * ci: cancel superseded pull request runs, skip package and fuzz runs a
+    pull request cannot change
+  * Render the vocabulary with omx-contract 3.4.0 and raise the floor to it
+  * Create state_root at start so an add does not answer -503 over a missing
+    directory (#180)
+  * Design note: no pointer into a private repository
+  * Bench: stop a stray with SIGTERM before SIGKILL
+  * Design note: tidy the L8 cell
+  * Design note: name the lane issues
+  * Design note: group plugins into the fewest workers from pins and running
+    history (#182)
+  * debian: the protocol clients of plugin-hostd-tests carry no execute bit
+  * Bench: one example document, a real run of class ci
+  * Bench: a plugin no LV2 bundle names is unsupported, not a failed add
+  * CI: the tests package lists the two protocol clients it ships
+  * plugin-hostd-tests ships one protocol client for shell and Python, and
+    the harness uses it (#177)
+  * Bench: how to run it and read it, and a CI job for the harness
+  * Bench: break each guard and watch it go red
+  * Bench: the runner and the scenario table
+  * Bench: the omx-bench/1 schema and its validator
+  * CI: add the channel with the add-openmixer action
+  * Docs: add the repository by installing openmixer-release
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 27 Oct 2026 13:19:42 +0000

@@ -1,0 +1,16 @@
+plugin-hostd (0.13.1) unstable; urgency=medium
+
+  * release: plugin-hostd 0.13.1
+  * Test the xruns windows against the fake worker, and break each guard
+    (#187)
+  * Fold a window's xruns into every member of the worker (#187)
+  * The relay keeps the last xruns count each worker wrote (#187)
+  * tests: the pool's order, trees, ports and lock are tested, and each guard
+    has a sabotage arm
+  * sabotage: run the arms in the pool, in a tree of their own each (#206)
+  * tests: a pool that runs sabotage arms side by side and prints them in
+    table order
+  * Declare the worker's xruns line and hold its word to omx-clap-core's,
+    raising the floor to 0.23.0 (#187)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 27 Oct 2026 14:15:16 +0000

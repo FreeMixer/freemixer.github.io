@@ -1,0 +1,30 @@
+libreac (1.9.0) unstable; urgency=medium
+
+  * fuzz_grant.c: the four HEAD_ACK records cite the lines the header has now
+    (#39)
+  * fuzz: the coverage floor reads a brace-less nest, a default arm and a
+    blank count strictly (#25)
+  * reac_ctrlblk.h: the --box pin comment says what the pin is now
+  * reac_cfg.h declares the pace and role vocabulary the transport headers
+    used from reac-pw (1.9.0)
+  * pcap_source: skip a record larger than the buffer without writing to
+    stderr
+  * README: add the repository by installing openmixer-release
+  * ci: the shared build workflows are called at v1, the released ref, not
+    main
+  * fuzz_ctrl: the address is bytes 9 and 10 of the joined record (#28)
+  * fuzz/README: REC_VERBOSE=1 shows the line each met record fires at (#28)
+  * fuzz_ctrl: an identity reply and a reassembled record keep the address
+    their bytes carry (#28)
+  * fuzz_grant: the sweep and the scheduler carry the value the input last
+    set (#28)
+  * fuzz_identity: the family is the hw table's for the last accepted 0x0600
+    payload (#28)
+  * fuzz_ctrl: the harness builds each row's declaration by the grammar, not
+    by the synthesiser (#28)
+  * fuzz_ctrl: a head-amp record is link 4 SINGLE by the frame's bytes, not
+    the parser's fields (#28)
+  * fuzz-records: REC_VERBOSE=1 prints each met record and the line that
+    fires (#28)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 27 Oct 2026 09:13:39 +0000

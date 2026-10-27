@@ -1,0 +1,68 @@
+reac-pw (1.0.38) unstable; urgency=medium
+
+  * fuzz: the coverage floors follow the lines the declarations change took
+    out
+  * fuzz_rate.c: two records name the lines their mutants are on
+  * fuzz: the rate and role records cite the lines the declarations change
+    left
+  * fuzz_link: a run writes nothing of its own
+  * reac_rate_cfg.h, reac_role_cfg.h: take the pure declarations from libreac
+    1.9.0
+  * reac-pw 1.0.38: libreac 1.9 is in range, the ceiling is the next minor
+  * fuzz_segconf: the grammar knows the `knock =` key
+  * fuzz: link the knock plan table into fuzz_segconf and follow the moved
+    lines of reac_segconf.c (#37)
+  * CI: add the channel by installing openmixer-release
+  * README: add the repository by installing openmixer-release
+  * 1.0.37 changelog: the knock is described by what it does, and by the two
+    limits a shared NIC still meets
+  * reac-pw 1.0.37 (#40)
+  * fuzz_qdisc: each read sends exactly one request (#37)
+  * fuzz_headamp: the plain parse writes the same cells as the parse with a
+    result (#37)
+  * ci: the shared build workflows are called at v1, the released ref, not
+    main
+  * reac_float_near.h, reac_role_cfg.c: a colon where the comments had a dash
+    (#37)
+  * ci: fuzz the harnesses of fuzz/ on every push and pull request (#37)
+  * fuzz/README.md: what each harness reads, and what has no harness (#37)
+  * fuzz: a harness for each reader of reac-pw's own input (#37)
+  * fuzz: the build, the record ratchet and the coverage witness (#37)
+  * netlink readers: read only the bytes of the reply (#37)
+  * segconf: a line it can read only in part is refused by name (#37)
+  * props readers: a Float value is its nearest integer, or malformed (#37)
+  * empty-master-yields-the-budget: the parent stays ignored, for the VLAN
+    order the test sets (#40)
+  * empty-master-yields-the-budget: a failure shows what the parent and the
+    knock did (#40)
+  * netns tests: the daemon under test reads no stanza, and the hand-made
+    VLANs say why (#40)
+  * conf: `ignore = yes` is honoured and the start says it is no longer
+    needed (#40)
+  * roster: "a box answered" only when one did (#40)
+  * hearing: a master whose box is gone stops at once, not 15 s later (#40)
+  * segconf: `knock =` names a plan, so the rig check needs no build (#40)
+  * reac_knock_wire: a declared plan, a capped stream knock and a backoff
+    (#40)
+  * docs: the knock is a declared plan with caps, and only the stream was
+    seen answered (#40)
+  * roster test: wait on rn1's own state key, not a word on the roster line
+    (#40)
+  * No em dashes in the #40 lines; the knock's sender comment names the
+    socket it uses (#40)
+  * hearing: a box heard on a trunk parent is its VLAN's, and the line says
+    so (#40)
+  * hearing: the knock carries the wake ladder for a box that dropped (#40)
+  * hearing: a master with no box goes back to listening and knocking (#40)
+  * roster: a wire with no engine says listening, knocking or trunk, in plain
+    words (#40)
+  * hearing: a silent wire is knocked on, and the master starts on the box
+    that answered (#40)
+  * reac_knock_wire: only evidence ends the knock, never a flood of unknown
+    FILLER (#40)
+  * reac_knock_wire: hand the master the box's control frames, not its filler
+    (#40)
+  * reac_knock_wire: the licence buys a bounded knock, never the stream (#40)
+  * docs: a silent wire is listened to and knocked on, never flooded (#40)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 27 Oct 2026 11:14:09 +0000

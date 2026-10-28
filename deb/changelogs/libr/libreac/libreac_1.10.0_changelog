@@ -1,0 +1,10 @@
+libreac (1.10.0) unstable; urgency=medium
+
+  * libreac 1.10.0: the qdisc read-back has its witness and walks no byte it
+    did not read
+  * fuzz: fuzz_qdisc drives the etf qdisc read-back over a fake rtnetlink
+    kernel, and the dump walker stops at the bytes recv() returned (#8)
+  * reac_code: declare reac-pw's last three tokens, E_NOT_MARKED, E_KNOCK_TX
+    and E_WAKE_EDGE (#8)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 28 Oct 2026 00:36:34 +0000

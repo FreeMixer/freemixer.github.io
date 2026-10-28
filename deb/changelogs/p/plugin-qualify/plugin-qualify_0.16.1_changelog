@@ -1,0 +1,21 @@
+plugin-qualify (0.16.1) unstable; urgency=medium
+
+  * version 0.16.1
+  * sync service: the interpreter first in ExecStart, so the service takes
+    the daemon's SELinux domain on Fedora (#188)
+  * qualify-prune: cover a CLAP record's @unversioned stem against its
+    descriptor's @<version> one (#177)
+  * qualify-prune: find a plugin's descriptor by id and binary hash, not by
+    its record's exact version suffix (#177)
+  * OMX_INPROCESS_FEATURES: the header order, and a header test that reads
+    the macros (#118)
+  * OMX_INPROCESS_FEATURES names the adapter's full provided list,
+    inPlaceBroken always met (#118)
+  * docs-format-version test: name the design note by path segments so the
+    private-refs check passes (#112)
+  * add test guarding README and design-doc format-version claims #112
+  * fix doc format-version drift: README to 1.5, perRateQuantum to cpuCost
+    #112
+  * ai-trace-commit-check: the self-test fixtures are built from fragments
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 28 Oct 2026 15:37:54 +0000

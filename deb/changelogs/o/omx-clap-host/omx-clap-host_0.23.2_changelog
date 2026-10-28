@@ -1,0 +1,20 @@
+omx-clap-host (0.23.2) unstable; urgency=medium
+
+  * version 0.23.2
+  * CI: fetch plugin-hostd-tests' lib from the tag that ships it, keep the
+    headers at v0.7.0
+  * CI: the plugin-hostd names the tests read follow plugin-hostd v0.13.0
+  * CI: install plugin-hostd-contract beside plugin-hostd-devel
+  * version 0.23.1
+  * ai-trace-commit-check: the self-test strings name no private pointer
+  * preset_base64_decode refuses a third '=' as soon as it reads it
+  * lv2_locate reads a prefixed name in work linear in the manifest
+  * fuzz_manifest: the rule compares the prefix only where a ':' follows it
+  * Shared verbs that plugin-hostd answers declare -901
+  * CI: the commit-message check is the ai-trace-check action
+  * The e2e tests, benches and socket checks use plugin-hostd-tests' protocol
+    client (plugin-hostd#177)
+  * tests: dialect_doc_check and ext_table_check each break a scratch copy
+    and require red (--self-test)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 28 Oct 2026 04:55:13 +0000

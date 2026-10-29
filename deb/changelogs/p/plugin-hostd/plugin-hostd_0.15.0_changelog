@@ -1,0 +1,38 @@
+plugin-hostd (0.15.0) unstable; urgency=medium
+
+  * docs: where the Zynthian work stands, 2026-10-29 evening
+  * Version 0.15.0: the thread pool from the pins, the pins reloaded live,
+    --pin-files, complete search lists
+  * fuzz: fuzz-records builds with src/pin_words.c and its mutants name the
+    lines of verbs.c as it is now (#236)
+  * fuzz: the seed corpus follows pin_set's pool word (#236)
+  * Let a copy of bench/ find the search-paths tool (#212)
+  * Expect search_paths.h in the devel package file lists (#212)
+  * Write the plugin search lists once, complete for a Zynthian Pi (#212)
+  * The command fuzzer and the sabotage follow pin_set's pool word (#236)
+  * Start a worker with the CLAP thread pool when its plugin's pin says
+    pool=cores (#236)
+  * Drop the late-restore sabotage arm, which breaks no guard (#271)
+  * Wait for the culprit's restore in its own worker before the second crash
+    (#271)
+  * plugin-hostd --pin-files prints the files a pin of a plugin holds
+  * docs: what the Pi shows on the afternoon of 29 October
+  * docs: status lists presets as incomplete until #269 closes
+  * Fuzz and sabotage follow #255's pin reload
+  * Reload the pins while the daemon runs, no restart on a plugin upgrade
+    (#255)
+  * docs: Start here opens with the three things plugin-hostd gives a Zynthian
+  * docs: where the Zynthian work stands, 2026-10-29
+  * ci: a job with CAP_SYS_NICE runs the probe's grant arm at FIFO 99, #252
+  * own-host: say the capability route of the grant is measured on every
+    push, #252
+  * test-chain-round-trip.py: play the chain again when its taps show no
+    peak, up to three runs (#246)
+  * zynthian captures: omx-eq8 pages on omx-plugins 0.16.0
+  * site: the from-file-to-page entry of the Zynthian section is live
+  * Site: comments stripped, the Zynthian use case from easy to complex,
+    landed pages live
+  * from-file-to-page: the probe holds notes while it measures an instrument
+  * Start here: from a plugin file to a page on the screen
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 21:42:28 +0000

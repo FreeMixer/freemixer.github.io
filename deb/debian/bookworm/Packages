@@ -294,6 +294,30 @@ Description: omx-clap-core's definitions in omx-contract's contract directory
  codes, and the verbs omx-clap-host and plugin-hostd answer, with their
  formats, replies, refusal codes and what each host owes each verb.
 
+Package: omx-clap-core-contract
+Architecture: all
+Version: 0.24.1
+Multi-Arch: foreign
+Priority: optional
+Section: sound
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 61
+Breaks: libomx-clap-core-dev (<< 0.24.1)
+Replaces: libomx-clap-core-dev (<< 0.24.1)
+Filename: ./all/omx-clap-core-contract_0.24.1_all.deb
+Size: 11116
+MD5sum: cfd04282207f035d98b6694d979d3fbc
+SHA1: a57bfab1dc6ccba8be18b48ebeb113062b0d0c00
+SHA256: 8ba023718e589bdd01e405b95855b1701aa27810b40533f96ff1d1801c835e16
+SHA512: c436dcc2e08b841ef386748ad390ac86f75daa98b90e08e12b33c1759e688876f85d857ee216660f58906061fdf2dcd0b4725dadc8d0a50a4dd0c9945c93a0d8
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: omx-clap-core's definitions in omx-contract's contract directory
+ omx-clap-core's definitions as files in omx-contract's contract directory,
+ for any program that reads them at run time: the hosting limits and refusal
+ codes, and the verbs omx-clap-host and plugin-hostd answer, with their
+ formats, replies, refusal codes and what each host owes each verb.
+
 Package: omx-contract-data
 Architecture: all
 Version: 3.3.0
@@ -1346,6 +1370,28 @@ Description: build a program that hosts CLAP plugins on libomx-clap-core
  the headers, the pkg-config file, and the list of functions the library
  promises to keep, with the baseline each release is checked against.
 
+Package: libomx-clap-core-dev
+Architecture: amd64
+Version: 0.24.1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 540
+Depends: libomx-contract-dev (>= 3.3.0), omx-clap-core-contract (= 0.24.1)
+Filename: ./amd64/libomx-clap-core-dev_0.24.1_amd64.deb
+Size: 83712
+MD5sum: c4147552fea7ad808e04e7b2484423a4
+SHA1: 148b9d8b1911902131c77c401f13cb3f36438a10
+SHA256: a25695ef645c5fbfa2276d10e1cad969bbca9e720e82b0a0d8a94075de78bd48
+SHA512: 53d3208febd8e839649abde16bd1dcd72c96b3e008f422022c5c6a9f55f3a23f45466f3894604cc12175f7a2681d7be2d3faa893796cafb948fabf26f290ad1f
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: build a program that hosts CLAP plugins on libomx-clap-core
+ What you need to write a program that hosts CLAP plugins on libomx-clap-core:
+ the headers, the pkg-config file, and the list of functions the library
+ promises to keep, with the baseline each release is checked against.
+
 Package: libomx-clap-core0
 Architecture: amd64
 Version: 0.12.0
@@ -1514,6 +1560,30 @@ Description: engine that runs CLAP plugins for omx-clap-host
  JACK or sockets, so a program of your own can host CLAP plugins on it as
  well.
 
+Package: libomx-clap-core1
+Architecture: amd64
+Version: 0.24.1
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 174
+Depends: libc6 (>= 2.34), omx-clap-core-contract (= 0.24.1)
+Filename: ./amd64/libomx-clap-core1_0.24.1_amd64.deb
+Size: 57232
+MD5sum: 47e604fae5ed6baa603c7b48e1a09dca
+SHA1: b24720c63ef101312a85ecc940c726ec7b4d84e7
+SHA256: 01b6b3c4aea412b3cf4dc8482bf524956b4247c58791ac9bda1cf172324abece
+SHA512: 84ab1ff2886ffc8144d02046ffc31c0117d4b0ce9a499044891e6e5b63f3ef608a8382eab299b1b06519c996e8b20ee7f86373d489c013a5f274e08085f4ed42
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: engine that runs CLAP plugins for omx-clap-host
+ The library that loads and runs CLAP plugins: it checks a plugin before using
+ it, activates and warms it up, keeps its parameters and saved state, and runs
+ its audio on the thread of the program that hosts it. It knows nothing about
+ JACK or sockets, so a program of your own can host CLAP plugins on it as
+ well.
+
 Package: libomx-clap-lv2-dev
 Architecture: amd64
 Version: 0.21.0
@@ -1667,6 +1737,34 @@ MD5sum: 9a3247f02c95bab42bc826263bb0d483
 SHA1: f08b1b4ab57407f87543dd9950777e03001559a5
 SHA256: c7f77d2a8a4e73d35bc2a631fa708ae4098dec3adb3bae83f7ea02cd896e98e2
 SHA512: 54d547f5aa48638b81817def0816e956352f868d5e0682abf2e2129e0a5b41511c8cc2de6d0707d5a9f3032c607f5e258427746c9486526b6155ad2d1d1b7ca0
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: LV2 adapter of omx-clap-host, as a static library to link
+ libomx-clap-lv2 is the LV2 adapter omx-clap-host links in, for a program of
+ your own that hosts plugins on libomx-clap-core: it loads an LV2 plugin
+ through lilv as a real LV2 instance and maps the host interface, presenting
+ the plugin's ports and controls as CLAP ports and parameters, with its
+ latency, its own background worker and its default settings. It is a
+ static library with its header and pkg-config file, linked at build time,
+ and it loads lilv when the first LV2 bundle is opened, so a program that
+ never opens one never needs lilv. LV2 at run time is omx-clap-host with
+ liblilv-0-0, which plugin-hostd also runs as the worker of an LV2 plugin.
+
+Package: libomx-clap-lv2-dev
+Architecture: amd64
+Version: 0.24.1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 270
+Depends: libomx-clap-core-dev (= 0.24.1), clap-headers, pkgconf
+Filename: ./amd64/libomx-clap-lv2-dev_0.24.1_amd64.deb
+Size: 69036
+MD5sum: 55003ecdb5bb191eef390b71f0aa6995
+SHA1: e6704e137d7405b8d36f394a9730641d090737f6
+SHA256: 081047fe9f36dfcc239ae1edb28279ae520dc1e6db6af7aa99fdeb03c857b1ae
+SHA512: 3f065ae97eae469718994c50394a3c54581c383e1069a45324c0a841b984b3cc2e1441def4da9d07e23a09f1df3f27402d41e9d21602ad255e1d1db9acd4a6c8
 Homepage: https://github.com/FreeMixer/omx-clap-core
 Description: LV2 adapter of omx-clap-host, as a static library to link
  libomx-clap-lv2 is the LV2 adapter omx-clap-host links in, for a program of
@@ -2231,6 +2329,33 @@ Description: fixtures to test a program that drives omx-clap-host
  socket_conformance.py, beside them, checks how any server of the mod-host
  socket protocol splits what it receives into commands.
 
+Package: omx-clap-host-tests
+Architecture: amd64
+Version: 0.24.1
+Priority: optional
+Section: sound
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 125
+Depends: omx-clap-host (= 0.24.1), python3, libc6 (>= 2.34), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125
+Filename: ./amd64/omx-clap-host-tests_0.24.1_amd64.deb
+Size: 26436
+MD5sum: b60da3ef2d54901e72efbb1560415347
+SHA1: 2dcc0b29b3ceadeafa564e08c58ccff7c6f7162e
+SHA256: a7ae8b8e1853263609498e790639bd9516d7e0c0410e3dd9529d16dcf43c833c
+SHA512: 354ccfaf5704d4e723846609ba78418faa4db377298ffaa2b0fa9ebfa9a60ecc8f279d54ca4c52d970eb1443a7c9c7474cd90c0d5c9b721caa815532891246a2
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: fixtures to test a program that drives omx-clap-host
+ Plugins and a signal source for testing a program that runs omx-clap-host as
+ its CLAP worker: a plugin that reads the track information the host passes
+ it, a compressor that reports meters, a gain that aborts on a write of 0.9
+ or more, a JACK client that plays a constant level, and one that plays a
+ noise into up to six effects and records each of them from the same cycles.
+ They are installed in /usr/libexec/omx-clap-host/tests, away from the
+ directories CLAP hosts scan, and are of no use to anyone else.
+ socket_conformance.py, beside them, checks how any server of the mod-host
+ socket protocol splits what it receives into commands.
+
 Package: omx-clap-host
 Architecture: amd64
 Version: 0.21.0
@@ -2389,6 +2514,35 @@ MD5sum: d23d1c03c3d63df827b032e16aafa52d
 SHA1: be8f06d80c21643fc280af2156537e6da0d75f84
 SHA256: 2b9819c08d1f49190ec13c28241afeb9311fe435e63a9d36df34b7caa1a19ec9
 SHA512: 19762c2ff35e4cb4a3d5291407d69bd8b5cb4fe241cf476bb8ace06618518b98c543cd7462c7389eddd1055b7e4d61d32cf31d5b5a64d87c5c077e6c24f08710
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: use CLAP and LV2 plugins on a JACK rig, driven like mod-host
+ omx-clap-host hosts CLAP and LV2 plugins in a live JACK or PipeWire rig.
+ Each plugin runs as a JACK client with its own ports, and an instrument
+ gets a MIDI input as well. Anything that already controls mod-host can
+ control it over the same socket with the same commands. An LV2 plugin,
+ added by its URI, runs natively: a real LV2 instance loaded through lilv,
+ with no emulation and no wrapper process. The LV2 adapter linked into the
+ host maps the host interface, presenting the plugin's ports and controls
+ as CLAP ports and parameters, and loads lilv when the first one is added.
+ .
+ It comes with omx-clap-scan, which lists what is in a CLAP bundle and
+ survives a plugin that crashes while loading.
+
+Package: omx-clap-host
+Architecture: amd64
+Version: 0.24.1
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 473
+Depends: libc6 (>= 2.34), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125, libmod-host-protocol0 (>= 0.1.0), libomx-clap-core1 (>= 0.24.1), libxcb1
+Recommends: liblilv-0-0
+Filename: ./amd64/omx-clap-host_0.24.1_amd64.deb
+Size: 162124
+MD5sum: b4622d19ece74a19c9d67e9a969a0985
+SHA1: 0406e67156cbe1f60f780886e933fddbb7a7e8fd
+SHA256: 62c8397f93d83c8c661bee78b4bdd96cdcd03eda95b104a387c42226ff506ef9
+SHA512: 4e4c87fabbdcc74e33a83c12e692d46967ea7b23430a192858177260739edf9029300050cc4e5933ef4f941950027f92cb79aebb7bd46b526e2d457a0fe65e5a
 Homepage: https://github.com/FreeMixer/omx-clap-core
 Description: use CLAP and LV2 plugins on a JACK rig, driven like mod-host
  omx-clap-host hosts CLAP and LV2 plugins in a live JACK or PipeWire rig.
@@ -3985,6 +4139,28 @@ Description: build a program that hosts CLAP plugins on libomx-clap-core
  the headers, the pkg-config file, and the list of functions the library
  promises to keep, with the baseline each release is checked against.
 
+Package: libomx-clap-core-dev
+Architecture: arm64
+Version: 0.24.1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 540
+Depends: libomx-contract-dev (>= 3.3.0), omx-clap-core-contract (= 0.24.1)
+Filename: ./arm64/libomx-clap-core-dev_0.24.1_arm64.deb
+Size: 83712
+MD5sum: 56007221dc83700862b994394d4ae2de
+SHA1: bbb29764962f340095074789cb6b0e50f39fc5ff
+SHA256: f3e8aff69b24662b281b298fa9d3ac781218aef10a701c4eb76a4aee3bc22500
+SHA512: 4150a2d0684c83f98746311c55f558d46957fff8a8160c85f6d4d4ef3dade30a7800084f2c007bc85166af37625097c596546550ac7633b5993e1c138d8c5ded
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: build a program that hosts CLAP plugins on libomx-clap-core
+ What you need to write a program that hosts CLAP plugins on libomx-clap-core:
+ the headers, the pkg-config file, and the list of functions the library
+ promises to keep, with the baseline each release is checked against.
+
 Package: libomx-clap-core0
 Architecture: arm64
 Version: 0.12.0
@@ -4153,6 +4329,30 @@ Description: engine that runs CLAP plugins for omx-clap-host
  JACK or sockets, so a program of your own can host CLAP plugins on it as
  well.
 
+Package: libomx-clap-core1
+Architecture: arm64
+Version: 0.24.1
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 186
+Depends: libc6 (>= 2.34), omx-clap-core-contract (= 0.24.1)
+Filename: ./arm64/libomx-clap-core1_0.24.1_arm64.deb
+Size: 58200
+MD5sum: b1139db0cfd38ba4c01859e36b895adb
+SHA1: 84dcd1729222ff93917c87276eb9a10583a324a7
+SHA256: e694275faffb38907d660040e59b6ce3b0e32456f9b9da57a427d0cf66e4d460
+SHA512: 161b717d6425e1151941ddf1b3caac8cf0024a720456ddb41bc0ac56c471a0b9c5d106ebd190da17541e764a7dedd30ba20cf51de51f1dbcf27112c24ed53507
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: engine that runs CLAP plugins for omx-clap-host
+ The library that loads and runs CLAP plugins: it checks a plugin before using
+ it, activates and warms it up, keeps its parameters and saved state, and runs
+ its audio on the thread of the program that hosts it. It knows nothing about
+ JACK or sockets, so a program of your own can host CLAP plugins on it as
+ well.
+
 Package: libomx-clap-lv2-dev
 Architecture: arm64
 Version: 0.21.0
@@ -4306,6 +4506,34 @@ MD5sum: 70042824f081e0977e29024c4337e540
 SHA1: 9c5c1714a06fa0ea1db5decef71ab2a423d64717
 SHA256: 894c60ea482b5ae5193684b9bf7399e06b5b5a419106e946b05072a3542869ec
 SHA512: 9394d154120affb555c39c31bfe61ea459bd54edeb952ba9ab562f58df8438769fdee890307a7985d86cc69174f458d4dce1cfc964935c45b0578c4646c9d904
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: LV2 adapter of omx-clap-host, as a static library to link
+ libomx-clap-lv2 is the LV2 adapter omx-clap-host links in, for a program of
+ your own that hosts plugins on libomx-clap-core: it loads an LV2 plugin
+ through lilv as a real LV2 instance and maps the host interface, presenting
+ the plugin's ports and controls as CLAP ports and parameters, with its
+ latency, its own background worker and its default settings. It is a
+ static library with its header and pkg-config file, linked at build time,
+ and it loads lilv when the first LV2 bundle is opened, so a program that
+ never opens one never needs lilv. LV2 at run time is omx-clap-host with
+ liblilv-0-0, which plugin-hostd also runs as the worker of an LV2 plugin.
+
+Package: libomx-clap-lv2-dev
+Architecture: arm64
+Version: 0.24.1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 270
+Depends: libomx-clap-core-dev (= 0.24.1), clap-headers, pkgconf
+Filename: ./arm64/libomx-clap-lv2-dev_0.24.1_arm64.deb
+Size: 66476
+MD5sum: 9029891e4216c1ab4e16be39579adeb7
+SHA1: 5d4a49c2c3a221cba27648a94d7497a2c6ad6ffa
+SHA256: ac3ac90607ed4c3ad4a46ae3968f22c805bcc0467ffc776f26ceda42101ec958
+SHA512: d3812255cf0772c72084661927656b5708618e920c8f7931700cd58ad4902476dcaeef181e3bc1cfa9ee2ca4868016e7af7558b5021736a701dfd8c2e9bcb0f3
 Homepage: https://github.com/FreeMixer/omx-clap-core
 Description: LV2 adapter of omx-clap-host, as a static library to link
  libomx-clap-lv2 is the LV2 adapter omx-clap-host links in, for a program of
@@ -4870,6 +5098,33 @@ Description: fixtures to test a program that drives omx-clap-host
  socket_conformance.py, beside them, checks how any server of the mod-host
  socket protocol splits what it receives into commands.
 
+Package: omx-clap-host-tests
+Architecture: arm64
+Version: 0.24.1
+Priority: optional
+Section: sound
+Source: omx-clap-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 361
+Depends: omx-clap-host (= 0.24.1), python3, libc6 (>= 2.34), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125
+Filename: ./arm64/omx-clap-host-tests_0.24.1_arm64.deb
+Size: 26008
+MD5sum: 4488c835bb5d88ab1437b79c2a3e2ab3
+SHA1: 89e6437a1afc4db87b4ee4b37b6421ce2bb16fe6
+SHA256: 635f02b3b4d51f995ace7e015c65011566137ad459c625e0ddc3e3b1dad1cdf1
+SHA512: 54e4323f68e7ac32747693b38331891633a44c82f401ca5cd6c7460ad9dd4fa2695cf74d50cf7dd726f076244ff585f3dc69f7ed93beef040b3165fec2478e73
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: fixtures to test a program that drives omx-clap-host
+ Plugins and a signal source for testing a program that runs omx-clap-host as
+ its CLAP worker: a plugin that reads the track information the host passes
+ it, a compressor that reports meters, a gain that aborts on a write of 0.9
+ or more, a JACK client that plays a constant level, and one that plays a
+ noise into up to six effects and records each of them from the same cycles.
+ They are installed in /usr/libexec/omx-clap-host/tests, away from the
+ directories CLAP hosts scan, and are of no use to anyone else.
+ socket_conformance.py, beside them, checks how any server of the mod-host
+ socket protocol splits what it receives into commands.
+
 Package: omx-clap-host
 Architecture: arm64
 Version: 0.21.0
@@ -5028,6 +5283,35 @@ MD5sum: 133c8c7e4d146c1448312241538bf58a
 SHA1: 1611cea7e8b913a8e470e674cd4fee74fce44a59
 SHA256: a1e47544c9b343bc4f2a1f17179b8cf3d32819aa16afdeec32c94a0eae5e8562
 SHA512: 4ca8a93b4765bd0b4e31d5304edd11f356e4be65ed34f8f6e6ba4151fba5d6225f9ccbd98e987e51b25484e5f2f1fb31fcad834df74cd67a3453fbcf8f036b93
+Homepage: https://github.com/FreeMixer/omx-clap-core
+Description: use CLAP and LV2 plugins on a JACK rig, driven like mod-host
+ omx-clap-host hosts CLAP and LV2 plugins in a live JACK or PipeWire rig.
+ Each plugin runs as a JACK client with its own ports, and an instrument
+ gets a MIDI input as well. Anything that already controls mod-host can
+ control it over the same socket with the same commands. An LV2 plugin,
+ added by its URI, runs natively: a real LV2 instance loaded through lilv,
+ with no emulation and no wrapper process. The LV2 adapter linked into the
+ host maps the host interface, presenting the plugin's ports and controls
+ as CLAP ports and parameters, and loads lilv when the first one is added.
+ .
+ It comes with omx-clap-scan, which lists what is in a CLAP bundle and
+ survives a plugin that crashes while loading.
+
+Package: omx-clap-host
+Architecture: arm64
+Version: 0.24.1
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 548
+Depends: libc6 (>= 2.34), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125, libmod-host-protocol0 (>= 0.1.0), libomx-clap-core1 (>= 0.24.1), libxcb1
+Recommends: liblilv-0-0
+Filename: ./arm64/omx-clap-host_0.24.1_arm64.deb
+Size: 150880
+MD5sum: 4cbc4e6f713df6877bf7a7e04c7882be
+SHA1: 8b4be73dc11d116f4a6443849da48d95871e8918
+SHA256: 3377c911c316b194e703ab0d8c0b829d081154c4b3c7f04078a896d703b8bd1e
+SHA512: b3218e6116a7c9ffc0f8e82535b34ef7cba9c5c36986cb3f904689da5770eaf6456213b08db6207073be4d2cc40d7e41d48bcd48ceb29902dd4394e94185489b
 Homepage: https://github.com/FreeMixer/omx-clap-core
 Description: use CLAP and LV2 plugins on a JACK rig, driven like mod-host
  omx-clap-host hosts CLAP and LV2 plugins in a live JACK or PipeWire rig.

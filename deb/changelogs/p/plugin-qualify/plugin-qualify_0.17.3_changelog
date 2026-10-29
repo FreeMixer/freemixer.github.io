@@ -1,0 +1,20 @@
+plugin-qualify (0.17.3) unstable; urgency=medium
+
+  * version 0.17.3: plugin-hostd 0.15.0 floor, pins from --pin-files (#228)
+  * test: the install action's plugin-hostd floor is 0.15.0 (#228)
+  * ci: the plugin-hostd the tests install is 0.15.0 or later (#228)
+  * The unmeasured-latency LV2 test expects the declared figure beside the
+    reason (#201)
+  * A cell the probe did not measure keeps the plugin's declared latency and
+    says why (#201)
+  * An LV2 record carries its run under plugin-hostd's LV2 adapter (#223)
+  * Publish /var/lib/omx world-readable from the package and report an
+    unreadable descriptor directory (#221)
+  * Publish the descriptor directory and files world-readable (#221)
+  * A pin holds the files plugin-hostd names for the plugin (#228)
+  * plugin-qualify-sync takes a lock: a second run waits, or with --no-wait
+    leaves a marker for the holder (#222)
+  * The mod-host and jalv admissions run on the device's LV2 directories
+    (#224)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 22:34:37 +0000

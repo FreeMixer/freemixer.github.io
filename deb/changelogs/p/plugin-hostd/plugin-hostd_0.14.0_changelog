@@ -1,0 +1,252 @@
+plugin-hostd (0.14.0) unstable; urgency=medium
+
+  * Version 0.14.0: the probe's SCHED_FIFO measurement (#225) in the spec's
+    changelog
+  * Version 0.14.0: the probe's SCHED_FIFO measurement (#225, #235) in the
+    changelogs
+  * Version 0.14.0: estimate, core placement, the wire protocol document, the
+    Zynthian chain tools and docs
+  * docs/zynthian: omx-eq8 retaken on omx-plugins 0.16.0: the add is refused
+    on a stale pin, mod-ui no longer crashes
+  * probe: the lock preload's default is where make install puts it, and the
+    packages build with their PREFIX (#225)
+  * probe tests: the capability-drop arm fails, not skips, without a user
+    namespace under PROBE_REQUIRE_REALTIME (#225)
+  * probe: CAP_SYS_NICE counts only in the initial user namespace, so a
+    namespace keeps its rlimit grant (#225)
+  * docs/zynthian: README names the captures page
+  * docs/zynthian: captures of the generated menus, the MOD GUIs and the
+    plugin figures on the Pi 5
+  * probe tests: the refusal arm grants itself an rlimit where it holds
+    CAP_SYS_RESOURCE (#225)
+  * evidence: placement none against spread on a Pi 5, two and three
+    instruments (#226)
+  * zynthian image: quote the jack2 failure as the log has it
+  * zynthian image: the first boot under qemu-system-aarch64, step by step
+  * zynthian image: boot the image in a container and record what that proves
+  * protocol-doc: estimate in the chains and plans group, and
+    docs/protocol.md written again
+  * protocol-doc: estimate in the chains and plans group, and
+    docs/protocol.md written again
+  * bench, tools/zynthian: read a worker_list record with or without its core
+  * docs/zynthian/benchmarks.md: grouped versus alone at 16 chains, from the
+    stress run
+  * site: docs/placement.md in the reference section
+  * protocol-doc: estimate is a verb of pins and qualification;
+    docs/protocol.md written again
+  * docs/zynthian: the Pi 5 stress run, grouped versus alone versus jalv,
+    with its data and captures
+  * stress-figures.py: one table and one set of figures from several runs,
+    each mode from the last run that holds it
+  * CI: the RPM's file list carries the probe's lock preload (#225)
+  * CI: the probe's highest priority comes from an rlimit the test raises,
+    not from CAP_SYS_NICE (#225)
+  * placement: one worker per chain or isolated plugin, pinned across the
+    audio cores (#226)
+  * tests: core placement across the audio cores, and its sabotage (#226)
+  * docs/zynthian: instruments through the engine, Surge XT on the Pi 5
+  * tools/zynthian: play an instrument and measure what it gives back
+  * tools/zynthian: the stress run reads CPU from the scheduler's ns
+    counters, not the tick
+  * docs: core placement, one worker per chain pinned across the audio cores
+    (#226)
+  * probe lock preload: no dead store when the report cannot be written (#225)
+  * probe tests: raise the limits with CAP_SYS_RESOURCE, and in CI never skip
+    a real-time arm (#225)
+  * probe: the lock is bounded by the RLIMIT_MEMLOCK hard limit, not the
+    memory limit (#225)
+  * probe: a missing lock preload is the reason before a small RLIMIT_MEMLOCK
+    (#225)
+  * probe: a child holds no CAP_SYS_NICE past its exec (#225)
+  * docs: the manual's shape in docs/site.yml, a landing page for Zynthian,
+    Start here and How to contribute
+  * tools/site: the site as a manual, shaped by docs/site.yml
+  * probe: a describe, a panel or a pin pass keeps the runner's
+    RLIMIT_MEMLOCK and RLIMIT_RTTIME (#225)
+  * estimate: a chain's latency, CPU, RAM and workers from the records
+  * supervisor: what the planner is told of a plugin, read by its uri
+  * qualcost: read the cost median and the latency of one grid point
+  * CI: the test container holds CAP_SYS_NICE, so the probe's
+    highest-priority arm runs (#225)
+  * docs: the probe measures at real-time priority, and how a service grants
+    it (#225)
+  * probe: run --list-limits prints the bounds a run would apply here (#225)
+  * probe: the measurement runs SCHED_FIFO at the highest priority granted,
+    memory locked (#225)
+  * tools/zynthian: the Pi 5 stress run, chains of 4 at 1 to 16 chains,
+    grouped, alone and on jalv
+  * probe: a lock preload that locks the measured child's memory (#225)
+  * probe output 1.2: the measurement's real-time class and memory lock,
+    declared (#225)
+  * ci: the zynthian-chain job reads the spike's patch before the round
+    trip's namespace
+  * docs/index.md: the Zynthian use case, its pages listed as coming until
+    each is published
+  * docs/zynthian: the upstream patch series, step by step, each with its
+    base and proof
+  * image-build.sh: the sbin tools on PATH, and a command the update cannot
+    find fails the build
+  * tools/zynthian: the matrix starts only after another lane's stress run on
+    the device
+  * docs/zynthian: the image with our work, how it is built and checked
+  * docs/zynthian: the Pi counts in three classes, suitable, isolated and
+    unsuitable
+  * docs/zynthian: the benchmarks, the trade-offs and the acceptance report,
+    for the upstream review
+  * docs/zynthian/evidence: the Pi 5 bench runs of 2026-10-27 and 2026-10-28
+    and the qualification summary
+  * tools/zynthian: the qualification summary, the figures, and the benchmark
+    matrix runner
+  * bench/report: qualification records count verdicts, one per host profile,
+    not plugins
+  * bench: each row counts the JACK clients its host put on the graph
+  * docs: the wire protocol, generated from the protocol data and checked in
+    CI
+  * docs/zynthian: the Path A verb table, as devel/zynthian holds it
+  * tools/zynthian: image-build.sh updates upstream's vangelis image with the
+    forks and OpenMixer
+  * image-inspect.sh: the OpenMixer packages and each repository's remote URL
+  * docs: a landing page, and the pages workflow that publishes the site on
+    GitHub Pages
+  * tools/site: render docs/ into a static site, with the figures and
+    captures its pages reference
+  * chain-e2e.sh: the spike engine's patch read before the network namespace,
+    which has no network
+  * docs/zynthian: the engine lives in the FreeMixer/zynthian-ui fork, and
+    the spike's patch leaves the tree
+  * tools/zynthian: the spike's engine read from the commit it was last
+    changed at, by spike-engine.sh
+  * CI: bench.yml runs the report writer's unit tests
+  * Report: the governor of a hand run is read from that run's own file
+  * Report: a partial run (missing host, rate, frames or plugin cell) is
+    reported as partial in the document and fails --strict
+  * Report: read latency_frames and the per-row stress field the bench
+    writes; order run ids by number; test on the shipped example document
+  * Report tool: no default under HOME; every input is an argument,
+    documented in --help
+  * Report --strict: validate first, write nothing when it fails, give the
+    reasons on stderr
+  * Report: a missing key is a validation error naming the key and the file;
+    no fallback substitutes a value
+  * Report facts: every source is a public pull request; the device, file
+    count and command come from the run's own document
+  * Report: sections 1, 2, 5 and 6 restate public pull requests line by line;
+    the unmeasured product claims are gone
+  * Bench: a script that writes the Zynthian acceptance report from
+    measurement files
+  * Design note: generate what a plugin lacks for Zynthian, never touch its
+    own bundle (#218)
+  * fuzz: the mutant records follow the moved lines of src/verbs.c (#174)
+  * verbs: the omx-clap-core header is the render of omx-clap-core-contract
+    0.23.2 (the shared verbs declare -901)
+  * verbs: the history and plan verbs declare -901 too (#174)
+  * verbs: a message or an answer there is no memory for is answered -901
+    (#174)
+  * ci: the clean DEB install takes omx-contract from the channel, which
+    plugin-hostd-contract depends on (#165)
+  * ci: validate the staged contract directory with the installed
+    omx-contract (#165)
+  * packaging: plugin-hostd-contract requires omx-contract 3.2.0 at run time
+    (#165)
+  * formats: the contract package requires omx-contract 3.2.0, and the staged
+    directory is validated (#165)
+  * README: say what omx-clap-host answers for param_info and presets today
+    (#153)
+  * probe: refuse a cost percentile other than 95 with a coded step naming it
+    (#111)
+  * Makefile: make test runs the probe teardown test (#110)
+  * own_host_lv2_probe: close the JACK client on every exit path after
+    activate (#110)
+  * tests: worker_env_reaches_new_and_running_workers asks the running worker
+    for a nice above its own
+  * fuzz: the record's mutant names the line of PHD_LINE_MAX in protocol.h
+  * tests: the fork fault returns once the process it leaves behind has
+    written its pid (#113)
+  * daemon_test: the long-line check counts the empty end of a 2 MiB line as
+    a piece
+  * tests: keep the anchors of the sabotage arms the plan code moved, and
+    reach quarantine_clear all
+  * supervisor: gather a split group again after history_regroup_s
+  * planner: a solo cost needs no test for an unknown qualified one
+  * supervisor: tell the planner about the history, and plan again at a
+    quarantine
+  * planner: read the history, and say when there is none
+  * history: export the two verdicts of the summary
+  * verbs_declared holds the rendered reply numbers to the declared ones; the
+    sabotage arm for a changed code now breaks the render (#176)
+  * Reply numbers and shared verb words come from the rendered contract, not
+    copies in protocol.h (#176)
+  * docs/zynthian: the round trip's run with the channel's packages, and the
+    two Fedora packages the job adds (#149)
+  * ci: zynthian-chain installs PipeWire's libjack and lilv-libs beside the
+    channel's worker (#149)
+  * docs/zynthian: the round trip's CI takes its packages from the channel,
+    and which run proved it (#149)
+  * ci: zynthian-chain takes the daemon, the worker and its fixtures from the
+    FreeMixer channel, by what they must do (#149)
+  * docs/zynthian: the round trip of omx-plugins members, and its run (#149)
+  * ci: zynthian-chain, the round trip of a Zynthian chain of omx-plugins
+    members with the real omx-clap-host (#149)
+  * test-chain-round-trip.py: a chain of three omx-plugins members over the
+    chain verb, its audio measured member by member (#149)
+  * test-chain.py: an engine of a given URI, references with parameters, and
+    the noise and rate a play ran at (#149)
+  * Zynthian engine: a clean close is a lost daemon, and the next command
+    reconnects (#149)
+  * docs/zynthian: a lost daemon, the clear's read-back, the sabotages' named
+    checks, and the runs again (#149)
+  * zynthian_engine_plugind.patch: chain_clear read back, a clear the daemon
+    did not act on named (#149)
+  * test-chain.py: the chain cleared when its last plugind processor leaves,
+    read back like every other edit (#149)
+  * zynthian_engine_plugind.patch: the chain's hook never raises, so a lost
+    daemon leaves no autoconnect lock held (#149)
+  * test-chain.py: autoconnect's lock a real one, and the daemon killed with
+    a rebuild's command in flight (#149)
+  * test-chain.py: each sabotage names the check it must trip, and a red on
+    any other is its own failure (#149)
+  * docs/zynthian/evidence/chain: the fake-host run with its sabotages and
+    the end-to-end run, commands and output (#149)
+  * tools/zynthian: test-chain.py, the seven scenarios of test-strip.py
+    re-targeted at chain_get, and chain-e2e.sh (#149)
+  * zynthian_engine_plugind.patch: the plugind chain declares a Zynthian
+    chain as one chain line and reads it back with chain_get (#149)
+  * docs/zynthian: the chain's tests, the end-to-end run and its audio
+    measure (#149)
+  * docs/zynthian: one Zynthian chain is one chain line, read back with
+    chain_get, parallel slots refused by name (#149)
+  * tools/zynthian: test-strip.py, the strip against plugin-hostd and the
+    fake host, every guard sabotaged once
+  * zynthian_engine_plugind.patch: the plugind strip links a chain's audio
+    slots on plugin-hostd in order, a parallel slot through an explicit mix
+    element
+  * docs/zynthian: what the jalv and mod-ui engines give a chain against Path
+    B, and chain_manager lines read at the pinned commit
+  * docs/zynthian: the Zynthian chain written as a strip profile, a parallel
+    slot as fan-out and an explicit mix
+  * docs/zynthian: correct a count and five line citations in the spike
+    report and verb table (#124)
+  * docs/zynthian: state the qualification facts in the offer instead of
+    pointing into private specs (#124)
+  * docs/zynthian: the engine registry's lines in the patched chain manager
+    (#124)
+  * docs/zynthian: the offer, steps small first, packaging, licences,
+    precomputed qualification (#124)
+  * docs/zynthian: the spike report, what ran, Path A and B results, hook
+    points, the owed hardware runs (#124)
+  * tools/zynthian: read a ZynthianOS image without root, and what
+    vangelis-2610 carries (#124)
+  * docs/zynthian: the verb table, mod-ui's 33 verbs on mod-host, an LV2
+    worker and a CLAP worker (#124)
+  * tools/zynthian: Path B, the plugind engine tested against Zynthian's
+    engine classes, a note through LV2 and CLAP (#124)
+  * docs/zynthian: zynthian_engine_plugind as a patch against zynthian-ui
+    f46b018 (#124)
+  * docs/zynthian: Path A evidence, the session logs, the reply diff, the
+    CLAP replay and the verb probe (#124)
+  * tools/zynthian: Path A, mod-ui driven against mod-host and plugin-hostd,
+    every verb logged and diffed (#124)
+  * tools/zynthian: a logging proxy and a sender for mod-host protocol
+    sessions (#124)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 09:38:25 +0000

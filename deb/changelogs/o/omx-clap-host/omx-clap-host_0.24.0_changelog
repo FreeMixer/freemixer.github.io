@@ -1,0 +1,59 @@
+omx-clap-host (0.24.0) unstable; urgency=medium
+
+  * lv2 host test: the #two block reads the fixture of the plugin it just
+    opened, not the previous one's
+  * version 0.24.0
+  * docs: the thread pool measured on a Raspberry Pi 5, with the fixture
+    plugin (#395)
+  * tests: the jack pool test where the namespace refuses the JACK thread's
+    priority (#395)
+  * docs: the pool spreads voices only for a plugin that splits them into
+    tasks (#395)
+  * tests: --thread-pool over jack, end to end (#395)
+  * core: a pool helper is named omx-pool-<core> (#395)
+  * host: --thread-pool=qualified|off|on, the plugin's grant from its
+    qualification (#395)
+  * core: request_exec hands a granted instance's tasks to pinned real-time
+    helper threads (#395)
+  * tests: the pool's late case on a slower helper, its hooks called, its
+    request path scanned (#395)
+  * tests: the thread pool's fixture, its test, its ThreadSanitizer run and
+    its sabotage (#395)
+  * docs: the thread pool's design and its gate (#395)
+  * ci: the commit-message job is named for the check it runs
+  * tools: the commit-message check under its own name
+  * fuzz_preset: no_overread compares the three readings only when none ran
+    out of memory
+  * fuzz: the mutant records and sabotage headers follow the moved lines of
+    src/preset_file.c and fuzz_preset.c (#347)
+  * fuzz_preset: the writer oracle and the stated grammar follow the
+    normalising number writer (#347)
+  * preset_file.h states the lax grammar pj_parse and preset_base64_decode
+    accept (#347)
+  * pj_write normalises a lax number's text to a strict JSON one (#347)
+  * Makefile: add fuzz-coverage-self, the seed floor's guards against
+    themselves #342
+  * fuzz/coverage.sh: the seed floor goes red on an empty reach.txt and an
+    unknown harness #342
+  * fuzz/README.md: document the seed floor's two new guards and
+    fuzz-coverage-self
+  * fuzz/sabotage: the manifest patches follow the new allocation failure
+    return (#340)
+  * open_lv2 and fields_lv2 treat LV2_LOCATE_READ_FAILED as a failure, not an
+    invalid URI (#340)
+  * lv2_locate_manifest_readings answers its allocation failing, not that the
+    manifest does not name it (#340)
+  * lv2_locate.h: an allocation failure in the manifest reader is its own
+    code (#340)
+  * abi-check.sh tracks the data-member-change heading depth as a stack (#325)
+  * test-lv2-asan runs lv2_host_test under the address sanitizer, #293
+  * lv2_host_test sizes its feature list from the provided count, #293
+  * test-jack skips a missing CLAP_TEST_PLUGIN instead of going red
+  * test-scan and test-identity skip a missing CLAP_TEST_PLUGIN instead of
+    FAIL
+  * lv2_clap_test: give the outside-root .saved fixture a pid-qualified name
+  * commit-message-check: the self-test fixtures are built from fragments
+  * ci: cancel superseded pull request runs, skip package and fuzz runs a
+    pull request cannot change
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 10:54:07 +0000

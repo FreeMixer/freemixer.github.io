@@ -1,0 +1,14 @@
+plugin-qualify (0.17.2) unstable; urgency=medium
+
+  * Release PR plugin-qualify 0.17.2
+  * The sync removes the records of an installed plugin's other bytes,
+    referenced or not (#198)
+  * Test that the descriptor writer's timeout is per plugin (#202)
+  * Test that files holding the same CLAP id stay separate targets (#202)
+  * Pin each CLAP file under its own key; descriptor writes get a timeout per
+    plugin (#202)
+  * The sweep test runs the fast grid: it tests the budget of a hung plugin,
+    not the grid (#212)
+  * The default grid is the full one: every rate times every block size (#212)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 10:56:05 +0000

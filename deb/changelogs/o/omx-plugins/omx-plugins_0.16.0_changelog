@@ -1,0 +1,45 @@
+omx-plugins (0.16.0) unstable; urgency=medium
+
+  * The generated headers, LV2 files and descriptors carry 0.16.0
+  * version 0.16.0
+  * Generated headers and descriptors carry the release version (#260)
+  * docs: the parameter reference of every plugin, generated from the
+    declarations and checked
+  * ci: the commit-message job is named for the check it runs
+  * tools: the commit-message check under its own name
+  * band subgroups: refuse the expanded form outside a variant too, an arm
+    for each form (#257)
+  * eq8: a parameter group per band, so a touchscreen shows one band per
+    screen (#257)
+  * Manifests list <modgui.ttl> first, so omx-panel 0.5.0's check finds it
+    (#244)
+  * Test that every generated LV2 maintainer states foaf:homepage
+  * Add foaf:homepage to the generated doap:maintainer
+  * ai-trace-commit-check: the self-test fixtures are built from fragments
+  * CI: the DEB install check replaces the channel's omx-plugins-contract
+  * tests: the contract reader and the upstream hold read the release they
+    run against
+  * ai-trace-commit-check: no pointer into a private repository in the copied
+    checker
+  * CI: the commit-message check is the ai-trace-check action
+  * CI: take the channel from the add-openmixer action
+  * packaging: a build installs no older omx-plugins-devel (#233)
+  * omx-panel's vocabulary reads this tree's param-contract header (#233)
+  * omx-panel's ROLES is the one table of roles: the schema's familyRoles is
+    held equal to it (#233)
+  * BUILDING: OMX_PANEL_DIR names the omx-panel tree, OMX_PANEL the command
+    (#233)
+  * The role to meaning table is omx-panel's: the copy in descriptor.mjs
+    leaves (#233)
+  * Packaging: BuildRequires omx-panel >= 0.2.0, Build-Depends omx-panel (>=
+    0.2.0), held by deps-check (#233)
+  * The declaration schema references omx-panel's widget and indexed role
+    lists instead of holding copies (#233)
+  * The panel layout is omx-panel's; panelDescription(d) renders the
+    declaration and calls it (#233)
+  * The MOD GUI is written by omx-panel; modgui-gen, raster, the look and the
+    MOD GUI test leave (#233)
+  * docs: the panel layout and the MOD GUI are omx-panel's; this repository
+    hands it a descriptor and a declared panel (#233)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 03:13:13 +0000

@@ -1,0 +1,40 @@
+plugin-qualify (0.18.0) unstable; urgency=medium
+
+  * version 0.18.0: memory judged per host, an RT violation under notes is
+    isolated (#114, #196)
+  * An RT violation while notes play rates conditional, isolated in the pin
+    (#196)
+  * native: the leaking LV2 fixture touches its leak where the compiler
+    cannot drop it (#114)
+  * native: make deps fetches omx-clap-core 0.25.1, the package floor (#114)
+  * README: state the leak rule, no pointer into design notes (#114)
+  * test: the install action's plugin-hostd floor is 0.15.3 (#114)
+  * debian: the two floors in the form the others are written
+  * Floors: plugin-hostd 0.15.3 and omx-clap-core 0.25.1 (#114)
+  * check-installed: the RT-unsafe fixture is conditional and pinned isolated
+    (#196)
+  * RLIMIT_AS on plugin-qualify's direct spawns, off for a sanitizer build
+    (#114)
+  * The verdict reads memory against the host's budget, and the soak reads
+    leaks (#114)
+  * native: the footprint of an instance, and the soak's readings past
+    warm-up (#114)
+  * design: memory footprint, growth, limit and a verdict per host profile
+    (#114)
+  * hosting-codes: regenerate from omx-clap-core 0.23.0 (#146)
+  * native: build the LV2 provider against omx-clap-core 0.23.0, the
+    packages' floor (#146)
+  * Live fixture tests read the RT-unsafe plugin as isolated, not refused
+    (#196)
+  * RT-unsafe rates conditional, isolated in the pin, never refused (#196)
+  * A host that never started is no evidence; the adapter decides only when
+    it measured (#250)
+  * An LV2 plugin's isolated tier is omx-clap-host through the LV2 adapter
+    (#250)
+  * A scoped sync keeps the pins of what it did not scan (#247)
+  * Say decided and decision in the comments, as the maintainers write it
+  * plugin-qualify-sync.timer: rescan every 15 minutes, not just at boot
+  * doc: an in-place upgrade in an extra folder is caught by the timer, not
+    the path unit
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 30 Oct 2026 22:22:57 +0000

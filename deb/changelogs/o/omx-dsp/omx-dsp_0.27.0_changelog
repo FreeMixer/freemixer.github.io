@@ -1,0 +1,92 @@
+omx-dsp (0.27.0) unstable; urgency=medium
+
+  * packaging: deps.txt lists omx-contract-data, the floor omx-dsp-contract
+    requires (omx-contract#150)
+  * packaging: the contract directory in omx-dsp-contract, a noarch package
+    (omx-contract#150)
+  * Version 0.27.0: the rest of the L2 FX wave (#188)
+  * delay: the near-0 tempo arms use a tempo whose time really overflows
+    (#250)
+  * eq design: the bandwidth Q keeps the committed table's 0 for an
+    overflowing width (#250)
+  * instance-rates sabotage: the deesser cap is caught by the checks that
+    still decide it (#250)
+  * ci: a fuzz job runs each harness for 60 s (#250)
+  * fuzz: make fuzz, make fuzz-run, make fuzz-corpus and the seed corpus
+    (#250)
+  * envelope: the no-overshoot checks are relative to the level (#250)
+  * onepole: the convex post is relative to the level (#250)
+  * delay: a tempo near 0 is a finite synced time (#250)
+  * fdelay: the clamp follows the raise to the kernel's reach (#250)
+  * eq design: the Q is held in [1e-3, 1e6], the width laws follow (#250)
+  * fuzz: libFuzzer harnesses and the seed generator for the entry points
+    that take outside data (#250)
+  * pan law: no leg of any pan is negative (#250)
+  * balance law: a NaN pan is the centre (#250)
+  * onepole: a pole made by the constructors is below 1 (#250)
+  * ci: the package jobs install python3 for the shared changelog step (#253)
+  * ci: the commit-message check action at main
+  * ci: the commit-message job is named for the check it runs
+  * tools: the commit-message check under its own name
+  * commit-message-check: the self-test fixtures are built from fragments
+  * CI: the omx-dsp-devel RPM job may run 60 minutes
+  * CI: the omx-dsp-devel RPM job may run 60 minutes
+  * CI: the omx-dsp-devel RPM job may run 60 minutes
+  * tools: the commit-message checker fixture names no private path
+  * CI: an Ubuntu job takes the trixie index through the add-openmixer suite
+    input
+  * CI: take the add-openmixer and commit-message-check actions at v1
+  * tools: drop the private issue pointer from the commit-message checker
+    comment
+  * Dependency floors from packaging/deps.txt; the shared private-refs engine
+  * CI: the commit-message check is the commit-message-check action
+  * CI: the ubuntu job takes the trixie index through the add-openmixer suite
+    input
+  * patch-names-check: the header names no private repository
+  * CI: take the channel from the add-openmixer action
+  * tools: patch-names-check refuses a public name added in a patch release
+    (ops#274)
+  * chorus test: say the oracle-rate rule in words, drop the private note
+    name (#214)
+  * CI: add the OpenMixer repository with the add-openmixer action
+  * Install the OpenMixer repository from the openmixer-release package
+  * omx_comp_instance.h: the engine caller note states the fact, no private
+    path
+  * private-refs-check reads a tree another user owns, as the CI containers
+    check it out (#1478)
+  * tone: arm H's step and peak as comparisons, not fmax (#188)
+  * kernels: the unruled rows of plosive, leveler and width marked
+    provisional (#188)
+  * comp: the trailing release_mode argument named as an API change, with its
+    callers (#188)
+  * suboct: the second octave's derived line, 0.05 dB; closed forms from the
+    declared values (#188)
+  * leveler: a slot engaged again starts from silence (#188)
+  * tone: the filter starts from silence on every change of side (#188)
+  * width: the ring is cleared on a pseudo-mode or delay change and on the
+    engage edge (#188)
+  * Add the private-refs gate with its self-test to the Makefile and CI
+    (#1478)
+  * Two comments state the fact instead of naming a private test harness
+    (#1478)
+  * suboct: the sub-octaver face over omx_divider (FX-17) (#188)
+  * width: omx_width and the stereo width face (FX-11) (#188)
+  * transient: the attackGainDb and sustainGainDb readouts, nine rates
+    (FX-16) (#188)
+  * plosive: the plosive and consonant tamer face (FX-13) (#188)
+  * transient: TRANSIENT_REF_DB's link names the ramp word (#188)
+  * envdiff: omx_envdiff_ramp, the contrast's gain-law ramp as one word (#188)
+  * comp: releaseMode fixed, opto and auto, and the effective attack (FX-12)
+    (#188)
+  * leveler: the one-knob dynamics face and its table (FX-10) (#188)
+  * dyn: the upward law, OMX_DYN_UPWARD in the gain computer (FX-10) (#188)
+  * tone: the tilt and DJ filter face over omx_tilt and the EQ sections
+    (FX-9) (#188)
+  * tilt: omx_tilt_a_of_span, the tilt read as a span (#188)
+  * ci: the twins version check reads the file as text, the test containers
+    carry no node (#233)
+  * ci: the version step reads ts/package.json too, the fourth place the
+    version lives (#233)
+  * ts: the twins are 0.26.0, the library's version (#233)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 30 Oct 2026 14:56:11 +0000

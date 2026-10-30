@@ -1,0 +1,59 @@
+libdiginet (0.1.2) unstable; urgency=medium
+
+  * 0.1.2: the Control|24 session rule, re-taking our own session, and one
+    socket for every desk
+  * docs/protocol.md: R16 keeps the measurement, a host treats every fader
+    the same
+  * tools: diginet-probe --any, every interface at once with its socket from
+    the helper (#35)
+  * fuzz: fuzz_mux, the desk mux held to a table model of its own (#35)
+  * transport: the desk mux, one socket and a session per desk, with appeared
+    and gone notices (#35)
+  * fuzz: the transport model reports a deaf desk as the session does (#35)
+  * transport: report a desk that announces but lets three wakes in a row
+    time out (DIGINET_N_DESK_DEAF) (#35)
+  * tools: diginet-packet-helper, which opens the any-interface socket and
+    hands it over, packaged with cap_net_raw (#35)
+  * transport: one packet socket for every interface, and its hand-over over
+    a Unix socket (#35)
+  * fuzz: the transport model re-takes our own session on an e1 naming us
+    (#33)
+  * transport: re-take our own session when the desk still announces e1
+    naming us (#33)
+  * docs/protocol.md: M1 on a Control|24, the measured answers (#29)
+  * fuzz: the transport model holds the Control|24's session rule (#30)
+  * transport: a Control|24 is online on the e2 ACK, and announces e0 or e1
+    in session (#30)
+  * fuzz/README.md: the record counts after the three new checks (#27)
+  * fuzz/sabotage.sh: a further patch of one property is
+    <harness>-<property>.<what>.patch (#27)
+  * fuzz_transport: a desk's notice carries its announce, version and name
+    (#27)
+  * fuzz_codec: each encoder argument at the width of its type (#27)
+  * fuzz_frame: the builder ignores the numbytes and sum of the header it is
+    given (#27)
+  * fuzz/README.md: the record counts after the six new checks (#27)
+  * fuzz_transport: no frame of commands goes while a back-off holds (#27)
+  * fuzz_transport: a retransmission is the whole frame in flight again (#27)
+  * fuzz_codec: the counter text writes nothing past its 8 digits (#27)
+  * fuzz_codec: the scribble text writes nothing from n on (#27)
+  * fuzz_decode: the event's message carries the grammar's running flag (#27)
+  * fuzz_frame: the short buffer is its own allocation, and nothing is
+    written into it (#27)
+  * fuzz_codec: the seven-segment record on the check's own guard (#27)
+  * fuzz/checks.awk: read a guard as tools/check reads it (#27)
+  * fuzz/README: the protocol as the expected value, the records, and what
+    has no harness (#27)
+  * ci: meet every record and build every harness static in the fuzz job (#27)
+  * fuzz: sabotage patches in fuzz/sabotage/, as OSS Verify reads them (#27)
+  * fuzz: make fuzz-records, fuzz-static, and the record ratchet (#27)
+  * fuzz_transport: hold the session to a model of its header (#27)
+  * fuzz_codec: hold each encoder to the bytes and range its control has (#27)
+  * fuzz_decode: hold the cursor and the decoder to the grammar's steps (#27)
+  * fuzz_frame: hold the parser, the builder and the announce to the grammar
+    (#27)
+  * fuzz: seeds that reach every check, and every bound and timer exactly
+    (#27)
+  * fuzz/spec.h: the protocol as the harnesses hold it (#27)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 29 Oct 2026 23:59:53 +0000

@@ -1,0 +1,21 @@
+omx-clap-host (0.24.3) unstable; urgency=medium
+
+  * Say decided and decision in the comments, as the maintainers write it
+  * version 0.24.3
+  * omx-clap-host registers 64 commands again: no dead unsupported
+    preset_save (#383)
+  * ci: the deb consumer step replaces the channel's omx-clap-core-contract
+    with this build's (#383)
+  * omx-clap-host answers pin_layout (#383)
+  * ci: install plugin-hostd-contract beside plugin-hostd's development
+    package (#383)
+  * ci: build and test against plugin-hostd v0.15.0 (#383)
+  * test: the %20 path of #401 is loaded as a file: key
+  * clap_host.h back to main's: no member added to struct omx_clap_instance
+    (#401)
+  * preset-load error flag kept in clap_host.c, the public instance struct
+    unchanged (#401)
+  * preset_load answers an error for a load the plugin reported through
+    on_error (#401)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 30 Oct 2026 02:13:49 +0000

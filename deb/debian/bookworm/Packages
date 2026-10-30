@@ -2486,6 +2486,97 @@ Description: Roland REAC protocol library
  implements the REAC control plane: control blocks, head-amp records, box
  identity, and the master and slave establishment state machines.
 
+Package: libsurface-dev
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 34
+Depends: libsurface0 (= 0.1.0)
+Filename: ./amd64/libsurface-dev_0.1.0_amd64.deb
+Size: 9244
+MD5sum: e3f7aae9c831b9196eadc916a434376d
+SHA1: b15481bd3ad1f142ad9aa4a1c6afa161291fc6e8
+SHA256: 16b377af64f429bec4514e90197cb3ccdd4712f14091c04568ae128d7efdd465
+SHA512: 78aa921b25fa029de4fb95d9b5b2c4a3312448fed0e41f8b3b13416704e00d51e51ed4762e18b0a8e6e743b2a9998fe00f8914d165474ea92f6326c2d8c23e40
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces, development files
+ The header and the pkg-config file libsurface, for building a control-surface
+ host or backend on libsurface.
+
+Package: libsurface-diginet-dev
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 42
+Depends: libsurface-diginet0 (= 0.1.0), libsurface-dev (= 0.1.0), libdiginet-dev (>= 0.1.2)
+Filename: ./amd64/libsurface-diginet-dev_0.1.0_amd64.deb
+Size: 8112
+MD5sum: 3059e759c6779e41c185ef90626fbaf5
+SHA1: 0bc8f982465fc65ba5dac8c741c512f1b9badb05
+SHA256: 0607689bcca2f1447a6f37370705c26ee76f2c45f0a6817fbe7a77ebdd3a303b
+SHA512: f0dc7d771b875112b1ad6b14013deaa29376920f21b269966862ee0c5d0a976c21064425fd93387e720cdc4bcfda6eb7b1d37dd5cc102dcb8b33b8dca2afb089
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, development files
+ The header and the pkg-config file libsurface-diginet, for building a host
+ that drives a Control|24 through libsurface.
+
+Package: libsurface-diginet0
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 52
+Depends: libc6 (>= 2.4), libdiginet-transport0 (>= 0.1.2), libdiginet0 (>= 0.1.2), libsurface0 (>= 0.1.0)
+Filename: ./amd64/libsurface-diginet0_0.1.0_amd64.deb
+Size: 11560
+MD5sum: e7f00ff00666b171f6601fda07f63966
+SHA1: 38438260bc6cd6773c4af0ce4d9803246cb0ac28
+SHA256: 4c8e0e005f24f54e5fe202ee13966d4479a56d9bb50f30b72c77a4e79a716915
+SHA512: 21f19f2f60a6992ada58849eec2c036b81914996c6b9fb52f46332153ce96958caf86bdac21c5a2be32d395e5bf341845bdd46268be4b764aad54300cbe15477
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, over DigiNet
+ libsurface-diginet is libsurface's DigiNet module: a Control|24 driven by
+ libsurface's device behaviour over libdiginet's desk mux. One listener hears
+ every interface and every desk; each attached desk is a libsurface surface
+ whose board is replayed on every new session, and a deaf desk or one owned by
+ another host is raised as a warning.
+
+Package: libsurface0
+Architecture: amd64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 44
+Depends: libc6 (>= 2.14)
+Filename: ./amd64/libsurface0_0.1.0_amd64.deb
+Size: 12572
+MD5sum: 4907735dc35a59deddbe723f07b7f3fe
+SHA1: 6c32f5ba07a4b5b43d3457c3fd0243c00212b58e
+SHA256: 8eae2ac0d5d133c7261b38132e5a2df659e8eb0584ae2f942ba68fbf5f85b3fb
+SHA512: 1703a16661145264019adc29b0242411bdb730518ffbac427aaf629f9006d7583dcd26e453dad04d5a5f5a171ff117108313d950917e7877babbd760fa2ddc13
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces
+ libsurface is the device behaviour of a motorised control surface, written
+ once for every surface and every host: a motor-fader policy that never fights
+ the hand, touch with a self-heal and a release debounce, the bank window, a
+ shadow of the whole board replayed when a device comes back blank, meter steps
+ with hysteresis and LED ring rendering. It speaks no wire and knows no mixing
+ semantics.
+
 Package: omx-clap-host-tests
 Architecture: amd64
 Version: 0.21.0
@@ -4376,6 +4467,27 @@ Description: PipeWire-native Roland REAC endpoint
  sub-interfaces and real-time scheduling. A small system service keeps
  NetworkManager off the network interfaces reac-pw serves.
 
+Package: surface-c24
+Architecture: amd64
+Version: 0.1.0
+Priority: optional
+Section: sound
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 37
+Depends: libc6 (>= 2.34), libdiginet-transport0 (>= 0.1.2), libsurface-diginet0 (>= 0.1.0), libsurface0 (>= 0.1.0), diginet-tools
+Filename: ./amd64/surface-c24_0.1.0_amd64.deb
+Size: 10328
+MD5sum: 1aa8992043218b1c24f6b1dc73322bbd
+SHA1: 5932e273a097b32c284ecc4e478cfccade83bd27
+SHA256: 0d88781b67e4e401a8ce7c2189d5c20e41576f22a33990f67ad24f4c96125097
+SHA512: 10047ad56fba461261ff8a8d38dd0d6f0879c95271830393dce83d7256e65371383b8e4448158710d22020af9ae38e5b0fdd5be8182d4cdb1f6dd65381589a2b
+Homepage: https://github.com/FreeMixer/libsurface
+Description: drive a Control|24 through libsurface, with no privilege of its own
+ surface-c24 takes its packet socket from diginet-packet-helper, attaches the
+ first Control|24 that announces on any interface, labels its strips, mirrors
+ each fader on its meter, prints every event, and takes writes from a FIFO.
+
 Package: diginet-tools
 Architecture: arm64
 Version: 0.1.1
@@ -5661,6 +5773,97 @@ Description: Roland REAC protocol library
  rate, and decodes and encodes the 24-bit audio in both directions. It also
  implements the REAC control plane: control blocks, head-amp records, box
  identity, and the master and slave establishment state machines.
+
+Package: libsurface-dev
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 34
+Depends: libsurface0 (= 0.1.0)
+Filename: ./arm64/libsurface-dev_0.1.0_arm64.deb
+Size: 9244
+MD5sum: 770bfc46f929d683e734080a89f92439
+SHA1: 302fabaf215af4b59632663a7349d0528fc7a1f4
+SHA256: 6cace1fa583c89bc55a0a7484d3a5c6a1282775ac5f5a75b8c9939bcab82c3ea
+SHA512: f4d64223a84f10c8b2ef1ed085c55e558ee6caf194ddbde3c206813d95d1b01376d296b3f72c4e096d00502772917af61f1a2be956f328d1e4893c92c18bb085
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces, development files
+ The header and the pkg-config file libsurface, for building a control-surface
+ host or backend on libsurface.
+
+Package: libsurface-diginet-dev
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 42
+Depends: libsurface-diginet0 (= 0.1.0), libsurface-dev (= 0.1.0), libdiginet-dev (>= 0.1.2)
+Filename: ./arm64/libsurface-diginet-dev_0.1.0_arm64.deb
+Size: 8108
+MD5sum: c9ad230e206322777cd53c8665d6bae8
+SHA1: 9e44fa71723a1b86a49605f7b912fa85fb0ea767
+SHA256: aa2c7c281a539fb897a4c6f6ecf65fa0e8b30681c9d6eb7c7b6349dd81a078d4
+SHA512: d835507a054caccf98319cfca63544918a38f21bac2797f871dbe84549ac954a0d8b72e62b9b07321de77305145a2b9e560c06b18c360233a5ffce04d5480ebf
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, development files
+ The header and the pkg-config file libsurface-diginet, for building a host
+ that drives a Control|24 through libsurface.
+
+Package: libsurface-diginet0
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 80
+Depends: libc6 (>= 2.17), libdiginet-transport0 (>= 0.1.2), libdiginet0 (>= 0.1.2), libsurface0 (>= 0.1.0)
+Filename: ./arm64/libsurface-diginet0_0.1.0_arm64.deb
+Size: 11600
+MD5sum: cbbd188c89e3a8e9deb3550296c0643e
+SHA1: 23f00487a529d82e9c85bb6ff2077eae9bf21098
+SHA256: a1638284d5b571a1345cba965a4158c9be44cdd8846ff9b6d240a1213dfb3dea
+SHA512: 9d000f2e6241a50e790977581df33a30c70af9622cf0e28886f5a98309724df8b10c353d07beadec7d6e272ba061b4e292cb768d6c0c1ecf24392aac084c39cb
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, over DigiNet
+ libsurface-diginet is libsurface's DigiNet module: a Control|24 driven by
+ libsurface's device behaviour over libdiginet's desk mux. One listener hears
+ every interface and every desk; each attached desk is a libsurface surface
+ whose board is replayed on every new session, and a deaf desk or one owned by
+ another host is raised as a warning.
+
+Package: libsurface0
+Architecture: arm64
+Version: 0.1.0
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 80
+Depends: libc6 (>= 2.17)
+Filename: ./arm64/libsurface0_0.1.0_arm64.deb
+Size: 12004
+MD5sum: 1e56881967cae76a043b96eea509c453
+SHA1: 4cd0cfbccd9d67d57b4fe2453779eae903012744
+SHA256: 8877c6995bdd541e5984f798f56e05bff7de6edc8271349eaa36b195af1c0253
+SHA512: 6630322c1b24275b61aa6551cc712897bd3519a2bf2dd396cb0fa39f32ed790a56f30decbe09f4feb4e43a17a344c0c18eede81c1bf179624c90574eaf05b820
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces
+ libsurface is the device behaviour of a motorised control surface, written
+ once for every surface and every host: a motor-fader policy that never fights
+ the hand, touch with a self-heal and a release debounce, the bank window, a
+ shadow of the whole board replayed when a device comes back blank, meter steps
+ with hysteresis and LED ring rendering. It speaks no wire and knows no mixing
+ semantics.
 
 Package: omx-clap-host-tests
 Architecture: arm64
@@ -7551,4 +7754,25 @@ Description: PipeWire-native Roland REAC endpoint
  daemon the file capabilities it needs for raw network frames, VLAN
  sub-interfaces and real-time scheduling. A small system service keeps
  NetworkManager off the network interfaces reac-pw serves.
+
+Package: surface-c24
+Architecture: arm64
+Version: 0.1.0
+Priority: optional
+Section: sound
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 81
+Depends: libc6 (>= 2.34), libdiginet-transport0 (>= 0.1.2), libsurface-diginet0 (>= 0.1.0), libsurface0 (>= 0.1.0), diginet-tools
+Filename: ./arm64/surface-c24_0.1.0_arm64.deb
+Size: 10072
+MD5sum: 6414e89710034305b9681a8281b4ccf4
+SHA1: a611eaf699c6bf7010514f95aad0e0563070768a
+SHA256: c81d446e6abf7d65e481745fee201cf83017dacb60701c8a1e68d6803a694d52
+SHA512: f0447a1389ddc2bc377e208a86c58585ff7d150ebc0deb41a00bd23ae4b69fbdd0dd9421329f0986355ee2e9107c52f11b220cf825aa390f0c8dd7a975f63e7e
+Homepage: https://github.com/FreeMixer/libsurface
+Description: drive a Control|24 through libsurface, with no privilege of its own
+ surface-c24 takes its packet socket from diginet-packet-helper, attaches the
+ first Control|24 that announces on any interface, labels its strips, mirrors
+ each fader on its meter, prints every event, and takes writes from a FIFO.
 

@@ -1,0 +1,48 @@
+libsurface (0.1.0) unstable; urgency=medium
+
+  * DigiNet: a name for every key of the Control|24 (#8)
+  * Say decided and decision in the comments, as the maintainers write it
+  * docs/surface-c24.1: the tool's man page, installed with it
+  * tests: an older echo after a release never moves the cap; a newer move
+    does (#4)
+  * motor: an echo older than the hand's last move never becomes the target
+    (#4)
+  * README.md, BUILDING.md: the modules, the DigiNet module and surface-c24,
+    how to build them (#2)
+  * ci: a job for the DigiNet module, against libdiginet's main (#2)
+  * packaging: the DigiNet module and surface-c24 as subpackages of
+    libsurface (#2)
+  * tests/diginet/test_install.sh: the module installed, and a consumer
+    through pkg-config alone
+  * tools/surface-c24: the desk driven through libsurface, with no privilege
+    of its own (#2)
+  * tests/diginet: the module against libdiginet's desk emulator, on a
+    virtual clock (#2)
+  * diginet: the Control|24 module, libsurface-diginet over libdiginet's desk
+    mux (#2)
+  * surface: every fader treated the same; no untrusted-fader lists (operator
+    ruling 2026-10-30)
+  * release.yml: install python3 for the rpm build
+  * README.md, BUILDING.md: what libsurface is, its API, how to build and
+    test it
+  * ci: build and test on Fedora 44 and Debian, packages through the
+    FreeMixer workflows
+  * packaging: rpm spec, debian/ and pkg-config, held to VERSION and the
+    soname
+  * tests/constants-check.sh: each timing constant declared once, in surface.h
+  * tests: the Control|24 rules: debounce, set-point echo, untrusted faders,
+    replay per session
+  * tests: the bank window, meter ballistics, ring masks and the step law's
+    golden vectors
+  * tests: the motor-law audit of 2026-09-25 and the fast-throw round trip
+  * tests: the motor policy suite, case by case from the X-Touch driver's
+  * surface: touch, the inputs, the untrusted faders, the shadow and its
+    replay; the build
+  * meter: the step law with hysteresis, the keep-alive, and ring rendering
+  * bank: the bank window over surface_target
+  * motor: the motor-fader policy, keyed by target, on the caller's clock
+  * surface.h: the API of the device behaviour core, with its constants and
+    their reasons
+  * libsurface: the licence and a README stub
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 30 Oct 2026 02:17:27 +0000

@@ -1,0 +1,17 @@
+libmackie (0.1.0) unstable; urgency=medium
+
+  * tests: every decoded struct starts at zero, so an LTO build sees no
+    uninitialised read
+  * docs: README and BUILDING
+  * ci: build and test on Fedora and Debian; release through the shared
+    workflows
+  * packaging: pkg-config, the rpm spec and debian/, as libdiginet's
+  * tests: hold every encoder and decoder to the TypeScript bytes
+  * tests: the TypeScript MCU suite, ported case for case
+  * tools: golden bytes from the TypeScript encoders
+  * codec: scribble strips, backlights, the displays and the handshake
+  * codec: faders, buttons, V-Pots, the jog wheel and meters
+  * mackie.h: the wire constants, return codes and the control map
+  * libmackie: the licence and a README stub
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 30 Oct 2026 01:30:26 +0000

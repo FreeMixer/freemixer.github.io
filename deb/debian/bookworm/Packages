@@ -5984,6 +5984,33 @@ Description: find out whether an audio plugin is safe to run live
 
 Package: plugin-qualify
 Architecture: amd64
+Version: 0.18.2
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 4428
+Depends: libc6 (>= 2.34), liblilv-0-0 (>= 0.22.0~dfsg0), nodejs (>= 18), python3, python3-jsonschema, plugin-hostd (>= 0.15.3~), omx-clap-host (>= 0.23.0~), libomx-clap-core1 (>= 0.25.1~)
+Recommends: mod-host
+Filename: ./amd64/plugin-qualify_0.18.2_amd64.deb
+Size: 618936
+MD5sum: 1b3c866ab3263555caaa66f0b92d672a
+SHA1: 6d4318555d202374d8675ff85180693eb797643c
+SHA256: 056a09c00a16a2a76a2bf4d96dda8eaf0104b6ccdf22dae205920597b2449087
+SHA512: 3845ead58e688b3b4bbe3d2563b74df88482a733ac4585488ded96d85646696d42ea4ca505a68f95b91ea85f6bacf27e623e6e01280e6057648146ecedc2caf3
+Homepage: https://github.com/FreeMixer/plugin-qualify
+Description: find out whether an audio plugin is safe to run live
+ A plugin that glitches on stage is worse than one you never installed.
+ plugin-qualify takes an LV2 or CLAP plugin and tells you whether it can be
+ trusted inside a real-time audio engine: it scans the plugin, measures its
+ latency and CPU cost at the sample rates and buffer sizes you play at, runs
+ it under a real host with memory checking, and gives one plain verdict.
+ Anything it could not measure is never a pass.
+ .
+ Use it to vet a plugin before a gig, to curate a plugin collection, or to
+ judge the same plugin against the rules of different hosts.
+
+Package: plugin-qualify
+Architecture: amd64
 Version: 0.5.1
 Priority: optional
 Section: sound
@@ -10733,6 +10760,33 @@ MD5sum: 85edc4a0cc2c6602b0d7c463b7d1a9d0
 SHA1: 910f8bcf002acaad942c00fb1c3abaf5a57edfc5
 SHA256: d17b962644435011259f6514db80c2fe5188555a8ae58a0c00785347bba1f2dc
 SHA512: d1d5ed9220fd72ee9fde3e49f36a1994cab3e62d5e211288e52814861931dbe3680fa60ae8fd30bb781c2ff6e7d86df789a86544ee9e1abd86af1c0ae53eb4ae
+Homepage: https://github.com/FreeMixer/plugin-qualify
+Description: find out whether an audio plugin is safe to run live
+ A plugin that glitches on stage is worse than one you never installed.
+ plugin-qualify takes an LV2 or CLAP plugin and tells you whether it can be
+ trusted inside a real-time audio engine: it scans the plugin, measures its
+ latency and CPU cost at the sample rates and buffer sizes you play at, runs
+ it under a real host with memory checking, and gives one plain verdict.
+ Anything it could not measure is never a pass.
+ .
+ Use it to vet a plugin before a gig, to curate a plugin collection, or to
+ judge the same plugin against the rules of different hosts.
+
+Package: plugin-qualify
+Architecture: arm64
+Version: 0.18.2
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 4640
+Depends: libc6 (>= 2.34), liblilv-0-0 (>= 0.22.0~dfsg0), nodejs (>= 18), python3, python3-jsonschema, plugin-hostd (>= 0.15.3~), omx-clap-host (>= 0.23.0~), libomx-clap-core1 (>= 0.25.1~)
+Recommends: mod-host
+Filename: ./arm64/plugin-qualify_0.18.2_arm64.deb
+Size: 613928
+MD5sum: b3aa50b6fa299852efa2db8f223b674e
+SHA1: 65837912e608adcc379f6c729838c8bcda0cff79
+SHA256: 7f4f49d6e1213454b255d779c3dfe3fac8f092a52796ce3925a326b4104e3308
+SHA512: bb26aea72bdda7d0d3208e2b89e8f8d439b27b887f9cf05e5ba55cd5e8cf988054018ce52cc964f0072a7f31377b6325b88fee0cbe878b4a042c80d40be6ca82
 Homepage: https://github.com/FreeMixer/plugin-qualify
 Description: find out whether an audio plugin is safe to run live
  A plugin that glitches on stage is worse than one you never installed.

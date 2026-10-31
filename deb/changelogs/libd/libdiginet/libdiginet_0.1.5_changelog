@@ -1,0 +1,15 @@
+libdiginet (0.1.5) unstable; urgency=medium
+
+  * 0.1.5: the changelog carries #51, the transport harness's model in poll's
+    order
+  * fuzz_transport: the model in poll's order, poll's result, and the session
+    deadline (#51)
+  * 0.1.5: a sysex len near SIZE_MAX is refused, not wrapped
+  * fuzz: the codec sabotage headers name the lines the new record moved
+  * codec: diginet_sysex_encode refuses a len near SIZE_MAX instead of
+    wrapping
+  * fuzz: fuzz_codec reads the sysex len at the width of a size_t
+  * docs: what the Control|24 captures show about counts, the counter, the
+    announce and padding
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sat, 31 Oct 2026 00:09:56 +0000

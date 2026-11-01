@@ -1,0 +1,54 @@
+omx-clap-host (0.26.2) unstable; urgency=medium
+
+  * Release 0.26.2: every plugin call through the register guard (#449)
+  * lv2: the options set, extension_data and lilv's state save and restore go
+    through the instance's guard
+  * ci: the -devel and lv2-devel packages ship abi_guard.h
+  * abi guard: the float refusal test checks an int compiles and the double
+    fails for omx_abi_float_refused
+  * abi guard: MXCSR and the x87 control word written back only when changed;
+    the direction flag named (OMX_ABI_DF); unwind information through both
+    trampolines; the block count atomic
+  * abi guard: a float or double through OMX_ABI_A or OMX_ABI_CALL does not
+    compile; make test-abi-guard holds it
+  * window: set_scale's double reaches the plugin in its floating-point
+    register (omx_abi_gd), not as the integer 1
+  * abi guard: the plugin calls the first pass missed, every call whose first
+    argument is the plugin (scan, scan_fields, the host's port and
+    configuration queries, effects' params)
+  * tests: the LV2 builds that compile the adapter's sources directly link
+    the guard; the abi-breaker's C symbols kept under link-time optimisation
+  * tests: every build that compiles the core sources directly links the
+    guard; the fuzz corpus's copy of the stability codes
+  * hosting: hosting.stability.callee-saved-clobbered, the code a qualifier
+    writes for a plugin that changed a callee-saved register: run only in a
+    worker of its own
+  * abi guard: its header installed with the LV2 adapter's too, for a program
+    that links only the archive
+  * docs and bench-stage: the guard's two macros documented, the stage bench
+    linked with the guard
+  * abi check: a structure embedded whole whose size did not change is judged
+    by its own lines, as a pointed-to one is; sabotage arms for a member
+    gained in its padding (ok), grown and retyped (FAIL)
+  * host: abi_clobber on the feedback port, once per instance, from the
+    control thread: the instance, the registers, the plugin function and the
+    block (data/verbs.json HOST_EVENTS)
+  * tests: jack_abi_e2e, a plugin that returns with a callee-saved register
+    changed is said once on the feedback port as abi_clobber, red
+  * abi guard: every extension and factory call too; the record lock-free
+    across threads; the guard at the instance's end, the stage reaching it
+    through an offset in its tail padding, so no offset moves (ABI 20, oldest
+    18)
+  * core and LV2 adapter: every call into a plugin goes through the guard;
+    the first clobber is kept lock-free and read by omx_clap_host_abi_clobber
+    and omx_clap_lv2_abi_clobber (ABI 20)
+  * tests: abi-breaker, a fake whose third process returns with callee-saved
+    registers changed; the host records the first, red
+  * abi guard: six arguments (LV2's work takes five), in the core library and
+    the LV2 adapter's archive, make test-abi-guard and bench-abi-guard
+  * abi guard: omx_abi_call4 saves the callee-saved registers around a plugin
+    call, compares, puts them back and names what changed (aarch64, x86-64)
+  * tests: a plugin that returns with a callee-saved register changed leaves
+    the host's value as it was and is named, red
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 01 Nov 2026 22:05:11 +0000

@@ -1,0 +1,30 @@
+omx-clap-host (0.26.1) unstable; urgency=medium
+
+  * Release 0.26.1: with #446, one JACK client per worker
+  * chain host sabotage: the stop drills anchor on member_stop as it now reads
+  * xrun e2e: its commands go through the one protocol client
+  * xrun e2e: the global client is looked for once the controller is connected
+  * Release 0.26.1
+  * chain host sabotage: the width and note-port arms anchor on member_fits,
+    which #361 brought
+  * host: --capabilities declares chain_expect and mono_in_stereo for a
+    planner to read; an unknown option is an error
+  * chain host e2e: an unknown option is an error, not a host started, red
+    (0.26.0 forks and says 0, measured on the Pi)
+  * chain host e2e: the host declares chain_expect and mono_in_stereo in
+    --capabilities, red
+  * chain sabotage: bypass-walk breaks the walk a bypassed member is left out
+    of, as publish now keeps a bypassed mono member's sum
+  * effects: a mono member joins a stereo chain, by a chain line or an add
+    chain_expect named (#361)
+  * chain: a member of 1 channel in and out runs inside a stereo chain, its
+    input the sum of both channels and its output given to both (#361)
+  * chain test: a mono member inside a stereo chain equals Zynthian's routing
+    of it alone (red, #361)
+  * effects: an instance's own client carries the xruns and the frame clock;
+    a global client only while there is no instance
+  * xrun e2e: the tests a host with one client per instance owes (red)
+  * hosting: the no-audio-output doc says what the hosts raise it for
+    (omx-contract#168)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 01 Nov 2026 21:28:27 +0000

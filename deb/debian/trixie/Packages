@@ -1400,6 +1400,33 @@ Description: panels for LV2 and CLAP plugins, generated from what each plugin de
  packages are installed into. The omx-panel command runs each; the tools are
  under /usr/share/omx-panel for a build that calls them.
 
+Package: omx-panel
+Architecture: all
+Version: 0.8.1
+Multi-Arch: foreign
+Priority: optional
+Section: misc
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 2437
+Depends: nodejs (>= 18), omx-contract-data (>= 3.6.0), plugin-hostd-contract (>= 0.12.0), omx-plugins-contract (>= 0.15.0)
+Recommends: plugin-hostd
+Suggests: python3-lilv
+Filename: ./all/omx-panel_0.8.1_all.deb
+Size: 451356
+MD5sum: 6c8ee212a340b1e37059859b8abf3fef
+SHA1: dc074c9c5a21693c91ed430e8370657d1f29bb49
+SHA256: 28052a698ae738149c9d78ada17ec5f7b616291525197d16d096defafa677f1a
+SHA512: 336f1a76815c100c427d6c1d980469881683d156f8cb782bcb7308e7005830c389a3a99846be7f538e73f2851d92cdf75448f7b2c78169ee9989d6ce8680b8f7
+Homepage: https://github.com/FreeMixer/omx-panel
+Description: panels for LV2 and CLAP plugins, generated from what each plugin declares
+ omx-panel makes panels for LV2 and CLAP plugins from what each plugin
+ declares. It lays a panel out from a plugin's descriptor (sections, controls,
+ roles, the pages of eight a controller shows), writes a MOD GUI for MOD and
+ Zynthian in the omx look, imports a plugin's own MOD GUI into a skin package,
+ and carries the skin package schema, its validator and the directory skin
+ packages are installed into. The omx-panel command runs each; the tools are
+ under /usr/share/omx-panel for a build that calls them.
+
 Package: omx-plugins-contract
 Architecture: all
 Version: 0.15.0

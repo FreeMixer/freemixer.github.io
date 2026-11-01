@@ -1,0 +1,31 @@
+plugin-qualify (0.18.5) unstable; urgency=medium
+
+  * version 0.18.5: a private jackd stops on its TERM; lv2_measure connects
+    before activate and gives Qt a platform
+  * descriptors test: 18 LV2 fixtures, with activate-reads and needs-display
+  * lv2-measure: a run without a display names Qt's offscreen platform, so a
+    Qt plugin instantiates as under the Zynthian's X server instead of
+    aborting
+  * lv2-measure: a fixture that aborts at instantiate without a display, as a
+    Qt plugin does; the measurer gives it none, red
+  * lv2-measure: every instance has its ports connected before it is
+    activated, as every host does; the lifecycle loop activated them
+    unconnected and crashed swh's IIR filters
+  * lv2-measure: a fixture that reads its control at activate, as swh's IIR
+    filters do; the measurer crashes it, red
+  * adapter pass: a private jackd stops on its TERM, passed to its own pid by
+    the reaping shell; a TERM to the group left it running and every stop
+    KILLed it, leaving its registry row
+  * tests: a private JACK server stops on its TERM, not by the KILL after the
+    wait, red
+  * adapter pass: free the server rows of its own dead jackds, and wait for
+    jackd to end before a KILL
+  * jack registry: the pass frees the server rows of its own dead servers
+    (red)
+  * clap-qualify judges each rate in an instance of its own; a record says
+    how its probe child ended and how loaded the machine was; sync counts per
+    plugin
+  * clap-qualify: a fixture that aborts when activated again at another rate,
+    and the test that it is measured at every rate (red)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 01 Nov 2026 06:49:44 +0000

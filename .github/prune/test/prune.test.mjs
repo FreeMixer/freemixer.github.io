@@ -216,10 +216,9 @@ test('the repository keep.yml reads and names what the operator ruled', () => {
   const real = parseKeep(fs.readFileSync(path.join(here, '..', '..', '..', 'keep.yml'), 'utf8'));
   const flat = real.flatMap((e) => ['rpm', 'deb', 'npm'].flatMap((f) => (e[f] || []).map((n) => `${f} ${n} ${e.version}`))).sort();
   assert.deepEqual(flat, [
-    'deb libomx-contract-dev 2.6.0', 'deb omx-plugins* 0.5.1', 'deb plugin-qualify 0.5.1',
-    'npm @openmixer/omx-contract 2.6.0', 'npm @openmixer/plugin-qualify 0.5.1',
-    'rpm omx-contract-devel 2.3.0', 'rpm omx-contract-devel 2.6.0', 'rpm omx-dsp-devel 0.14.0', 'rpm omx-dsp-devel 0.6.1',
-    'rpm omx-plugins* 0.5.1', 'rpm plugin-qualify 0.5.1',
+    'deb libomx-contract-dev 2.6.0',
+    'npm @openmixer/omx-contract 2.6.0',
+    'rpm omx-contract-devel 2.3.0', 'rpm omx-contract-devel 2.6.0', 'rpm omx-dsp-devel 0.6.1',
   ]);
   for (const e of real) assert.ok(e.reason.length > 10);
 });

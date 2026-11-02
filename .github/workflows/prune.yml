@@ -1,6 +1,6 @@
 name: Prune the package repository
 
-# Keeps the newest version of every RPM, DEB and npm package plus the pinned versions, and removes everything
+# Keeps the newest version of every RPM and DEB package plus the pinned versions, and removes everything
 # else: older versions and every duplicate build of one version. Run by hand, from main. The pinned versions are
 # keep.yml's and the ones openmixer's main and integration/* branches pin (.github/pins.txt, the @openmixer
 # specifiers of packages/*/package.json and pnpm-lock.yaml), read by .github/prune/pins.mjs; a plan that would
@@ -11,14 +11,13 @@ name: Prune the package repository
 # apply=true deletes the plan's files from rpm/ and deb/, regenerates and re-signs the dnf metadata and the
 # apt index with the release workflows' own scripts (FreeMixer/.github publish-rpms and publish-debs), pushes,
 # and then checks that every kept version installs (dnf in fedora:44, apt in debian:bookworm) and that the
-# newest of each is what resolves. Only then, on npm, it deprecates what is not kept (it never unpublishes).
+# newest of each is what resolves. npm is not pruned: old @openmixer versions stay published (ruled 2026-11-02, #2).
 # Git tags and GitHub releases are not touched.
 #
 # Secrets, as the release workflows use them (FreeMixer/.github build-rpm.yml and build-deb.yml):
 #   OPENMIXER_PACKAGES_SIGNING_KEY   signs the dnf metadata and the apt index
 #   RPM_GPG_KEY, RPM_GPG_PASSPHRASE  the original key, co-signs the apt index when this repository may read it
 #   PAGES_TOKEN, SITE_GPG_KEY        push to this repository, signed
-#   NPM_TOKEN                        an npm token that may deprecate @openmixer packages; only a real run reads it
 #   OPENMIXER_READ_TOKEN             reads FreeMixer/openmixer while it is private; not needed once it is public
 
 on:
@@ -83,46 +82,6 @@ jobs:
             pins.json
             pins.txt
           retention-days: 30
-
-  # a real run deprecates on npm only after the indexes are pruned and every kept version installed; a dry run
-  # needs only the plan
-  npm:
-    name: npm
-    needs: [plan, verify-dnf, verify-apt]
-    if: >-
-      always() && needs.plan.result == 'success' &&
-      (!(inputs.apply && github.ref == 'refs/heads/main') ||
-       (needs.verify-dnf.result == 'success' && needs.verify-apt.result == 'success'))
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            keep.yml
-            .github/prune
-          sparse-checkout-cone-mode: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: 'https://registry.npmjs.org'
-      - uses: actions/download-artifact@v4
-        with:
-          name: prune-plan
-          path: plan
-      - name: Deprecate what is not kept
-        env:
-          APPLY: ${{ inputs.apply && github.ref == 'refs/heads/main' }}
-          NODE_AUTH_TOKEN: ${{ (inputs.apply && github.ref == 'refs/heads/main') && secrets.NPM_TOKEN || '' }}
-        run: |
-          set -o pipefail
-          if [ "$APPLY" = true ]; then
-            test -n "$NODE_AUTH_TOKEN" || { echo "::error::NPM_TOKEN is not set: deprecate needs a token with publish rights on @openmixer"; exit 1; }
-            node .github/prune/npm.mjs --keep keep.yml --pins plan/pins.json --apply | tee npm.txt
-          else
-            node .github/prune/npm.mjs --keep keep.yml --pins plan/pins.json | tee npm.txt
-          fi
-          { echo '### npm'; echo '```'; cat npm.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
   rpm:
     name: Prune rpm/

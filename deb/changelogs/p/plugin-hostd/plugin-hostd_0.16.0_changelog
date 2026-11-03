@@ -1,0 +1,54 @@
+plugin-hostd (0.16.0) unstable; urgency=medium
+
+  * ci: the Zynthian chain installs plugin-hostd-protocol-devel, where its
+    scripts read the plugin search lists
+  * ci: the DEB check reads the library floor dpkg-shlibdeps writes, and the
+    Zynthian step finds the JSON without a pipe
+  * Release 0.16.0: the protocol is plugin-hostd-protocol's, and preset_show
+    takes both forms
+  * Find the protocol library's headers in every build and job that needs them
+  * sabotage: route preset_show <uri> by instance where it is routed now
+  * preset_show: tell its forms apart by the words the worker reads
+  * tests: preset_show with a quoted key or uri that holds a space
+  * preset_show: the instance form goes to the holder, the uri form is
+    answered as mod-host answers it
+  * The declared protocol is plugin-hostd-protocol's: read it from the
+    library, keep no copy
+  * ci: the shared checks run from FreeMixer/.github's public-sources-check,
+    and no copy is kept here
+  * Build against plugin-hostd-protocol instead of mod-host-protocol
+  * docs: the Zynthian page opens with what plugin-hostd measures against
+    mod-host
+  * plan: a refused plan has room for the segments it keeps from the plan
+    before it
+  * tests: a refused plan shorter than the one before it keeps every segment
+  * a worker lost in its replay of the host settings forgets its socket
+    numbers
+  * tests: a worker lost in its replay of the tempo leaves the next worker's
+    sockets alone
+  * docs/zynthian: the mod-ui journal names its Python environment, not a
+    path the private-refs check reads as private
+  * docs/zynthian: the three hosts on current versions, and where the chain's
+    time goes
+  * docs/zynthian: qualification state and records of the Pi 5, 2026-11-02
+  * docs/zynthian: evidence of the instruments, add times, qualification
+    totals and acceptance walk on the Pi
+  * add-times: cold and warm add times of chains of 2, 4 and 7 plugins
+  * voices-cores: a program's notes go to its MIDI input named for them
+  * ci: a pull request from a fork never runs on the cluster's runners
+  * ci: the heavy jobs run where vars.OMX_RUNNER says (GitHub-hosted by
+    default)
+  * tests: panel_wire holds omx-delay 0.17.0's two sections, delay and taps
+  * docs/zynthian: a Mixbus built from Zynthian's menu, measured through its
+    mixer
+  * mixbus-menu-drive: a build is refused unless its four instruments are MDA
+    ePiano
+  * mixbus-menu: a Mixbus built from Zynthian's own menu, measured with its
+    mixer in the path
+  * docs: the register guard is released, and the LSP CLAP bundle qualifies
+    on the Pi with no crash
+  * docs: the 2026-11-01 Pi bench rows carry the run's own files
+  * docs/zynthian: omx-clap-core 0.26.1 rows against mod-host, the register
+    guard, qualification counts
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 03 Nov 2026 18:25:57 +0000

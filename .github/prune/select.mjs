@@ -102,7 +102,9 @@ async function main() {
     }
   }
 
-  // files of the tree that no index lists: unreachable, and gone with the rest
+  // files of the per-release trees that no index lists: unreachable, and gone with the rest. Files beside the
+  // trees (rpm/openmixer-release.noarch.rpm, deb/openmixer-release.deb) are installed by their fixed URL, not
+  // through an index, and are never orphans.
   const orphans = [];
   if (tree) {
     const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
@@ -110,7 +112,7 @@ async function main() {
       if (e.isDirectory()) return e.name === 'repodata' ? [] : walk(p);
       return /\.(rpm|deb)$/.test(e.name) ? [path.relative(tree, p)] : [];
     });
-    for (const top of ['rpm', 'deb']) if (want(top) && fs.existsSync(path.join(tree, top))) {
+    for (const [fmt, top] of [['rpm', 'rpm/fedora'], ['deb', 'deb/debian']]) if (want(fmt) && fs.existsSync(path.join(tree, top))) {
       for (const f of walk(path.join(tree, top))) if (!listed.has(f)) orphans.push(f);
     }
   }

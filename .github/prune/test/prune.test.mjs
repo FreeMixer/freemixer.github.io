@@ -405,7 +405,8 @@ test('cli: a tree is planned, unindexed files go, and the pruned tree checks cle
   const keepFile = path.join(tmp, 'keep.yml');
   fs.writeFileSync(keepFile, KEEP);
   const before = path.join(tmp, 'before');
-  writeTree(before, RPM, PACKAGES, ['rpm/fedora/44/x86_64/stray-1.0-1.x86_64.rpm']);
+  // the release packages beside the trees are served by a fixed URL and stay
+  writeTree(before, RPM, PACKAGES, ['rpm/fedora/44/x86_64/stray-1.0-1.x86_64.rpm', 'rpm/openmixer-release.noarch.rpm', 'deb/openmixer-release.deb']);
   const planFile = path.join(tmp, 'plan.json');
   const run = (tree, ...more) => spawnSync(process.execPath, [select, '--keep', keepFile, '--tree', tree, ...more], { encoding: 'utf8' });
 

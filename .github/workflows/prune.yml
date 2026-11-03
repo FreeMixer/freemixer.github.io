@@ -146,9 +146,9 @@ jobs:
             for (const f of [...p.delete.map((r) => r.path), ...p.orphans]) if (f.startsWith("rpm/")) console.log(f);
           ' > rpm-delete.txt
           while IFS= read -r f; do rm -v "build/channel/$f"; done < rpm-delete.txt
-          # what is left is exactly what the plan keeps
+          # what is left in the per-release trees is exactly what the plan keeps (the release package beside them stays)
           diff <(node -e 'for (const r of require("./plan/plan.json").keep) if (r.path.startsWith("rpm/")) console.log(r.path)' | sort) \
-               <(cd build/channel && find rpm -name '*.rpm' | sort)
+               <(cd build/channel && find rpm/fedora -name '*.rpm' | sort)
 
       - name: Regenerate and sign the metadata
         run: |
@@ -259,7 +259,7 @@ jobs:
           ' > deb-delete.txt
           while IFS= read -r f; do rm -v "build/channel/$f"; done < deb-delete.txt
           diff <(node -e 'for (const r of require("./plan/plan.json").keep) if (r.path.startsWith("deb/")) console.log(r.path)' | sort) \
-               <(cd build/channel && find deb -name '*.deb' | sort)
+               <(cd build/channel && find deb/debian -name '*.deb' | sort)
 
       - name: Regenerate and sign the index
         env:

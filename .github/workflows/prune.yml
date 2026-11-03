@@ -136,7 +136,7 @@ jobs:
           [ "$got" = "$PLANNED" ] || { echo "::error::main moved from $PLANNED to $got since the plan: run the prune again"; exit 1; }
 
       - name: Check the signing key is one the channel serves
-        run: .fmx/.github/actions/import-gpg-key/channel-keys.sh check build/channel/rpm/RPM-GPG-KEY-freemixer "$FREEMIXER_GPG_KEY_ID"
+        run: .fmx/.github/actions/import-gpg-key/channel-keys.sh check build/channel/rpm/RPM-GPG-KEY-openmixer "$OPENMIXER_GPG_KEY_ID"
 
       - name: Delete what the plan deletes
         run: |
@@ -157,7 +157,7 @@ jobs:
           # the tree; given the kept packages it adds nothing, and the metadata describes only them
           mkdir staging
           find build/channel/rpm -name '*.rpm' -exec cp -t staging {} +
-          .fmx/.github/actions/publish-rpms/publish-tree.sh build/channel/rpm staging "$FREEMIXER_GPG_KEY_ID"
+          .fmx/.github/actions/publish-rpms/publish-tree.sh build/channel/rpm staging "$OPENMIXER_GPG_KEY_ID"
           for d in build/channel/rpm/fedora/*/*/; do
             test -s "$d/repodata/repomd.xml.asc" || { echo "::error::$d has no signed metadata"; exit 1; }
           done
@@ -225,7 +225,7 @@ jobs:
         with:
           gpg-key: ${{ secrets.RPM_GPG_KEY }}
           gpg-passphrase: ${{ secrets.RPM_GPG_PASSPHRASE }}
-          id-variable: FREEMIXER_GPG_COSIGN_KEY_ID
+          id-variable: OPENMIXER_GPG_COSIGN_KEY_ID
 
       - uses: FreeMixer/.github/.github/actions/channel-pull@v1
         with:
@@ -247,8 +247,8 @@ jobs:
       - name: Check the signing keys are ones the channel serves
         run: |
           # shellcheck disable=SC2086 # the co-signer is one fingerprint or empty
-          .fmx/.github/actions/import-gpg-key/channel-keys.sh check build/channel/deb/freemixer.asc \
-            "$FREEMIXER_GPG_KEY_ID" ${FREEMIXER_GPG_COSIGN_KEY_ID:-}
+          .fmx/.github/actions/import-gpg-key/channel-keys.sh check build/channel/deb/openmixer.asc \
+            "$OPENMIXER_GPG_KEY_ID" ${OPENMIXER_GPG_COSIGN_KEY_ID:-}
 
       - name: Delete what the plan deletes
         run: |
@@ -263,7 +263,7 @@ jobs:
 
       - name: Regenerate and sign the index
         env:
-          CHANGELOGS_URL: https://freemixer.github.io/deb/changelogs
+          CHANGELOGS_URL: https://www.openmixer.org/deb/changelogs
         run: |
           set -euo pipefail
           # publish-tree.sh takes <suite>/<package>.deb; given the kept packages it adds nothing and rewrites
@@ -272,7 +272,7 @@ jobs:
             s=$(basename "$suite"); mkdir -p "staging/$s"
             find "$suite" -name '*.deb' -exec cp -t "staging/$s" {} +
           done
-          COSIGN=${FREEMIXER_GPG_COSIGN_KEY_ID:-} .fmx/.github/actions/publish-debs/publish-tree.sh build/channel/deb staging "$FREEMIXER_GPG_KEY_ID"
+          COSIGN=${OPENMIXER_GPG_COSIGN_KEY_ID:-} .fmx/.github/actions/publish-debs/publish-tree.sh build/channel/deb staging "$OPENMIXER_GPG_KEY_ID"
           for d in build/channel/deb/debian/*/; do
             test -s "$d/InRelease" || { echo "::error::$d has no signed index"; exit 1; }
           done
@@ -318,7 +318,7 @@ jobs:
         run: |
           for d in x86_64 noarch; do
             for _ in $(seq 60); do
-              curl -fsSL "https://freemixer.github.io/rpm/fedora/44/$d/repodata/repomd.xml" | cmp -s - "rpm/fedora/44/$d/repodata/repomd.xml" && continue 2
+              curl -fsSL "https://www.openmixer.org/rpm/fedora/44/$d/repodata/repomd.xml" | cmp -s - "rpm/fedora/44/$d/repodata/repomd.xml" && continue 2
               sleep 10
             done
             echo "::error::Pages still serves the old $d metadata"; exit 1
@@ -326,7 +326,7 @@ jobs:
       - name: Every kept version installs, and the newest resolves
         run: |
           set -uo pipefail
-          curl -fsSL -o /etc/yum.repos.d/freemixer.repo https://freemixer.github.io/rpm/freemixer.repo
+          curl -fsSL -o /etc/yum.repos.d/openmixer.repo https://www.openmixer.org/rpm/openmixer.repo
           dnf -y makecache
           node .github/prune/expect.mjs --plan plan/plan.json --format rpm --repo fedora/44 --arch x86_64 > expect.txt
           fail=0
@@ -335,7 +335,7 @@ jobs:
               if dnf -y install "$a" >/dev/null && dnf -y remove "$a" >/dev/null; then echo "installs   $a"
               else echo "::error::$a does not install"; fail=1; fi
             else
-              got=$(dnf repoquery -q --repo freemixer --repo freemixer-noarch --latest-limit=1 --qf '%{evr}\n' "$a" | head -1)
+              got=$(dnf repoquery -q --repo openmixer --repo openmixer-noarch --latest-limit=1 --qf '%{evr}\n' "$a" | head -1)
               if [ "$got" = "$b" ]; then echo "newest     $a $b"; else echo "::error::$a resolves to '$got', not $b"; fail=1; fi
             fi
           done < expect.txt
@@ -372,7 +372,7 @@ jobs:
       - name: Wait for Pages to serve the pruned index
         run: |
           for _ in $(seq 60); do
-            curl -fsSL https://freemixer.github.io/deb/debian/bookworm/InRelease | cmp -s - deb/debian/bookworm/InRelease && exit 0
+            curl -fsSL https://www.openmixer.org/deb/debian/bookworm/InRelease | cmp -s - deb/debian/bookworm/InRelease && exit 0
             sleep 10
           done
           echo "::error::Pages still serves the old bookworm index"; exit 1
@@ -380,8 +380,8 @@ jobs:
         run: |
           set -uo pipefail
           mkdir -p /etc/apt/keyrings
-          curl -fsSL -o /etc/apt/keyrings/freemixer.asc https://freemixer.github.io/deb/freemixer.asc
-          echo 'deb [signed-by=/etc/apt/keyrings/freemixer.asc] https://freemixer.github.io/deb/debian/bookworm ./' > /etc/apt/sources.list.d/freemixer.list
+          curl -fsSL -o /etc/apt/keyrings/openmixer.asc https://www.openmixer.org/deb/openmixer.asc
+          echo 'deb [signed-by=/etc/apt/keyrings/openmixer.asc] https://www.openmixer.org/deb/debian/bookworm ./' > /etc/apt/sources.list.d/openmixer.list
           apt-get update -qq
           node .github/prune/expect.mjs --plan plan/plan.json --format deb --repo debian/bookworm --arch amd64 > expect.txt
           fail=0

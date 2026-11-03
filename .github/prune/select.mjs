@@ -5,7 +5,7 @@
 // Print what the prune keeps and deletes in the package repository, and write the plan as JSON.
 //
 //   select.mjs --keep keep.yml [--pins pins.json] --tree <channel checkout> [--json plan.json] [--expect-clean]
-//   select.mjs --keep keep.yml [--pins pins.json] --url https://freemixer.github.io [--rpm fedora/44/x86_64,...] [--deb bookworm,...]
+//   select.mjs --keep keep.yml [--pins pins.json] --url https://www.openmixer.org [--rpm fedora/44/x86_64,...] [--deb bookworm,...]
 //
 // --pins adds the entries pins.mjs derived from openmixer's branches to keep.yml's. A plan that would still
 // delete every build of a pinned version that exists exits 1, after printing and writing it.

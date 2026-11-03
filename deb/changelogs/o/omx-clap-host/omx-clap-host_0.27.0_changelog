@@ -1,0 +1,74 @@
+omx-clap-host (0.27.0) unstable; urgency=medium
+
+  * chain host sabotage: each arm bounded in time, a stopped arm tried once
+    more
+  * ci: the host's chain guards' sabotage in a job of its own
+  * hosted_stage: take the dry again only from a lane that was handed
+  * ci: the no-copy LV2 adapter's sabotage in a job of its own
+  * lv2 direct sabotage: run the direct section alone, reuse the tree's
+    objects, arms side by side
+  * two-leg and wide bodies: the dry is the lane, not what the plugin was
+    handed
+  * tests: a plugin that writes its own input, on the two-leg and wide bodies
+  * ext test: what the silence scan reads, and the sleep a block late
+  * direct body: a change of body hands the plugin a copy of its input
+  * chain test: a member whose plugin writes its own input
+  * chain: a member that does not scan for non-finite output keeps its own
+    clamp
+  * lv2 test: a chain with the clamp on and the scan for non-finite output off
+  * clap_host: keep the sleep's last status at the instance's tail
+  * Release 0.27.0: chains run in place, one clamp per chain, quiet blocks
+    and silence cost no more
+  * omx-clap-host: a block is read for silence only for a plugin that can
+    sleep on it, and in vector runs
+  * hosted cost bench: a chain fed silence costs no more than one fed the
+    tone (make test-silence-cost)
+  * ci: the plugin-hostd the e2e steps run is v0.15.9
+  * fuzz: seed corpus follows the reworded roleTimeoutUs description
+  * fuzz: seed corpus gains the direct fixture's manifest and state files
+  * omx-clap-host: preset_show refused in its instance form, preset_show <N>
+    <load_key | file>
+  * host verbs test: an example of preset_show, the instance form
+    plugin-hostd declares of this host
+  * ci: run the sabotage of the xruns line's guards
+  * xruns e2e: the add waits on the open connection, so a global client
+    opened at the first tick is seen
+  * hostd e2e tests: the daemon writes its descriptors and qualification
+    records in the run's own tree
+  * hostd e2e tests: the daemon's descriptor and qualification dirs are under
+    the run's tree
+  * chain: one clamp at the chain's output, each member's own non-finite scan
+    kept
+  * chain: a member the control thread holds or stops mid-signal fades to
+    dry, as alone
+  * stage: a quiet block hands the plugin one shared empty event list and
+    drains nothing
+  * chain: a member's plugin reads the block the member before it wrote and
+    writes its own, no copy between them
+  * tests: chain_bench times a chain of 8 members per frame and hashes its
+    output
+  * hosting: roleTimeoutUs's description is declared, the header its render
+  * omx_clap_host_open_timed after a timeout, the list of binaries, the
+    stream bound
+  * state busy test: a write whose size wraps past the cap is refused
+  * open_timed test: the caller's opens overlap the late one's change of the
+    list
+  * open_timed test: an abandoned open, under ThreadSanitizer
+  * Every plugin call outside process goes through the instance's guard
+  * host test: every plugin call outside process is guarded and recorded
+  * take_role waits out the cycle under way; the log slot is claimed
+  * host test: the role waits out a long block, and the log slot is never torn
+  * omx-clap-host: a change of the graph's rate activates each instance again
+  * cycle gate test: the same block at another rate activates again
+  * jack fake e2e: a rate change with the block size held re-activates
+  * live_list: the copyright line the source check wants
+  * lv2: the adapter runs audio ports on the host's buffers instead of copying
+  * omx-clap-host: the control tick walks the live instances, tool ids
+    included
+  * docs: the per-block fast path for CLAP, LV2 and mixed chains
+  * param_set refuses a non-finite value
+  * ci: a pull request from a fork never runs on the cluster's runners
+  * ci: the heavy jobs run where vars.OMX_RUNNER says (GitHub-hosted by
+    default)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 03 Nov 2026 17:07:21 +0000

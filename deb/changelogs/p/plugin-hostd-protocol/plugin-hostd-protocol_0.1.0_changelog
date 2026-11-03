@@ -1,0 +1,19 @@
+plugin-hostd-protocol (0.1.0) unstable; urgency=medium
+
+  * version-check: compare the changelog version without a CI snapshot suffix
+  * CI: build and test in three containers, ABI check, fuzz; release through
+    the shared RPM and DEB workflows
+  * One licence file: COPYING, the GNU GPL v3 text the packaging names (the
+    initial LICENSE was the same text)
+  * install: the scenario runner's source and the protocol page beside the
+    corpus
+  * install-check: name every install directory, so a caller's LIBDIR does
+    not move the scratch install
+  * Makefile: the sanitized tests build under a distribution's _FORTIFY_SOURCE
+  * protocol_parse: run only the callback of the verb the message names
+    (plugin-hostd#372)
+  * format_number: write NaN, Infinity and -Infinity (plugin-hostd#371)
+  * Import mod-host's protocol code as libplugin-hostd-protocol 0.1.0
+  * Initial commit
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 03 Nov 2026 03:04:52 +0000

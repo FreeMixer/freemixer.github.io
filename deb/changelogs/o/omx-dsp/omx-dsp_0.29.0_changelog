@@ -1,0 +1,78 @@
+omx-dsp (0.29.0) unstable; urgency=medium
+
+  * packaging: omx-contract floor 3.8.0, the definitions header rendered by
+    its renderer
+  * ci: the shared checks run from FreeMixer/.github's public-sources-check
+  * test: the allocation counter and the landing rule live in the harness
+  * tools/clone-check: no baseline, any shared body is red
+  * include: one copy of each body the instance faces and kernels shared
+  * fx tests: shared instance harness (work in progress)
+  * test/contract: kernel-travels reads the render's values, not a copy of
+    its lines
+  * omx_loudness.h: the loudness range's gate and percentiles read the render
+  * data: Tech 3342's range gate and percentiles, declared
+  * omx_loudness.h: the offset, the relative gate and the bin read the render
+  * data: BS.1770's loudness offset and relative gate, and the histogram bin,
+    declared
+  * data: BS1770_ABSOLUTE_GATE_LUFS, the one -70 the loudness code gates by
+  * data: the glue's, the dynamic EQ's and the balancer's readouts refer to
+    their travels
+  * test/contract: a kernel file writes no bound as the number of a value it
+    declares
+  * The package builds check the library with make check-package, not make
+    test
+  * test/contract: the derivations, readouts, delay taps and 1.3.0 items
+  * test/contract: kernel-travels without the rows the console took
+  * test/contract: the gate's FX-5 controls, and the roll-off block held on
+    its own
+  * test/contract: what this library said at a past commit is read from that
+    commit
+  * tools/after-pin.mjs: the moved, added and dropped units, one list for the
+    proof and the declaration tests
+  * test/contract: the arms over items 153cb5a retired, and the controls
+    appended since
+  * test/contract: the declaration tests omx-contract ran over a 2.14.0 copy
+    of this data
+  * ci: the contract job checks out the whole history
+  * contract-proof: the reads check takes the dropped list
+  * contract-proof: every unit the 0.1.5-8 code read still renders with its
+    text
+  * eq: the notch Q step moved from 1 to 0.1 in 09ff9da, cited
+  * contract-proof: the two units v0.1.3 read that are no longer carried,
+    each with the commit that dropped it
+  * recipes/answers: the citations that drifted from their kernel files
+  * recipes/answers: since is read in omx-contract's release line, 3.0.0
+    after the move
+  * recipes/answers: no answer for an item the definitions retired
+  * recipes/answers: the fourteen kernels that had none
+  * tools: contract-proof, the round-trip and completeness proofs over this
+    tree's own data and answers
+  * ci: the TypeScript twins run against the kernels on every pull request
+  * ts: publish the oracle as @openmixer/omx-dsp/oracle
+  * ts: the EQ twins the console carries: clampEqQFor, matchedPair,
+    biquadMagnitudeDb, magnitudeSumDb
+  * ts: definitions render the low-pass hand-over table and the EQ Q travels
+  * Keep every arm of the gain lanes in its domain
+  * Take the libmvec flags out of CFLAGS given from the environment
+  * Test the gain lanes' FP flags through vectorised loops and a hard knee
+  * Take a loop's vector path only with every function it calls
+  * Test the loops on a libmvec with log10f and expf only
+  * Keep the knee lane's denominator off zero outside the knee
+  * Test that the gate's knee lane raises no FP exception
+  * Version 0.29.0: the drive shaper and the dynamics gain curves through
+    libmvec
+  * Vectorise the gain loops without -fno-trapping-math
+  * Say in omx_fastmath.h that a vector tanhf may lose the sign of a zero
+  * Accept a zero of either sign from the vector tanhf, and print what came
+    back
+  * Measure the stage's own shaper loop, and say why a diff or a zero fails
+  * Make the libmvec loops vectorise on GCC 12 and raise the tanhf bound
+  * Run the drive shaper and the dynamics gain curves through libmvec
+  * ci: a pull request from a fork never runs on the cluster's runners
+  * ci: the heavy jobs run where vars.OMX_RUNNER says (GitHub-hosted by
+    default)
+  * ci: the make test job's limit to 90 minutes
+  * data: retire the 16 items nobody reads; geq's modes read GEQ_MODES
+  * data: an impl link or a stated reader for 43 of the 60 unlinked items
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Tue, 03 Nov 2026 22:00:18 +0000

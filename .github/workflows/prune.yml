@@ -155,8 +155,9 @@ jobs:
           set -euo pipefail
           # publish-tree.sh adds the packages of a directory and rewrites the metadata of every directory of
           # the tree; given the kept packages it adds nothing, and the metadata describes only them
+          # (only the per-release trees: the release package beside them would be filed again under its fixed name)
           mkdir staging
-          find build/channel/rpm -name '*.rpm' -exec cp -t staging {} +
+          find build/channel/rpm/fedora -name '*.rpm' -exec cp -t staging {} +
           .fmx/.github/actions/publish-rpms/publish-tree.sh build/channel/rpm staging "$OPENMIXER_GPG_KEY_ID"
           for d in build/channel/rpm/fedora/*/*/; do
             test -s "$d/repodata/repomd.xml.asc" || { echo "::error::$d has no signed metadata"; exit 1; }

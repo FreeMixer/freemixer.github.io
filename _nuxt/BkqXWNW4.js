@@ -1,6 +1,4 @@
-var e=`omx-dsp`,t=`f5c279a980a76a9b2ca53df5a9000f9416cb6cc3`,n=[{slug:``,src:`README.md`,title:`omx-dsp`,source:`https://github.com/FreeMixer/omx-dsp/blob/f5c279a980a76a9b2ca53df5a9000f9416cb6cc3/README.md`,toc:[{id:`install`,title:`Install`},{id:`use`,title:`Use`},{id:`licence`,title:`Licence`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="omx-dsp">omx-dsp</h1>
+var e=`omx-dsp`,t=`f5c279a980a76a9b2ca53df5a9000f9416cb6cc3`,n=[{slug:``,src:`README.md`,title:`omx-dsp`,source:`https://github.com/FreeMixer/omx-dsp/blob/f5c279a980a76a9b2ca53df5a9000f9416cb6cc3/README.md`,toc:[{id:`install`,title:`Install`},{id:`use`,title:`Use`},{id:`licence`,title:`Licence`}],html:`<h1 id="omx-dsp">omx-dsp</h1>
 <p>The DSP library of <a href="https://www.openmixer.org">OpenMixer</a>: the building blocks of
 the console (biquads, one-poles, envelopes, gain computers, delay rings, the oversampler) and the
 effect kernels built from them. The OpenMixer engine and the omx plugins compile the same kernels
@@ -81,9 +79,7 @@ before including the headers.</p>
 <p>Building from source and running the tests: <a href="/projects/omx-dsp/building">BUILDING.md</a>.</p>
 <h2 id="licence">Licence</h2>
 <p>GPL-3.0-or-later.</p>
-`},{slug:`building`,src:`BUILDING.md`,title:`Building omx-dsp`,source:`https://github.com/FreeMixer/omx-dsp/blob/f5c279a980a76a9b2ca53df5a9000f9416cb6cc3/BUILDING.md`,toc:[{id:`flavours`,title:`Flavours`},{id:`gcc-12-2-on-arm64`,title:`GCC 12.2 on arm64`},{id:`golden-digests-and-libm`,title:`Golden digests and libm`},{id:`libmvec`,title:`libmvec`},{id:`rates-outside-the-declaration`,title:`Rates outside the declaration`},{id:`the-engine-s-copies`,title:`The engine's copies`},{id:`the-channel-strip-s-input-stage`,title:`The channel strip's input stage`},{id:`room-analysis-and-the-alignment-fit`,title:`Room analysis and the alignment fit`},{id:`the-eq-maths-openmixer-s-typescript-computes`,title:`The EQ maths openmixer's TypeScript computes`},{id:`loudness`,title:`Loudness`},{id:`the-definitions-and-the-limits`,title:`The definitions and the limits`},{id:`packages`,title:`Packages`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="building-omx-dsp">Building omx-dsp</h1>
+`},{slug:`building`,src:`BUILDING.md`,title:`Building omx-dsp`,source:`https://github.com/FreeMixer/omx-dsp/blob/f5c279a980a76a9b2ca53df5a9000f9416cb6cc3/BUILDING.md`,toc:[{id:`flavours`,title:`Flavours`},{id:`gcc-12-2-on-arm64`,title:`GCC 12.2 on arm64`},{id:`golden-digests-and-libm`,title:`Golden digests and libm`},{id:`libmvec`,title:`libmvec`},{id:`rates-outside-the-declaration`,title:`Rates outside the declaration`},{id:`the-engine-s-copies`,title:`The engine's copies`},{id:`the-channel-strip-s-input-stage`,title:`The channel strip's input stage`},{id:`room-analysis-and-the-alignment-fit`,title:`Room analysis and the alignment fit`},{id:`the-eq-maths-openmixer-s-typescript-computes`,title:`The EQ maths openmixer's TypeScript computes`},{id:`loudness`,title:`Loudness`},{id:`the-definitions-and-the-limits`,title:`The definitions and the limits`},{id:`packages`,title:`Packages`}],html:`<h1 id="building-omx-dsp">Building omx-dsp</h1>
 <p>Needs a C11 compiler, GNU make, binutils, awk, sed, grep and diffutils.</p>
 <table>
 <thead>

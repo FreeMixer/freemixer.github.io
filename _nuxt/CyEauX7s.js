@@ -1,6 +1,4 @@
-var e=`omx-contract`,t=`c241fd47a68d4de548a1cd415f967b211da6475e`,n=[{slug:``,src:`README.md`,title:`omx-contract`,source:`https://github.com/FreeMixer/omx-contract/blob/c241fd47a68d4de548a1cd415f967b211da6475e/README.md`,toc:[{id:`install`,title:`Install`},{id:`use`,title:`Use`},{id:`building`,title:`Building`},{id:`license`,title:`License`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="omx-contract">omx-contract</h1>
+var e=`omx-contract`,t=`c241fd47a68d4de548a1cd415f967b211da6475e`,n=[{slug:``,src:`README.md`,title:`omx-contract`,source:`https://github.com/FreeMixer/omx-contract/blob/c241fd47a68d4de548a1cd415f967b211da6475e/README.md`,toc:[{id:`install`,title:`Install`},{id:`use`,title:`Use`},{id:`building`,title:`Building`},{id:`license`,title:`License`}],html:`<h1 id="omx-contract">omx-contract</h1>
 <p>The FreeMixer declarations as data: what a value may be (a travel, a default, a kernel constant, a list),
 written once as JSON, checked by a JSON Schema and rendered into the languages that read it. The mixer
 engine, the DSP library and the plugins all take their ranges, defaults and constants from the same

@@ -1,6 +1,4 @@
-var e=`omx-panel`,t=`edaf4f48de7e57496ead1b949f754b7e111867e3`,n=[{slug:``,src:`README.md`,title:`omx-panel`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/README.md`,toc:[{id:`what-is-here`,title:`What is here`},{id:`install`,title:`Install`},{id:`for-a-plugin-author`,title:`For a plugin author`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="omx-panel">omx-panel</h1>
+var e=`omx-panel`,t=`edaf4f48de7e57496ead1b949f754b7e111867e3`,n=[{slug:``,src:`README.md`,title:`omx-panel`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/README.md`,toc:[{id:`what-is-here`,title:`What is here`},{id:`install`,title:`Install`},{id:`for-a-plugin-author`,title:`For a plugin author`}],html:`<h1 id="omx-panel">omx-panel</h1>
 <p>Panels for audio plugins, generated from what the plugin declares. Give any LV2 or CLAP plugin a panel
 without drawing one: a MOD GUI for MOD and Zynthian, pages for a controller, a layout for a host, all from
 the plugin's own declaration, in the omx look, vintage or modern.</p>
@@ -57,9 +55,7 @@ writes <code>modgui.ttl</code> and <code>modgui/</code> into the bundle, every c
 section in port order, the labels from the port names and the screenshot as the backdrop. A bundle whose licence
 is missing or not on the allow-list is refused with a named code and nothing is written.</p>
 <p>Licence: GPL-3.0-or-later (<code>LICENSE</code>).</p>
-`},{slug:`compare`,src:`docs/compare.md`,title:`Compare A/B/C/D and undo`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/compare.md`,toc:[{id:`the-document`,title:`The document`},{id:`the-operations`,title:`The operations`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="compare-a-b-c-d-and-undo">Compare A/B/C/D and undo</h1>
+`},{slug:`compare`,src:`docs/compare.md`,title:`Compare A/B/C/D and undo`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/compare.md`,toc:[{id:`the-document`,title:`The document`},{id:`the-operations`,title:`The operations`}],html:`<h1 id="compare-a-b-c-d-and-undo">Compare A/B/C/D and undo</h1>
 <p><code>tools/compare.mjs</code> holds four unnamed sets of a processor's control values, and an undo ring, as pure functions: a
 document and the running values in, a new document and the parameter moves out. A host reads its values, calls the
 function, applies the moves through its own parameter door, and stores the document with its session. It works for any plugin:
@@ -140,9 +136,7 @@ slot lacks keeps its value.</p>
 </table>
 <p>Only parameters move: a plugin's non-parameter state stays where it is, so a plugin whose sound lives in its state compares
 only what its parameters reach.</p>
-`},{slug:`group-inference`,src:`docs/group-inference.md`,title:`Port-group inference for LV2 plugins`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/group-inference.md`,toc:[{id:`the-inputs`,title:`The inputs`},{id:`the-verdict`,title:`The verdict`},{id:`the-rules-in-this-order`,title:`The rules, in this order`},{id:`confident`,title:`Confident`},{id:`measured`,title:`Measured`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="port-group-inference-for-lv2-plugins">Port-group inference for LV2 plugins</h1>
+`},{slug:`group-inference`,src:`docs/group-inference.md`,title:`Port-group inference for LV2 plugins`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/group-inference.md`,toc:[{id:`the-inputs`,title:`The inputs`},{id:`the-verdict`,title:`The verdict`},{id:`the-rules-in-this-order`,title:`The rules, in this order`},{id:`confident`,title:`Confident`},{id:`measured`,title:`Measured`}],html:`<h1 id="port-group-inference-for-lv2-plugins">Port-group inference for LV2 plugins</h1>
 <p>Most installed LV2 plugins declare no port groups, so a consumer that draws screens per group (the Zynthian
 touchscreen cuts each group into screens of four) shows them as screens of four in port order.
 <code>tools/group-infer.mjs</code> (<code>@openmixer/omx-panel/group-infer</code>) infers the groups such a plugin lacks from what it
@@ -303,9 +297,7 @@ their own complete groups (all 19 of omx-plugins among them), 84 are grouped, an
 plugin alone over a guess; loosening <code>MAX_UNPLACED</code> is the one change that would group most of the rest.</p>
 <p>The tests (<code>test/group-infer.test.mjs</code>) run the rules over TTL copied from installed plugins: swh, Calf, x42, CAPS,
 ZamAudio, MDA, LSP and our own (<code>test/fixtures/lv2-groups</code>, provenance and licences in its <code>SOURCES</code>).</p>
-`},{slug:`lv2-complement`,src:`docs/lv2-complement.md`,title:`The LV2 complement: a replacing bundle with the inferred port groups`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/lv2-complement.md`,toc:[{id:`why-a-replacing-bundle`,title:`Why a replacing bundle`},{id:`what-is-written`,title:`What is written`},{id:`what-is-not-written`,title:`What is not written`},{id:`what-is-removed`,title:`What is removed`},{id:`where-it-runs-and-whether-lilv-sees-it`,title:`Where it runs, and whether lilv sees it`},{id:`the-search-order-the-same-result-not-the-same-cost`,title:`The search order: the same result, not the same cost`},{id:`measured`,title:`Measured`},{id:`open-for-review`,title:`Open for review`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="the-lv2-complement-a-replacing-bundle-with-the-inferred-port-groups">The LV2 complement: a replacing bundle with the inferred port groups</h1>
+`},{slug:`lv2-complement`,src:`docs/lv2-complement.md`,title:`The LV2 complement: a replacing bundle with the inferred port groups`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/lv2-complement.md`,toc:[{id:`why-a-replacing-bundle`,title:`Why a replacing bundle`},{id:`what-is-written`,title:`What is written`},{id:`what-is-not-written`,title:`What is not written`},{id:`what-is-removed`,title:`What is removed`},{id:`where-it-runs-and-whether-lilv-sees-it`,title:`Where it runs, and whether lilv sees it`},{id:`the-search-order-the-same-result-not-the-same-cost`,title:`The search order: the same result, not the same cost`},{id:`measured`,title:`Measured`},{id:`open-for-review`,title:`Open for review`}],html:`<h1 id="the-lv2-complement-a-replacing-bundle-with-the-inferred-port-groups">The LV2 complement: a replacing bundle with the inferred port groups</h1>
 <p><code>tools/group-infer.mjs</code> (<a href="/projects/omx-panel/group-inference">group-inference.md</a>) infers the port groups an LV2 plugin lacks.
 <code>tools/lv2-complement.mjs</code> (<code>omx-panel complement</code>, run at install time by <code>omx-complement-sync</code>) carries them to
 the programs that read plugins through lilv, the Zynthian touchscreen's jalv first: plugin-hostd#218, step G2.</p>
@@ -498,9 +490,7 @@ reads.</li>
 <li>A whole multi-plugin bundle is restated to group a few of its plugins (LSP: 30 of 194). The alternative, refusing
 such bundles, would leave most of the grouped plugins without groups.</li>
 </ul>
-`},{slug:`modgui`,src:`docs/modgui.md`,title:`The MOD GUI generator`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/modgui.md`,toc:[{id:`the-look`,title:`The look`},{id:`the-test`,title:`The test`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="the-mod-gui-generator">The MOD GUI generator</h1>
+`},{slug:`modgui`,src:`docs/modgui.md`,title:`The MOD GUI generator`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/modgui.md`,toc:[{id:`the-look`,title:`The look`},{id:`the-test`,title:`The test`}],html:`<h1 id="the-mod-gui-generator">The MOD GUI generator</h1>
 <p><code>tools/modgui-gen.mjs</code> writes a MOD GUI (MOD Devices' modgui, the format MOD and Zynthian draw) for one plugin,
 from its <strong>descriptor</strong> (omx-contract <code>docs/descriptors.md</code>) and, when the plugin declares one, its <strong>panel</strong>.</p>
 <pre><code>omx-panel modgui --descriptor &lt;file&gt; | --installed &lt;package&gt;/&lt;name&gt;
@@ -548,9 +538,7 @@ default (a readout with its symbol and range, as a display with no port role), a
 the bundle against the LV2 specifications, <code>tools/modgui-terms.ttl</code> (the closed modgui vocabulary) and
 omx-contract's resource-hint terms, and refuses a property outside that vocabulary; and a descriptor with its
 first control's default moved makes <code>--check</code> fail on the template.</p>
-`},{slug:`panel-layout`,src:`docs/panel-layout.md`,title:`Panel layout from a descriptor`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/panel-layout.md`,toc:[{id:`the-two-inputs`,title:`The two inputs`},{id:`units`,title:`Units`},{id:`meanings-and-roles`,title:`Meanings and roles`},{id:`the-family`,title:`The family`},{id:`the-widget`,title:`The widget`},{id:`sections-with-no-declared-panel`,title:`Sections with no declared panel`},{id:`pages`,title:`Pages`},{id:`the-easy-face`,title:`The Easy face`},{id:`verbatim`,title:`Verbatim`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="panel-layout-from-a-descriptor">Panel layout from a descriptor</h1>
+`},{slug:`panel-layout`,src:`docs/panel-layout.md`,title:`Panel layout from a descriptor`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/panel-layout.md`,toc:[{id:`the-two-inputs`,title:`The two inputs`},{id:`units`,title:`Units`},{id:`meanings-and-roles`,title:`Meanings and roles`},{id:`the-family`,title:`The family`},{id:`the-widget`,title:`The widget`},{id:`sections-with-no-declared-panel`,title:`Sections with no declared panel`},{id:`pages`,title:`Pages`},{id:`the-easy-face`,title:`The Easy face`},{id:`verbatim`,title:`Verbatim`}],html:`<h1 id="panel-layout-from-a-descriptor">Panel layout from a descriptor</h1>
 <p><code>tools/panel-description.mjs</code> lays out a plugin's panel from its <strong>descriptor</strong>: the words omx-contract
 uses to describe one plugin, ours or anyone's (omx-contract <code>docs/descriptors.md</code>). A plugin from any
 origin (<code>authored</code>, <code>built</code>, <code>scanned</code>) gets a layout; a plugin that declares its panel (omx-plugins'
@@ -859,9 +847,7 @@ them out through this package; its own <code>--check</code> runs hold that.</p>
 breaks its input and reads the result change; it lays out omx-contract's example descriptors
 (<code>test/fixtures/descriptors/</code>, scanned CLAP and LV2, a built instrument). The rule over omx-plugins' own
 plugins, which loads their declarations, stays in omx-plugins.</p>
-`},{slug:`skin-package`,src:`docs/skin-package.md`,title:`The skin package`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/skin-package.md`,toc:[{id:`skin-json`,title:`skin.json`},{id:`applying-it`,title:`Applying it`},{id:`refusals`,title:`Refusals`},{id:`the-licence`,title:`The licence`},{id:`importing-a-mod-gui`,title:`Importing a MOD GUI`},{id:`what-the-validator-checks`,title:`What the validator checks`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="the-skin-package">The skin package</h1>
+`},{slug:`skin-package`,src:`docs/skin-package.md`,title:`The skin package`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/skin-package.md`,toc:[{id:`skin-json`,title:`skin.json`},{id:`applying-it`,title:`Applying it`},{id:`refusals`,title:`Refusals`},{id:`the-licence`,title:`The licence`},{id:`importing-a-mod-gui`,title:`Importing a MOD GUI`},{id:`what-the-validator-checks`,title:`What the validator checks`}],html:`<h1 id="the-skin-package">The skin package</h1>
 <p>A skin package is a directory named after the plugin it draws. The plugin id is the name. An id that holds a byte
 outside <code>A-Z a-z 0-9 . _ -</code> (an LV2 URI) has each such byte written as <code>%XX</code>, and <code>.</code> and <code>..</code> alone are never a
 name, so the name is always safe in a path. One function writes the name, <code>encodeSkinId</code> (<code>src/skin-package.ts</code>), and
@@ -1014,9 +1000,7 @@ the bundle carries, on purpose.</p>
 <h2 id="what-the-validator-checks">What the validator checks</h2>
 <p>The shape. That every control id exists in the plugin's description and that a role fits its control is
 <code>applySkinOverride</code>'s, against the description it is applied to.</p>
-`},{slug:`worked-example`,src:`docs/worked-example.md`,title:`Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/worked-example.md`,toc:[{id:`where-it-ran`,title:`Where it ran`},{id:`1-the-plugins-as-installed`,title:`1. The plugins as installed`},{id:`2-the-scan-into-a-descriptor`,title:`2. The scan into a descriptor`},{id:`3-the-layout-and-the-mod-gui`,title:`3. The layout and the MOD GUI`},{id:`4-zynthian`,title:`4. Zynthian`},{id:`what-is-verified-and-what-is-not`,title:`What is verified, and what is not`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="worked-example-a-third-party-lv2-and-clap-plugin-to-a-generated-panel-adapted-to-zynthian">Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian</h1>
+`},{slug:`worked-example`,src:`docs/worked-example.md`,title:`Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian`,source:`https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/worked-example.md`,toc:[{id:`where-it-ran`,title:`Where it ran`},{id:`1-the-plugins-as-installed`,title:`1. The plugins as installed`},{id:`2-the-scan-into-a-descriptor`,title:`2. The scan into a descriptor`},{id:`3-the-layout-and-the-mod-gui`,title:`3. The layout and the MOD GUI`},{id:`4-zynthian`,title:`4. Zynthian`},{id:`what-is-verified-and-what-is-not`,title:`What is verified, and what is not`}],html:`<h1 id="worked-example-a-third-party-lv2-and-clap-plugin-to-a-generated-panel-adapted-to-zynthian">Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian</h1>
 <p>This takes two plugins nobody here wrote, as a distribution installs them, through the whole panel path: the
 scan into a descriptor, the layout, the MOD GUI and the test that holds it to the descriptor. It then follows
 the LV2 one to where Zynthian looks for it.</p>

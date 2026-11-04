@@ -1,6 +1,4 @@
-var e=`omx-plugins`,t=`6d452d917352f7134be9937c71f6ecc89d43b916`,n=[{slug:``,src:`README.md`,title:`omx-plugins`,source:`https://github.com/FreeMixer/omx-plugins/blob/6d452d917352f7134be9937c71f6ecc89d43b916/README.md`,toc:[{id:`the-plugins`,title:`The plugins`},{id:`parameters`,title:`Parameters`},{id:`factory-presets`,title:`Factory presets`},{id:`install`,title:`Install`},{id:`licence`,title:`Licence`}],html:`<p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
-&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
-<h1 id="omx-plugins">omx-plugins</h1>
+var e=`omx-plugins`,t=`6d452d917352f7134be9937c71f6ecc89d43b916`,n=[{slug:``,src:`README.md`,title:`omx-plugins`,source:`https://github.com/FreeMixer/omx-plugins/blob/6d452d917352f7134be9937c71f6ecc89d43b916/README.md`,toc:[{id:`the-plugins`,title:`The plugins`},{id:`parameters`,title:`Parameters`},{id:`factory-presets`,title:`Factory presets`},{id:`install`,title:`Install`},{id:`licence`,title:`Licence`}],html:`<h1 id="omx-plugins">omx-plugins</h1>
 <p>The effects of the OpenMixer console, as plugins you can load
 in any host: <strong>CLAP</strong> for Bitwig, REAPER, Carla, openmixer and every other CLAP host, and <strong>LV2</strong> for
 Ardour, Carla, MOD and Zynthian, the MOD GUI included.</p>
@@ -8,7 +6,6 @@ Ardour, Carla, MOD and Zynthian, the MOD GUI included.</p>
 library), so a plugin sounds the same in your DAW as on the desk, sample for sample. Each plugin is
 drawn from one declaration: its CLAP parameters, its LV2 ports and its MOD GUI cannot disagree.</p>
 <h2 id="the-plugins">The plugins</h2>
-<p>&lt;!-- BEGIN GENERATED catalogue: tools/gen.mjs, from each shipped plugin's declaration --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -195,8 +192,6 @@ drawn from one declaration: its CLAP parameters, its LV2 ports and its MOD GUI c
 </tr>
 </tbody>
 </table>
-<p>&lt;!-- END GENERATED catalogue --&gt;</p>
-<p>&lt;!-- BEGIN GENERATED sections: tools/gen.mjs, from each shipped plugin's declaration (its manual, else its parameters) --&gt;</p>
 <h3 id="omx-balancer">omx balancer</h3>
 <table>
 <thead>
@@ -2177,7 +2172,6 @@ stages': the gate's and the compressor's 4x detector paths while they are engage
 </tbody>
 </table>
 <p>Plus the host's bypass.</p>
-<p>&lt;!-- END GENERATED sections --&gt;</p>
 <h2 id="parameters">Parameters</h2>
 <p><a href="https://github.com/FreeMixer/omx-plugins/blob/6d452d917352f7134be9937c71f6ecc89d43b916/docs/plugins/README.md">docs/plugins/README.md</a> lists every plugin with a page of its own: its ids, its audio ports, the
 pages a host shows (LV2 port groups, CLAP modules) and a table of every parameter with its unit, range, default,

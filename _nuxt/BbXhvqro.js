@@ -82,9 +82,7 @@ file of <code>plugin-hostd</code> is that directory), and <code>&lt;plugin-hostd
 <h2 id="running">Running</h2>
 <pre><code>plugin-hostd -n -p &lt;port&gt; [-f &lt;port&gt;] [-c plugin-hostd.conf]
 </code></pre>
-<p>&lt;!-- BEGIN GENERATED protocol:readiness --&gt;
-It prints <code>plugin-hostd ready!</code> once both ports accept.
-&lt;!-- END GENERATED protocol:readiness --&gt;</p>
+<p>It prints <code>plugin-hostd ready!</code> once both ports accept.</p>
 <p>No worker exists until the first <code>add</code>. <code>quit</code> or SIGTERM stops every worker and the daemon;
 after a SIGKILL the workers notice the parent gone (<code>PR_SET_PDEATHSIG</code>) and exit.</p>
 <p>Both ports listen on 127.0.0.1, so only programs on the same machine reach them. To control the daemon from
@@ -94,7 +92,6 @@ network whose hosts you trust. A daemon that cannot listen on the address does n
 listen on 127.0.0.1 whatever this says, and only the daemon talks to them.</p>
 <p>The settings live in a file, <code>-c</code>, <code>$PLUGIN_HOSTD_CONF</code> or
 <code>~/.config/plugin-hostd.conf</code>, one <code>key value</code> per line:</p>
-<p>&lt;!-- BEGIN GENERATED protocol:config --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -304,11 +301,6 @@ listen on 127.0.0.1 whatever this says, and only the daemon talks to them.</p>
 <td>1</td>
 <td>1: add admits only a plugin that has a pin (see pin_mode), its files hashed before any worker sees it, and a plugin of a format whose pin holds only in a world of its own gets a worker of its own, its world the plugin's files (a default that resolves to a pool is placed own); 0: no pin is checked</td>
 </tr>
-<tr>
-<td>&lt;!-- END GENERATED protocol:config --&gt;</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <p>Where plugins are searched is written once, in <code>include/plugin-hostd/search_paths.h</code>. The LV2 default is Zynthian's own
@@ -318,7 +310,6 @@ its own folders in <code>lv2_extra</code> (a Zynthian image: <code>/zynthian/zyn
 <code>lv2_path</code>; plugin-qualify and omx-panel read <code>lv2_path</code>, <code>lv2_extra</code> and <code>clap_path</code> from this file, or run
 <code>tools/search-paths.py lv2|clap [--existing] [--env]</code>, and keep no list of their own. The benchmark and the scripts of
 <code>tools/zynthian/</code> use the same script.</p>
-<p>&lt;!-- BEGIN GENERATED protocol:constants --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -353,17 +344,10 @@ its own folders in <code>lv2_extra</code> (a Zynthian image: <code>/zynthian/zyn
 <td>1 instances</td>
 <td>the fewest members of a chain: a chain of one is valid, so one isolated plugin is a chain like any other</td>
 </tr>
-<tr>
-<td>&lt;!-- END GENERATED protocol:constants --&gt;</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <h2 id="placement">Placement</h2>
-<p>&lt;!-- BEGIN GENERATED protocol:placement --&gt;
-The placement of an <code>add</code> is <code>own | pool:&lt;name&gt; | chain:&lt;chain&gt; | default</code>. <code>own</code> is a worker for that instance alone; <code>pool:&lt;name&gt;</code> is the pool's worker, opened on first use and capped by <code>pool_config</code>, and a full pool opens <code>&lt;name&gt;#2</code>, <code>&lt;name&gt;#3</code>, and so on; <code>default</code> is the policy of <code>policy_set</code>. A pool name matches <code>^[A-Za-z0-9_-]{1,32}$</code>.
-&lt;!-- END GENERATED protocol:placement --&gt;</p>
+<p>The placement of an <code>add</code> is <code>own | pool:&lt;name&gt; | chain:&lt;chain&gt; | default</code>. <code>own</code> is a worker for that instance alone; <code>pool:&lt;name&gt;</code> is the pool's worker, opened on first use and capped by <code>pool_config</code>, and a full pool opens <code>&lt;name&gt;#2</code>, <code>&lt;name&gt;#3</code>, and so on; <code>default</code> is the policy of <code>policy_set</code>. A pool name matches <code>^[A-Za-z0-9_-]{1,32}$</code>.</p>
 <p><code>&lt;uri&gt;</code> is <code>lv2:&lt;uri&gt;</code> or a bare URI for an LV2 plugin, <code>clap:&lt;path&gt;#&lt;id&gt;</code>
 for a CLAP one. The instance number is the controller's and reaches the
 worker unchanged. A worker holds one format. An own LV2 worker sees one
@@ -414,7 +398,6 @@ omx-clap-host 0.22.1 as the worker, N omx plugins in series, 256 frames, on a pr
 no default has been changed because of the numbers; DSP load and xruns are those of the JACK dummy driver, so no claim
 about real audio hardware is made.</p>
 <h2 id="verbs-the-daemon-adds">Verbs the daemon adds</h2>
-<p>&lt;!-- BEGIN GENERATED protocol:verbs --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -589,8 +572,7 @@ about real audio hardware is made.</p>
 </tr>
 </tbody>
 </table>
-<p>A <code>&lt;state&gt;</code> is <code>up</code> (accepting commands), <code>starting</code> (spawned, not yet accepting), <code>backoff</code> (dead, waiting to be respawned), <code>given-up</code> (the storm bound is spent for its placement).
-&lt;!-- END GENERATED protocol:verbs --&gt;</p>
+<p>A <code>&lt;state&gt;</code> is <code>up</code> (accepting commands), <code>starting</code> (spawned, not yet accepting), <code>backoff</code> (dead, waiting to be respawned), <code>given-up</code> (the storm bound is spent for its placement).</p>
 <p>A record's place holds a colon (<code>pool:p</code>), so a <code>worker_list</code> record is read from both ends: six fields on the
 left, the instance list on the right, the place in between. The fifth is the audio core the setting <code>placement</code> pinned
 the worker to, <code>-</code> for none (<a href="/projects/plugin-hostd/placement">docs/placement.md</a>). The sixth is the worker's thread pool: <code>on</code> for a
@@ -633,7 +615,6 @@ moves values by itself, and suggests a remote page. Its worker writes <code>para
 <code>remote_page_suggest</code> on its feedback port, and the daemon relays them as written, in order (events below). If the
 worker dies, or the instance is removed, while a gesture is held, the daemon ends the gesture itself, so no control
 stays held at the controller. omx-clap-host writes these lines from FreeMixer/omx-clap-core#87 on.</p>
-<p>&lt;!-- BEGIN GENERATED protocol:instance-verbs --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -706,15 +687,13 @@ stays held at the controller. omx-clap-host writes these lines from FreeMixer/om
 </tr>
 </tbody>
 </table>
-<p>The ledger keeps the latest <code>track_info</code> of an instance and replays it after the add; the others are never replayed. A <code>&lt;scale&gt;</code> is <code>linear</code> (the value is linear in position), <code>log</code> (the value is geometric in position; both bounds are positive), <code>stepped</code> (the whole numbers from min to max, step 1). A string word is at most 255 bytes of UTF-8 with no control character.
-&lt;!-- END GENERATED protocol:instance-verbs --&gt;</p>
+<p>The ledger keeps the latest <code>track_info</code> of an instance and replays it after the add; the others are never replayed. A <code>&lt;scale&gt;</code> is <code>linear</code> (the value is linear in position), <code>log</code> (the value is geometric in position; both bounds are positive), <code>stepped</code> (the whole numbers from min to max, step 1). A string word is at most 255 bytes of UTF-8 with no control character.</p>
 <p>What each host profile owes every verb a controller sends: mod-host's commands, the two that Zynthian's mod-ui still
 names, and the verbs the daemon adds. A verb has a row here before the daemon serves it. The daemon relays a worker's
 verb, an instance verb to the worker that holds the instance and any other to every worker, and passes its answer
 back: a required verb (presets and bundles for the CLAP worker and Zynthian) answers -902
 only while the worker does. MIDI learn and CV addressing are policy of the surfaces: the host answers them only as the
 mechanism, and they stay optional. The preset verbs and the preset file are <a href="/projects/plugin-hostd/presets">docs/presets.md</a>.</p>
-<p>&lt;!-- BEGIN GENERATED protocol:host-verbs --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -1369,10 +1348,8 @@ mechanism, and they stay optional. The preset verbs and the preset file are <a h
 </tr>
 </tbody>
 </table>
-<p>The profiles: <code>lv2-worker</code>, an LV2 plugin's worker: mod-host, or omx-clap-host's LV2 adapter; <code>clap-worker</code>, a CLAP plugin's worker, omx-clap-host; <code>console</code>, the openmixer console as a controller of the daemon; <code>zynthian</code>, Zynthian's mod-ui and its plugind engine as a controller of the daemon. <code>required</code> is answered as its grammar says; <code>optional</code> is answered, or refused with -902, and never misread; <code>absent</code> is refused on purpose, and no client of the profile may need it.
-&lt;!-- END GENERATED protocol:host-verbs --&gt;</p>
+<p>The profiles: <code>lv2-worker</code>, an LV2 plugin's worker: mod-host, or omx-clap-host's LV2 adapter; <code>clap-worker</code>, a CLAP plugin's worker, omx-clap-host; <code>console</code>, the openmixer console as a controller of the daemon; <code>zynthian</code>, Zynthian's mod-ui and its plugind engine as a controller of the daemon. <code>required</code> is answered as its grammar says; <code>optional</code> is answered, or refused with -902, and never misread; <code>absent</code> is refused on purpose, and no client of the profile may need it.</p>
 <p>Error codes the daemon adds to mod-host's:</p>
-<p>&lt;!-- BEGIN GENERATED protocol:errors --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -1557,11 +1534,6 @@ mechanism, and they stay optional. The preset verbs and the preset file are <a h
 <td><code>OMX_REPLY_PLUGIN_HOSTD_UNKNOWN_PLUGIN_RESP</code></td>
 <td>a member of estimate whose uri names no plugin installed here (its format cannot tell the plugin's binary, or the binary is not there): never a reply, the code of the member in the reply's list</td>
 </tr>
-<tr>
-<td>&lt;!-- END GENERATED protocol:errors --&gt;</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <p>A worker's own refusal is returned as it said it. An <code>add</code> that killed its worker answers mod-host's <code>-102</code>.</p>
@@ -1576,7 +1548,6 @@ one; without <code>-n</code>, or with <code>-f</code>, the daemon waits for the 
 worker gone answers <code>PHD_ERR_WORKER_SPAWN</code>: the worker is not up, ask again after <code>instance_restored</code>. A command that
 kills its worker answers <code>PHD_ERR_VERB_DROPPED</code>.</p>
 <p>Events on the feedback port, one NUL-terminated line each:</p>
-<p>&lt;!-- BEGIN GENERATED protocol:events --&gt;</p>
 <table>
 <thead>
 <tr>
@@ -1691,36 +1662,27 @@ kills its worker answers <code>PHD_ERR_VERB_DROPPED</code>.</p>
 <td><code>&lt;instance&gt; &lt;symbol&gt; &lt;value&gt;</code></td>
 <td>relayed from a worker: parameter feedback, a value the plugin moved by itself (its automation, an LFO, a preset load, a MIDI map, the user's knob of the plugin's own), as mod-host writes it; a controller updates its control to it. A worker never writes it for a value a controller's param_set gave it, and a worker that writes none changes nothing: the daemon adds no line of its own</td>
 </tr>
-<tr>
-<td>&lt;!-- END GENERATED protocol:events --&gt;</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <h2 id="the-workers-own-feedback">The workers' own feedback</h2>
 <p>What a worker reports on its feedback port (the <code>output_set</code> of a monitored output, the <code>param_set</code> of a parameter the
 plugin moved, <code>data_finish</code>, the log lines) reaches the controller on the daemon's feedback port, among the events
 above:</p>
-<p>&lt;!-- BEGIN GENERATED protocol:relay --&gt;
-Every worker is started as <code>&lt;program&gt; -n -p &lt;command port&gt; -f &lt;feedback port&gt;</code>.</p>
+<p>Every worker is started as <code>&lt;program&gt; -n -p &lt;command port&gt; -f &lt;feedback port&gt;</code>.</p>
 <ul>
 <li>every line a worker writes on its feedback port goes out on the daemon's feedback port as the worker wrote it: output_set, param_set, data_finish and the rest of mod-host's feedback, and a line the daemon does not know.</li>
 <li>the instance number in a relayed line is already the controller's: add hands it to the worker unchanged, so nothing in a line is rewritten.</li>
 <li>a worker's lines go out in the order it wrote them, and what a worker wrote before it died goes out before its worker_died event; an instance lives in one worker at a time, so its lines keep their order across a respawn; the lines of different workers interleave.</li>
 <li>monitor_output is in the ledger, one line per output, and param_monitor as it was sent; a respawn replays them after the add, so a respawned instance reports the same outputs, each once, starting again from its first value.</li>
 <li>output_data_ready names no instance and goes to every worker; each worker's data_finish is relayed.</li>
-<li>with no feedback port, or no controller on it, a line is dropped, as mod-host drops it; the daemon reads every worker's feedback all the time, so no worker waits on it.
-&lt;!-- END GENERATED protocol:relay --&gt;</li>
+<li>with no feedback port, or no controller on it, a line is dropped, as mod-host drops it; the daemon reads every worker's feedback all the time, so no worker waits on it.</li>
 </ul>
 <p>A synced delay or an arpeggiator comes back at the right tempo after a crash. What the daemon keeps of the commands
 every worker shares:</p>
-<p>&lt;!-- BEGIN GENERATED protocol:host-settings --&gt;</p>
 <ul>
 <li>the tempo, the metre and the transport a controller sets (mod-host's set_bpm, set_bpb, transport and transport_sync) are kept, the latest line of each as it was sent, in the order they were last sent.</li>
 <li>a worker is handed them before anything else: a respawned one before its first add, and a worker started later, of a new placement, as well; a worker's refusal of one is written to stderr and is no failure.</li>
-<li>a line whose words are not that command's grammar is passed on and not kept.
-&lt;!-- END GENERATED protocol:host-settings --&gt;</li>
+<li>a line whose words are not that command's grammar is passed on and not kept.</li>
 </ul>
 <h2 id="probing-a-plugin">Probing a plugin</h2>
 <p><code>plugin-hostd-probe run</code> loads a plugin in a child process under limits and writes down what happened, as facts only: no
@@ -1838,12 +1800,10 @@ is read. A file that cannot be read is named on stderr and skipped. A directory 
 pins and is no error.</li>
 </ul>
 <p>What cannot be pinned:</p>
-<p>&lt;!-- BEGIN GENERATED protocol:pin-limits --&gt;</p>
 <ul>
 <li>a path holding ',', '=' or whitespace cannot be pinned: they are the separators of pin_set's words, and pin_set refuses it as a token outside its grammar.</li>
 <li>a pin_set line is at most line_max, 4096 bytes, the protocol socket's buffer; a longer one is refused as outside the grammar.</li>
-<li>a manifest that uses @base makes add answer OMX_REPLY_PLUGIN_HOSTD_PIN_BINARY_MISMATCH_RESP (-509): the daemon does not resolve it, so it cannot know the file the host would load. A file the manifest names by a percent-encoded IRI is pinned as written, one word, and opened decoded; a name with a stray % is refused the same way.
-&lt;!-- END GENERATED protocol:pin-limits --&gt;</li>
+<li>a manifest that uses @base makes add answer OMX_REPLY_PLUGIN_HOSTD_PIN_BINARY_MISMATCH_RESP (-509): the daemon does not resolve it, so it cannot know the file the host would load. A file the manifest names by a percent-encoded IRI is pinned as written, one word, and opened decoded; a name with a stray % is refused the same way.</li>
 </ul>
 <p>Pins are the controller's policy, like <code>policy_set</code>: not in the ledger, gone with the daemon, set again by a controller
 that reconnects. A replayed <code>add</code> is checked again, so a file swapped while a worker was down is refused on respawn:
@@ -1916,10 +1876,8 @@ resp 0 64 9.60 - 1 1 1:-534 0 104857600 2147483648 1
 <h2 id="what-a-worker-must-do">What a worker must do</h2>
 <ul>
 <li>answer mod-host's protocol on <code>-n -p &lt;port&gt; -f &lt;port&gt;</code>, the feedback port opened by the daemon right after the
-command port;
-&lt;!-- BEGIN GENERATED protocol:worker-ready --&gt;</li>
-<li>print a line ending <code>ready!</code> on stdout once its socket accepts;
-&lt;!-- END GENERATED protocol:worker-ready --&gt;</li>
+command port;</li>
+<li>print a line ending <code>ready!</code> on stdout once its socket accepts;</li>
 <li>write, for <code>state_save &lt;dir&gt;</code>, files whose names begin <code>effect_&lt;instance&gt;</code> and read them back on
 <code>state_load &lt;dir&gt;</code>, skipping an instance with no file.</li>
 </ul>

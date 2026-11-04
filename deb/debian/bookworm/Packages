@@ -490,6 +490,55 @@ Description: OpenMixer package repository configuration for apt
  trixie, Raspberry Pi OS included). apt upgrade keeps this configuration
  current.
 
+Package: plugin-db-contract
+Architecture: all
+Version: 0.1.0
+Multi-Arch: foreign
+Priority: optional
+Section: libs
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 17
+Depends: omx-contract (>= 3.2.0~), omx-contract (<< 4~)
+Filename: ./all/plugin-db-contract_0.1.0_all.deb
+Size: 3384
+MD5sum: 39bd91495e582c371010980e8f9263e0
+SHA1: b045e44a1661ba4ecf147d89ae778d33ed9efc42
+SHA256: 2e4d45ee5ad9729a4dcdbc63d367ffa65982bd0581c9c9d973c61938e32f657a
+SHA512: 3cfce1d246d7f9ba2671bd252651453017a9967332bd7d4da347b2645c50fa0ac8959acd0602563a9f9f7615157711c18fd47f71d4800897107b5e384ff870b0
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: words of a plugin pin in omx-contract's contract directory
+ data/pin.json of plugin-db, the verdicts, the pool words, the optional keys,
+ what counts as changed and the layout formats, as the package plugin-db of
+ omx-contract's contract directory, under
+ /usr/share/omx-contract/contract.d/3/plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
+Package: plugin-db-dev
+Architecture: all
+Version: 0.1.0
+Multi-Arch: foreign
+Priority: optional
+Section: libdevel
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 29
+Depends: libssl-dev
+Filename: ./all/plugin-db-dev_0.1.0_all.deb
+Size: 6696
+MD5sum: cef19b75f23d05177d522b286d6e0974
+SHA1: ab4de9df95ce3cd2d0f3fcf0fb3bef28da9e158c
+SHA256: 519c8187dd2b888a38563045a91730447380dd0a919ab04e54fefde3a69fc7f5
+SHA512: f0e2116c9591fd0d5b18a31a216b56c459b88bec99c12b9963e542bdcdd05d1fbff128f643e3f3e34d5c5cb6c4fdb8030cc85aed106b90745ab153a7e6c9d993
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: pin of a plugin: one header and its pkg-config file
+ <plugin-db/pin.h>, header-only, on libc and libcrypto: the SHA-256 of a file,
+ the omx-layout/1 fingerprint of a parameter layout, the words a pin is written
+ with and the rules of what is a pin's, with the pkg-config file plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
 Package: plugin-hostd-contract
 Architecture: all
 Version: 0.16.0

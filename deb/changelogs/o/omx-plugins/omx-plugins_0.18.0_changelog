@@ -1,0 +1,51 @@
+omx-plugins (0.18.0) unstable; urgency=medium
+
+  * zynthian-bundle: libmvec.so.1 is on a bare trixie
+  * meter-level: compare the level readings within omx-dsp's fast-maths bound
+  * Remove the parameter-contract migration members
+  * Test the param-contract table against omx-clap-core's layout
+  * version 0.18.0: in place proven per plugin, quiet blocks skip the
+    resolve, the dirty flag read acquire, omx-dsp 0.29.0
+  * faces: the CLAP face reads its dirty flag acquire
+  * faces: a read of the CLAP face's dirty flag must be acquire, a
+    main-thread store release
+  * faces: in place proven per plugin, quiet blocks skip the resolve
+  * faces: regenerated, no SPDX header inside the core headers
+  * omx-test-pool-voice: activates at the block sizes clap-validator asks, up
+    to 16384 frames
+  * gen: the vtable partial drops its own SPDX header, the core header
+    carries one
+  * recipe-selftest: the meter's bypass reading is the reference's; the face
+    reads its own from the row (#132)
+  * factory presets: plugin {id}, createdAt and modifiedAt, as plugin-hostd's
+    schema has them
+  * presets-check: every factory preset holds to plugin-hostd's preset schema
+  * descriptor-view: a moved link is refused by the symbol tie, and read with
+    an explicit control
+  * ci: a pull request from a fork never runs on the cluster's runners
+  * ci: the heavy jobs run where vars.OMX_RUNNER says (GitHub-hosted by
+    default)
+  * descriptors: state schema floor 3.7.0; the round trip counts the four new
+    meanings
+  * contract: floor omx-contract 3.7.1, regenerate the four descriptors it
+    words
+  * summaries read their numbers from the declaration (#267)
+  * gen: a parameter's symbol is tied to the control its ref names (#267)
+  * omx keyed gate and limiter publish their gain reduction; the de-esser's
+    meter takes its range from the readout (#267)
+  * recipes: core-vtable.h.tmpl carries its SPDX header (#132)
+  * units: this tree defines no unit code; the docs follow omx-contract's
+    sheet (omx-contract#145)
+  * deb: the omx-contract command is a build dependency and the build runs
+    make test whole (#268)
+  * zynthian-bundle: read both shapes of lv2bench's output (#268)
+  * gen: stop writing lv2:reportsLatency, which LV2 deprecates (#267)
+  * ci: require the clap-validator event-ordering tests on every plugin
+  * omx-test-sine-voice: render frame-major so NOTE_END reports stay in time
+    order
+  * faces: one CLAP face and one LV2 face in lib/, each plugin's file its
+    descriptor (#132)
+  * BUILDING: one CLAP face and one LV2 face in lib/, each plugin's file its
+    descriptor (#132)
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 04 Nov 2026 05:30:47 +0000

@@ -1,0 +1,541 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>&quot;Camins d&#x27;allotjament comparats: mod-host, omx-clap-host, l&#x27;adaptador LV2 i dins del procés&quot; | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/notes/hosting-paths-compared/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dhyxm03C.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNs_Ozdc.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMWkIGvv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMx8XeKT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CH_6PZHZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C4LhWnh7.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/D2H52pKN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C_Vo6Cpv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkUevp-A.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BrLBbKql.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkceDeHA.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/DpO9t-n4.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/MpqZPowV.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BM38UV2E.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dga5QANZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dwv5_atN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BxJRRP96.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/495XL0kX.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/notes/hosting-paths-compared" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/notes/hosting-paths-compared" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/notes/hosting-paths-compared" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/notes/hosting-paths-compared"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/notes/hosting-paths-compared"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="Els mateixos plugins costen el mateix per plugin en tots els camins d'allotjament, amb un microsegon de diferència i cap camí no afegeix latència. Les diferències a tot el graf vénen dels estats de repòs de la CPU i del nombre de nodes, no de com un amfitrió fa córrer un plugin; el que separa els camins és la memòria, l'arrencada i el que s'emporta una fallada."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/notes/hosting-paths-compared" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Nota tècnica</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">&quot;Camins d&#39;allotjament comparats: mod-host, omx-clap-host, l&#39;adaptador LV2 i dins del procés&quot;</h1><p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-dim">Els mateixos plugins costen el mateix per plugin en tots els camins d&#39;allotjament, amb un microsegon de diferència i cap camí no afegeix latència. Les diferències a tot el graf vénen dels estats de repòs de la CPU i del nombre de nodes, no de com un amfitrió fa córrer un plugin; el que separa els camins és la memòria, l&#39;arrencada i el que s&#39;emporta una fallada.</p><!--[--><p class="mt-4 font-mono text-xs text-ink-faint">Una màquina de compilació Intel Core Ultra 9 285K compartida amb altres feines, Fedora 44, nucli 7.2, PipeWire 1.6.9 amb el controlador fictici, 48 i 96 kHz de 64 a 512 mostres, tres execucions de 60 s, octubre del 2026; omx-plugins 0.7.0 i plugins LV2 i CLAP de sèrie.</p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body"><h2 id="els-camins">Els camins</h2>
+<table>
+<thead>
+<tr>
+<th>camí</th>
+<th>què fa córrer el plugin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mod-host</td>
+<td>mod-host 0.10.6 (el paquet de la distribució), la versió LV2, un client JACK per plugin</td>
+</tr>
+<tr>
+<td>omx-clap-host</td>
+<td>la versió CLAP, un client JACK per plugin</td>
+</tr>
+<tr>
+<td>l'adaptador</td>
+<td>el mateix omx-clap-host, la versió LV2 a través de libomx-clap-lv2</td>
+</tr>
+<tr>
+<td>CLAP dins del procés</td>
+<td>la versió CLAP dins de la crida de procés d'un filtre PipeWire natiu, a través de libomx-clap-core</td>
+</tr>
+<tr>
+<td>LV2 dins del procés</td>
+<td>la versió LV2 de la mateixa manera, oberta a través de libomx-clap-lv2</td>
+</tr>
+</tbody>
+</table>
+<p>Aleshores omx-clap-host no podia carregar tot sol un plugin LV2, de manera que el camí de l'adaptador carregava els plugins
+LV2 a través d'un <code>.clap</code> fet només per al banc de proves que enllaça libomx-clap-lv2: mesura el codi de l'adaptador dins
+d'un omx-clap-host sense modificar. Els camins dins del procés fan les crides que fa el nivell dins del procés de la consola
+(obrir, activar, publicar, fer córrer al fil de dades de PipeWire, amb la limitació, la revisió de valors no finits i
+l'escalfament del nucli activats), però donen a cada plugin un node de filtre propi, on la consola fa córrer els plugins
+d'un carril en línia dins del seu node. Se'n donen dues xifres: el temps del node, comparable amb el dels nodes dels altres
+camins i el temps en línia, només la crida de procés, que és el que un plugin afegeix al cicle d'una consola.</p>
+<p>Els plugins: comp, delay, deesser, eq8 i reverb d'omx-plugins en totes dues versions; un compressor estèreo LSP i Dragonfly
+Room com a CLAP; ZamCompX2, caps PlateX2 i caps CompressX2 com a LV2. Per tant, els camins CLAP fan córrer set plugins i els
+LV2 vuit i la comparació entre formats és la dels cinc bessons omx. Tots els plugins d'un camí es munten en un sol
+amfitrió, cadascun alimentat amb el mateix soroll blanc estèreo a -20 dBFS i enregistrat; un pas porta un impuls unitari
+quatre vegades per segon, contra un enllaç directe que porta el mateix impuls.</p>
+<h2 id="que-s-ha-mesurat">Què s'ha mesurat</h2>
+<ul>
+<li><strong>Temps de node per cicle</strong>: el temps d'actiu a acabat de pw-profiler per al node de cada plugin, cada cicle de la
+finestra: el plugin més el que hi fa el seu amfitrió al voltant.</li>
+<li><strong>Temps en línia</strong> (només dins del procés): la crida de procés cronometrada al fil de dades.</li>
+<li><strong>Final del cicle</strong>: el temps del controlador des del despertar fins que acaba l'últim node.</li>
+<li><strong>Excessos</strong>: cicles que acaben passat el seu període; <strong>tardans</strong>: cicles de la sonda que arriben més d'1,5 períodes
+després de l'anterior.</li>
+<li><strong>Latència afegida</strong>: l'impuls a través del pas contra l'enllaç directe, en mostres.</li>
+<li><strong>Memòria</strong>: la memòria resident de l'amfitrió, buit i amb tots els plugins muntats.</li>
+<li><strong>Arrencada</strong>: de llançar l'amfitrió a tenir-lo a punt; d'<code>add</code> a la seva resposta; d'<code>add</code> al primer so a l'enregistrador.</li>
+<li><strong>Fallada</strong>: l'amfitrió mort mentre fa córrer un plugin i després reiniciat; i als camins CLAP, un plugin de prova que
+avorta al costat d'un de sa al mateix amfitrió.</li>
+</ul>
+<h2 id="tot-el-graf">Tot el graf</h2>
+<p>Mediana de tres execucions de 60 s. mod-host, l'adaptador i LV2 dins del procés fan córrer els mateixos vuit plugins;
+omx-clap-host i CLAP dins del procés els mateixos set.</p>
+<table>
+<thead>
+<tr>
+<th>freqüència</th>
+<th>quàntum</th>
+<th>camí</th>
+<th>plugins</th>
+<th>final del cicle p50 µs</th>
+<th>final del cicle p99 µs</th>
+<th>excessos</th>
+<th>CPU de l'amfitrió %</th>
+<th>RSS MiB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>mod-host</td>
+<td>8</td>
+<td>250,2</td>
+<td>719,4</td>
+<td>3</td>
+<td>8,2</td>
+<td>40,0</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>omx-clap-host</td>
+<td>7</td>
+<td>287,5</td>
+<td>759,9</td>
+<td>5</td>
+<td>9,1</td>
+<td>40,1</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>adaptador</td>
+<td>8</td>
+<td>293,3</td>
+<td>772,7</td>
+<td>3</td>
+<td>10,0</td>
+<td>26,5</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>CLAP dins del procés</td>
+<td>7</td>
+<td>337,5</td>
+<td>788,5</td>
+<td>2</td>
+<td>8,5</td>
+<td>38,3</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>LV2 dins del procés</td>
+<td>8</td>
+<td>265,5</td>
+<td>692,5</td>
+<td>4</td>
+<td>7,9</td>
+<td>22,8</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>mod-host</td>
+<td>8</td>
+<td>275,4</td>
+<td>748,1</td>
+<td>20</td>
+<td>23,7</td>
+<td>40,4</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>omx-clap-host</td>
+<td>7</td>
+<td>447,0</td>
+<td>926,9</td>
+<td>230</td>
+<td>32,4</td>
+<td>40,3</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>adaptador</td>
+<td>8</td>
+<td>403,0</td>
+<td>844,6</td>
+<td>17</td>
+<td>31,4</td>
+<td>26,7</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>CLAP dins del procés</td>
+<td>7</td>
+<td>446,2</td>
+<td>915,4</td>
+<td>109</td>
+<td>35,4</td>
+<td>38,8</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>LV2 dins del procés</td>
+<td>8</td>
+<td>436,9</td>
+<td>863,4</td>
+<td>18</td>
+<td>33,5</td>
+<td>22,9</td>
+</tr>
+</tbody>
+</table>
+<p>A 96 kHz i 64 mostres tots els camins van tenir excessos en aquesta màquina amb aquests conjunts (98 mod-host, de 310 a 332
+l'adaptador i LV2 dins del procés); els excessos del conjunt CLAP a 96 kHz i 128 mostres segueixen els màxims de la reverb,
+d'1,3 a 1,5 ms contra un període d'1,33 ms.</p>
+<h2 id="per-plugin">Per plugin</h2>
+<p>El temps propi del node per cicle, p50 / p99 / màxim, µs, 48 kHz i 128 mostres; dins del procés, el temps en línia:</p>
+<table>
+<thead>
+<tr>
+<th>plugin</th>
+<th>mod-host</th>
+<th>omx-clap-host</th>
+<th>adaptador</th>
+<th>CLAP dins del procés, en línia</th>
+<th>LV2 dins del procés, en línia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>omx-comp</td>
+<td>3,6 / 19,5 / 46</td>
+<td>4,3 / 29,3 / 63</td>
+<td>5,1 / 17,9 / 52</td>
+<td>3,5 / 15,7 / 44</td>
+<td>4,2 / 16,9 / 59</td>
+</tr>
+<tr>
+<td>omx-delay</td>
+<td>2,1 / 9,2 / 25</td>
+<td>2,1 / 10,8 / 44</td>
+<td>2,9 / 13,6 / 37</td>
+<td>2,0 / 9,3 / 52</td>
+<td>2,5 / 10,4 / 49</td>
+</tr>
+<tr>
+<td>omx-deesser</td>
+<td>4,5 / 22,9 / 53</td>
+<td>4,5 / 25,9 / 54</td>
+<td>5,1 / 29,5 / 59</td>
+<td>4,5 / 22,6 / 46</td>
+<td>5,0 / 20,9 / 51</td>
+</tr>
+<tr>
+<td>omx-eq8</td>
+<td>2,1 / 10,1 / 23</td>
+<td>1,9 / 8,8 / 34</td>
+<td>2,6 / 12,1 / 38</td>
+<td>1,8 / 8,1 / 24</td>
+<td>2,2 / 9,9 / 23</td>
+</tr>
+<tr>
+<td>omx-reverb</td>
+<td>5,7 / 28,9 / 59</td>
+<td>5,9 / 24,4 / 55</td>
+<td>6,7 / 32,6 / 67</td>
+<td>5,5 / 23,6 / 69</td>
+<td>6,5 / 23,9 / 68</td>
+</tr>
+<tr>
+<td>ZamCompX2</td>
+<td>3,9 / 20,2 / 46</td>
+<td></td>
+<td>4,4 / 22,2 / 56</td>
+<td></td>
+<td>3,9 / 17,1 / 46</td>
+</tr>
+<tr>
+<td>caps PlateX2</td>
+<td>5,7 / 29,1 / 61</td>
+<td></td>
+<td>6,3 / 26,6 / 93</td>
+<td></td>
+<td>5,8 / 23,4 / 68</td>
+</tr>
+<tr>
+<td>caps CompressX2</td>
+<td>9,8 / 57,3 / 118</td>
+<td></td>
+<td>10,3 / 58,0 / 119</td>
+<td></td>
+<td>9,9 / 54,8 / 115</td>
+</tr>
+<tr>
+<td>compressor LSP</td>
+<td></td>
+<td>6,6 / 28,5 / 67</td>
+<td></td>
+<td>6,5 / 25,8 / 71</td>
+<td></td>
+</tr>
+<tr>
+<td>Dragonfly Room</td>
+<td></td>
+<td>28,4 / 140,0 / 1462</td>
+<td></td>
+<td>27,9 / 128,4 / 1448</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="arrencada-i-memoria">Arrencada i memòria</h2>
+<table>
+<thead>
+<tr>
+<th>camí</th>
+<th>p50 de node µs (tots els plugins i configuracions)</th>
+<th>p50 en línia µs</th>
+<th><code>add</code> ms</th>
+<th>d'<code>add</code> al primer so ms</th>
+<th>amfitrió a punt ms</th>
+<th>RSS buit MiB</th>
+<th>RSS per plugin MiB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mod-host</td>
+<td>7,3</td>
+<td></td>
+<td>4,2</td>
+<td>68,6</td>
+<td>24,4</td>
+<td>19,4</td>
+<td>2,31</td>
+</tr>
+<tr>
+<td>omx-clap-host</td>
+<td>8,3</td>
+<td></td>
+<td>4,5</td>
+<td>68,2</td>
+<td>13,5</td>
+<td>5,8</td>
+<td>4,30</td>
+</tr>
+<tr>
+<td>adaptador</td>
+<td>7,5</td>
+<td></td>
+<td>3,7</td>
+<td>67,2</td>
+<td>13,7</td>
+<td>5,8</td>
+<td>2,31</td>
+</tr>
+<tr>
+<td>CLAP dins del procés</td>
+<td>13,5</td>
+<td>8,3</td>
+<td>13,2</td>
+<td>75,9</td>
+<td>2,6</td>
+<td>3,3</td>
+<td>4,41</td>
+</tr>
+<tr>
+<td>LV2 dins del procés</td>
+<td>13,1</td>
+<td>8,4</td>
+<td>12,6</td>
+<td>74,9</td>
+<td>2,5</td>
+<td>3,3</td>
+<td>2,17</td>
+</tr>
+</tbody>
+</table>
+<h2 id="una-fallada">Una fallada</h2>
+<p>A 48 kHz i 128 mostres, tres vegades per camí: un SIGKILL de l'amfitrió fa callar els seus plugins en 1 a 3 ms, el graf
+continua fent cicles (cap cicle tardà; el buit més llarg de la sonda és de 3,0 a 4,4 ms contra un període de 2,67 ms) i un
+amfitrió reiniciat torna a sonar de 70 a 100 ms després. Un plugin que avorta s'endú el seu amfitrió de 150 a 175 ms
+després de l'escriptura que ho provoca (l'avortament i el seu bolcat de memòria) i amb ell tots els altres plugins
+d'aquell amfitrió; el graf va sobreviure en tots dos camins CLAP. Dins del procés, el procés amfitrió és la consola: la
+mateixa fallada allà vol dir l'àudio de la consola perdut fins que el motor es reinicia.</p>
+<h2 id="que-diuen-les-xifres">Què diuen les xifres</h2>
+<ul>
+<li><strong>Un plugin costa el mateix en tots els camins.</strong> Per al mateix plugin a la mateixa freqüència i quàntum, la mediana del
+node a mod-host, omx-clap-host i l'adaptador són a prop d'1 µs les unes de les altres i del temps en línia dins del procés
+(omx-eq8: 2,1, 1,9, 2,6 i d'1,8 a 2,2 µs; caps CompressX2: 9,8, 10,3 i 9,9 µs). Les cues es mouen desenes de microsegons
+entre repeticions d'una mateixa configuració: és la màquina, no el camí.</li>
+<li><strong>El node dins del procés del banc de proves costa de 2 a 5 µs més que els altres nodes</strong>, mentre que el seu temps en
+línia hi coincideix: el preu del filtre propi del banc de proves per plugin (quatre búfers de port, dues còpies) a més de
+l'etapa del nucli. Una consola que fa córrer el plugin en línia dins del seu carril paga la xifra en línia i cap node.</li>
+<li><strong>Cap camí no afegeix latència.</strong> L'impuls a través del pas va arribar al mateix cicle en què va sortir en tots els camins,
+freqüències i quàntums, cada impuls de cada execució. Un client JACK en un graf PipeWire es planifica de manera síncrona
+dins del cicle, de manera que un plugin de mod-host no costa cap quàntum de més.</li>
+<li><strong>Memòria</strong>: amb els mateixos vuit plugins, 40 MiB resident per a mod-host (19 MiB abans de cap plugin: carrega tot el
+món LV2), 26,5 MiB per a omx-clap-host amb l'adaptador, 22,8 MiB dins del procés. Uns 2,2 o 2,3 MiB per plugin LV2 en tots
+tres.</li>
+<li><strong>Arrencada</strong>: un amfitrió és a punt en 2,5 ms dins del procés, 13,5 ms omx-clap-host, 24 ms mod-host.</li>
+</ul>
+<h2 id="que-mesura-la-xifra-de-tot-el-graf">Què mesura la xifra de tot el graf</h2>
+<p>Amb els mateixos vuit plugins LV2, mod-host va tenir el final del cicle més baix en totes les configuracions, tot i que els
+seus nodes costen el mateix que els dels altres. El mateix banc de proves a 96 kHz i 128 mostres, amb
+<code>/dev/cpu_dma_latency</code> retingut per refusar els estats de repòs de la CPU, mostra per què. Final del cicle p50, µs, d'una a
+tres execucions cadascun:</p>
+<table>
+<thead>
+<tr>
+<th>estats de repòs</th>
+<th>mod-host</th>
+<th>adaptador</th>
+<th>LV2 dins del procés</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tots permesos (C1, C2, C3)</td>
+<td>265, 279</td>
+<td>380, 400, 412</td>
+<td>413</td>
+</tr>
+<tr>
+<td><code>cpu_dma_latency</code> 1000 µs: C3 refusat</td>
+<td>243, 244</td>
+<td>273, 333</td>
+<td>248, 322</td>
+</tr>
+<tr>
+<td><code>cpu_dma_latency</code> 10 µs: només C1</td>
+<td>80</td>
+<td>73</td>
+<td>95</td>
+</tr>
+<tr>
+<td><code>cpu_dma_latency</code> 0: cap</td>
+<td>26, 30</td>
+<td>23, 31</td>
+<td>24, 25</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>La major part de la xifra de tot el graf és la sortida dels estats de repòs.</strong> Amb els estats de repòs permesos, la
+font de la sonda desperta els nou nodes de plugin a uns 10 µs l'un de l'altre els primers quatre o cinc i la resta de 60
+a 130 µs més tard: els seus nuclis eren a C2 o més avall. Sense cap estat permès es desperten a uns 1,1 µs l'un de
+l'altre i els camins són iguals.</li>
+<li><strong>L'avantatge de mod-host són els seus dos clients sempre en marxa.</strong> A més d'un client per plugin, mod-host fa córrer
+el seu propi client <code>mod-host</code> i <code>mod-monitor</code>, que es desperten a cada cicle i mantenen més nuclis fora del repòs
+profund. Uns clients JACK desocupats afegits al camí de l'adaptador n'escurcen el cicle de la mateixa manera i amb sis a
+cada camí l'ordre desapareix.</li>
+</ul>
+<p>Per tant, el que costa és el nombre de nodes, no l'amfitrió. Això és el que va portar a fer córrer una cadena en un sol
+client JACK (vegeu <a href="/ca/notes/one-jack-client-for-a-chain">Un sol client JACK per a una cadena</a>) i a la retenció dels estats
+de repòs (vegeu <a href="/ca/notes/cpu-idle-states-and-plugin-hosting">Estats de repòs de la CPU i allotjament de plugins</a>).</p>
+<h2 id="limits">Límits</h2>
+<p>La màquina era una màquina de compilació compartida amb una càrrega d'uns 3, amb el governador <code>powersave</code>, sense aïllament i
+sense fixar fils: les cues i les xifres de tot el graf en porten el soroll. El graf corria amb el controlador fictici de
+PipeWire en un contenidor; un controlador real es desperta d'una altra manera. Els plugins s'alimentaven amb soroll blanc; un
+plugin el cost del qual depèn de l'entrada donaria una altra lectura amb material musical. Tres plugins LV2 de sèrie que
+llavors l'adaptador refusava i un amb entrada MIDI, no són al conjunt LV2.</p>
+<h2 id="que-en-va-sortir">Què en va sortir</h2>
+<p>Amb els plugins que tots els camins poden allotjar, els camins costen el mateix per plugin: mana el <code>process()</code> del mateix
+plugin i l'embolcall de l'amfitrió hi afegeix un microsegon. Dins del procés només costa el temps en línia del plugin, però
+una fallada allà s'endú l'àudio de la consola, mentre que fora del procés el graf continua viu i un reinici torna a sonar en
+menys de 0,1 s. Per això el worker per defecte de plugin-hostd va passar a ser omx-clap-host, fora del procés, per als plugins
+CLAP i, a través de l'adaptador, per als plugins LV2 que admet, amb mod-host per a la resta i dins del procés només per als
+plugins que admet la qualificació.</p>
+</article><nav class="hidden lg:block" aria-label="Contingut"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#els-camins" class="text-ink-dim hover:text-accent">Els camins</a></li><li><a href="#que-s-ha-mesurat" class="text-ink-dim hover:text-accent">Què s&#39;ha mesurat</a></li><li><a href="#tot-el-graf" class="text-ink-dim hover:text-accent">Tot el graf</a></li><li><a href="#per-plugin" class="text-ink-dim hover:text-accent">Per plugin</a></li><li><a href="#arrencada-i-memoria" class="text-ink-dim hover:text-accent">Arrencada i memòria</a></li><li><a href="#una-fallada" class="text-ink-dim hover:text-accent">Una fallada</a></li><li><a href="#que-diuen-les-xifres" class="text-ink-dim hover:text-accent">Què diuen les xifres</a></li><li><a href="#que-mesura-la-xifra-de-tot-el-graf" class="text-ink-dim hover:text-accent">Què mesura la xifra de tot el graf</a></li><li><a href="#limits" class="text-ink-dim hover:text-accent">Límits</a></li><li><a href="#que-en-va-sortir" class="text-ink-dim hover:text-accent">Què en va sortir</a></li><!--]--></ul><p class="mt-8 text-sm"><a href="/ca/notes" class="text-accent hover:underline">Totes les notes tècniques</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/notes/hosting-paths-compared/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"note-hosting-paths-compared-ca":-1},"\u002Fca\u002Fnotes\u002Fhosting-paths-compared",1793751246884]</script></body></html>

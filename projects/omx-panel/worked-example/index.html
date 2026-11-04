@@ -1,0 +1,572 @@
+<!DOCTYPE html><html  lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian | omx-panel | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/projects/omx-panel/worked-example/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DLv1zT_v.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/B0w9kckf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CF5KCtY-.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/e63HFAnf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CD3ALZ0F.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BnH_th5I.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CoQTvKFp.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dexg_6ZX.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CqEFv2MT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/d05kRPiJ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BVB5ZYNh.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Cj5AVrYJ.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/projects/omx-panel/worked-example" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/projects/omx-panel/worked-example" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/projects/omx-panel/worked-example" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/projects/omx-panel/worked-example"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/projects/omx-panel/worked-example"><meta id="i18n-og" property="og:locale" content="en"><meta id="i18n-og-alt-ca" property="og:locale:alternate" content="ca"><meta name="description" content="The documentation of omx-panel, as the project writes it."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/" class="group flex items-center gap-3" aria-label="OpenMixer home"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main"><!--[--><a href="/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Architecture</a><a href="/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Features</a><a href="/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Benchmarks</a><a href="/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Docs</a><a href="/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">FAQ</a><a href="/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Get it</a><a href="/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Links</a><!--]--></nav><!--[--><a href="/ca/projects/omx-panel/worked-example" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="ca" lang="ca" aria-label="Català" title="Català">ca</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menu" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">omx-panel</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian</h1><!----><!--[--><p class="mt-4 text-sm text-ink-dim">The project&#39;s own text, in English. <a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/worked-example.md" class="text-accent hover:underline" rel="noopener">The source of this page</a></p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body" lang="en"><p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
+&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
+<h1 id="worked-example-a-third-party-lv2-and-clap-plugin-to-a-generated-panel-adapted-to-zynthian">Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian</h1>
+<p>This takes two plugins nobody here wrote, as a distribution installs them, through the whole panel path: the
+scan into a descriptor, the layout, the MOD GUI and the test that holds it to the descriptor. It then follows
+the LV2 one to where Zynthian looks for it.</p>
+<ul>
+<li><strong>LV2</strong>: ZamComp, Damien Zammit's mono compressor (<code>urn:zamaudio:ZamComp</code>), from Fedora's <code>lv2-zam-plugins</code>.
+Section 4 reads, from Zynthian's sources, where it would look for it.</li>
+<li><strong>CLAP</strong>: LSP Limiter Mono (<code>in.lsp-plug.limiter_mono</code>), from Fedora's <code>lsp-plugins-clap</code>.</li>
+</ul>
+<p>Every command below was run as written, from the root of this repository, and its output is shown under it, or
+is the committed file it writes under <a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/"><code>examples/worked-example/</code></a>. What each
+command printed is also committed, one file per command, in
+<a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/transcript/"><code>examples/worked-example/transcript/</code></a>, written by
+<a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/repeat.sh"><code>repeat.sh</code></a> (run it after the setup of the next section; a command that
+prints nothing leaves no file). The output shown here is that transcript, line for line. A <code>[exit N]</code> line is
+the command's exit status when it is not 0. The <code>rpm -q</code> and <code>lv2ls</code> lines and the package versions are those of
+the container the run was made in. Nothing here was run on a Zynthian or a MOD: the last section says what
+comes from Zynthian's sources and what is still to be seen on one.</p>
+<h2 id="where-it-ran">Where it ran</h2>
+<p>A Fedora 44 container (the <code>openmixer-worker</code> image, whose packages the commands below upgrade), the Fedora
+repositories and the FreeMixer channel enabled. The image also carries a copr repository, which the
+installs leave out so that every plugin comes from Fedora itself. As root:</p>
+<pre><code>dnf -y -q --disablerepo=copr-ycollet-audinux install lv2-zam-plugins lsp-plugins-clap omx-clap-host plugin-hostd plugin-hostd-devel omx-contract-devel
+dnf -y -q --disablerepo=copr-ycollet-audinux upgrade omx-contract omx-contract-devel omx-clap-host omx-clap-core plugin-hostd plugin-hostd-devel
+ln -s &quot;$PWD/bin/omx-panel.mjs&quot; /usr/local/bin/omx-panel
+dnf -y -q --disablerepo=copr-ycollet-audinux install omx-panel
+</code></pre>
+<p>and, as the user, <code>npm ci --silent</code> in this checkout.</p>
+<p>On a stock Fedora 44, the OpenMixer channel comes first, as this repository's CI adds it
+(<code>dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm</code>; not run here, the
+image carries the channel), and <code>python3-lilv</code> and <code>sord</code> are installed with the rest (the image carries them:
+<code>python3-lilv-0.26.4</code>, <code>sord-0.16.22</code>, <code>lv2-1.18.10</code>).</p>
+<p><code>omx-panel</code> is this checkout, run as <code>omx-panel</code> through the link above (<code>/usr/local/bin</code> comes before
+<code>/usr/bin</code> on the path). The commands ran at <code>3ebf9b7</code>, the commit that adds <code>repeat.sh</code>; its omx-panel is
+<code>origin/main</code> at <code>15cc25bb9</code> (pull request 26 merged, so the readout fix of omx-panel#25 is in), and the branch
+adds only the example, this document, a line of the README and the exemption of the example's output files in
+<code>tools/check-spdx.mjs</code>. The released omx-panel 0.2.5, installed last, is run as <code>/usr/bin/omx-panel</code>
+once: it stops on ZamComp (<a href="#the-released-025-on-zamcomp">section 3</a>). Every other
+command runs as an unprivileged user.</p>
+<h2 id="1-the-plugins-as-installed">1. The plugins as installed</h2>
+<pre><code>$ mkdir -p examples/worked-example/zamcomp examples/worked-example/lsp-limiter-mono
+
+$ rpm -q lv2-zam-plugins lsp-plugins-clap
+lv2-zam-plugins-4.4-7.fc44.x86_64
+lsp-plugins-clap-1.2.29-1.fc44.x86_64
+
+$ rpm -ql lv2-zam-plugins | grep '^/usr/lib64/lv2/ZamComp.lv2/'
+/usr/lib64/lv2/ZamComp.lv2/ZamComp_dsp.so
+/usr/lib64/lv2/ZamComp.lv2/ZamComp_dsp.ttl
+/usr/lib64/lv2/ZamComp.lv2/ZamComp_ui.so
+/usr/lib64/lv2/ZamComp.lv2/ZamComp_ui.ttl
+/usr/lib64/lv2/ZamComp.lv2/manifest.ttl
+/usr/lib64/lv2/ZamComp.lv2/presets.ttl
+
+$ rpm -qf /usr/lib64/clap/lsp-plugins.clap
+lsp-plugins-clap-1.2.29-1.fc44.x86_64
+
+$ lv2ls | grep -x urn:zamaudio:ZamComp
+urn:zamaudio:ZamComp
+
+$ lv2info urn:zamaudio:ZamComp &gt; examples/worked-example/zamcomp/lv2info.txt
+
+$ omx-clap-scan /usr/lib64/clap/lsp-plugins.clap | sed -n '/^  plugin in.lsp-plug.limiter_mono /,/^    note ports/p' &gt; examples/worked-example/lsp-limiter-mono/omx-clap-scan.txt
+</code></pre>
+<p><a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/zamcomp/lv2info.txt"><code>zamcomp/lv2info.txt</code></a> is ZamComp as lilv reads it: three
+audio ports, eight input controls (<code>att</code>, <code>rel</code>, <code>kn</code>, <code>rat</code>, <code>thr</code>, <code>mak</code>, <code>slew</code>, <code>sidech</code>, ports 3 to 10)
+and two output controls, the readouts <code>gr</code> (gain reduction) and <code>outlevel</code> (ports 11 and 12). lilv lists the
+three presets in an order that changes from run to run, so a repeat can differ from the committed file in those
+three lines and nowhere else.
+<a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/lsp-limiter-mono/omx-clap-scan.txt"><code>lsp-limiter-mono/omx-clap-scan.txt</code></a> is the
+limiter as omx-clap-scan lists it, version 1.0.33, 28 parameters; the scan of the whole <code>lsp-plugins.clap</code>
+lists every plugin the file holds, and <code>sed</code> keeps this one.</p>
+<h2 id="2-the-scan-into-a-descriptor">2. The scan into a descriptor</h2>
+<p>One step writes a <code>scanned</code> descriptor (omx-contract <code>docs/descriptors.md</code>) for either format:
+<code>plugin-hostd-probe describe</code> (plugin-hostd 0.7.0 and later, its <code>docs/formats.md</code>). It runs omx-clap-core's
+<code>omx-clap-scan --fields</code>, the dump of every field one CLAP or LV2 plugin states, read as a host reads it (for
+LV2, through lilv), and maps each field to a descriptor word by plugin-hostd's format tables. So the LV2 scan
+to a descriptor exists, and it is the same step as the CLAP one.</p>
+<pre><code>$ rpm -q omx-clap-host omx-clap-core plugin-hostd omx-contract
+omx-clap-host-0.20.1-1.fc44.x86_64
+omx-clap-core-0.20.1-1.fc44.x86_64
+plugin-hostd-0.10.0-1.fc44.x86_64
+omx-contract-3.1.0-1.fc44.noarch
+
+$ omx-clap-scan --fields lv2:urn:zamaudio:ZamComp &gt; examples/worked-example/zamcomp/zamcomp.fields.tsv
+
+$ plugin-hostd-probe describe lv2:urn:zamaudio:ZamComp &gt; examples/worked-example/zamcomp/zamcomp.descriptor.json
+
+$ omx-clap-scan --fields clap:/usr/lib64/clap/lsp-plugins.clap#in.lsp-plug.limiter_mono &gt; examples/worked-example/lsp-limiter-mono/limiter_mono.fields.tsv
+
+$ plugin-hostd-probe describe clap:/usr/lib64/clap/lsp-plugins.clap#in.lsp-plug.limiter_mono &gt; examples/worked-example/lsp-limiter-mono/limiter_mono.descriptor.json
+</code></pre>
+<p>The dumps are the committed <code>.fields.tsv</code> files, the descriptors the <code>.descriptor.json</code> beside them. What a
+scan cannot know, it writes as <code>unknown</code>:</p>
+<ul>
+<li>every control's <code>meaning</code> is <code>unknown</code> (neither format states what a control means), so the layout infers no
+family and no roles: both plugins are family <code>none</code>;</li>
+<li>ZamComp's units are its TTL's (<code>ms</code>, <code>dB</code>), its <code>rat</code> and <code>slew</code> state none (<code>unknown</code>); <code>gr</code> and <code>outlevel</code>
+are <code>readonly</code>, with a range and no default;</li>
+<li>the limiter's controls are keyed by CLAP parameter id, a number; their units are <code>unknown</code> and their scales
+<code>unknown</code> or <code>stepped</code>, as CLAP states neither.</li>
+</ul>
+<h2 id="3-the-layout-and-the-mod-gui">3. The layout and the MOD GUI</h2>
+<h3 id="zamcomp-with-no-panel-file">ZamComp, with no panel file</h3>
+<pre><code>$ omx-panel layout --descriptor examples/worked-example/zamcomp/zamcomp.descriptor.json &gt; examples/worked-example/zamcomp/zamcomp.layout.json
+
+$ omx-panel layout --descriptor examples/worked-example/zamcomp/zamcomp.descriptor.json --pages | tee examples/worked-example/zamcomp/zamcomp.pages.json
+[
+  {
+    &quot;section&quot;: 0,
+    &quot;sectionName&quot;: &quot;Controls&quot;,
+    &quot;pageName&quot;: &quot;Controls 1&quot;,
+    &quot;ids&quot;: [
+      &quot;att&quot;,
+      &quot;rel&quot;,
+      &quot;kn&quot;,
+      &quot;rat&quot;,
+      &quot;thr&quot;,
+      &quot;mak&quot;,
+      &quot;slew&quot;,
+      &quot;sidech&quot;
+    ]
+  },
+  {
+    &quot;section&quot;: 0,
+    &quot;sectionName&quot;: &quot;Controls&quot;,
+    &quot;pageName&quot;: &quot;Controls 2&quot;,
+    &quot;ids&quot;: [
+      &quot;gr&quot;,
+      &quot;outlevel&quot;,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+]
+</code></pre>
+<p>ZamComp's TTL states no port groups, so every control is in the one section <code>Controls</code>, in port order, cut
+into pages of eight (the page rule of <code>docs/panel-layout.md</code>). The two readouts take the second page: the
+layout pages every control it lists, a readout included.</p>
+<pre><code>$ omx-panel modgui --descriptor examples/worked-example/zamcomp/zamcomp.descriptor.json --out examples/worked-example/zamcomp/no-panel/ZamComp.lv2
+modgui: wrote examples/worked-example/zamcomp/no-panel/ZamComp.lv2/modgui.ttl
+modgui: wrote examples/worked-example/zamcomp/no-panel/ZamComp.lv2/modgui/icon-ZamComp.html
+modgui: wrote examples/worked-example/zamcomp/no-panel/ZamComp.lv2/modgui/stylesheet-ZamComp.css
+modgui: wrote examples/worked-example/zamcomp/no-panel/ZamComp.lv2/modgui/screenshot-ZamComp.png
+modgui: wrote examples/worked-example/zamcomp/no-panel/ZamComp.lv2/modgui/thumbnail-ZamComp.png
+modgui: wrote examples/worked-example/zamcomp/no-panel/ZamComp.lv2/modgui/knobs/omx-knob.png
+
+$ tools/modgui-test.sh examples/worked-example/zamcomp/no-panel/ZamComp.lv2 examples/worked-example/zamcomp/zamcomp.descriptor.json
+PASS modgui-gen --check ZamComp
+PASS template draws att with its declared travel and default
+PASS template draws rel with its declared travel and default
+PASS template draws kn with its declared travel and default
+PASS template draws rat with its declared travel and default
+PASS template draws thr with its declared travel and default
+PASS template draws mak with its declared travel and default
+PASS template draws slew with its declared travel and default
+PASS template draws sidech with its declared travel and default
+PASS template draws readout gr as a display with its declared range
+PASS template draws readout outlevel as a display with its declared range
+PASS template draws exactly the 10 declared parameters
+PASS sord_validate ZamComp.lv2/*.ttl against the LV2 specs, modgui terms and resource-hint terms (Found 21 errors among 85 files (checked 1947 restrictions); all 21 the label errors of omx-contract#144)
+PASS sord_validate refuses a modgui property outside modgui-terms.ttl
+PASS a moved default makes modgui-gen --check fail
+</code></pre>
+<p>The eight input controls are knobs (none is a toggle or a choice in the TTL), the two readouts displays
+(<code>docs/modgui.md</code>); <code>modgui.ttl</code> lists the eight as <code>modgui:port</code>.</p>
+<h3 id="zamcomp-with-a-panel-file">ZamComp, with a panel file</h3>
+<p><a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/zamcomp/zamcomp.panel.json"><code>zamcomp/zamcomp.panel.json</code></a> is a panel written for
+this example: the detector controls in one section, the makeup gain in a second as a fader, the two readouts in
+a third. Its family is <code>none</code>: a declared <code>dynamics</code> would be refused, since no control of the scan carries the
+meaning <code>threshold</code> or <code>ratio</code> (<code>docs/panel-layout.md</code>, the family).</p>
+<pre><code>$ omx-panel layout --descriptor examples/worked-example/zamcomp/zamcomp.descriptor.json --panel examples/worked-example/zamcomp/zamcomp.panel.json --pages | tee examples/worked-example/zamcomp/zamcomp.panel.pages.json
+[
+  {
+    &quot;section&quot;: 0,
+    &quot;sectionName&quot;: &quot;Detector&quot;,
+    &quot;pageName&quot;: &quot;Detector&quot;,
+    &quot;ids&quot;: [
+      &quot;thr&quot;,
+      &quot;rat&quot;,
+      &quot;kn&quot;,
+      &quot;att&quot;,
+      &quot;rel&quot;,
+      &quot;slew&quot;,
+      &quot;sidech&quot;,
+      null
+    ]
+  },
+  {
+    &quot;section&quot;: 1,
+    &quot;sectionName&quot;: &quot;Output&quot;,
+    &quot;pageName&quot;: &quot;Output&quot;,
+    &quot;ids&quot;: [
+      &quot;mak&quot;,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    &quot;section&quot;: 2,
+    &quot;sectionName&quot;: &quot;Meters&quot;,
+    &quot;pageName&quot;: &quot;Meters&quot;,
+    &quot;ids&quot;: [
+      &quot;gr&quot;,
+      &quot;outlevel&quot;,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  }
+]
+
+$ omx-panel modgui --descriptor examples/worked-example/zamcomp/zamcomp.descriptor.json --panel examples/worked-example/zamcomp/zamcomp.panel.json --out examples/worked-example/zamcomp/with-panel/ZamComp.lv2
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui.ttl
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui/icon-ZamComp.html
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui/stylesheet-ZamComp.css
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui/screenshot-ZamComp.png
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui/thumbnail-ZamComp.png
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui/knobs/omx-knob.png
+modgui: wrote examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui/knobs/omx-fader.png
+
+$ tools/modgui-test.sh examples/worked-example/zamcomp/with-panel/ZamComp.lv2 examples/worked-example/zamcomp/zamcomp.descriptor.json examples/worked-example/zamcomp/zamcomp.panel.json
+PASS modgui-gen --check ZamComp
+PASS template draws thr with its declared travel and default
+PASS template draws rat with its declared travel and default
+PASS template draws kn with its declared travel and default
+PASS template draws att with its declared travel and default
+PASS template draws rel with its declared travel and default
+PASS template draws slew with its declared travel and default
+PASS template draws sidech with its declared travel and default
+PASS template draws mak with its declared travel and default
+PASS template draws readout gr as a display with its declared range
+PASS template draws readout outlevel as a display with its declared range
+PASS template draws exactly the 10 declared parameters
+PASS sord_validate ZamComp.lv2/*.ttl against the LV2 specs, modgui terms and resource-hint terms (Found 21 errors among 85 files (checked 1938 restrictions); all 21 the label errors of omx-contract#144)
+PASS sord_validate refuses a modgui property outside modgui-terms.ttl
+PASS a moved default makes modgui-gen --check fail
+</code></pre>
+<p>With the panel, <code>modgui.ttl</code> lists the seven controls of the first section, <code>Detector</code>, as <code>modgui:port</code>, and
+the makeup fader brings its own film strip.</p>
+<h3 id="the-released-0-2-5-on-zamcomp">The released 0.2.5 on ZamComp</h3>
+<pre><code>$ rpm -q omx-panel
+omx-panel-0.2.5-1.fc44.noarch
+
+$ /usr/bin/omx-panel modgui --descriptor examples/worked-example/zamcomp/zamcomp.descriptor.json --out /tmp/zamcomp-0.2.5.lv2 2&gt;&amp;1 | grep '^Error'
+Error: modgui-gen: 'gr' is not a declared control input with a travel
+</code></pre>
+<p>That is omx-panel#25: 0.2.5 looks a travel up for a readout. This checkout carries the fix.</p>
+<h3 id="lsp-limiter-mono-a-clap-plugin">LSP Limiter Mono, a CLAP plugin</h3>
+<pre><code>$ omx-panel layout --descriptor examples/worked-example/lsp-limiter-mono/limiter_mono.descriptor.json &gt; examples/worked-example/lsp-limiter-mono/limiter_mono.layout.json
+
+$ omx-panel layout --descriptor examples/worked-example/lsp-limiter-mono/limiter_mono.descriptor.json --pages &gt; examples/worked-example/lsp-limiter-mono/limiter_mono.pages.json
+
+$ omx-panel modgui --descriptor examples/worked-example/lsp-limiter-mono/limiter_mono.descriptor.json --out /tmp/limiter_mono.lv2 2&gt;&amp;1 | grep '^Error'
+Error: modgui-gen: 'in.lsp-plug.limiter_mono' states no LV2 URI; a MOD GUI belongs to an LV2 bundle
+</code></pre>
+<p>The limiter's 28 controls state no group, so they are one section <code>Controls</code>, four pages of eight, the last
+holding four (<a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/lsp-limiter-mono/limiter_mono.pages.json"><code>limiter_mono.pages.json</code></a>,
+each slot a CLAP parameter id). These are the pages a CLAP host shows through <code>clap.remote-controls</code>. A MOD GUI
+belongs to an LV2 bundle, so the generator refuses a CLAP descriptor by name; lsp-plugins also ships an LV2
+build, which would be scanned as <code>lv2:&lt;uri&gt;</code> and go the way of ZamComp.</p>
+<p>Not every lsp CLAP plugin lays out yet. Filter Mono has two parameters named &quot;Filter mode&quot;, and a CLAP
+control, whose id is a number, is keyed by its name:</p>
+<pre><code>$ plugin-hostd-probe describe clap:/usr/lib64/clap/lsp-plugins.clap#in.lsp-plug.filter_mono &gt; examples/worked-example/lsp-limiter-mono/filter_mono.descriptor.json
+
+$ omx-panel layout --descriptor examples/worked-example/lsp-limiter-mono/filter_mono.descriptor.json --pages
+omx-panel: examples/worked-example/lsp-limiter-mono/filter_mono.descriptor.json: 'Filter mode' is a control twice
+[exit 1]
+</code></pre>
+<p>That is omx-panel#27. <a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/survey-lsp-mono.sh"><code>survey-lsp-mono.sh</code></a> scans and lays out
+every mono plugin of the file:</p>
+<pre><code>$ bash examples/worked-example/survey-lsp-mono.sh
+refused in.lsp-plug.filter_mono: omx-panel: &lt;descriptor&gt;: 'Filter mode' is a control twice
+refused in.lsp-plug.sampler_mono: omx-panel: &lt;descriptor&gt;: 'Sample pitch' is a control twice
+refused in.lsp-plug.trigger_midi_mono: omx-panel: &lt;descriptor&gt;: 'Sample pitch' is a control twice
+refused in.lsp-plug.trigger_mono: omx-panel: &lt;descriptor&gt;: 'Sample pitch' is a control twice
+59 laid out, 4 refused
+</code></pre>
+<p>With <code>--all</code> it also lists the 59 plugins that lay out, one <code>ok</code> line each
+(<a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/transcript/27a-survey-lsp-mono-all.txt"><code>transcript/27a-survey-lsp-mono-all.txt</code></a>).
+The four refusals have the cause of Filter Mono's, a name two parameters share.</p>
+<h2 id="4-zynthian">4. Zynthian</h2>
+<p>What follows comes from Zynthian's sources (zynthian-ui <code>f46b018</code> and zynthian-sys <code>0774a58</code>, both on their
+<code>vangelis</code> branch; zynthian-plugins <code>648c84a</code>, its <code>master</code>), the omx-plugins README, and the lilv
+runs shown. Each file and line cited is at those commits. None of it was seen on a Zynthian.</p>
+<h3 id="where-zynthian-looks-for-lv2-bundles-and-their-mod-guis">Where Zynthian looks for LV2 bundles and their MOD GUIs</h3>
+<ul>
+<li><code>LV2_PATH</code> is <code>/usr/lib/lv2:/usr/lib/arm-linux-gnueabihf/lv2:/usr/local/lib/lv2:$ZYNTHIAN_PLUGINS_DIR/lv2:</code>
+<code>$ZYNTHIAN_DATA_DIR/presets/lv2:$ZYNTHIAN_MY_DATA_DIR/presets/lv2</code> (zynthian-sys
+<code>scripts/zynthian_envars.sh:107</code>), with <code>ZYNTHIAN_PLUGINS_DIR</code> <code>/zynthian/zynthian-plugins</code> (<code>:105</code>).
+zynthian-ui loads it with lilv's <code>world.load_all()</code> (<code>zyngine/zynthian_lv2.py:213</code>).</li>
+<li>A bundle a user adds goes to <code>/zynthian/zynthian-plugins/lv2</code> (<code>LV2_DIR</code>, <code>zynthian_lv2.py:197</code>): the
+webconf upload copies it there through <code>add_engine</code> (<code>zynthian_lv2.py:386</code>), and the omx-plugins README has a
+Zynthian without the apt channel copy its <code>lv2/</code> bundles there and rescan the LV2 plugins from the admin
+menu. A plugin the rescan finds for the first time is disabled until enabled (<code>zynthian_lv2.py:619</code>).</li>
+<li>The last commit of the zynthian-plugins repository (directories <code>dssi</code>, <code>ladspa</code>, <code>lv2</code>, <code>vst</code>) is
+<code>648c84a</code>, dated 2016-09-21. The image's setup script installs LV2 plugins with <code>apt-get</code>, and the list
+names <code>zam-plugins</code> (zynthian-sys <code>scripts/setup_plugins_rbpi.sh:42-52</code>, the name on line 52); the recipe
+that builds zam-plugins from source, <code>scripts/recipes/install_zam.sh</code>, is commented out at
+<code>setup_plugins_rbpi.sh:94</code>. That the Debian package carries the same ZamComp as Fedora's, and puts it in
+<code>/usr/lib/lv2</code>, is not read from these sources.</li>
+<li>A MOD GUI is drawn by MOD-UI, which Zynthian runs as an engine of its own (zynthian-ui
+<code>zyngine/zynthian_engine_modui.py</code>; zynthian's mod-ui fork, <code>scripts/recipes/install_mod-ui.sh</code>, run by
+<code>setup_system_raspioslite_64bit_trixie.sh:562</code>). Its service takes an <code>LV2_PATH</code>
+(<code>etc/systemd/mod-ui.service:11</code>) that <code>scripts/update_zynthian_sys.sh:527</code> fills from the value set at <code>:188</code>:
+the same directories as above plus <code>/usr/lib/$arch_libdir/lv2</code> and <code>$ZYNTHIAN_PLUGINS_DIR/lv2-presets</code>.</li>
+</ul>
+<h3 id="how-the-bundle-gets-there">How the bundle gets there</h3>
+<p>A MOD GUI is read only when the bundle's manifest names <code>modgui.ttl</code>, and only from the bundle lilv takes the
+plugin from. Both are shown on a copy of the installed bundle:</p>
+<pre><code>$ rm -rf /tmp/stage &amp;&amp; mkdir -p /tmp/stage
+
+$ cp -R /usr/lib64/lv2/ZamComp.lv2 /tmp/stage/
+
+$ cp -R examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui.ttl examples/worked-example/zamcomp/with-panel/ZamComp.lv2/modgui /tmp/stage/ZamComp.lv2/
+
+$ LV2_PATH=/tmp/stage python3 examples/worked-example/lilv-modgui.py urn:zamaudio:ZamComp
+plugin  urn:zamaudio:ZamComp
+bundle  file:///tmp/stage/ZamComp.lv2/
+modgui:gui  none
+[exit 1]
+
+$ printf '\n&lt;urn:zamaudio:ZamComp&gt; rdfs:seeAlso &lt;modgui.ttl&gt; .\n' &gt;&gt; /tmp/stage/ZamComp.lv2/manifest.ttl
+
+$ LV2_PATH=/tmp/stage python3 examples/worked-example/lilv-modgui.py urn:zamaudio:ZamComp
+plugin  urn:zamaudio:ZamComp
+bundle  file:///tmp/stage/ZamComp.lv2/
+modgui:resourcesDirectory  file:///tmp/stage/ZamComp.lv2/modgui
+modgui:iconTemplate  file:///tmp/stage/ZamComp.lv2/modgui/icon-ZamComp.html
+modgui:stylesheet  file:///tmp/stage/ZamComp.lv2/modgui/stylesheet-ZamComp.css
+modgui:screenshot  file:///tmp/stage/ZamComp.lv2/modgui/screenshot-ZamComp.png
+modgui:thumbnail  file:///tmp/stage/ZamComp.lv2/modgui/thumbnail-ZamComp.png
+modgui:brand  Damien Zammit
+modgui:label  ZamComp
+modgui:port  0 thr
+modgui:port  1 rat
+modgui:port  2 kn
+modgui:port  3 att
+modgui:port  4 rel
+modgui:port  5 slew
+modgui:port  6 sidech
+
+$ LV2_PATH=/usr/lib64/lv2:/tmp/stage python3 examples/worked-example/lilv-modgui.py urn:zamaudio:ZamComp
+lilv_world_compare_versions(): warning: Ignoring duplicate version 6.0 of &lt;urn:zamaudio:ZamComp&gt; from &lt;file:///tmp/stage/ZamComp.lv2/&gt;
+lilv_world_compare_versions(): note: Previously loaded from &lt;file:///usr/lib64/lv2/ZamComp.lv2/&gt;
+plugin  urn:zamaudio:ZamComp
+bundle  file:///usr/lib64/lv2/ZamComp.lv2/
+modgui:gui  none
+[exit 1]
+
+$ LV2_PATH=/tmp/stage:/usr/lib64/lv2 python3 examples/worked-example/lilv-modgui.py urn:zamaudio:ZamComp | head -3
+lilv_world_compare_versions(): warning: Ignoring duplicate version 6.0 of &lt;urn:zamaudio:ZamComp&gt; from &lt;file:///usr/lib64/lv2/ZamComp.lv2/&gt;
+lilv_world_compare_versions(): note: Previously loaded from &lt;file:///tmp/stage/ZamComp.lv2/&gt;
+plugin  urn:zamaudio:ZamComp
+bundle  file:///tmp/stage/ZamComp.lv2/
+modgui:resourcesDirectory  file:///tmp/stage/ZamComp.lv2/modgui
+</code></pre>
+<p><a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/examples/worked-example/lilv-modgui.py"><code>lilv-modgui.py</code></a> asks lilv, the library mod-ui reads LV2 data
+with, for the plugin's <code>modgui:gui</code>. The manifest line is added by hand: <code>omx-panel modgui</code> leaves the manifest
+as it is (omx-panel#28). Of two bundles with one plugin URI and one version, lilv keeps the first on
+<code>LV2_PATH</code> and ignores the other.</p>
+<p>The test over the whole staged bundle:</p>
+<pre><code>$ tools/modgui-test.sh /tmp/stage/ZamComp.lv2 examples/worked-example/zamcomp/zamcomp.descriptor.json examples/worked-example/zamcomp/zamcomp.panel.json
+PASS modgui-gen --check ZamComp
+PASS template draws thr with its declared travel and default
+PASS template draws rat with its declared travel and default
+PASS template draws kn with its declared travel and default
+PASS template draws att with its declared travel and default
+PASS template draws rel with its declared travel and default
+PASS template draws slew with its declared travel and default
+PASS template draws sidech with its declared travel and default
+PASS template draws mak with its declared travel and default
+PASS template draws readout gr as a display with its declared range
+PASS template draws readout outlevel as a display with its declared range
+PASS template draws exactly the 10 declared parameters
+error: Object not in range &lt;http://lv2plug.in/ns/lv2core#ExtensionData&gt;
+
+error: Use of undefined property
+       urn:zamaudio:ZamComp
+error: Property &lt;http://moddevices.com/ns/mod#brand&gt; has no label
+       urn:zamaudio:ZamComp
+error: Use of undefined property
+       urn:zamaudio:ZamComp
+error: Property &lt;http://moddevices.com/ns/mod#label&gt; has no label
+       urn:zamaudio:ZamComp
+error: Object not in range &lt;http://lv2plug.in/ns/lv2core#ExtensionData&gt;
+FAIL sord_validate ZamComp.lv2/*.ttl (Found 27 errors among 89 files (checked 2194 restrictions))
+PASS sord_validate refuses a modgui property outside modgui-terms.ttl
+PASS a moved default makes modgui-gen --check fail
+modgui-test: 1 check(s) failed
+[exit 1]
+</code></pre>
+<p>The six errors besides the 21 of omx-contract#144 are ZamComp's own TTL's, and the installed bundle, untouched,
+has the same six against the same LV2 specifications:</p>
+<pre><code>$ for s in core port-props units urid atom worker ui options midi patch time log state buf-size parameters presets resize-port port-groups morph dynmanifest instance-access data-access event uri-map schemas; do set -- &quot;$@&quot; /usr/lib64/lv2/$s.lv2/*.ttl; done; sord_validate /usr/lib64/lv2/ZamComp.lv2/*.ttl &quot;$@&quot; 2&gt;&amp;1 | grep -A1 '^error'
+error: Object not in range &lt;http://lv2plug.in/ns/lv2core#ExtensionData&gt;
+
+--
+error: Use of undefined property
+       urn:zamaudio:ZamComp
+--
+error: Property &lt;http://moddevices.com/ns/mod#brand&gt; has no label
+       urn:zamaudio:ZamComp
+--
+error: Use of undefined property
+       urn:zamaudio:ZamComp
+--
+error: Property &lt;http://moddevices.com/ns/mod#label&gt; has no label
+       urn:zamaudio:ZamComp
+--
+error: Object not in range &lt;http://lv2plug.in/ns/lv2core#ExtensionData&gt;
+</code></pre>
+<p>On a Zynthian where the Debian package has put ZamComp in <code>/usr/lib/lv2/ZamComp.lv2</code> (not read from the
+sources, see above), that bundle is first on <code>LV2_PATH</code>, and a copy of the bundle in
+<code>/zynthian/zynthian-plugins/lv2</code> would be ignored by lilv as above. <code>add_engine</code> refuses a plugin whose engine
+is already registered unless <code>force</code> is set (<code>zynthian_lv2.py:411-424</code>). The MOD GUI then goes into the bundle
+lilv takes: copy <code>modgui.ttl</code> and <code>modgui/</code> from
+<code>examples/worked-example/zamcomp/with-panel/ZamComp.lv2/</code> into <code>/usr/lib/lv2/ZamComp.lv2/</code>, append the same
+<code>rdfs:seeAlso</code> line to its <code>manifest.ttl</code>, and restart MOD-UI. That step was not run, and a <code>zam-plugins</code>
+upgrade would overwrite the manifest. The descriptor should be the scan of the Zynthian's own ZamComp, whose
+Debian version may differ from Fedora's 4.4.</p>
+<h3 id="what-the-encoder-pages-show">What the encoder pages show</h3>
+<p>The pages of eight above are the layout's: what a CLAP host shows through <code>clap.remote-controls</code>. Zynthian's
+touchscreen does not read them. For an LV2 plugin hosted by jalv it builds its own screens of four
+(zynthian-ui <code>zyngine/zynthian_engine.py</code>, <code>generate_ctrl_screens</code>, lines 681 to 724):</p>
+<ul>
+<li>the controls are the plugin's input control ports, in port order (<code>zynthian_lv2.py:940</code>, <code>get_plugin_ports</code>),
+sorted by <code>lv2:displayPriority</code>, and grouped by <code>pg:group</code>; ungrouped controls are the group <code>Params</code>;</li>
+<li>each group is cut into screens of four, numbered from 1 when a group has more than four;</li>
+<li>an audio effect with no bypass port of its own gets a <code>bypass</code> control, added last
+(<code>zyngine/zynthian_engine_jalv.py:544</code>);</li>
+<li>output control ports are no controllers: a readout is never on a screen.</li>
+</ul>
+<p>ZamComp states no port group and no display priority:</p>
+<pre><code>$ grep -c -E 'portgroups|pg:group|displayPriority' /usr/lib64/lv2/ZamComp.lv2/ZamComp_dsp.ttl
+0
+[exit 1]
+</code></pre>
+<p>So, by those rules, Zynthian shows ZamComp as <code>Params 1</code> (Attack, Release, Knee, Ratio), <code>Params 2</code>
+(Threshold, Makeup, Slew, Sidechain) and <code>Params 3</code> (bypass), and neither <code>gr</code> nor <code>outlevel</code>. This is read
+from the source, not seen. The layout's sections do not reach Zynthian's screens: an LV2 bundle would carry
+them as <code>pg:group</code> in its TTL, which the MOD GUI generator does not write. The word <code>clap</code> appears in no file
+of zynthian-ui at <code>f46b018</code> (<code>grep -ri clap</code> finds nothing), and in zynthian-sys at <code>0774a58</code> only once, in
+a name misspelt &quot;Claption&quot; in a plugin description (<code>config/engine_config.json:7932</code>), so those sources name no
+CLAP host or plugin and the limiter's pages are not shown there.</p>
+<h2 id="what-is-verified-and-what-is-not">What is verified, and what is not</h2>
+<p>Verified, by the commands above: both plugins come from Fedora 44's own packages; <code>plugin-hostd-probe describe</code> writes a <code>scanned</code> descriptor of each; <code>omx-panel layout</code> lays out ZamComp with and without a panel
+file and the limiter, and stops on Filter Mono and three more of the 63 mono lsp plugins (omx-panel#27); <code>omx-panel modgui</code> writes ZamComp's MOD GUI with
+and without a panel file, each bundle passing <code>tools/modgui-test.sh</code>, and refuses the CLAP limiter by name;
+omx-panel 0.2.5 stops on ZamComp's readout (omx-panel#25); lilv reads the MOD GUI from a copy of the bundle
+once its manifest names <code>modgui.ttl</code>, and keeps the first of two bundles of one plugin on <code>LV2_PATH</code>.</p>
+<p>Not verified:</p>
+<ul>
+<li>anything on a Zynthian or a MOD: the bundle's install there, MOD-UI drawing the template, the screens of
+four, the rescan;</li>
+<li>the template as mod-ui draws it in a browser: the tests read the template's text and its TTL, not a render;</li>
+<li>the readouts' displays showing a value: the generated MOD GUI draws a frame, and a live reading needs a
+<code>modgui:javascript</code>, which is not generated (<code>docs/modgui.md</code>);</li>
+<li>ZamComp's Debian build (Zynthian's) having the same ports as Fedora's;</li>
+<li>the limiter's pages on a CLAP host with a controller.</li>
+</ul>
+</article><nav class="hidden lg:block" aria-label="Contents"><!--[--><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contents</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#where-it-ran" class="text-ink-dim hover:text-accent">Where it ran</a></li><li><a href="#1-the-plugins-as-installed" class="text-ink-dim hover:text-accent">1. The plugins as installed</a></li><li><a href="#2-the-scan-into-a-descriptor" class="text-ink-dim hover:text-accent">2. The scan into a descriptor</a></li><li><a href="#3-the-layout-and-the-mod-gui" class="text-ink-dim hover:text-accent">3. The layout and the MOD GUI</a></li><li><a href="#4-zynthian" class="text-ink-dim hover:text-accent">4. Zynthian</a></li><li><a href="#what-is-verified-and-what-is-not" class="text-ink-dim hover:text-accent">What is verified, and what is not</a></li><!--]--></ul><!--]--><!--[--><p class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-accent">More of omx-panel</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="/projects/omx-panel" class="router-link-active text-ink-dim hover:text-accent">omx-panel</a></li><li><a href="/projects/omx-panel/compare" class="text-ink-dim hover:text-accent">Compare A/B/C/D and undo</a></li><li><a href="/projects/omx-panel/group-inference" class="text-ink-dim hover:text-accent">Port-group inference for LV2 plugins</a></li><li><a href="/projects/omx-panel/lv2-complement" class="text-ink-dim hover:text-accent">The LV2 complement: a replacing bundle with the inferred port groups</a></li><li><a href="/projects/omx-panel/modgui" class="text-ink-dim hover:text-accent">The MOD GUI generator</a></li><li><a href="/projects/omx-panel/panel-layout" class="text-ink-dim hover:text-accent">Panel layout from a descriptor</a></li><li><a href="/projects/omx-panel/skin-package" class="text-ink-dim hover:text-accent">The skin package</a></li><!--]--></ul><!--]--><p class="mt-8 text-sm"><a href="/projects" class="text-accent hover:underline">All the projects</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">A software mixing console for Linux. The desk is the software; the browser is the surface.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pages</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/architecture" class="text-ink-dim hover:text-accent">Architecture</a></li><li><a href="/features" class="text-ink-dim hover:text-accent">Features</a></li><li><a href="/docs" class="text-ink-dim hover:text-accent">Documentation</a></li><li><a href="/faq" class="text-ink-dim hover:text-accent">FAQ</a></li><li><a href="/get-it" class="text-ink-dim hover:text-accent">Get it</a></li><li><a href="/links" class="text-ink-dim hover:text-accent">Links</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Licence</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer is free software under the <span class="font-mono text-ink">GPL-3.0-or-later</span>. Every package in the workspace carries the same licence.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME and the product names used here belong to their respective owners. OpenMixer is an independent project and is not affiliated with any of them.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/projects/omx-panel/worked-example/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"",[],["Set"],["ShallowReactive",16],{"project-omx-panel-worked-example":-1},"\u002Fprojects\u002Fomx-panel\u002Fworked-example",1793751246484]</script></body></html>

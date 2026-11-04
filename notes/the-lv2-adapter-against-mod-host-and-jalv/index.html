@@ -1,0 +1,403 @@
+<!DOCTYPE html><html  lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>&quot;The LV2 adapter against mod-host and jalv: size and structure&quot; | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/notes/the-lv2-adapter-against-mod-host-and-jalv/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dhyxm03C.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNs_Ozdc.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMWkIGvv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMx8XeKT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CH_6PZHZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C4LhWnh7.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/D2H52pKN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C_Vo6Cpv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkUevp-A.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BrLBbKql.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkceDeHA.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/DpO9t-n4.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/MpqZPowV.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BM38UV2E.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dga5QANZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dwv5_atN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BxJRRP96.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/495XL0kX.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/notes/the-lv2-adapter-against-mod-host-and-jalv" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/notes/the-lv2-adapter-against-mod-host-and-jalv" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/notes/the-lv2-adapter-against-mod-host-and-jalv" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/notes/the-lv2-adapter-against-mod-host-and-jalv"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/notes/the-lv2-adapter-against-mod-host-and-jalv"><meta id="i18n-og" property="og:locale" content="en"><meta id="i18n-og-alt-ca" property="og:locale:alternate" content="ca"><meta name="description" content="The LV2 adapter that presents an LV2 plugin as a CLAP plugin makes the same lilv calls in the same order as mod-host and jalv. Its code is smaller and less branched than mod-host's core and 1.4 times jalv's, and nearly all of that difference is features the CLAP contract requires and jalv does not offer."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/" class="group flex items-center gap-3" aria-label="OpenMixer home"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main"><!--[--><a href="/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Architecture</a><a href="/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Features</a><a href="/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Benchmarks</a><a href="/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Docs</a><a href="/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">FAQ</a><a href="/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Get it</a><a href="/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Links</a><!--]--></nav><!--[--><a href="/ca/notes/the-lv2-adapter-against-mod-host-and-jalv" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="ca" lang="ca" aria-label="Català" title="Català">ca</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menu" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Technical note</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">&quot;The LV2 adapter against mod-host and jalv: size and structure&quot;</h1><p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-dim">The LV2 adapter that presents an LV2 plugin as a CLAP plugin makes the same lilv calls in the same order as mod-host and jalv. Its code is smaller and less branched than mod-host&#39;s core and 1.4 times jalv&#39;s, and nearly all of that difference is features the CLAP contract requires and jalv does not offer.</p><!--[--><p class="mt-4 font-mono text-xs text-ink-faint">omx-clap-core&#39;s LV2 adapter, mod-host 0.10.6 and jalv 1.10.0 (jalv 1.8.0 for the coverage run), October 2026; sizes by scc 3.5.0 and lizard 1.24.1.</p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body"><h2 id="what-is-compared">What is compared</h2>
+<table>
+<thead>
+<tr>
+<th>subject</th>
+<th>what is measured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the adapter</td>
+<td>omx-clap-core's <code>lv2/core</code> and <code>lv2/clap</code>; &quot;with plumbing&quot; adds the six headers of the library it includes</td>
+</tr>
+<tr>
+<td>mod-host</td>
+<td>its <code>src/</code>, without the socket protocol, the command line, the completer and the monitor client, and without the libraries it vendors</td>
+</tr>
+<tr>
+<td>jalv</td>
+<td>its <code>src/</code>, without <code>main.c</code>, the JACK and PortAudio backends and the user-interface frontends</td>
+</tr>
+</tbody>
+</table>
+<p>mod-host and jalv are applications, each with one audio backend (JACK) and a socket or user-interface front. The adapter is
+a library: it presents one LV2 plugin as a CLAP plugin and has no backend. Measuring the host cores without their fronts and
+backends keeps the three comparable. The script that measures them, <code>tools/hosting-compare.sh</code> in omx-clap-core, clones the
+subjects and prints every table below.</p>
+<h2 id="size">Size</h2>
+<table>
+<thead>
+<tr>
+<th>subject</th>
+<th style="text-align:right">files</th>
+<th style="text-align:right">lines</th>
+<th style="text-align:right">code</th>
+<th style="text-align:right">comments</th>
+<th style="text-align:right">functions</th>
+<th style="text-align:right">external dependencies</th>
+<th style="text-align:right">public functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the adapter</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">7657</td>
+<td style="text-align:right">5648</td>
+<td style="text-align:right">1160</td>
+<td style="text-align:right">273</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">90</td>
+</tr>
+<tr>
+<td>with plumbing</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">9224</td>
+<td style="text-align:right">6591</td>
+<td style="text-align:right">1609</td>
+<td style="text-align:right">316</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">90</td>
+</tr>
+<tr>
+<td>mod-host</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">11248</td>
+<td style="text-align:right">8164</td>
+<td style="text-align:right">1341</td>
+<td style="text-align:right">165</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">84</td>
+</tr>
+<tr>
+<td>jalv</td>
+<td style="text-align:right">47</td>
+<td style="text-align:right">5492</td>
+<td style="text-align:right">3970</td>
+<td style="text-align:right">631</td>
+<td style="text-align:right">127</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">90</td>
+</tr>
+</tbody>
+</table>
+<p>External dependencies are the distinct include roots: the adapter <code>clap lilv lv2 omxcontract</code>; mod-host <code>jack lilv lv2 mach</code>; jalv <code>lilv lv2 serd sratom zix</code>.</p>
+<h2 id="complexity">Complexity</h2>
+<p>Cyclomatic complexity per function (lizard):</p>
+<table>
+<thead>
+<tr>
+<th>subject</th>
+<th style="text-align:right">functions</th>
+<th style="text-align:right">mean CCN</th>
+<th style="text-align:right">p95 CCN</th>
+<th style="text-align:right">max CCN</th>
+<th style="text-align:right">CCN over 15</th>
+<th style="text-align:right">mean lines per function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the adapter</td>
+<td style="text-align:right">273</td>
+<td style="text-align:right">6.38</td>
+<td style="text-align:right">19</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">20</td>
+<td style="text-align:right">17.2</td>
+</tr>
+<tr>
+<td>with plumbing</td>
+<td style="text-align:right">316</td>
+<td style="text-align:right">6.60</td>
+<td style="text-align:right">19</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">26</td>
+<td style="text-align:right">17.2</td>
+</tr>
+<tr>
+<td>mod-host</td>
+<td style="text-align:right">165</td>
+<td style="text-align:right">9.08</td>
+<td style="text-align:right">28</td>
+<td style="text-align:right">127</td>
+<td style="text-align:right">18</td>
+<td style="text-align:right">40.9</td>
+</tr>
+<tr>
+<td>jalv</td>
+<td style="text-align:right">127</td>
+<td style="text-align:right">3.62</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">19.4</td>
+</tr>
+</tbody>
+</table>
+<p>The most branched functions are the adapter's <code>instance_make</code> (CCN 86), <code>plugin_process</code> (62), <code>read_ports</code> (57) and
+<code>read_side</code> (50); mod-host's <code>effects_add</code> (127, 736 lines), <code>ProcessPlugin</code> (122), <code>effects_remove</code> (70) and
+<code>RunPostPonedEvents</code> (68); jalv's <code>jalv_open</code> (21).</p>
+<p>Lines of code by area (functions matched by name, the count in brackets; a heuristic, since code inside one large function
+is filed under that function's area):</p>
+<table>
+<thead>
+<tr>
+<th>area</th>
+<th style="text-align:right">the adapter</th>
+<th style="text-align:right">mod-host</th>
+<th style="text-align:right">jalv</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>worker</td>
+<td style="text-align:right">88 (8)</td>
+<td style="text-align:right">78 (6)</td>
+<td style="text-align:right">153 (11)</td>
+</tr>
+<tr>
+<td>state, presets and state paths</td>
+<td style="text-align:right">522 (34)</td>
+<td style="text-align:right">456 (17)</td>
+<td style="text-align:right">177 (8)</td>
+</tr>
+<tr>
+<td>CV</td>
+<td style="text-align:right">8 (2)</td>
+<td style="text-align:right">197 (2)</td>
+<td style="text-align:right">0 (0)</td>
+</tr>
+<tr>
+<td>port groups, layouts, aux</td>
+<td style="text-align:right">236 (14)</td>
+<td style="text-align:right">0 (0)</td>
+<td style="text-align:right">0 (0)</td>
+</tr>
+<tr>
+<td>CLAP contract, parameters, descriptor</td>
+<td style="text-align:right">413 (30)</td>
+<td style="text-align:right">201 (6)</td>
+<td style="text-align:right">0 (0)</td>
+</tr>
+<tr>
+<td>latency, rate, block change</td>
+<td style="text-align:right">157 (17)</td>
+<td style="text-align:right">7 (1)</td>
+<td style="text-align:right">46 (1)</td>
+</tr>
+<tr>
+<td>atoms, events, MIDI</td>
+<td style="text-align:right">945 (51)</td>
+<td style="text-align:right">1820 (50)</td>
+<td style="text-align:right">599 (41)</td>
+</tr>
+<tr>
+<td>ports and connection</td>
+<td style="text-align:right">386 (14)</td>
+<td style="text-align:right">287 (11)</td>
+<td style="text-align:right">313 (13)</td>
+</tr>
+<tr>
+<td>errors and refusals</td>
+<td style="text-align:right">114 (9)</td>
+<td style="text-align:right">141 (3)</td>
+<td style="text-align:right">64 (4)</td>
+</tr>
+<tr>
+<td>lifecycle and shutdown</td>
+<td style="text-align:right">291 (14)</td>
+<td style="text-align:right">402 (10)</td>
+<td style="text-align:right">188 (12)</td>
+</tr>
+<tr>
+<td>run, process</td>
+<td style="text-align:right">164 (2)</td>
+<td style="text-align:right">678 (3)</td>
+<td style="text-align:right">54 (2)</td>
+</tr>
+<tr>
+<td>instantiate</td>
+<td style="text-align:right">1103 (44)</td>
+<td style="text-align:right">1339 (12)</td>
+<td style="text-align:right">470 (12)</td>
+</tr>
+<tr>
+<td>other</td>
+<td style="text-align:right">278 (34)</td>
+<td style="text-align:right">1141 (44)</td>
+<td style="text-align:right">399 (23)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-same-tasks-in-the-three">The same tasks in the three</h2>
+<ul>
+<li><strong>Instantiate and connect a stereo effect.</strong> All three read the plugin through lilv, instantiate it and connect its
+ports. The adapter judges the plugin from its description and refuses it with a code before any binary is opened, and it
+connects every port once, to memory the instance owns, copying audio in and out each block. mod-host copies too; jalv
+connects the JACK buffer in place every cycle.</li>
+<li><strong>A MIDI instrument on an atom port.</strong> All three write the incoming events into an event buffer before <code>run</code> and read the
+outgoing ones after. The adapter's output is bounded by its own capacity.</li>
+<li><strong>The worker extension.</strong> The same design in all three: a request ring, a thread, a response ring drained before <code>run</code>,
+then <code>end_run</code>. The adapter's is 88 lines against 78 and 153.</li>
+<li><strong>State save and restore.</strong> All three go through <code>lilv_state_*</code>. The adapter restores live for a plugin that declares
+<code>state:threadSafeRestore</code> and otherwise holds the state and applies it at the next activate; jalv pauses the audio thread
+instead. The adapter confines a plugin's <code>make_path</code> to its state directory and refuses a path outside it.</li>
+<li><strong>A sample-rate change.</strong> CLAP may activate a plugin again at another rate, so the adapter tells the plugin through
+<code>options:interface</code> when it can and instantiates it again when it must. Neither JACK host handles a rate change at run
+time: both read the rate once. All three handle a change of block length.</li>
+<li><strong>CV and aux ports.</strong> The adapter groups aux, CV and surround ports by <code>pg:group</code> and designation and offers them as CLAP
+audio ports. mod-host exposes CV ports as JACK ports and as a control source; jalv as audio ports with CV metadata. Neither
+turns a port group into a bus.</li>
+</ul>
+<h2 id="where-the-adapter-is-bigger-and-why">Where the adapter is bigger, and why</h2>
+<ul>
+<li><strong>Refusal before instantiation</strong>, with a code for each reason: every plugin is judged from its description before its
+binary is opened. This is the hosting contract.</li>
+<li><strong>The CLAP face</strong>: the parameter table, its text and value maps, the contract and the descriptor (413 lines), which the
+others have no need of.</li>
+<li><strong>A live rate or block change</strong> (157 lines against 7 and 46).</li>
+<li><strong>Layouts, aux, sidechain and surround</strong> as CLAP audio ports (236 lines against none).</li>
+<li><strong>State</strong>: live and held restore, confined paths and CLAP preset discovery (522 lines against 456 and 177).</li>
+<li><strong>A run path with no lock and no allocation</strong>, proven by an allocation witness in the tests; jalv's run path is the same
+in this respect.</li>
+</ul>
+<p>Against jalv, the adapter has 1.42 times the code and 1.76 times the mean complexity. The four areas jalv does not have (the
+CLAP face, layouts and aux, a rate change, and the part of state beyond jalv's) come to 1151 lines, which covers most of
+the 1678-line gap.</p>
+<p>The accidental complexity is in three functions: <code>instance_make</code> binds ports by testing every role for every port index,
+<code>plugin_process</code> repeats one &quot;host channel or silence&quot; loop for each kind of leg, and <code>read_ports</code> and <code>read_side</code> hold the
+rule of every port kind in one function each. Building a role table when the description is read, one helper per leg, and
+one classifier per port kind would remove most of it, with the existing refusal and allocation tests as the guard.</p>
+<h2 id="coverage">Coverage</h2>
+<p>The same question put to the three hosts: of 979 LV2 plugins installed on one Fedora 44 machine, how many does each host
+instantiate and activate on a live graph? A private namespace with its own PipeWire at 48 kHz, one plugin at a time, ten
+seconds per reply. Hosted means admitted, instantiated and activated; it is not a claim of identical audio.</p>
+<table>
+<thead>
+<tr>
+<th>host</th>
+<th>hosted</th>
+<th>not hosted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the adapter, through omx-clap-host</td>
+<td>979 of 979</td>
+<td>none</td>
+</tr>
+<tr>
+<td>mod-host 0.10.6</td>
+<td>975 of 979</td>
+<td>drumkv1 (SIGABRT), samplv1 and synthv1 (the host stopped on <code>add</code>), zynadd (<code>resp -102</code>)</td>
+</tr>
+<tr>
+<td>jalv 1.8.0</td>
+<td>977 of 979</td>
+<td>zynadd (a MIDI port of a type it does not know), synthv1 (SIGABRT at instantiate)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="in-short">In short</h2>
+<p>The three hosts make the same lilv calls in the same order: instantiate, connect, a worker of two rings and a thread, and
+state through <code>lilv_state_*</code>. The adapter is smaller and less branched than mod-host's core on every measure above, and
+1.4 times jalv, where the difference is almost all features the CLAP contract requires.</p>
+</article><nav class="hidden lg:block" aria-label="Contents"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contents</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#what-is-compared" class="text-ink-dim hover:text-accent">What is compared</a></li><li><a href="#size" class="text-ink-dim hover:text-accent">Size</a></li><li><a href="#complexity" class="text-ink-dim hover:text-accent">Complexity</a></li><li><a href="#the-same-tasks-in-the-three" class="text-ink-dim hover:text-accent">The same tasks in the three</a></li><li><a href="#where-the-adapter-is-bigger-and-why" class="text-ink-dim hover:text-accent">Where the adapter is bigger, and why</a></li><li><a href="#coverage" class="text-ink-dim hover:text-accent">Coverage</a></li><li><a href="#in-short" class="text-ink-dim hover:text-accent">In short</a></li><!--]--></ul><p class="mt-8 text-sm"><a href="/notes" class="text-accent hover:underline">All the technical notes</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">A software mixing console for Linux. The desk is the software; the browser is the surface.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pages</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/architecture" class="text-ink-dim hover:text-accent">Architecture</a></li><li><a href="/features" class="text-ink-dim hover:text-accent">Features</a></li><li><a href="/docs" class="text-ink-dim hover:text-accent">Documentation</a></li><li><a href="/faq" class="text-ink-dim hover:text-accent">FAQ</a></li><li><a href="/get-it" class="text-ink-dim hover:text-accent">Get it</a></li><li><a href="/links" class="text-ink-dim hover:text-accent">Links</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Licence</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer is free software under the <span class="font-mono text-ink">GPL-3.0-or-later</span>. Every package in the workspace carries the same licence.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME and the product names used here belong to their respective owners. OpenMixer is an independent project and is not affiliated with any of them.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/notes/the-lv2-adapter-against-mod-host-and-jalv/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"",[],["Set"],["ShallowReactive",16],{"note-the-lv2-adapter-against-mod-host-and-jalv-en":-1},"\u002Fnotes\u002Fthe-lv2-adapter-against-mod-host-and-jalv",1793751246327]</script></body></html>

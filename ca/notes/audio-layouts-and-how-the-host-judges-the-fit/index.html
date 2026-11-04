@@ -1,0 +1,170 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>&quot;Disposicions d&#x27;àudio: cada port que declara un plugin i com jutja l&#x27;amfitrió si hi cap&quot; | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/notes/audio-layouts-and-how-the-host-judges-the-fit/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dhyxm03C.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNs_Ozdc.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMWkIGvv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMx8XeKT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CH_6PZHZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C4LhWnh7.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/D2H52pKN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C_Vo6Cpv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkUevp-A.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BrLBbKql.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkceDeHA.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/DpO9t-n4.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/MpqZPowV.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BM38UV2E.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dga5QANZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dwv5_atN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BxJRRP96.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/495XL0kX.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/notes/audio-layouts-and-how-the-host-judges-the-fit" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/notes/audio-layouts-and-how-the-host-judges-the-fit" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/notes/audio-layouts-and-how-the-host-judges-the-fit" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/notes/audio-layouts-and-how-the-host-judges-the-fit"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/notes/audio-layouts-and-how-the-host-judges-the-fit"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="Abans l'amfitrió admetia una parella principal mono o estèreo i refusava tota la resta, cosa que deixava fora 84 dels 975 plugins LV2 que mod-host allotja. Ara la biblioteca descriu cada port d'àudio que declara un plugin i qui fa córrer el plugin jutja si pot portar aquella disposició i la refusa pel nom en lloc de reduir-la."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/notes/audio-layouts-and-how-the-host-judges-the-fit" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Nota tècnica</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">&quot;Disposicions d&#39;àudio: cada port que declara un plugin i com jutja l&#39;amfitrió si hi cap&quot;</h1><p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-dim">Abans l&#39;amfitrió admetia una parella principal mono o estèreo i refusava tota la resta, cosa que deixava fora 84 dels 975 plugins LV2 que mod-host allotja. Ara la biblioteca descriu cada port d&#39;àudio que declara un plugin i qui fa córrer el plugin jutja si pot portar aquella disposició i la refusa pel nom en lloc de reduir-la.</p><!--[--><p class="mt-4 font-mono text-xs text-ink-faint">Els plugins LV2 instal·lats en una màquina Fedora 44 (975), octubre del 2026; el disseny de les disposicions d&#39;àudio d&#39;omx-clap-core.</p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body"><h2 id="la-mancanca">La mancança</h2>
+<p>L'amfitrió admetia una entrada principal i una sortida principal de la mateixa amplada, mono o estèreo, més fins a vuit
+entrades i sortides auxiliars d'un o dos canals i refusava tota la resta. Dels 975 plugins LV2 instal·lats en una màquina,
+això en refusava 84 que mod-host allotja:</p>
+<ul>
+<li>51 amb entrades més enllà de la parella principal: cadenes laterals, mescladors, vúmetres, mescladors matricials i patchbays,
+fins a 64 entrades;</li>
+<li>33 la parella principal dels quals té amplades diferents o amb més sortides que la parella: reverbs mono amb una cua
+estèreo, divisors de bandes amb sortides per banda, un instrument de 34 sortides.</li>
+</ul>
+<p>Un plugin CLAP amb un port principal envolupant o ambisònic es refusava igual i l'amfitrió no llegia mai les extensions que
+descriuen aquests ports o n'ofereixen altres disposicions.</p>
+<h2 id="la-decisio">La decisió</h2>
+<p>S'admet qualsevol disposició que declari un plugin:</p>
+<ul>
+<li>les entrades més enllà de la principal són entrades auxiliars, en silenci fins que alguna cosa les connecta;</li>
+<li>un port principal de qualsevol amplada es porta allà on el portador té prou canals;</li>
+<li>una disposició que el portador no pot portar es refusa amb un codi amb nom, mai en silenci ni reduint-la;</li>
+<li>una sortida mono en un canal estèreo es porta als dos costats, com una entrada mono.</li>
+</ul>
+<p>El que manté això petit és un principi: <strong>la biblioteca descriu, el portador jutja.</strong> La biblioteca de l'amfitrió i
+l'adaptador LV2 admeten qualsevol disposició d'àudio dins dels límits declarats i la descriuen sencera: cada port, els seus
+canals, el seu tipus, el seu mapa de canals. Qui fa córrer el plugin en un carril d'una certa amplada llegeix aquesta
+descripció i decideix què pot portar. El carril natiu de la consola té dos canals i refusa un port principal més ample, com
+abans; omx-clap-host amb JACK pot portar qualsevol amplada com a ports.</p>
+<h2 id="que-va-trobar-la-revisio">Què va trobar la revisió</h2>
+<p>Les formes que hi ha darrere dels 84 i la lectura que admet cadascuna:</p>
+<ul>
+<li><strong>Un grup principal declarat més altres ports.</strong> Els compressors amb cadena lateral, els mescladors multicanal, els
+comparadors A/B, els oscil·loscopis i analitzadors d'espectre, les reverbs estèreo reals i els divisors de bandes declaren
+quin grup de ports és el principal; tots els altres ports són auxiliars.</li>
+<li><strong>Grups, però cap grup principal.</strong> El primer grup en l'ordre dels ports es pren com a port principal: un plugin amb dos
+grups mono en té un de principal i l'altre d'auxiliar.</li>
+<li><strong>Cap grup, més de dos ports.</strong> Quan el port principal de l'altre costat té exactament la mateixa amplada, el costat és un
+sol port principal d'aquella amplada: vúmetres envolupants, mescladors matricials, mesuradors de sonoritat multicanal,
+patchbays de N a N. Si no, els dos primers ports són la parella principal i la resta són ports auxiliars mono:
+encreuadors amb dues parelles, compressors de tres entrades, un codificador amb entrades de centre i envolupant de més.</li>
+<li><strong>Entrada mono, sortida estèreo.</strong> Tretze reverbs estèreo reals i sis divisors tenen ports principals d'amplades diferents;
+les seves dues sortides són la parella principal, que és també el que presenta mod-host.</li>
+</ul>
+<p>Els límits surten del que va mesurar la revisió, amb un marge: un port de fins a 64 canals i fins a 64 ports auxiliars per
+costat (un patchbay de 64 canals, un mesurador de sonoritat de 24 canals, un instrument de 34 sortides, un
+mostrejador de 98 sortides com a 49 grups estèreo). Cap plugin instal·lat no declarava un grup envolupant ni ambisònic; aquests
+es proven amb peces de prova.</p>
+<h2 id="per-que-aquestes-regles">Per què aquestes regles</h2>
+<ul>
+<li><strong>Deterministes a partir del que diu el plugin.</strong> Les regles no endevinen mai una disposició que el plugin no ha declarat.
+Un plugin que vol un port principal més ample declara un grup de ports.</li>
+<li><strong>Res no es redueix.</strong> Un plugin 5.1 que se sentís només pels seus dos primers canals seria una pèrdua silenciosa; en lloc
+d'això es refusa pel nom, allà on el portador no pot prendre sis canals.</li>
+<li><strong>No canvia res del que ja funcionava.</strong> Un plugin mono o estèreo en un carril estèreo es comporta com abans, bit a bit i
+els noms dels ports JACK de la parella principal no canvien.</li>
+<li><strong>Ambisònica sense normalització declarada.</strong> Els grups de ports LV2 no declaren cap normalització, de manera que un grup
+ambisònic d'ordre complet es presenta amb ordenació ACN i normalització SN3D, la convenció AmbiX i la descripció diu que
+és suposada. Els grups d'ordre mixt, que un port ambisònic CLAP no pot expressar, es porten com a canals separats.</li>
+<li><strong>Les disposicions alternatives es demanen, no s'imposen.</strong> A un plugin que ofereix altres disposicions se li pot demanar,
+abans d'activar-lo, la que té el portador (una reverb que ofereix entrada mono i entrada estèreo pren la del canal); un
+plugin que no pot conserva la disposició declarada i el portador la jutja.</li>
+<li><strong>Els canvis de disposició no es responen amb un reinici.</strong> Un plugin que torna a explorar els seus ports es comunica una
+vegada; el portador el torna a descriure mentre és inactiu i el torna a activar.</li>
+</ul>
+<h2 id="on-son-les-regles">On són les regles</h2>
+<p>Les regles mateixes (quins ports són principals i quins auxiliars, els tipus de grup LV2 i els seus mapes de canals, les
+extensions CLAP que es llegeixen, els noms dels ports JACK, els límits i els codis de refús) són a <a href="https://github.com/FreeMixer/omx-clap-core/blob/main/doc/reference.md">la referència de la
+biblioteca de l'amfitrió</a>.</p>
+<h2 id="com-es-demostra">Com es demostra</h2>
+<p>Peces de prova, LV2 i CLAP, una per forma: un grup principal amb dos grups auxiliars estèreo, dos grups mono sense principal,
+sense grups de 4 a 4 i de 4 a 2, entrada mono amb un grup de sortida principal estèreo, una parella principal amb tres
+sortides de banda, 5.1, ambisònica de primer ordre i d'ordre mixt, un costat de 64 ports i un de 65, plugins amb disposicions
+alternatives. Cadascuna comprova la descripció i un valor a través dels ports. Amb sabotatge, les proves surten vermelles:
+tornar a posar el refús d'amplades iguals posa en vermell els plugins d'entrada mono i sortida estèreo i treure la connexió
+auxiliar posa en vermell la prova de cadena lateral. Tots els plugins mono i estèreo continuen sent idèntics bit a bit a
+través de l'adaptador.</p>
+</article><nav class="hidden lg:block" aria-label="Contingut"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#la-mancanca" class="text-ink-dim hover:text-accent">La mancança</a></li><li><a href="#la-decisio" class="text-ink-dim hover:text-accent">La decisió</a></li><li><a href="#que-va-trobar-la-revisio" class="text-ink-dim hover:text-accent">Què va trobar la revisió</a></li><li><a href="#per-que-aquestes-regles" class="text-ink-dim hover:text-accent">Per què aquestes regles</a></li><li><a href="#on-son-les-regles" class="text-ink-dim hover:text-accent">On són les regles</a></li><li><a href="#com-es-demostra" class="text-ink-dim hover:text-accent">Com es demostra</a></li><!--]--></ul><p class="mt-8 text-sm"><a href="/ca/notes" class="text-accent hover:underline">Totes les notes tècniques</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/notes/audio-layouts-and-how-the-host-judges-the-fit/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"note-audio-layouts-and-how-the-host-judges-the-fit-ca":-1},"\u002Fca\u002Fnotes\u002Faudio-layouts-and-how-the-host-judges-the-fit",1793751246866]</script></body></html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The skin package | omx-panel | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/projects/omx-panel/skin-package/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DLv1zT_v.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/B0w9kckf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CF5KCtY-.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/e63HFAnf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CD3ALZ0F.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BnH_th5I.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CoQTvKFp.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dexg_6ZX.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CqEFv2MT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/d05kRPiJ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BVB5ZYNh.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Cj5AVrYJ.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/projects/omx-panel/skin-package" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/projects/omx-panel/skin-package" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/projects/omx-panel/skin-package" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/projects/omx-panel/skin-package"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/projects/omx-panel/skin-package"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="La documentació de omx-panel, tal com l'escriu el projecte."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/projects/omx-panel/skin-package" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">omx-panel</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">The skin package</h1><!----><!--[--><p class="mt-4 text-sm text-ink-dim">El text del projecte, en anglès. <a href="https://github.com/FreeMixer/omx-panel/blob/edaf4f48de7e57496ead1b949f754b7e111867e3/docs/skin-package.md" class="text-accent hover:underline" rel="noopener">La font d&#39;aquesta pàgina</a></p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body" lang="en"><p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
+&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
+<h1 id="the-skin-package">The skin package</h1>
+<p>A skin package is a directory named after the plugin it draws. The plugin id is the name. An id that holds a byte
+outside <code>A-Z a-z 0-9 . _ -</code> (an LV2 URI) has each such byte written as <code>%XX</code>, and <code>.</code> and <code>..</code> alone are never a
+name, so the name is always safe in a path. One function writes the name, <code>encodeSkinId</code> (<code>src/skin-package.ts</code>), and
+<code>decodeSkinId</code> reads it back. This package creates <code>/usr/share/omx/skins</code> for packages to be installed into; which
+directories a host reads, and in what order, is the host's.</p>
+<pre><code>&lt;plugin id&gt;/
+  skin.json          the override file, required, even if it only names the licence
+  view/              optional: a view of the skin's own
+    index.mjs        an ES module, the entry
+  i18n/&lt;lang&gt;.json   optional: label key to text, one file per language
+  art/               optional: the images the override file names
+  modgui/            optional: a MOD GUI, imported from a bundle or generated
+</code></pre>
+<h2 id="skin-json">skin.json</h2>
+<p>One schema, declared twice in one place: <code>schema/skin-package.schema.json</code> (JSON Schema, what <code>omx-panel validate</code>
+checks) and <code>parseSkinOverride</code> (<code>src/skin-package.ts</code>, what a reader applies). A test holds the two to the same
+verdict on every broken copy of the example. A file holds:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schema</code></td>
+<td><code>1</code>, the file's schema version; any other value refuses the file</td>
+</tr>
+<tr>
+<td><code>plugin</code></td>
+<td>the plugin id; a reader refuses a file whose id is not the directory's decoded name</td>
+</tr>
+<tr>
+<td><code>licence</code></td>
+<td>the SPDX expression of everything in the package; required</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>where the package came from: <code>own</code>, <code>generated</code> or <code>modgui</code>, with the <code>bundle</code> and the <code>licenceEvidence</code> an importer read; an imported MOD GUI may name its own icon template and stylesheet, <code>modgui: { html, css }</code>, both under <code>modgui/</code></td>
+</tr>
+<tr>
+<td><code>fingerprint</code></td>
+<td>the panel description fingerprint the file was written against; a mismatch is a warning, never a refusal</td>
+</tr>
+<tr>
+<td><code>family</code></td>
+<td>a panel family; replaces the description's</td>
+</tr>
+<tr>
+<td><code>roles</code></td>
+<td>role (<code>time</code>, <code>band_freq[2]</code>) to control symbol; replaces the description's roles, each checked against the family</td>
+</tr>
+<tr>
+<td><code>sections</code></td>
+<td><code>[{ key, labelKey?, label?, controls }]</code>; replaces the sections and their order; a control named nowhere goes to a last section, never hidden</td>
+</tr>
+<tr>
+<td><code>labels</code></td>
+<td>control symbol to <code>{ labelKey?, label? }</code></td>
+</tr>
+<tr>
+<td><code>visibleWhen</code></td>
+<td>control symbol to <code>{ param, values }</code>, the integer values 0 to 63 that show it</td>
+</tr>
+<tr>
+<td><code>displays</code></td>
+<td><code>[{ kind, section, source, ... }]</code>, the displays the panel draws</td>
+</tr>
+<tr>
+<td><code>houseView</code></td>
+<td>the family of the house view to use</td>
+</tr>
+<tr>
+<td><code>look</code></td>
+<td>the default look; a client's own choice still wins</td>
+</tr>
+<tr>
+<td><code>backdrop</code></td>
+<td>an image under <code>art/</code></td>
+</tr>
+<tr>
+<td><code>view</code></td>
+<td><code>{ entry, api }</code>: the view's entry under <code>view/</code> (<code>view/index.mjs</code>) and the skin API version it was written for, <code>MAJOR.MINOR</code></td>
+</tr>
+<tr>
+<td><code>modgui</code></td>
+<td><code>{ entry }</code> under <code>modgui/</code>: the opt-in for a MOD GUI's own script, never beside a <code>view</code></td>
+</tr>
+</tbody>
+</table>
+<p>A path in a skin is relative to the package and stays inside it: no absolute path, no <code>..</code> segment, no backslash.</p>
+<p>The skin restates no range, unit or scale. The plugin's own description holds those, and the skin binds to a
+control by its symbol and its meaning.</p>
+<h2 id="applying-it">Applying it</h2>
+<p><code>applySkinOverride(description, override)</code> applies the file to a panel description field by field. An entry that
+names an unknown symbol, a role the family has no place for or whose unit it does not take, or a display in no
+section is dropped and listed with its reason (<code>unknown-symbol</code>, <code>unknown-section</code>, <code>role-not-in-family</code>,
+<code>role-unit</code>, <code>role-repeats</code>); the rest of the file stands. The role check reads <code>ROLES</code> of
+<code>tools/panel-description.mjs</code>; a caller may pass its own. That table is wider than the console's own at five
+roles: <code>threshold</code> of gate, dynamics, limiter and deesser and <code>ceiling</code> of limiter take <code>db, dbfs, dbu, lufs</code> here and
+<code>db, dbfs</code> in the console. A console that keeps its own table passes it as the check; one that adopts this table
+accepts a threshold in dBu or LUFS.</p>
+<h2 id="refusals">Refusals</h2>
+<p>Each refusal is a code with named arguments (<code>SKIN_REFUSAL_CODES</code>): <code>SKIN_OVERRIDE_INVALID</code> (the file does not parse
+or fails the schema, <code>args.field</code> the first field that broke it), <code>SKIN_OVERRIDE_ENTRY_DROPPED</code>, <code>SKIN_API_MISMATCH</code>,
+<code>SKIN_VIEW_ERROR</code>, <code>SKIN_VIEW_LINT</code>, <code>SKIN_MODGUI_LICENCE</code>, and the importer's own ten, <code>MODGUI_*</code> (below).</p>
+<h2 id="the-licence">The licence</h2>
+<p><code>SKIN_LICENCE_ALLOW_LIST</code> is the one list a MOD GUI's licence must be on: GPL-2.0-or-later, GPL-3.0-or-later,
+LGPL-2.1-or-later, LGPL-3.0-or-later, MIT, BSD-2-Clause, BSD-3-Clause, ISC, Zlib, CC0-1.0 and CC-BY-4.0.
+<code>spdxFromDoapLicence</code> reads a plugin's <code>doap:license</code> as an SPDX id; mapping is not permission.</p>
+<h2 id="importing-a-mod-gui">Importing a MOD GUI</h2>
+<p><code>omx-panel import &lt;bundle.lv2&gt; --out &lt;skins dir&gt; [--plugin &lt;uri&gt;]</code> (<code>tools/modgui-import.mjs</code>) reads a bundle's
+<code>modgui.ttl</code> and the plugin's <code>doap:license</code> and writes a package: one section in <code>modgui:port</code> order, each port's
+<code>lv2:name</code> as its label, the screenshot as the backdrop under <code>art/</code>, the whole resources directory and the TTL
+under <code>modgui/</code>, and <code>source</code> <code>{ kind: &quot;modgui&quot;, bundle, licenceEvidence }</code>. It writes no view, no family and no
+roles. It refuses, with a code that names the file it read and nothing written: <code>MODGUI_NOT_FOUND</code>,
+<code>MODGUI_TTL_INVALID</code>, <code>MODGUI_NO_LICENCE</code>, <code>MODGUI_LICENCE_UNMAPPED</code>, <code>MODGUI_LICENCE_REFUSED</code> (outside the
+allow-list), <code>MODGUI_UNKNOWN_PROPERTY</code>, <code>MODGUI_PORT_UNKNOWN</code> (a <code>modgui:port</code> or <code>modgui:monitoredOutputs</code>
+symbol the plugin does not carry), <code>MODGUI_IMAGE_NOT_FOUND</code> (a template image the bundle does not hold),
+<code>MODGUI_PATH_ESCAPE</code> (a resource, or a template reference, outside the bundle) and <code>MODGUI_TARGET_EXISTS</code>.</p>
+<p>The known <code>modgui:gui</code> properties are mod-ui's whole list, not only the ones a reviewed bundle used:
+<code>resourcesDirectory</code>, <code>iconTemplate</code>, <code>settingsTemplate</code>, <code>javascript</code>, <code>stylesheet</code>, <code>screenshot</code>, <code>thumbnail</code>,
+<code>documentation</code>, <code>discussionURL</code>, <code>brand</code>, <code>label</code>, <code>model</code>, <code>panel</code>, <code>color</code>, <code>knob</code>, <code>port</code> and <code>monitoredOutputs</code>
+(<code>MODGUI_GUI_PROPERTIES</code>). Any other <code>modgui:</code> property is <code>MODGUI_UNKNOWN_PROPERTY</code>, as is an <code>lv2:</code> property on a
+<code>modgui:port</code> other than <code>index</code>, <code>symbol</code> and <code>name</code>. The file-valued ones (<code>iconTemplate</code>, <code>settingsTemplate</code>,
+<code>javascript</code>, <code>stylesheet</code>, <code>screenshot</code>, <code>thumbnail</code>, and <code>documentation</code> when it names a <code>file:</code> IRI;
+<code>MODGUI_FILE_PROPERTIES</code>) must resolve inside the bundle and are copied with the package; <code>discussionURL</code>, and a
+<code>documentation</code> that names a web address, are kept as text and never fetched.</p>
+<p>Every <code>modgui:port</code> is checked against the plugin's own <code>lv2:port</code> declarations in the bundle, the same TTL the
+importer reads for the licence: a <code>modgui:port</code> whose <code>lv2:symbol</code> names no <code>lv2:symbol</code> of the plugin's own ports
+is <code>MODGUI_PORT_UNKNOWN</code>, naming the file and the symbol, so a renamed or stale modgui entry is never imported as if
+it controlled a real parameter. A <code>modgui:monitoredOutputs</code> entry is checked the same way: its <code>lv2:symbol</code> (or the
+literal symbol it names) must be one of the plugin's own ports.</p>
+<p>Every image a template names (<code>MODGUI_TEMPLATE_PROPERTIES</code>: the icon template and the settings template; an HTML
+<code>src=&quot;...&quot;</code> or <code>src='...'</code> or a CSS <code>url(...)</code> inside it) is checked. A Mustache suffix like <code>{{{ns}}}</code> (mod-ui's
+<code>?uri=...</code>), a query and a fragment are dropped, and the path is percent-decoded once and its dot segments resolved,
+as a browser and mod-ui's server do, before anything else is decided. Under mod-ui's <code>/resources/</code> route
+(<code>MODGUI_RESOURCES_ROUTE</code>, the bundle's <code>resourcesDirectory</code>) a path that climbs out of the resources directory is
+<code>MODGUI_PATH_ESCAPE</code>, whether its target exists or not; one that names no file there, the directory itself
+included, is <code>MODGUI_IMAGE_NOT_FOUND</code>, naming the template file and the path it names. A web address, any other
+absolute path, or a relative path that climbs out of the bundle is <code>MODGUI_PATH_ESCAPE</code>, so a drawn template never
+reaches outside the package. The absolute paths kept are mod-ui's own routes, the directories its static handler
+serves from its html directory, <code>/fonts/</code>, <code>/img/</code>, <code>/js/</code>, <code>/css/</code> and <code>/include/</code> (<code>MODGUI_SERVER_ROUTES</code>): a file
+the drawing supplies or replaces, kept as text and never fetched. A path holding a Mustache tag anywhere cannot be
+checked before mod-ui fills it in, so it is kept; a <code>data:</code> address and a value that is only a Mustache tag are left
+as they are too. The stylesheet is not checked this way: MOD's shared pedal stylesheets are one theme file covering
+every knob count and colour a style offers, most of it unused by any one plugin, so most of its <code>url()</code>s name no file
+the bundle carries, on purpose.</p>
+<h2 id="what-the-validator-checks">What the validator checks</h2>
+<p>The shape. That every control id exists in the plugin's description and that a role fits its control is
+<code>applySkinOverride</code>'s, against the description it is applied to.</p>
+</article><nav class="hidden lg:block" aria-label="Contingut"><!--[--><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#skin-json" class="text-ink-dim hover:text-accent">skin.json</a></li><li><a href="#applying-it" class="text-ink-dim hover:text-accent">Applying it</a></li><li><a href="#refusals" class="text-ink-dim hover:text-accent">Refusals</a></li><li><a href="#the-licence" class="text-ink-dim hover:text-accent">The licence</a></li><li><a href="#importing-a-mod-gui" class="text-ink-dim hover:text-accent">Importing a MOD GUI</a></li><li><a href="#what-the-validator-checks" class="text-ink-dim hover:text-accent">What the validator checks</a></li><!--]--></ul><!--]--><!--[--><p class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-accent">Més de omx-panel</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="/ca/projects/omx-panel" class="router-link-active text-ink-dim hover:text-accent">omx-panel</a></li><li><a href="/ca/projects/omx-panel/compare" class="text-ink-dim hover:text-accent">Compare A/B/C/D and undo</a></li><li><a href="/ca/projects/omx-panel/group-inference" class="text-ink-dim hover:text-accent">Port-group inference for LV2 plugins</a></li><li><a href="/ca/projects/omx-panel/lv2-complement" class="text-ink-dim hover:text-accent">The LV2 complement: a replacing bundle with the inferred port groups</a></li><li><a href="/ca/projects/omx-panel/modgui" class="text-ink-dim hover:text-accent">The MOD GUI generator</a></li><li><a href="/ca/projects/omx-panel/panel-layout" class="text-ink-dim hover:text-accent">Panel layout from a descriptor</a></li><li><a href="/ca/projects/omx-panel/worked-example" class="text-ink-dim hover:text-accent">Worked example: a third-party LV2 and CLAP plugin to a generated panel, adapted to Zynthian</a></li><!--]--></ul><!--]--><p class="mt-8 text-sm"><a href="/ca/projects" class="text-accent hover:underline">Tots els projectes</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/projects/omx-panel/skin-package/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"project-omx-panel-skin-package":-1},"\u002Fca\u002Fprojects\u002Fomx-panel\u002Fskin-package",1793751247030]</script></body></html>

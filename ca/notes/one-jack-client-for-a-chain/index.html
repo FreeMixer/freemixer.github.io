@@ -1,0 +1,404 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>&quot;Un sol client JACK per a una cadena: què estalvia i què no&quot; | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/notes/one-jack-client-for-a-chain/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dhyxm03C.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNs_Ozdc.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMWkIGvv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMx8XeKT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CH_6PZHZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C4LhWnh7.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/D2H52pKN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C_Vo6Cpv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkUevp-A.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BrLBbKql.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkceDeHA.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/DpO9t-n4.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/MpqZPowV.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BM38UV2E.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dga5QANZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dwv5_atN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BxJRRP96.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/495XL0kX.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/notes/one-jack-client-for-a-chain" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/notes/one-jack-client-for-a-chain" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/notes/one-jack-client-for-a-chain" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/notes/one-jack-client-for-a-chain"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/notes/one-jack-client-for-a-chain"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="Fer córrer N plugins en sèrie dins d'un sol client JACK, en lloc de N clients enllaçats en sèrie, és idèntic bit a bit i retalla entre un 30 i un 56 % el temps final del cicle a la mediana i un terç o més la CPU de l'amfitrió, sense cap xrun i sense empitjorar la cua; l'estalvi són els despertars, no els plugins."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/notes/one-jack-client-for-a-chain" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Nota tècnica</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">&quot;Un sol client JACK per a una cadena: què estalvia i què no&quot;</h1><p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-dim">Fer córrer N plugins en sèrie dins d&#39;un sol client JACK, en lloc de N clients enllaçats en sèrie, és idèntic bit a bit i retalla entre un 30 i un 56 % el temps final del cicle a la mediana i un terç o més la CPU de l&#39;amfitrió, sense cap xrun i sense empitjorar la cua; l&#39;estalvi són els despertars, no els plugins.</p><!--[--><p class="mt-4 font-mono text-xs text-ink-faint">Un contenidor Fedora 44 de 4 CPU en una màquina compartida, PipeWire 1.6.9 amb el controlador fictici, 48 i 96 kHz a 64 i 128 mostres, octubre del 2026; omx-plugins 0.12.0 i plugins LV2 i CLAP de sèrie.</p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body"><h2 id="la-pregunta">La pregunta</h2>
+<p>omx-clap-host dona a cada plugin el seu propi client JACK i cada client és un node del graf amb el seu propi despertar a
+cada cicle. La pregunta era si N plugins en sèrie en un sol client són idèntics bit a bit als mateixos N plugins en N
+clients enllaçats en sèrie i si les xifres del banc de proves milloren sense que res empitjori. És la mesura que hi ha
+darrere de la cadena de la biblioteca de l'amfitrió (vegeu la <a href="/ca/notes/chains-plugins-in-series-in-one-worker">nota de les cadenes</a>
+per a com la fa servir plugin-hostd).</p>
+<h2 id="com-corre-la-cadena">Com corre la cadena</h2>
+<ul>
+<li>El cap és una instància amb el seu propi client, ports i crida de procés. Els membres no obren cap client ni registren cap
+port: els seus cicles corren dins dels del cap.</li>
+<li>Un membre només s'accepta quan les seves entrades principals són tan amples com les sortides del membre anterior i les
+seves sortides principals tan amples com les del cap. Un plugin amb entrada o sortida de notes no s'accepta com a membre.
+Les entrades auxiliars d'un membre llegeixen silenci.</li>
+<li>La crida de procés del cap fa córrer el cap i després cada membre en ordre, cadascun dins de la seva pròpia porta de
+cicle, passant cada búfer de sortida al següent; l'últim membre escriu els ports de sortida del cap. Entremig, les sortides
+són blocs alineats a 64 bytes que guarda l'amfitrió.</li>
+<li>El fil d'àudio de cada membre és el del cap; la mida de bloc i el transport segueixen els del cap.</li>
+<li>Els ports del cap informen de la suma de la latència de cada membre a més de la seva, que es torna a calcular quan canvia la
+latència d'un membre.</li>
+<li>El bypass, els paràmetres, els vúmetres, les empremtes, els presets i l'estat continuen sent per instància, pel número del
+mateix membre.</li>
+<li>Treure un membre el desenllaça dins d'una porta pròpia de la cadena, entre cicles; treure el cap allibera tots els membres.</li>
+</ul>
+<h2 id="identitat-bit-a-bit">Identitat bit a bit</h2>
+<p>Un amfitrió amb els plugins en N clients en sèrie, un amb els plugins en una cadena, tots dos alimentats amb el mateix
+soroll determinista i enregistrats dels mateixos cicles, esquerra i dreta: cada parell es compara mostra a mostra i es
+compara la latència que declara la darrera sortida de cada branca. Una passada de control fa córrer primer dues branques de
+N clients l'una contra l'altra, de manera que un plugin que no és determinista entre dues instàncies d'ell mateix es veu
+allà, no com una diferència de la cadena. 48 kHz, quàntum 1024, 96 000 mostres per banda:</p>
+<table>
+<thead>
+<tr>
+<th>plugins</th>
+<th>format</th>
+<th>empremtes</th>
+<th>control (sèrie contra sèrie)</th>
+<th>cadena contra sèrie</th>
+<th>latència sèrie / cadena</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>una peça de prova: pas directe, cadena lateral, pas directe</td>
+<td>CLAP</td>
+<td>no</td>
+<td>idèntic</td>
+<td>idèntic</td>
+<td>192 / 192</td>
+</tr>
+<tr>
+<td>omx-eq8, omx-comp, omx-deesser, omx-delay</td>
+<td>CLAP</td>
+<td>no</td>
+<td>idèntic</td>
+<td>idèntic</td>
+<td>0 / 0</td>
+</tr>
+<tr>
+<td>omx comp, delay, deesser, eq8, reverb i un compressor LSP (6)</td>
+<td>CLAP</td>
+<td>no</td>
+<td>idèntic</td>
+<td>idèntic</td>
+<td>0 / 0</td>
+</tr>
+<tr>
+<td>els 6 i Dragonfly Room (7)</td>
+<td>CLAP</td>
+<td>no</td>
+<td>difereix a la mostra 0, -29,1 dB</td>
+<td>difereix a la mostra 0, -31,0 dB</td>
+<td>0 / 0</td>
+</tr>
+<tr>
+<td>omx comp, delay, deesser, eq8, reverb, ZamCompX2, caps CompressX2 (7)</td>
+<td>LV2</td>
+<td>sí</td>
+<td>idèntic</td>
+<td>idèntic</td>
+<td>0 / 0</td>
+</tr>
+<tr>
+<td>els 7 i caps PlateX2 (8)</td>
+<td>LV2</td>
+<td>sí</td>
+<td>difereix a la mostra 0, -24,5 dB</td>
+<td>difereix a la mostra 0, -26,8 dB</td>
+<td>0 / 0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Les dues reverbs, Dragonfly Room i caps PlateX2, no són deterministes entre dues instàncies d'elles mateixes (dues branques
+d'un client per plugin difereixen a uns -30 dB), de manera que amb qualsevol de les dues al conjunt cap branca no es pot
+jutjar mostra a mostra: la diferència de la cadena és de la mida de la del control. Tots els altres plugins de la taula són
+idèntics bit a bit a través de la cadena.</li>
+<li>El compressor arrodonia de tant en tant a un ulp de distància (-142 dB) entre dues instàncies, amb cadena o sense; amb els
+blocs alineats a 64 bytes, la cadena era idèntica.</li>
+<li>La latència que declara la cadena és la suma dels membres: tres passos directes de 64 mostres declaren 192.</li>
+<li>Amb sabotatge, la prova surt vermella: si se salten els membres, la sortida difereix a la mostra 0 i si es treu la suma de
+latències, la cadena declara 64 contra 192.</li>
+</ul>
+<h2 id="una-cadena-de-plugins-lv2-necessita-un-mon-unio">Una cadena de plugins LV2 necessita un món unió</h2>
+<p>plugin-hostd redueix l'<code>LV2_PATH</code> d'un worker al paquet del mateix plugin i un plugin LV2 es troba en aquest camí quan
+s'afegeix. Els membres d'una cadena s'afegeixen al procés del cap, amb l'<code>LV2_PATH</code> del cap: en un món només amb el paquet
+del primer plugin, el segon membre respon <code>resp -101</code> (no trobat). Per tant, una cadena de plugins LV2 necessita que
+l'<code>LV2_PATH</code> del seu worker sigui la unió dels paquets dels seus membres i res més ample. Les empremtes no necessiten res de
+nou: l'addició de cada membre comprova la seva pròpia disposició i amb les empremtes activades, cada membre de les cadenes
+LV2 de 7 i 8 plugins va refusar una empremta equivocada i va acceptar la bona; la cadena amb empremtes era idèntica bit a bit
+a la sèrie amb empremtes.</p>
+<h2 id="el-banc-de-proves">El banc de proves</h2>
+<p>Les branques s'intercalaven dins de cada repetició, tres repeticions de 30 s, medianes; sèrie / cadena, canvi = (cadena -
+sèrie) / sèrie. El contenidor compartia la màquina (càrrega mitjana d'uns 3 en 4 fils) i aquesta càrrega va caure igual a
+les dues branques.</p>
+<table>
+<thead>
+<tr>
+<th>freqüència</th>
+<th>quàntum</th>
+<th>plugins</th>
+<th>final del cicle p50 µs</th>
+<th>canvi</th>
+<th>final del cicle p99 µs</th>
+<th>canvi</th>
+<th>excessos</th>
+<th>CPU de l'amfitrió %</th>
+<th>RSS MiB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>96000</td>
+<td>64</td>
+<td>7 CLAP</td>
+<td>336,8 / 187,6</td>
+<td>-44,3 %</td>
+<td>776,0 / 570,5</td>
+<td>-26,5 %</td>
+<td>7390 / 241</td>
+<td>20,8 / 12,4</td>
+<td>42,4 / 34,7</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>7 CLAP</td>
+<td>461,3 / 261,1</td>
+<td>-43,4 %</td>
+<td>1256,7 / 693,7</td>
+<td>-44,8 %</td>
+<td>172 / 71</td>
+<td>16,6 / 10,0</td>
+<td>42,5 / 34,4</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>64</td>
+<td>7 CLAP</td>
+<td>452,7 / 257,1</td>
+<td>-43,2 %</td>
+<td>1181,8 / 679,2</td>
+<td>-42,5 %</td>
+<td>113 / 86</td>
+<td>14,6 / 8,6</td>
+<td>41,9 / 33,9</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>7 CLAP</td>
+<td>687,4 / 345,5</td>
+<td>-49,7 %</td>
+<td>1557,3 / 857,5</td>
+<td>-44,9 %</td>
+<td>23 / 4</td>
+<td>11,7 / 7,8</td>
+<td>42,0 / 34,3</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>64</td>
+<td>8 LV2</td>
+<td>391,2 / 171,1</td>
+<td>-56,3 %</td>
+<td>799,7 / 545,3</td>
+<td>-31,8 %</td>
+<td>9222 / 98</td>
+<td>22,1 / 10,4</td>
+<td>29,4 / 20,2</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>8 LV2</td>
+<td>491,4 / 223,0</td>
+<td>-54,6 %</td>
+<td>1204,4 / 649,1</td>
+<td>-46,1 %</td>
+<td>102 / 18</td>
+<td>16,4 / 9,6</td>
+<td>29,4 / 20,2</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>64</td>
+<td>8 LV2</td>
+<td>457,7 / 217,6</td>
+<td>-52,5 %</td>
+<td>1146,0 / 631,5</td>
+<td>-44,9 %</td>
+<td>44 / 14</td>
+<td>14,1 / 8,0</td>
+<td>29,2 / 19,9</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>8 LV2</td>
+<td>583,3 / 282,5</td>
+<td>-51,6 %</td>
+<td>1402,0 / 721,6</td>
+<td>-48,5 %</td>
+<td>8 / 3</td>
+<td>8,1 / 5,3</td>
+<td>29,3 / 20,1</td>
+</tr>
+</tbody>
+</table>
+<p>Amb quatre plugins (omx-eq8, omx-comp, omx-deesser, omx-delay, CLAP):</p>
+<table>
+<thead>
+<tr>
+<th>freqüència</th>
+<th>quàntum</th>
+<th>final del cicle p50 µs</th>
+<th>canvi</th>
+<th>final del cicle p99 µs</th>
+<th>canvi</th>
+<th>excessos</th>
+<th>CPU de l'amfitrió %</th>
+<th>RSS MiB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>96000</td>
+<td>64</td>
+<td>239,2 / 166,1</td>
+<td>-30,6 %</td>
+<td>685,6 / 541,5</td>
+<td>-21,0 %</td>
+<td>1175 / 98</td>
+<td>11,8 / 7,9</td>
+<td>15,8 / 12,1</td>
+</tr>
+<tr>
+<td>96000</td>
+<td>128</td>
+<td>272,9 / 173,4</td>
+<td>-36,5 %</td>
+<td>852,7 / 599,8</td>
+<td>-29,7 %</td>
+<td>17 / 9</td>
+<td>7,4 / 4,5</td>
+<td>15,6 / 12,2</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>64</td>
+<td>262,9 / 184,0</td>
+<td>-30,0 %</td>
+<td>860,0 / 605,0</td>
+<td>-29,6 %</td>
+<td>11 / 12</td>
+<td>7,4 / 3,8</td>
+<td>15,6 / 12,1</td>
+</tr>
+<tr>
+<td>48000</td>
+<td>128</td>
+<td>444,2 / 273,4</td>
+<td>-38,5 %</td>
+<td>1019,0 / 678,2</td>
+<td>-33,4 %</td>
+<td>4 / 5</td>
+<td>5,7 / 3,6</td>
+<td>15,6 / 12,2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>El final del cicle baixa entre un 30 i un 56 % a la mediana i entre un 21 i un 49 % al percentil 99; repetició a repetició,
+la pitjor de la cadena és per sota de la millor de la sèrie en totes les files.</li>
+<li>Cap xrun en cap execució de cap branca. Els excessos baixen en deu files de dotze; en dues files de quatre plugins la
+mediana de la cadena té un excés més (12 contra 11, 5 contra 4, d'uns 22 500 i 11 250 cicles), dins de la dispersió de les
+repeticions.</li>
+<li>L'únic node de la cadena espera el seu despertar tant com el primer node de la sèrie o més i després fa córrer tota la
+sèrie sense cap altre despertar: aquí és on hi ha l'estalvi.</li>
+<li>La CPU de l'amfitrió baixa un terç o més i la seva memòria entre 4 i 9 MiB: N-1 clients JACK menys, amb els seus fils i
+búfers.</li>
+</ul>
+<h2 id="el-que-no-s-ha-mesurat">El que no s'ha mesurat</h2>
+<p>El contenidor no tenia <code>/dev/cpu_dma_latency</code>, de manera que no hi havia cap retenció dels estats de repòs de la CPU (vegeu
+<a href="/ca/notes/cpu-idle-states-and-plugin-hosting">Estats de repòs de la CPU i allotjament de plugins</a>) i el seu límit de temps
+real era 0, de manera que els fils de PipeWire corrien amb <code>SCHED_OTHER</code>: les xifres són més grans i amb més soroll que les
+d'un graf en temps real, igual per a les dues branques. Si una part de l'estalvi és la sortida de l'estat de repòs queda
+obert fins que el mateix banc de proves corri en una màquina amb el dispositiu, a cada nivell de retenció.</p>
+</article><nav class="hidden lg:block" aria-label="Contingut"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#la-pregunta" class="text-ink-dim hover:text-accent">La pregunta</a></li><li><a href="#com-corre-la-cadena" class="text-ink-dim hover:text-accent">Com corre la cadena</a></li><li><a href="#identitat-bit-a-bit" class="text-ink-dim hover:text-accent">Identitat bit a bit</a></li><li><a href="#una-cadena-de-plugins-lv2-necessita-un-mon-unio" class="text-ink-dim hover:text-accent">Una cadena de plugins LV2 necessita un món unió</a></li><li><a href="#el-banc-de-proves" class="text-ink-dim hover:text-accent">El banc de proves</a></li><li><a href="#el-que-no-s-ha-mesurat" class="text-ink-dim hover:text-accent">El que no s&#39;ha mesurat</a></li><!--]--></ul><p class="mt-8 text-sm"><a href="/ca/notes" class="text-accent hover:underline">Totes les notes tècniques</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/notes/one-jack-client-for-a-chain/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"note-one-jack-client-for-a-chain-ca":-1},"\u002Fca\u002Fnotes\u002Fone-jack-client-for-a-chain",1793751246875]</script></body></html>

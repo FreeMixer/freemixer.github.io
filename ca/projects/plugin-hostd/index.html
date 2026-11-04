@@ -1,0 +1,2091 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>README.md | plugin-hostd | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/projects/plugin-hostd/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DLv1zT_v.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/B0w9kckf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CF5KCtY-.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/e63HFAnf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CD3ALZ0F.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BnH_th5I.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CoQTvKFp.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dexg_6ZX.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CqEFv2MT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/d05kRPiJ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BVB5ZYNh.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Cj5AVrYJ.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/projects/plugin-hostd" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/projects/plugin-hostd" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/projects/plugin-hostd" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/projects/plugin-hostd"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/projects/plugin-hostd"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="La documentació de plugin-hostd, tal com l'escriu el projecte."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/projects/plugin-hostd" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">plugin-hostd</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">README.md</h1><!----><!--[--><p class="mt-4 text-sm text-ink-dim">El text del projecte, en anglès. <a href="https://github.com/FreeMixer/plugin-hostd/blob/b4ea6a9/README.md" class="text-accent hover:underline" rel="noopener">La font d&#39;aquesta pàgina</a></p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body" lang="en"><h1 id="plugin-hostd">plugin-hostd</h1>
+<p>plugin-hostd runs your LV2 and CLAP audio plugins, each in a worker process of its own, and
+puts back any worker that dies. A plugin that crashes takes down its own worker and nothing
+else. It is for anyone who runs plugins live on Linux, on a mixing console, a stage rig or a
+Raspberry Pi, and cannot let one bad plugin stop the show.</p>
+<ul>
+<li>A crash stays small: only the plugin's worker is lost, and it is respawned with the links the daemon made itself.</li>
+<li>Nothing to change in your controller: it speaks mod-host's socket protocol, same ports, same replies.</li>
+<li>LV2 through omx-clap-host's adapter, with mod-host for the plugins the adapter refuses, and CLAP through omx-clap-host, side by side.</li>
+<li>Audio never passes through the daemon; every worker is a JACK client, as in mod-host.</li>
+<li>A plugin that keeps crashing is singled out and given up on without touching its neighbours.</li>
+</ul>
+<p>Three things it adds, each optional and taken or left on its own:</p>
+<ul>
+<li>Plugin hosting: the LV2 and CLAP plugins hosted in workers, with a qualification on the device saying which are safe
+to load and how.</li>
+<li>Grouping: a controller's chain stays as it is; when several of its plugins may share one process, by their records,
+they run in one worker, and the others alone.</li>
+<li>Panels: a plugin's control pages and its MOD GUI drawn from its one description, with omx-panel; a plugin's own GUI
+is kept.</li>
+</ul>
+<h2 id="install">Install</h2>
+<p>Fedora:</p>
+<pre><code>sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm
+sudo dnf install plugin-hostd omx-clap-host
+</code></pre>
+<p>Debian bookworm and trixie and Raspberry Pi OS (amd64 and arm64):</p>
+<pre><code>curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb &amp;&amp; sudo apt install ./openmixer-release.deb
+sudo apt update &amp;&amp; sudo apt install plugin-hostd omx-clap-host
+</code></pre>
+<p>The LV2 worker is mod-host, which Debian does not package; without it CLAP plugins still work.</p>
+<h2 id="status">Status</h2>
+<p>What the continuous integration runs on every push:</p>
+<ul>
+<li>The daemon against stand-in workers that die on cue: placement, forwarding, the ledger, replay,
+attribution and the bound on a respawn storm. No JACK and no plugin are needed for this.</li>
+<li>The generated protocol files, README tables and man page checked against <code>protocol.h</code>, and
+every guard broken on purpose to see its test go red.</li>
+<li>The daemon with a real CLAP worker (omx-clap-host) over PipeWire's JACK and over JACK2's <code>jackd</code>,
+including meters reaching the controller.</li>
+<li>RPMs (Fedora 44) and DEBs (bookworm and trixie) built and installed in a clean environment.</li>
+</ul>
+<p>The LV2 worker (mod-host) is not run in CI; those steps stay in the Makefile for a machine that has
+mod-host and an LV2 bundle.</p>
+<h2 id="try-it">Try it</h2>
+<p>Start the daemon, with pin checking off for a first try (it says when both ports accept):</p>
+<pre><code>echo 'require_pins 0' &gt; plugin-hostd.conf
+plugin-hostd -n -p 5555 -c plugin-hostd.conf
+</code></pre>
+<p>In another terminal, add an LV2 plugin, set its gain and ask where it runs
+(messages end in a NUL byte, which <code>printf</code> adds):</p>
+<pre><code>send() { printf '%s\0' &quot;$1&quot; | nc -w3 127.0.0.1 5555 | tr '\0' '\n'; }
+send &quot;add http://plugin.org.uk/swh-plugins/amp 0&quot;      # resp 0
+send &quot;param_set 0 gain 6&quot;                              # resp 0
+send &quot;param_get 0 gain&quot;                                # resp 0 6.0000
+send &quot;worker_list&quot;                                     # resp 1 w1:&lt;pid&gt;:lv2:up:1:qualified:own:0
+</code></pre>
+<p>The plugin now runs as JACK client <code>effect_0</code> in its own process. Link it in your graph as
+you would a mod-host plugin. <code>man plugin-hostd</code> has the options; the full protocol is below.</p>
+<p>Using it from your own host (Zynthian, a Raspberry Pi, any Debian): <a href="/projects/plugin-hostd/own-host">docs/own-host.md</a>, nine commands from
+nothing to a plugin running.</p>
+<p>Under Zynthian on a Raspberry Pi 5: <a href="https://openmixer.org/docs/zynthian">https://openmixer.org/docs/zynthian</a> says what it changes, how to install and use
+it and where it stands; the measurements are at <a href="https://openmixer.org/benchmarks">https://openmixer.org/benchmarks</a>, and how they were taken, with the
+design of pins, chains and grouping, in the technical notes at <a href="https://openmixer.org/notes">https://openmixer.org/notes</a>.</p>
+<p>Building from source: see <a href="https://github.com/FreeMixer/plugin-hostd/blob/b4ea6a9/BUILDING.md">BUILDING.md</a>. More about FreeMixer at <a href="https://www.openmixer.org">https://www.openmixer.org</a>.</p>
+<h2 id="protocol">Protocol</h2>
+<p>The protocol is the plugin-hostd protocol, a superset of mod-host's text protocol: any mod-host client works unchanged.
+It is declared once, in <a href="https://github.com/FreeMixer/plugin-hostd-protocol">plugin-hostd-protocol</a>, the library the daemon answers its controllers with; the wire
+protocol for a reader of another host, mod-host's verbs on plugin-hostd and the verbs mod-host does not have, is its
+<a href="https://github.com/FreeMixer/plugin-hostd-protocol/blob/main/doc/protocol.md">doc/protocol.md</a>.</p>
+<p>What it declares is installed with that library's development package (<code>plugin-hostd-protocol-devel</code>,
+<code>libplugin-hostd-protocol-dev</code>): the header <code>&lt;plugin-hostd/protocol.h&gt;</code> with the placement syntax, the error codes, the
+feedback events, the settings and the verbs (<code>pkg-config --cflags plugin-hostd-protocol</code>); the one verb table, its
+grammar, and the protocol and mod-host's as JSON (<code>pkg-config --variable=table</code>, <code>grammar</code>, <code>protocoljson</code> and
+<code>modhostjson</code> of <code>plugin-hostd-protocol</code>). The verbs the daemon adds are its package of omx-contract's contract
+directory (<code>plugin-hostd-protocol-contract</code>). A refusal number omx-clap-host answers too carries omx-clap-core's
+<code>reply.host.*</code> code (package <code>omx-clap-core-contract</code>), the others plugin-hostd's <code>reply.plugin-hostd.*</code>: one name per
+number. The tables here and the man page's key list are generated from that header; this tree keeps no copy of it.</p>
+<p>This tree's development package installs what it declares beside the protocol: the schemas <code>probe-output.schema.json</code>
+for the probe's document and <code>preset.schema.json</code> for the org.openmixer.preset file (<code>protocoldir</code> in the pkg-config
+file of <code>plugin-hostd</code> is that directory), and <code>&lt;plugin-hostd/pin.h&gt;</code>.</p>
+<h2 id="running">Running</h2>
+<pre><code>plugin-hostd -n -p &lt;port&gt; [-f &lt;port&gt;] [-c plugin-hostd.conf]
+</code></pre>
+<p>&lt;!-- BEGIN GENERATED protocol:readiness --&gt;
+It prints <code>plugin-hostd ready!</code> once both ports accept.
+&lt;!-- END GENERATED protocol:readiness --&gt;</p>
+<p>No worker exists until the first <code>add</code>. <code>quit</code> or SIGTERM stops every worker and the daemon;
+after a SIGKILL the workers notice the parent gone (<code>PR_SET_PDEATHSIG</code>) and exit.</p>
+<p>Both ports listen on 127.0.0.1, so only programs on the same machine reach them. To control the daemon from
+another machine, start it with <code>--bind-address &lt;address&gt;</code> or set <code>bind_address</code> in the settings; <code>0.0.0.0</code> is every
+address of the machine. A controller is not authenticated and can load a plugin from any path, so do that only on a
+network whose hosts you trust. A daemon that cannot listen on the address does not start. The workers it starts
+listen on 127.0.0.1 whatever this says, and only the daemon talks to them.</p>
+<p>The settings live in a file, <code>-c</code>, <code>$PLUGIN_HOSTD_CONF</code> or
+<code>~/.config/plugin-hostd.conf</code>, one <code>key value</code> per line:</p>
+<p>&lt;!-- BEGIN GENERATED protocol:config --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>default</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mod_host</code></td>
+<td><code>mod-host</code></td>
+<td>worker for lv2 (a name on PATH or a path)</td>
+</tr>
+<tr>
+<td><code>clap_host</code></td>
+<td><code>omx-clap-host</code></td>
+<td>worker for clap</td>
+</tr>
+<tr>
+<td><code>lv2_worker</code></td>
+<td><code>auto</code></td>
+<td>who runs an LV2 plugin: mod-host (the mod_host program), omx-clap-host (the clap_host program, through its LV2 adapter, a plugin it cannot run refused with a code) or auto (the adapter first, mod-host for what it refuses, each such plugin in a worker of its own unless its add names a placement); lv2_worker_set overrides it for one plugin</td>
+</tr>
+<tr>
+<td><code>lv2_path</code></td>
+<td><code>$LV2_PATH</code>, else <code>/usr/lib/lv2:/usr/lib/x86_64-linux-gnu/lv2:/usr/lib/aarch64-linux-gnu/lv2:/usr/lib/arm-linux-gnueabihf/lv2:/usr/local/lib/lv2:/usr/local/lib/x86_64-linux-gnu/lv2:/usr/local/lib/aarch64-linux-gnu/lv2:/usr/local/lib/arm-linux-gnueabihf/lv2:/usr/lib64/lv2:/usr/local/lib64/lv2</code></td>
+<td>where bundles are searched</td>
+</tr>
+<tr>
+<td><code>lv2_extra</code></td>
+<td>``</td>
+<td>the site's own bundle folders, searched after lv2_path: the one declaration of them, which plugin-qualify and omx-panel read too</td>
+</tr>
+<tr>
+<td><code>clap_path</code></td>
+<td><code>~/.clap:/usr/lib/clap</code></td>
+<td>where .clap files are searched by whoever searches (plugin-qualify, omx-panel); an add names its file, so the daemon loads none by search; $CLAP_PATH is searched before it</td>
+</tr>
+<tr>
+<td><code>state_root</code></td>
+<td><code>$XDG_RUNTIME_DIR</code>, else <code>/tmp</code></td>
+<td>the daemon's checkpoints and worker logs</td>
+</tr>
+<tr>
+<td><code>pin_mode</code></td>
+<td><code>first-use</code></td>
+<td>strict or first-use, while require_pins is 1: first-use records the pin of a plugin on its first add, strict admits only a plugin a controller, a pin_file or pins_dir pinned</td>
+</tr>
+<tr>
+<td><code>grouping</code></td>
+<td><code>off</code></td>
+<td>off or on: whether plan applies its plan (a run of consecutive members that may share a worker is declared as a chain), or only answers it; the default stays off until the benchmark has published a win</td>
+</tr>
+<tr>
+<td><code>bind_address</code></td>
+<td><code>127.0.0.1</code></td>
+<td>the IPv4 address the command and feedback ports listen on: this machine alone by default; 0.0.0.0 is every address of the machine, and a controller is not authenticated, so widen it only on a network whose hosts are trusted; --bind-address overrides it</td>
+</tr>
+<tr>
+<td><code>placement</code></td>
+<td><code>spread</code></td>
+<td>spread or none (docs/placement.md): spread pins each new worker to the audio core with the least load, the sum of the qualification costs of the workers already on it, or their number while one of them has a member of unknown cost, the lowest core of a tie, and keeps the daemon, its threads and the scans it forks on the reserved cores; a worker keeps its core across respawns, and one whose format worker_env gave a cpu list is not placed; none pins nothing; --placement overrides it</td>
+</tr>
+<tr>
+<td><code>audio_cores</code></td>
+<td>``</td>
+<td>the cpus the placement spreads the workers over, a cpu list inside the daemon's own affinity (&quot;1-3&quot;); empty is that affinity less its lowest cpu; the reserved cores are the rest of it</td>
+</tr>
+<tr>
+<td><code>pin_store</code></td>
+<td>``</td>
+<td>the file first-use pins are kept in; empty is $XDG_STATE_HOME/plugin-hostd/pins, else $HOME/.local/state/plugin-hostd/pins</td>
+</tr>
+<tr>
+<td><code>pin_file</code></td>
+<td>``</td>
+<td>a file of pin lines loaded at start, as plugin-qualify --all --pins writes it; empty is none</td>
+</tr>
+<tr>
+<td><code>pins_dir</code></td>
+<td><code>/usr/share/plugin-hostd/pins.d</code></td>
+<td>the read-only pins of packages: every file in it whose name ends in .pins, read at start in name order, under the store, the pin_file and pin_set, except that a pin of verdict=refused there always holds; empty is none</td>
+</tr>
+<tr>
+<td><code>descriptor_dir</code></td>
+<td><code>$OMX_DESCRIPTOR_DIR</code>, else ``</td>
+<td>the scanned descriptors, one file per plugin binary (&lt;id&gt;@&lt;version&gt;-&lt;hash&gt;.json, the hash the binary's SHA-256), written by the scan of an add and read by descriptor_get; empty is $XDG_STATE_HOME/omx/descriptors, else /var/lib/omx/descriptors run as root (a system service), else $HOME/.local/state/omx/descriptors; its variable is for tests only</td>
+</tr>
+<tr>
+<td><code>qualification_dir</code></td>
+<td><code>$OMX_QUALIFICATION_DIR</code>, else ``</td>
+<td>plugin-qualify's qualification records (verdict, cost, version tested), kept apart from the descriptors; empty is $XDG_STATE_HOME/omx/qualification, else /var/lib/omx/qualification run as root (a system service), else $HOME/.local/state/omx/qualification; its variable is for tests only</td>
+</tr>
+<tr>
+<td><code>probe</code></td>
+<td><code>plugin-hostd-probe</code></td>
+<td>the scanner an add runs, as &lt;probe&gt; describe &lt;target&gt;, in a child of its own once per plugin binary; its stdout is the descriptor</td>
+</tr>
+<tr>
+<td><code>history_file</code></td>
+<td>``</td>
+<td>the running history: what each plugin did on this machine, kept per plugin, binary and host class; empty is $XDG_STATE_HOME/plugin-hostd/history, else $HOME/.local/state/plugin-hostd/history; local to this machine, mode 0600, written by the daemon alone, and deleted by history_clear</td>
+</tr>
+<tr>
+<td><code>host_class</code></td>
+<td>``</td>
+<td>the host class the history is kept under, as arch/cores/clock (x86_64/5-8/2.5-3.5GHz); empty is the class of this machine, as the probe writes it; no white space</td>
+</tr>
+<tr>
+<td><code>ready_timeout_ms</code></td>
+<td>5000 ms</td>
+<td>a worker that does not accept in this long is a failed spawn</td>
+</tr>
+<tr>
+<td><code>rpc_timeout_ms</code></td>
+<td>5000 ms</td>
+<td>a worker that does not answer in this long is killed</td>
+</tr>
+<tr>
+<td><code>backoff_base_ms</code></td>
+<td>250 ms</td>
+<td>respawn backoff, doubling per death in the window</td>
+</tr>
+<tr>
+<td><code>backoff_max_ms</code></td>
+<td>5000 ms</td>
+<td>the most a respawn backoff grows to</td>
+</tr>
+<tr>
+<td><code>storm_deaths</code></td>
+<td>5 deaths</td>
+<td>deaths inside the window that end respawning of a placement</td>
+</tr>
+<tr>
+<td><code>storm_window_ms</code></td>
+<td>60000 ms</td>
+<td>the window storm_deaths are counted in</td>
+</tr>
+<tr>
+<td><code>suspect_window_ms</code></td>
+<td>500 ms</td>
+<td>a worker that dies this soon after a reply drops the verb it answered; 0 turns it off</td>
+</tr>
+<tr>
+<td><code>checkpoint_ms</code></td>
+<td>5000 ms</td>
+<td>a quiet interval with a changed ledger writes a checkpoint</td>
+</tr>
+<tr>
+<td><code>chain_form_timeout_ms</code></td>
+<td>10000 ms</td>
+<td>a chain or a plan's segment that has not formed in this long is said with chain_stalled; 0 turns it off</td>
+</tr>
+<tr>
+<td><code>idle_ms</code></td>
+<td>25 ms</td>
+<td>the period of the idle tick: reap, respawn, checkpoint</td>
+</tr>
+<tr>
+<td><code>pool_max</code></td>
+<td>8 instances</td>
+<td>instances in a pool before a sibling opens</td>
+</tr>
+<tr>
+<td><code>history_window_s</code></td>
+<td>60 s</td>
+<td>the length of one history window: a worker's CPU and memory are read and folded into the history of its plugins once per window, and a window the plugin was up less than half of is not counted; 0 keeps no history</td>
+</tr>
+<tr>
+<td><code>history_save_s</code></td>
+<td>300 s</td>
+<td>the history is written at most once this often when it changed, and at quit</td>
+</tr>
+<tr>
+<td><code>history_regroup_s</code></td>
+<td>600 s</td>
+<td>a plan whose group was split by a death that named no culprit is made again after this many seconds without another death of its members, and the members that share are gathered in a worker again; 0 never makes it again by itself</td>
+</tr>
+<tr>
+<td><code>ram_budget_mb</code></td>
+<td>0 MiB</td>
+<td>the memory this host gives its plugins, which estimate answers beside what they hold; 0 for no budget set</td>
+</tr>
+<tr>
+<td><code>group_max</code></td>
+<td>8 instances</td>
+<td>most members of one segment of a plan; 0 sets no limit</td>
+</tr>
+<tr>
+<td><code>group_cost_max</code></td>
+<td>60 percent of a core</td>
+<td>most the costs of the members of one segment of a plan add to, each a member's coreFractionP95 of its qualification record at group_rate and group_quantum; a member over it alone stays alone; 0 sets no limit</td>
+</tr>
+<tr>
+<td><code>group_rate</code></td>
+<td>48000 Hz</td>
+<td>the sample rate the cost of a member is read at</td>
+</tr>
+<tr>
+<td><code>group_quantum</code></td>
+<td>128 frames</td>
+<td>the quantum the cost of a member is read at</td>
+</tr>
+<tr>
+<td><code>require_pins</code></td>
+<td>1</td>
+<td>1: add admits only a plugin that has a pin (see pin_mode), its files hashed before any worker sees it, and a plugin of a format whose pin holds only in a world of its own gets a worker of its own, its world the plugin's files (a default that resolves to a pool is placed own); 0: no pin is checked</td>
+</tr>
+<tr>
+<td>&lt;!-- END GENERATED protocol:config --&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Where plugins are searched is written once, in <code>include/plugin-hostd/search_paths.h</code>. The LV2 default is Zynthian's own
+<code>LV2_PATH</code> order (<code>/usr/lib/lv2</code>, <code>/usr/lib/&lt;multiarch&gt;/lv2</code>, <code>/usr/local/lib/lv2</code>, <code>/usr/local/lib/&lt;multiarch&gt;/lv2</code>)
+and then the lib64 folders; the CLAP rule is CLAP's own, <code>$CLAP_PATH</code>, then <code>~/.clap</code>, then <code>/usr/lib/clap</code>. A site adds
+its own folders in <code>lv2_extra</code> (a Zynthian image: <code>/zynthian/zynthian-plugins/lv2</code> and the like), searched after
+<code>lv2_path</code>; plugin-qualify and omx-panel read <code>lv2_path</code>, <code>lv2_extra</code> and <code>clap_path</code> from this file, or run
+<code>tools/search-paths.py lv2|clap [--existing] [--env]</code>, and keep no list of their own. The benchmark and the scripts of
+<code>tools/zynthian/</code> use the same script.</p>
+<p>&lt;!-- BEGIN GENERATED protocol:constants --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>value</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default_command_port</code></td>
+<td>5555 port</td>
+<td>the command port without -p; the feedback port is the next one, unless -n is given</td>
+</tr>
+<tr>
+<td><code>connect_retry_ms</code></td>
+<td>5000 ms</td>
+<td>how long the idle tick asks again for a connect a respawned worker could not make yet</td>
+</tr>
+<tr>
+<td><code>line_max</code></td>
+<td>4096 bytes</td>
+<td>the protocol socket's buffer: the longest pin_set line the daemon takes</td>
+</tr>
+<tr>
+<td><code>line_words_max</code></td>
+<td>64 words</td>
+<td>the words of one command line the daemon reads, the verb included; a word past them is not read</td>
+</tr>
+<tr>
+<td><code>chain_members_min</code></td>
+<td>1 instances</td>
+<td>the fewest members of a chain: a chain of one is valid, so one isolated plugin is a chain like any other</td>
+</tr>
+<tr>
+<td>&lt;!-- END GENERATED protocol:constants --&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="placement">Placement</h2>
+<p>&lt;!-- BEGIN GENERATED protocol:placement --&gt;
+The placement of an <code>add</code> is <code>own | pool:&lt;name&gt; | chain:&lt;chain&gt; | default</code>. <code>own</code> is a worker for that instance alone; <code>pool:&lt;name&gt;</code> is the pool's worker, opened on first use and capped by <code>pool_config</code>, and a full pool opens <code>&lt;name&gt;#2</code>, <code>&lt;name&gt;#3</code>, and so on; <code>default</code> is the policy of <code>policy_set</code>. A pool name matches <code>^[A-Za-z0-9_-]{1,32}$</code>.
+&lt;!-- END GENERATED protocol:placement --&gt;</p>
+<p><code>&lt;uri&gt;</code> is <code>lv2:&lt;uri&gt;</code> or a bare URI for an LV2 plugin, <code>clap:&lt;path&gt;#&lt;id&gt;</code>
+for a CLAP one. The instance number is the controller's and reaches the
+worker unchanged. A worker holds one format. An own LV2 worker sees one
+bundle: <code>LV2_PATH</code> is a directory of the daemon's holding a link to the bundle
+whose <code>manifest.ttl</code> names the URI.</p>
+<p>A token after the instance that is not a placement is the fork's optional
+jack client name, passed on. An instance that crashed in a pool is placed
+<code>own</code> whatever the hint until <code>quarantine_clear</code>.</p>
+<h2 id="grouped-workers-against-one-process-per-plugin">Grouped workers against one process per plugin</h2>
+<p>A chain runs its plugins in one worker; the other way is one process per plugin. One measurement of the two, with
+16 plugins, with the numbers of the page at <a href="https://www.openmixer.org/docs/grouped-vs-processes">https://www.openmixer.org/docs/grouped-vs-processes</a>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>grouped</th>
+<th>one process per plugin</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resident memory (RSS), 48 kHz</td>
+<td>125.4 MB</td>
+<td>1764.6 MB</td>
+<td>14x smaller grouped</td>
+</tr>
+<tr>
+<td>proportional memory (PSS), 48 kHz</td>
+<td>42.9 MB</td>
+<td>118.2 MB</td>
+<td>2.8x smaller grouped</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>RSS counts a shared library once for every process that maps it, so a design with many processes looks larger than
+it is. PSS divides shared pages between the processes that use them, so it is the honest figure. Do not read the RSS
+ratio as the saving in real memory.</li>
+<li>CPU: 1.2 to 1.9x less when grouped, across 3, 8 and 16 plugins at 48 and 96 kHz.</li>
+<li>Context switches: up to about 14x fewer when grouped, 13.9x at 48 kHz and 14.8x at 96 kHz with 16 plugins.</li>
+<li>Xruns over the 12 runs of each mode: 10 grouped against 41 with one process per plugin. Each run is one window of
+10 seconds and the xruns in it are few and unevenly spread, so the 10 against 41 is suggestive and not proof.</li>
+</ul>
+<p>How: a Raspberry Pi 5 with 4 cores, CPU governor on performance during the runs, plugin-hostd 0.12.0 with
+omx-clap-host 0.22.1 as the worker, N omx plugins in series, 256 frames, on a private JACK server.</p>
+<p>Not measured: only 256 frames; only plugin-hostd, with omx plugins; the grouping planner is not part of the result and
+no default has been changed because of the numbers; DSP load and xruns are those of the JACK dummy driver, so no claim
+about real audio hardware is made.</p>
+<h2 id="verbs-the-daemon-adds">Verbs the daemon adds</h2>
+<p>&lt;!-- BEGIN GENERATED protocol:verbs --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>verb</th>
+<th>arguments</th>
+<th>reply</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td><code>&lt;uri&gt; &lt;instance&gt; [own | pool:&lt;name&gt; | chain:&lt;chain&gt; | default] [client_name]</code></td>
+<td><code>resp &lt;instance&gt;</code></td>
+<td>mod-host's add with a placement; a token after the instance that is not a placement is the jack client name</td>
+</tr>
+<tr>
+<td><code>worker_list</code></td>
+<td>none</td>
+<td><code>resp &lt;n&gt; &lt;worker&gt;:&lt;pid&gt;:&lt;format&gt;:&lt;state&gt;:&lt;core&gt;:&lt;pool&gt;:&lt;place&gt;:&lt;i&gt;,&lt;i&gt;,...</code></td>
+<td>the workers, one record each</td>
+</tr>
+<tr>
+<td><code>instance_info</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td><code>resp 0 &lt;worker&gt; &lt;pid&gt; &lt;state&gt; &lt;crashes&gt; &lt;quarantined&gt;</code></td>
+<td>where an instance lives and what it has cost</td>
+</tr>
+<tr>
+<td><code>supervisor_reset</code></td>
+<td><code>[&lt;worker&gt; | all]</code></td>
+<td><code>resp 0</code></td>
+<td>re-arm the storm bound and the backoff of a given-up placement</td>
+</tr>
+<tr>
+<td><code>quarantine_clear</code></td>
+<td><code>&lt;instance&gt; | all</code></td>
+<td><code>resp 0</code></td>
+<td>let a quarantined instance go back where its placement says</td>
+</tr>
+<tr>
+<td><code>policy_set</code></td>
+<td><code>&lt;format | *&gt; own | pool:&lt;name&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>the placement of an add that says default</td>
+</tr>
+<tr>
+<td><code>pool_config</code></td>
+<td><code>&lt;name&gt; &lt;max_instances&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>the instances a pool holds before a sibling opens</td>
+</tr>
+<tr>
+<td><code>worker_env</code></td>
+<td><code>&lt;format | *&gt; &lt;cpu-list|-&gt; &lt;nice|-&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>the cpu list and the nice value of the workers of a format, at spawn and on the ones running</td>
+</tr>
+<tr>
+<td><code>pin_set</code></td>
+<td><code>&lt;uri&gt; &lt;path&gt;=&lt;sha256&gt;[,&lt;path&gt;=&lt;sha256&gt;...] &lt;scheme&gt;:&lt;sha256&gt; [verdict=&lt;verdict&gt;] [pool=&lt;pool&gt;]</code></td>
+<td><code>resp 0</code></td>
+<td>the pin of one plugin: the SHA-256 of every file the host loads for it, a path relative to the bundle (the directory of a single-file format's file), its layout fingerprint and, when they are known, the verdict of its qualification and whether its worker gets the CLAP thread pool; it replaces an earlier pin of the uri; -516 for a plugin whose pins_dir pin carries verdict=refused, which nothing overrides. The pin store, a pin_file and a pins_dir file hold the same line, with or without the verb</td>
+</tr>
+<tr>
+<td><code>pin_clear</code></td>
+<td><code>&lt;uri&gt; | all</code></td>
+<td><code>resp 0</code></td>
+<td>forget the pin of one plugin, or of every one; a pins_dir pin is read-only and holds again</td>
+</tr>
+<tr>
+<td><code>pin_reload</code></td>
+<td>none</td>
+<td><code>resp 0</code></td>
+<td>read the pin_file and the pins_dir files again and put the pins in at once, without a restart; the daemon also does this by itself when one of those files changes. Running instances keep running: one the new pins refuse is logged and its id in worker_list is followed by !. The pin_set pins of the controller are kept. -902 under pin_mode off or when the pin_file is gone or has a line outside the grammar, and the earlier pins hold</td>
+</tr>
+<tr>
+<td><code>pin_changed</code></td>
+<td><code>[&lt;uri&gt;] [files | layout]</code></td>
+<td><code>resp 0</code></td>
+<td>the notice the package sync sends to every daemon it knows after it rewrote the pin file: the same as pin_reload, with or without the pin_changed event's words after it; more words than those are -902</td>
+</tr>
+<tr>
+<td><code>lv2_worker_set</code></td>
+<td><code>&lt;uri&gt; &lt;mod-host | omx-clap-host | auto | -&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>the worker of one LV2 plugin, for its adds from now on: it overrides the lv2_worker setting, - takes the override back; -902 for a word that is none of these. Like policy_set it is the controller's, not in the ledger, gone with the daemon</td>
+</tr>
+<tr>
+<td><code>pin_accept</code></td>
+<td><code>&lt;uri&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>pin_mode first-use only: take the plugin's files as they are now as its pin, after a pin_changed event; the layout is learned again by the next add and the verdict is dropped; -508 when the plugin has no pin, -509 when its files cannot be collected, -516 when its pins_dir pin carries verdict=refused, -902 under pin_mode strict</td>
+</tr>
+<tr>
+<td><code>pin_layout</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td><code>resp 0 &lt;scheme&gt;:&lt;sha256&gt;</code></td>
+<td>sent by the daemon to a worker of a format that checks layouts, after it accepted the add of a plugin whose layout pin is still unknown: the layout the worker found after init, which the daemon records in the pin</td>
+</tr>
+<tr>
+<td><code>pin_expect</code></td>
+<td><code>&lt;instance&gt; &lt;scheme&gt;:&lt;sha256&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>sent by the daemon to a worker of a format that checks layouts, just before the instance's add: the layout pin that add checks after init and before activate; any other reply than resp 0 refuses the add with that code, and the add is never forwarded</td>
+</tr>
+<tr>
+<td><code>chain</code></td>
+<td><code>&lt;chain&gt; &lt;instance&gt; [&lt;instance&gt; ...]</code></td>
+<td><code>resp 0</code></td>
+<td>the instances, in this order, are one chain, run in one worker of place chain:&lt;chain&gt;: each member's state is saved, it is removed from the worker it was in and replayed in the chain's. A chain already declared takes the new order, and a member left out of it goes back to a worker of its own; while its worker is up that worker is kept: a new member joins it (its add, the order, its state, its ledger, its connections) and no other member is restarted, unless the new member's format narrows the worker's world, which forms the chain again. Members of clap and lv2-clap form one chain. A worker that runs chains in one client (clap, lv2-clap) is sent this line, with the members it holds, after the adds of its replay; one that does not (mod-host) never is. A worker that refuses the line would not run the members as one: the chain is forgotten and each member runs in a worker of its own, the line answers -501, and the event chain_refused carries the worker's own code, also when the refusal comes later, on a respawn. Every instance verb still names one member by its own number. A member that crashes the worker is quarantined to a worker of its own and the chain goes on without it; quarantine_clear puts it back. -518 for an instance no add made, -519 for one named twice, -520 for one in another chain, -521 for members no one worker program runs together, -501 for a plugin that may not share a worker while require_pins is on (a CLAP plugin whose first-use pin is not in-process; an LV2 member whose bundle is not found, since a chain's worker sees a world narrowed to the union of its members' bundles), -902 for a chain or an instance that is not a number, or fewer than chain_members_min (1) instances</td>
+</tr>
+<tr>
+<td><code>chain_clear</code></td>
+<td><code>&lt;chain&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>forget the chain: each member goes to a worker of its own; -522 for a chain no chain declared</td>
+</tr>
+<tr>
+<td><code>chain_get</code></td>
+<td><code>&lt;chain&gt;</code></td>
+<td><code>resp 0 &lt;worker&gt; &lt;instance&gt;,... &lt;instance&gt;,...</code></td>
+<td>read a chain back: its worker (- when it has none), its members in the declared order, and the members its worker runs now in their order (- for none); a quarantined member is declared and not running; -522 for a chain no chain declared, -902 for a chain that is not a number</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td><code>&lt;chain&gt; &lt;instance&gt; [&lt;instance&gt; ...]</code></td>
+<td><code>resp 0 &lt;instance&gt;,...;&lt;instance&gt;,...;... &lt;core&gt;,...;&lt;core&gt;,...;...</code></td>
+<td>the instances, in signal order, are planned (the grouping-planner design note): the daemon decides, from the pin and the cost of each, which runs of consecutive members share a worker. A run of two or more is declared as a chain of place chain:&lt;chain&gt;.&lt;k&gt;, k counting segments from 0; a member that shares with no neighbour is placed own. The reply names the segments in order, the members of one joined by commas and the segments by semicolons, then the cores: the segments again with each member replaced by the audio core of the worker that runs it now, - for one the setting placement did not pin (docs/placement.md). A chain planned again keeps the running worker of every segment that did not change, and the daemon plans it again by itself when a member is quarantined and, history_regroup_s after a death that split its group, to gather it. The plan numbers are its own, apart from chain's. While the setting grouping is off the plan is answered and kept for plan_get and nothing moves. A segment that cannot be formed refuses the whole plan with its own code, moves nothing and is told by plan_get as plan-refused:&lt;code&gt;. A segment its worker refuses, which is known only once it has moved, refuses the plan with -501 too, and then every segment ends and each member runs in a worker of its own. -518 for an instance no add made, -519 for one named twice, -520 for one in a chain or in the plan of another chain, -501 for a segment no world can be built for or its worker refuses, -902 for a chain or an instance that is not a number, or fewer than chain_members_min (1) instances</td>
+</tr>
+<tr>
+<td><code>plan_get</code></td>
+<td><code>&lt;chain&gt;</code></td>
+<td><code>resp 0 &lt;instance&gt;,...;&lt;instance&gt;,...;... &lt;instance&gt;:&lt;reason&gt;,... &lt;core&gt;,...;&lt;core&gt;,...;...</code></td>
+<td>read the last plan of a chain back: its segments as plan answered them, then the members that have a reason, instance:reason joined by commas (- for none); the reasons are the words of PLUGIN_HOSTD_GROUPING_REASONS (data/grouping.json), then the cores of the members as plan answers them; -532 for a chain no plan planned, -902 for a chain that is not a number</td>
+</tr>
+<tr>
+<td><code>plan_clear</code></td>
+<td><code>&lt;chain&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>forget the plan: each member goes to a worker of its own; -532 for a chain no plan planned</td>
+</tr>
+<tr>
+<td><code>descriptor_get</code></td>
+<td><code>&lt;uri&gt;</code></td>
+<td><code>resp 0 &quot;&lt;path&gt;&quot;</code></td>
+<td>the scanned descriptor of the plugin, answered from descriptor_dir: the file named for its binary as it is now (&lt;id&gt;@&lt;version&gt;-&lt;hash&gt;.json), written by the scan the plugin's add ran. -529 when there is none, -530 while its scan runs, -531 when its last scan wrote nothing, -528 when the directory could not be written</td>
+</tr>
+<tr>
+<td><code>panel_get</code></td>
+<td><code>&lt;uri&gt;</code></td>
+<td><code>resp 0 &quot;&lt;path&gt;&quot;</code></td>
+<td>the panel the plugin publishes (org.openmixer.panel-description/1), answered from descriptor_dir: the file panels/&lt;id&gt;@&lt;version&gt;-&lt;hash&gt;.json, named as its descriptor, which the same scan writes once the descriptor is in place, {&quot;plugin&quot;: {&quot;format&quot;, &quot;id&quot;}, &quot;panel&quot;: &lt;the panel object omx-clap-scan --json prints for the plugin, null when it serves none&gt;}; an LV2 plugin's panel is null. The codes are descriptor_get's: -529 when there is none, -530 while its scan runs, -531 when its last scan wrote nothing, -528 when the directory could not be written</td>
+</tr>
+<tr>
+<td><code>history_get</code></td>
+<td><code>&lt;uri&gt;</code></td>
+<td><code>resp 0 &lt;history&gt;</code></td>
+<td>what the daemon kept of the plugin on this host class, for the binary its pin holds now (the running history: the windows it ran alone and in a group, its crashes, restarts and quarantines): one word of comma-joined digest=&lt;sha256&gt;, class=&lt;host class&gt;, crashed=&lt;0|1&gt;, raises_xruns=&lt;0|1&gt; and then every key=value of the record (data/history.json); - when the plugin has no pin or no record, unavailable while the history file is blocked or history_window_s is 0, -902 for a line that is not one word</td>
+</tr>
+<tr>
+<td><code>history_clear</code></td>
+<td><code>&lt;uri&gt; | all</code></td>
+<td><code>resp 0</code></td>
+<td>delete the history of one plugin (every binary and host class of it), or all of it, from memory and from the file at once; -902 while the history is blocked or off, or for a line that is not one word</td>
+</tr>
+<tr>
+<td><code>estimate</code></td>
+<td><code>&lt;rate&gt; &lt;quantum&gt; &lt;uri&gt; [&lt;uri&gt; ...]</code></td>
+<td><code>resp 0 &lt;latency_frames&gt; &lt;cpu_percent&gt; &lt;ram_bytes&gt; &lt;workers&gt; &lt;unknown_count&gt; &lt;member&gt;:&lt;code&gt;,... &lt;ram_used_bytes&gt; &lt;ram_added_bytes&gt; &lt;ram_budget_bytes&gt; &lt;ram_unknown_count&gt;</code></td>
+<td>what a chain of these plugins, in signal order and named as add names them, would cost at that rate and quantum, read from the qualification records of qualification_dir; no plugin is loaded and nothing moves. latency_frames adds up each member's measured latency of the grid point, else its declared one; cpu_percent adds up each member's median nanoseconds per sample times the rate, percent of one core's cycle (a member's cost per block over the block's duration); ram_bytes adds up the Pss of the worker each member ran alone in, the history's pss_mb_solo of the binary its pin holds on this host class, - unless every member has one, since no qualification record carries a RAM figure; workers is how many workers plan would place the members in (an isolated one alone); unknown_count is how many members have no figure at that rate and quantum, and the latency and the CPU add up only the others. The last word names each of them as its position in the line, from 0, and its code, -533 for no record, -534 for no point of the grid at that rate and quantum, -535 for a uri that names no plugin installed here, joined by commas, - for none. Several records of one plugin (several versions) give the largest figure. -902 for a rate or a quantum that is not a whole number above 0, or no uri</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>&lt;state&gt;</code> is <code>up</code> (accepting commands), <code>starting</code> (spawned, not yet accepting), <code>backoff</code> (dead, waiting to be respawned), <code>given-up</code> (the storm bound is spent for its placement).
+&lt;!-- END GENERATED protocol:verbs --&gt;</p>
+<p>A record's place holds a colon (<code>pool:p</code>), so a <code>worker_list</code> record is read from both ends: six fields on the
+left, the instance list on the right, the place in between. The fifth is the audio core the setting <code>placement</code> pinned
+the worker to, <code>-</code> for none (<a href="/projects/plugin-hostd/placement">docs/placement.md</a>). The sixth is the worker's thread pool: <code>on</code> for a
+worker started with <code>--thread-pool=on</code>, which only a CLAP or lv2-clap worker of one plugin whose pin carries <code>pool=cores</code>
+is, <code>qualified</code> for every other (the worker's default, which grants the pool to no plugin).</p>
+<p><code>panel_get</code> gives a host that draws a plugin's panel itself (Zynthian's engine, a console) the panel the plugin
+publishes, as the scan of its add read it: sections, controls with their widget and visibility rule, roles, displays
+and placement defaults. A renderer takes the panel for the structure, <code>param_info</code> for each control's unit and scale,
+and <code>remote_page_get</code> for the pages of 8: <a href="/projects/plugin-hostd/panel">docs/panel.md</a>.</p>
+<h2 id="verbs-a-worker-answers-by-instance">Verbs a worker answers, by instance</h2>
+<p>What a host knows of a strip and of a plugin's controls. For a CLAP instance the daemon routes them like mod-host's
+instance verbs and passes the worker's reply through; the worker answers them from the plugin (<code>clap.track-info</code>,
+<code>clap.remote-controls</code>, <code>clap.params</code>), except <code>param_info</code>: omx-clap-host answers it from the param contract (<code>org.openmixer.param-contract/1</code>), and
+<code>-511</code> for a parameter the worker holds no checked contract for (and <code>-103</code> for a symbol that is no parameter). <code>-511</code>
+is the stable answer to read as &quot;no contract; fall back to the layout from <code>omx-clap-scan</code>&quot;; the daemon passes it through
+and drops nothing. For an LV2 instance on mod-host the daemon answers them itself, never forwarding them, so
+mod-host learns none of them: <code>track_info</code> is kept and answered <code>resp 0</code>, and the other two come from the bundle's
+Turtle, read when they are asked (the manifest and the files it names with <code>rdfs:seeAlso</code>). <code>remote_pages</code> and
+<code>remote_page_get</code> make a page of each <code>pg:group</code>'s control inputs in port order (the group's <code>lv2:name</code>, else its
+<code>rdfs:label</code>; a further page, &quot;Name 2&quot;, for each 8 past the first), one page named Controls for the control inputs in
+no group, the pages in the order their group first appears; outputs and <code>pprops:notOnGUI</code> ports are on no page, a slot
+is the port's symbol, and the section is empty. <code>param_info</code> answers a control port from its own statements: its
+<code>units:unit</code> (the words of <code>data/formats/lv2.json</code>, empty for a port with none), <code>stepped</code> for an integer, toggled or
+enumeration port, <code>log</code> for a <code>pprops:logarithmic</code> port whose bounds are positive and <code>linear</code> otherwise, its
+<code>lv2:minimum</code>, <code>lv2:maximum</code> and <code>lv2:default</code> (a toggled port's are 0, 1 and 0 when it states none), a step of 1 for
+a stepped port and 0 for the others, and its symbol. <code>-511</code> stays the answer for a port with a unit the table has no
+word for (a unit of the plugin's own) or no range, and <code>-103</code> for a symbol that is no control port. A bundle the
+daemon cannot find or read has no pages, and <code>param_info</code> asks mod-host as it did. When a CLAP plugin changes its pages, its
+worker writes <code>remote_pages_changed &lt;instance&gt;</code> on its feedback port and the daemon relays it.</p>
+<p>Notes are played the same way, by a controller that is not a jack client (a web console, a test, a MIDI surface on the
+network): <code>note_input</code> says whether an instance takes notes, and <code>note_on</code>, <code>note_off</code> and <code>all_notes_off</code> reach its
+worker unchanged once the daemon has checked their words. A worker answers them from the plugin's note input. mod-host
+takes no notes on its socket, so for an LV2 instance on mod-host the daemon answers all four <code>-514</code>, and the plugin is
+played through its jack MIDI input with <code>connect</code>. omx-clap-host does not answer them yet (FreeMixer/omx-clap-core#122).</p>
+<p><code>preset_list</code> and <code>preset_get</code> list a plugin's presets the way <code>remote_pages</code> and <code>remote_page_get</code> list its pages; the
+key <code>preset_get</code> gives is the one <code>preset_load</code> takes. mod-host cannot list presets, so for an LV2 instance on mod-host
+the daemon answers both <code>-515</code>. omx-clap-host lists them with <code>preset_list</code> and <code>preset_get</code>.</p>
+<p>A plugin with a window or a surface of its own tells its host when the user takes hold of one of its knobs and lets go,
+moves values by itself, and suggests a remote page. Its worker writes <code>param_gesture</code>, mod-host's <code>param_set</code> and
+<code>remote_page_suggest</code> on its feedback port, and the daemon relays them as written, in order (events below). If the
+worker dies, or the instance is removed, while a gesture is held, the daemon ends the gesture itself, so no control
+stays held at the controller. omx-clap-host writes these lines from FreeMixer/omx-clap-core#87 on.</p>
+<p>&lt;!-- BEGIN GENERATED protocol:instance-verbs --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>verb</th>
+<th>arguments</th>
+<th>reply</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>track_info</code></td>
+<td><code>&lt;instance&gt; &lt;name&gt; &lt;#RRGGBB | -&gt; [bus | return | master]</code></td>
+<td><code>resp 0</code></td>
+<td>the strip's name (&quot;&quot; for none), colour and kind, absent for an input channel; a worker whose plugin format has a track-info extension passes them on; any other word is -902</td>
+</tr>
+<tr>
+<td><code>remote_pages</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td><code>resp &lt;count&gt;</code></td>
+<td>the plugin's remote-control pages, from clap.remote-controls; 0 for an instance of a format whose worker has none</td>
+</tr>
+<tr>
+<td><code>remote_page_get</code></td>
+<td><code>&lt;instance&gt; &lt;page&gt;</code></td>
+<td><code>resp 0 &lt;page_id&gt; &lt;section&gt; &lt;page_name&gt; &lt;s1&gt; &lt;s2&gt; &lt;s3&gt; &lt;s4&gt; &lt;s5&gt; &lt;s6&gt; &lt;s7&gt; &lt;s8&gt;</code></td>
+<td>one page, 0 to count - 1: each slot the symbol param_set takes, - for an empty one; -902 for a page that is not one</td>
+</tr>
+<tr>
+<td><code>param_info</code></td>
+<td><code>&lt;instance&gt; &lt;symbol&gt;</code></td>
+<td><code>resp 0 &lt;unit&gt; &lt;scale&gt; &lt;min&gt; &lt;max&gt; &lt;default&gt; &lt;step&gt; &lt;stable_symbol&gt;</code></td>
+<td>what a parameter's value means: its unit, its scale, and the symbol it keeps across hosts and versions; -103 for a symbol that is not a parameter, the plugin's own bypass and :bypass included; -511 for a parameter whose unit and scale the worker holds no checked contract for</td>
+</tr>
+<tr>
+<td><code>preset_list</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td><code>resp &lt;count&gt;</code></td>
+<td>the plugin's presets, the ones its preset discovery or its bundle lists; (-515) for an instance of a worker that cannot list them</td>
+</tr>
+<tr>
+<td><code>preset_get</code></td>
+<td><code>&lt;instance&gt; &lt;index&gt;</code></td>
+<td><code>resp 0 &lt;load_key&gt; &lt;name&gt;</code></td>
+<td>one preset, 0 to count - 1: the key preset_load takes for it, and its name; -902 for an index that is not one</td>
+</tr>
+<tr>
+<td><code>note_input</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td><code>resp 0 &lt;port | -&gt;</code></td>
+<td>whether the instance takes notes: the name of its note input on its worker's jack client, - for a plugin that takes none; (-514) for an instance of a worker that cannot say</td>
+</tr>
+<tr>
+<td><code>note_on</code></td>
+<td><code>&lt;instance&gt; &lt;channel&gt; &lt;key&gt; &lt;velocity&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>play a key: channel 0 to 15, key 0 to 127, velocity 1 to 127, a MIDI note on at the start of the worker's next cycle; (-513) for a plugin that takes no notes, (-514) for an instance of a worker that takes none on its socket, -902 for a word out of its range</td>
+</tr>
+<tr>
+<td><code>note_off</code></td>
+<td><code>&lt;instance&gt; &lt;channel&gt; &lt;key&gt; &lt;velocity&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>release a key, velocity 0 to 127, a MIDI note off; answered as note_on is</td>
+</tr>
+<tr>
+<td><code>all_notes_off</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td><code>resp 0</code></td>
+<td>release every key of every channel, MIDI's all notes off (controller 123) on each; answered as note_on is</td>
+</tr>
+</tbody>
+</table>
+<p>The ledger keeps the latest <code>track_info</code> of an instance and replays it after the add; the others are never replayed. A <code>&lt;scale&gt;</code> is <code>linear</code> (the value is linear in position), <code>log</code> (the value is geometric in position; both bounds are positive), <code>stepped</code> (the whole numbers from min to max, step 1). A string word is at most 255 bytes of UTF-8 with no control character.
+&lt;!-- END GENERATED protocol:instance-verbs --&gt;</p>
+<p>What each host profile owes every verb a controller sends: mod-host's commands, the two that Zynthian's mod-ui still
+names, and the verbs the daemon adds. A verb has a row here before the daemon serves it. The daemon relays a worker's
+verb, an instance verb to the worker that holds the instance and any other to every worker, and passes its answer
+back: a required verb (presets and bundles for the CLAP worker and Zynthian) answers -902
+only while the worker does. MIDI learn and CV addressing are policy of the surfaces: the host answers them only as the
+mechanism, and they stay optional. The preset verbs and the preset file are <a href="/projects/plugin-hostd/presets">docs/presets.md</a>.</p>
+<p>&lt;!-- BEGIN GENERATED protocol:host-verbs --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>verb</th>
+<th>sent by</th>
+<th>lv2-worker</th>
+<th>clap-worker</th>
+<th>console</th>
+<th>zynthian</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>bypass</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>connect</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>param_set</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>state_load</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>state_save</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>state_tmpdir</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>feature_enable</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>bundle_add</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>bundle_remove</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>preset_load</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>preset_save</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>preset_show</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>transport_sync</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>cpu_load</code></td>
+<td>mod-ui</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>midi_learn</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>midi_map</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>midi_unmap</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>cv_map</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>cv_unmap</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>monitor_midi_program</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>monitor_output</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>output_data_ready</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>patch_get</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>patch_set</code></td>
+<td>mod-ui</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>cc_map</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>cc_value_set</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>cc_unmap</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>hmi_map</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>hmi_unmap</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>show_external_ui</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>set_midi_program_change_pedalboard_bank_channel</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>set_midi_program_change_pedalboard_snapshot_channel</code></td>
+<td>mod-ui</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+</tr>
+<tr>
+<td><code>disconnect</code></td>
+<td>mod-host</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>set_bpm</code></td>
+<td>mod-host</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>set_bpb</code></td>
+<td>mod-host</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>quit</code></td>
+<td>mod-host</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>param_get</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>param_monitor</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>licensee</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>monitor</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>load</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>save</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>help</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>track_info</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>remote_pages</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>remote_page_get</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>param_info</code></td>
+<td>mod-host</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>preset_list</code></td>
+<td>daemon</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>preset_get</code></td>
+<td>daemon</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>note_input</code></td>
+<td>daemon</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>note_on</code></td>
+<td>daemon</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>note_off</code></td>
+<td>daemon</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>all_notes_off</code></td>
+<td>daemon</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+<td>optional</td>
+</tr>
+<tr>
+<td><code>worker_list</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>instance_info</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>supervisor_reset</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>quarantine_clear</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>policy_set</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>pool_config</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>worker_env</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>pin_set</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>pin_clear</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>pin_accept</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>pin_reload</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>pin_changed</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>lv2_worker_set</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>chain</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>chain_clear</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>chain_get</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>plan_get</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>plan_clear</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>descriptor_get</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>panel_get</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>history_get</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>history_clear</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>estimate</code></td>
+<td>daemon</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<p>The profiles: <code>lv2-worker</code>, an LV2 plugin's worker: mod-host, or omx-clap-host's LV2 adapter; <code>clap-worker</code>, a CLAP plugin's worker, omx-clap-host; <code>console</code>, the openmixer console as a controller of the daemon; <code>zynthian</code>, Zynthian's mod-ui and its plugind engine as a controller of the daemon. <code>required</code> is answered as its grammar says; <code>optional</code> is answered, or refused with -902, and never misread; <code>absent</code> is refused on purpose, and no client of the profile may need it.
+&lt;!-- END GENERATED protocol:host-verbs --&gt;</p>
+<p>Error codes the daemon adds to mod-host's:</p>
+<p>&lt;!-- BEGIN GENERATED protocol:errors --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>code</th>
+<th>name</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-501</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PLACEMENT_INVALID_RESP</code></td>
+<td>placement invalid: not a placement, or not valid here, as a pool:&lt;name&gt; for a plugin of a format whose pin holds only in a world of the plugin's own, while require_pins is on</td>
+</tr>
+<tr>
+<td><code>-502</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_BACKEND_RESP</code></td>
+<td>no worker program for the scheme</td>
+</tr>
+<tr>
+<td><code>-503</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_WORKER_SPAWN_RESP</code></td>
+<td>the worker is not up: the spawn failed, or it is in backoff; ask again after instance_restored</td>
+</tr>
+<tr>
+<td><code>-504</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_REPLAY_RESP</code></td>
+<td>the name of a refused replay, never a reply: a replayed add that its pin or the worker refuses is announced by the instance_replay_refused event with the refusal's own code, and written to stderr with this one and the step that refused it</td>
+</tr>
+<tr>
+<td><code>-505</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_GAVE_UP_RESP</code></td>
+<td>the storm bound is spent for that placement</td>
+</tr>
+<tr>
+<td><code>-506</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_SUCH_WORKER_RESP</code></td>
+<td>no such worker</td>
+</tr>
+<tr>
+<td><code>-507</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_VERB_DROPPED_RESP</code></td>
+<td>the worker died on this very command and the daemon dropped it: it is not replayed, and the instance_verb_dropped event names it; or it died on, or did not answer in rpc_timeout_ms, the pin_expect of an add, which is then never forwarded</td>
+</tr>
+<tr>
+<td><code>-508</code></td>
+<td><code>OMX_REPLY_HOST_PIN_ABSENT_RESP</code></td>
+<td>pin_mode strict and the plugin has no pin, or its layout pin is in a scheme this version does not know: add is refused and no worker sees it</td>
+</tr>
+<tr>
+<td><code>-509</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PIN_BINARY_MISMATCH_RESP</code></td>
+<td>a pinned file is missing or its SHA-256 differs, or the plugin's manifest names a file the pin does not hold: add is refused and no worker sees it</td>
+</tr>
+<tr>
+<td><code>-510</code></td>
+<td><code>OMX_REPLY_HOST_PIN_LAYOUT_MISMATCH_RESP</code></td>
+<td>the worker found the parameter layout after init differs from the layout pin: the instance is destroyed before activate</td>
+</tr>
+<tr>
+<td><code>-511</code></td>
+<td><code>OMX_REPLY_HOST_NO_PARAM_CONTRACT_RESP</code></td>
+<td>the host holds no checked unit and scale for this parameter: fall back to qualification</td>
+</tr>
+<tr>
+<td><code>-512</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_LV2_ADAPTER_REFUSED_RESP</code></td>
+<td>the lv2-clap worker's LV2 adapter cannot run this plugin (MIDI it does not feed, a required feature it lacks, a layout it does not take): the worker answered the add -102, the lv2_adapter_refused event carries the hosting.* code of that reply, and under lv2_worker auto the plugin is run by the lv2 row instead and this code is never answered; a plugin no bundle of the worker's world holds is no refusal: the worker's -101 is answered</td>
+</tr>
+<tr>
+<td><code>-513</code></td>
+<td><code>OMX_REPLY_HOST_NO_NOTE_INPUT_RESP</code></td>
+<td>the instance's plugin takes no notes (an effect): its worker answers note_on, note_off and all_notes_off with this code</td>
+</tr>
+<tr>
+<td><code>-514</code></td>
+<td><code>OMX_REPLY_HOST_NOTES_BY_JACK_RESP</code></td>
+<td>the instance's worker takes no notes on its socket (mod-host): the daemon answers the note verbs and note_input with this code, and the plugin is played through its jack MIDI input with connect</td>
+</tr>
+<tr>
+<td><code>-515</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_PRESET_LIST_RESP</code></td>
+<td>the instance's worker cannot list the plugin's presets (mod-host): the daemon answers preset_list and preset_get with this code; preset_load still takes a preset the controller knows</td>
+</tr>
+<tr>
+<td><code>-516</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PIN_REFUSED_RESP</code></td>
+<td>the plugin's pin carries verdict=refused: its files are the ones that failed qualification, so add is refused and no worker sees it, and a replayed add is refused the same way; files that differ from the pin answer (-509) first. A pins_dir pin of that verdict is never overridden: pin_set and pin_accept of its plugin answer this code</td>
+</tr>
+<tr>
+<td><code>-517</code></td>
+<td><code>OMX_REPLY_HOST_NOTE_QUEUE_FULL_RESP</code></td>
+<td>the instance's worker has no room for this note_on, note_off or all_notes_off before its next block: the line was not taken and nothing of it is kept; the controller may send it again</td>
+</tr>
+<tr>
+<td><code>-518</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_CHAIN_UNKNOWN_INSTANCE_RESP</code></td>
+<td>a member of chain is an instance no add made: the chain is not declared</td>
+</tr>
+<tr>
+<td><code>-519</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_CHAIN_DUPLICATE_RESP</code></td>
+<td>an instance is named twice in one chain: the chain is not declared</td>
+</tr>
+<tr>
+<td><code>-520</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_CHAIN_INSTANCE_BUSY_RESP</code></td>
+<td>a member of chain is already in another chain: the chain is not declared; chain_clear of the other chain frees it</td>
+</tr>
+<tr>
+<td><code>-521</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_CHAIN_MIXED_FORMAT_RESP</code></td>
+<td>the members of chain are not all run by one worker program, or are of two rows of one program and a row does not run chains in one client, so no one worker runs them: the chain is not declared</td>
+</tr>
+<tr>
+<td><code>-522</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_SUCH_CHAIN_RESP</code></td>
+<td>chain_clear or chain_get of a chain no chain declared</td>
+</tr>
+<tr>
+<td><code>-523</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PRESET_NOT_OFFERED_RESP</code></td>
+<td>the worker: preset_load or preset_show of a stable name the plugin does not offer, or of a plugin with no preset system and no state</td>
+</tr>
+<tr>
+<td><code>-524</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PRESET_INVALID_RESP</code></td>
+<td>preset_save with a file path that is not absolute or with no name, or preset_load or preset_show of a file that cannot be read, is no JSON, is of a format version other than org.openmixer.preset/1 and org.openmixer.preset/2, or breaks the format (docs/presets.md): the daemon answers it and no worker sees the file</td>
+</tr>
+<tr>
+<td><code>-525</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PRESET_NEEDS_STATE_RESP</code></td>
+<td>the worker: a preset file that carries state for a worker that cannot take state yet</td>
+</tr>
+<tr>
+<td><code>-526</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_PRESET_PLUGIN_CHANGED_RESP</code></td>
+<td>the worker: the preset file's plugin id, version or fingerprint is not the instance's; nothing of it is applied</td>
+</tr>
+<tr>
+<td><code>-527</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_LOAD_REFUSED_RESP</code></td>
+<td>the worker: the plugin refused the preset or the state its file carries</td>
+</tr>
+<tr>
+<td><code>-528</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_DIR_NOT_WRITABLE_RESP</code></td>
+<td>descriptor_dir or qualification_dir cannot be made or written: the daemon does not start, and says which key and which path on stderr with this code; a directory that turns read-only later makes the scan of an add write nothing, and descriptor_get and panel_get of that plugin answer this code</td>
+</tr>
+<tr>
+<td><code>-529</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_DESCRIPTOR_ABSENT_RESP</code></td>
+<td>descriptor_get (panel_get) of a plugin that has no descriptor (panel) in descriptor_dir for its binary as it is now, and none being written: no add since it changed, or a binary that cannot be found</td>
+</tr>
+<tr>
+<td><code>-530</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_DESCRIPTOR_PENDING_RESP</code></td>
+<td>descriptor_get (panel_get) of a plugin whose scan, started by its add, has not written its descriptor (panel) yet: ask again</td>
+</tr>
+<tr>
+<td><code>-531</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_DESCRIPTOR_SCAN_FAILED_RESP</code></td>
+<td>descriptor_get (panel_get) of a plugin whose last scan wrote no descriptor (panel): the scanner refused the plugin, made no dump or no panel, or is not installed; the add it ran for stands, and stderr and the scan's log say why. The next add scans again</td>
+</tr>
+<tr>
+<td><code>-532</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_SUCH_PLAN_RESP</code></td>
+<td>plan_get or plan_clear of a chain no plan planned</td>
+</tr>
+<tr>
+<td><code>-533</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_RECORD_RESP</code></td>
+<td>a member of estimate that no qualification record in qualification_dir names: never a reply, the code of the member in the reply's list</td>
+</tr>
+<tr>
+<td><code>-534</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_NO_CELL_RESP</code></td>
+<td>a member of estimate whose qualification records hold no point of the grid at that rate and quantum with a cost and a latency: never a reply, the code of the member in the reply's list</td>
+</tr>
+<tr>
+<td><code>-535</code></td>
+<td><code>OMX_REPLY_PLUGIN_HOSTD_UNKNOWN_PLUGIN_RESP</code></td>
+<td>a member of estimate whose uri names no plugin installed here (its format cannot tell the plugin's binary, or the binary is not there): never a reply, the code of the member in the reply's list</td>
+</tr>
+<tr>
+<td>&lt;!-- END GENERATED protocol:errors --&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A worker's own refusal is returned as it said it. An <code>add</code> that killed its worker answers mod-host's <code>-102</code>.</p>
+<p><code>worker_env</code> offers no real-time priority: a worker's audio thread is set by the jack client library (under a SCHED_FIFO 60
+driver it ran at 55, unasked), and a FIFO priority given to the whole process puts the plugin's own threads above
+it, where a busy thread starves the graph.</p>
+<p>A daemon without privilege cannot give a worker a nice lower than the worker has (a new worker has the daemon's own). The
+verb still answers <code>resp 0</code>, the worker keeps its nice, and the daemon logs <code>worker_env: worker &lt;pid&gt; keeps nice &lt;n&gt;, the nice &lt;m&gt; was not applied</code> on stderr.</p>
+<p>Like mod-host, the daemon serves one controller at a time, and <code>remove</code> of an instance it does not hold answers
+<code>resp 0</code>. With <code>-n</code> and no <code>-f</code> there is no feedback port (mod-host's own rule), and a controller need not open
+one; without <code>-n</code>, or with <code>-f</code>, the daemon waits for the controller to open both. A command that finds its
+worker gone answers <code>PHD_ERR_WORKER_SPAWN</code>: the worker is not up, ask again after <code>instance_restored</code>. A command that
+kills its worker answers <code>PHD_ERR_VERB_DROPPED</code>.</p>
+<p>Events on the feedback port, one NUL-terminated line each:</p>
+<p>&lt;!-- BEGIN GENERATED protocol:events --&gt;</p>
+<table>
+<thead>
+<tr>
+<th>event</th>
+<th>fields</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>worker_died</code></td>
+<td><code>&lt;worker&gt; &lt;pid&gt; &lt;exit:N | signal:N&gt; &lt;instance&gt;,...</code></td>
+<td>a worker died; the instances it held, or - for none</td>
+</tr>
+<tr>
+<td><code>instance_verb_dropped</code></td>
+<td><code>&lt;instance&gt; &lt;the command as sent&gt;</code></td>
+<td>the command a worker died on, dropped from the ledger; or the add it died on, the add as the worker was given it, which names the plugin, or the pin_expect of that add</td>
+</tr>
+<tr>
+<td><code>instance_verb_dropped</code></td>
+<td><code>&lt;instance&gt; suspect:&lt;ms&gt; &lt;the command as sent&gt;</code></td>
+<td>the last verb a worker answered when it died inside suspect_window_ms, &lt;ms&gt; the age of the reply</td>
+</tr>
+<tr>
+<td><code>worker_backoff</code></td>
+<td><code>&lt;worker&gt; &lt;ms&gt;</code></td>
+<td>the respawn waits this long</td>
+</tr>
+<tr>
+<td><code>worker_respawned</code></td>
+<td><code>&lt;worker&gt; &lt;pid&gt; &lt;replayed_count&gt; &lt;ms&gt;</code></td>
+<td>a worker is back and its ledger replayed</td>
+</tr>
+<tr>
+<td><code>instance_restored</code></td>
+<td><code>&lt;instance&gt; &lt;worker&gt;</code></td>
+<td>an instance is back in a worker</td>
+</tr>
+<tr>
+<td><code>instance_replay_refused</code></td>
+<td><code>&lt;instance&gt; &lt;code&gt;</code></td>
+<td>a replayed add was refused, by its pin or by the worker, &lt;code&gt; the refusal's own: no worker holds the instance until the next replay</td>
+</tr>
+<tr>
+<td><code>instance_quarantined</code></td>
+<td><code>&lt;instance&gt; &lt;worker&gt;</code></td>
+<td>the culprit of a pool or a chain death, placed own until cleared; a chain goes on without it</td>
+</tr>
+<tr>
+<td><code>chain_formed</code></td>
+<td><code>&lt;chain&gt; &lt;worker&gt; &lt;instance&gt;,...</code></td>
+<td>a chain's worker is up with these members, in this order, after its declaration, a respawn or a member's quarantine; - for none. &lt;chain&gt; is the number chain declared, or &lt;plan&gt;.&lt;k&gt; for segment k of a plan</td>
+</tr>
+<tr>
+<td><code>chain_refused</code></td>
+<td><code>&lt;chain&gt; &lt;code&gt;</code></td>
+<td>a chain's worker would not run the members as one chain, &lt;code&gt; its own answer, and its stderr says why: the chain is forgotten and each member runs in a worker of its own. &lt;chain&gt; as chain_formed names it</td>
+</tr>
+<tr>
+<td><code>chain_stalled</code></td>
+<td><code>&lt;chain&gt; &lt;instance | -&gt; &lt;step&gt; &lt;code&gt;</code></td>
+<td>a chain, or a plan's segment, has not formed within chain_form_timeout_ms of its declaration: the member and the step that held it (spawn, add, pin, state, memory) and the code it answered, 0 for none, - for no one member; said once each time it is declared or gathered again, and the daemon goes on trying</td>
+</tr>
+<tr>
+<td><code>plan_reason</code></td>
+<td><code>&lt;chain&gt; &lt;instance&gt;:&lt;reason&gt;,...</code></td>
+<td>a plan of the chain changed: the reasons plan_get answers now, after the segments, - for none</td>
+</tr>
+<tr>
+<td><code>supervisor_gave_up</code></td>
+<td><code>&lt;worker&gt; &lt;deaths&gt; &lt;window_ms&gt;</code></td>
+<td>the storm bound is spent; respawning ends</td>
+</tr>
+<tr>
+<td><code>pin_changed</code></td>
+<td><code>&lt;uri&gt; files | layout</code></td>
+<td>an add or a replay of a plugin was refused because its files, or the layout the worker found, differ from its pin; the pin is as it was until pin_accept or pin_set</td>
+</tr>
+<tr>
+<td><code>lv2_adapter_refused</code></td>
+<td><code>&lt;uri&gt; &lt;reason&gt; auto | omx-clap-host</code></td>
+<td>the LV2 adapter of the lv2-clap worker refused a plugin: &lt;reason&gt; is the hosting.* code after -102 on the worker's reply to that add (- when it named none); the last word is the lv2_worker in force, auto for a plugin the lv2 row runs from now on, omx-clap-host for an add answered (-512)</td>
+</tr>
+<tr>
+<td><code>remote_pages_changed</code></td>
+<td><code>&lt;instance&gt;</code></td>
+<td>relayed from a worker: the plugin changed its remote pages; read them again</td>
+</tr>
+<tr>
+<td><code>remote_page_suggest</code></td>
+<td><code>&lt;instance&gt; &lt;page_id&gt;</code></td>
+<td>relayed from a worker: the plugin suggests the remote page of that id (a page_id of remote_page_get); a surface may follow it</td>
+</tr>
+<tr>
+<td><code>param_gesture</code></td>
+<td><code>&lt;instance&gt; &lt;symbol&gt; begin | end</code></td>
+<td>relayed from a worker: the user took hold of a control of the plugin's own, or let it go; a controller writes no automation of that parameter in between. The values the plugin moves meanwhile, or at any time by itself, are mod-host's param_set feedback lines, relayed as written. A gesture whose worker died, or whose instance was removed, before its end is ended by the daemon, before the worker_died event</td>
+</tr>
+<tr>
+<td><code>xruns</code></td>
+<td><code>&lt;count&gt;</code></td>
+<td>relayed from a worker, and read by the daemon: the JACK xruns the worker has counted since it started, written when the count changes and at most once a second; a worker that never writes it counted none. The daemon takes the first count of a worker as its baseline and, at the close of each history window, adds the window to xrun_windows_solo or xrun_windows_grouped of every member of the worker when the count rose in it; a line that is not the word and one whole number is not a count</td>
+</tr>
+<tr>
+<td><code>abi_clobber</code></td>
+<td><code>&lt;instance&gt; &lt;mask&gt; &lt;registers&gt; &lt;call&gt; &lt;block&gt;</code></td>
+<td>relayed from a worker (omx-clap-host 0.26.2 or later), and read by the daemon: the plugin returned from a call with a callee-saved register changed, said once per instance. The worker put the registers back, so its own frame is whole; the other members' state in the same process is not covered, so the daemon quarantines the instance (instance_quarantined, and the history keeps it alone from then on) and, when it shares its worker or is in a chain, moves it to a worker of its own with its state saved; one already alone is only marked</td>
+</tr>
+<tr>
+<td><code>param_set</code></td>
+<td><code>&lt;instance&gt; &lt;symbol&gt; &lt;value&gt;</code></td>
+<td>relayed from a worker: parameter feedback, a value the plugin moved by itself (its automation, an LFO, a preset load, a MIDI map, the user's knob of the plugin's own), as mod-host writes it; a controller updates its control to it. A worker never writes it for a value a controller's param_set gave it, and a worker that writes none changes nothing: the daemon adds no line of its own</td>
+</tr>
+<tr>
+<td>&lt;!-- END GENERATED protocol:events --&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-workers-own-feedback">The workers' own feedback</h2>
+<p>What a worker reports on its feedback port (the <code>output_set</code> of a monitored output, the <code>param_set</code> of a parameter the
+plugin moved, <code>data_finish</code>, the log lines) reaches the controller on the daemon's feedback port, among the events
+above:</p>
+<p>&lt;!-- BEGIN GENERATED protocol:relay --&gt;
+Every worker is started as <code>&lt;program&gt; -n -p &lt;command port&gt; -f &lt;feedback port&gt;</code>.</p>
+<ul>
+<li>every line a worker writes on its feedback port goes out on the daemon's feedback port as the worker wrote it: output_set, param_set, data_finish and the rest of mod-host's feedback, and a line the daemon does not know.</li>
+<li>the instance number in a relayed line is already the controller's: add hands it to the worker unchanged, so nothing in a line is rewritten.</li>
+<li>a worker's lines go out in the order it wrote them, and what a worker wrote before it died goes out before its worker_died event; an instance lives in one worker at a time, so its lines keep their order across a respawn; the lines of different workers interleave.</li>
+<li>monitor_output is in the ledger, one line per output, and param_monitor as it was sent; a respawn replays them after the add, so a respawned instance reports the same outputs, each once, starting again from its first value.</li>
+<li>output_data_ready names no instance and goes to every worker; each worker's data_finish is relayed.</li>
+<li>with no feedback port, or no controller on it, a line is dropped, as mod-host drops it; the daemon reads every worker's feedback all the time, so no worker waits on it.
+&lt;!-- END GENERATED protocol:relay --&gt;</li>
+</ul>
+<p>A synced delay or an arpeggiator comes back at the right tempo after a crash. What the daemon keeps of the commands
+every worker shares:</p>
+<p>&lt;!-- BEGIN GENERATED protocol:host-settings --&gt;</p>
+<ul>
+<li>the tempo, the metre and the transport a controller sets (mod-host's set_bpm, set_bpb, transport and transport_sync) are kept, the latest line of each as it was sent, in the order they were last sent.</li>
+<li>a worker is handed them before anything else: a respawned one before its first add, and a worker started later, of a new placement, as well; a worker's refusal of one is written to stderr and is no failure.</li>
+<li>a line whose words are not that command's grammar is passed on and not kept.
+&lt;!-- END GENERATED protocol:host-settings --&gt;</li>
+</ul>
+<h2 id="probing-a-plugin">Probing a plugin</h2>
+<p><code>plugin-hostd-probe run</code> loads a plugin in a child process under limits and writes down what happened, as facts only: no
+verdict. The child is clap-qualify for a CLAP plugin. For an LV2 plugin, named <code>lv2:&lt;uri&gt;</code>, the child is plugin-qualify's
+<code>lv2_measure</code>, found at run time in <code>/usr/libexec/plugin-qualify</code> (plugin-qualify is not a dependency of this package).
+The runner never loads plugin code itself.</p>
+<pre><code>plugin-hostd-probe run --out probe.json --log probe.stderr.log /usr/lib64/clap/plate.clap org.example.plate
+plugin-hostd-probe run --out probe.json lv2:http://example.org/plate
+</code></pre>
+<p>A CLAP instrument is timed holding notes down: as many as the voice capacity it declares, or, when it declares none,
+the count <code>--probe-notes N</code> gives; <code>--hold N</code> holds that count whatever it declares. Both are passed to clap-qualify.
+Each rate's grid point carries the cost clap-qualify timed at that rate, in nanoseconds per sample, and for an instrument
+<code>voices</code>, the notes it held and why that many (<code>declared</code> or <code>probe</code>). A rate it did not time has no cost. An instrument has
+no input for the impulse, so its latency is measured from a note (<code>method: note-onset</code>), with <code>heard: false</code> at a rate
+where the note did not sound.</p>
+<p>clap-qualify runs under plugin-qualify's interposer, <code>rt_interpose.so</code> beside the child. A bare <code>--child</code> is found as execvp
+finds it; name the child by path when PATH is unset or holds a directory of its name. The measured child gets the interposer
+and nothing else: an <code>LD_PRELOAD</code> the runner was started with is dropped for the measurement, named in <code>run.tools.droppedPreload</code>
+and in the <code>rt-safety</code> step, and put back in the runner's environment after the child. The first grid point carries what process() did under it, and an instrument's
+note sweep carries what process() did while notes played. <code>run.tools.interposer</code> names it once the child says it counted
+under it. With no interposer beside the child, or one that did not load, no count is written: rtSafety says
+<code>interposer: false</code>, and the <code>rt-safety</code> and <code>note-sweep</code> steps are <code>probe.not-attempted</code> and say why.</p>
+<p>An LV2 plugin is measured the way plugin-qualify's LV2 hosting pass measures it, in two children under the same
+limits and the same wall clock. The first child (<code>lv2_measure --pin</code>) pins the bundle's files without instantiating the
+plugin. The second measures at the highest of <code>--rates</code>, in blocks of <code>--quantum</code>, with 30 instantiate and destroy cycles
+and 3 swept rt-safety runs. It runs under plugin-qualify's interposer (<code>rt_interpose.so</code> beside the child, found and with any
+other preload dropped as for clap-qualify) and the noise stimulus. The document's binary is the plugin's library, with every pinned file of the bundle listed. The rate's grid
+point carries what run() did under the interposer and, for a plugin with a MIDI input, its note sweep (what run() did
+while notes played), and <code>behaviour</code> carries the lifecycles, the threads and the features
+the plugin requires. A plugin no bundle holds exits 3 with no document. A plugin of which nothing could be pinned exits 2
+with no document, because the document has no binary to name. Its refusal is a code on stderr: <code>&lt;plugin&gt;: &lt;code&gt;: &lt;why&gt;</code>,
+<code>probe.unpinnable</code> for a bundle the pin cannot cover. Version 1 runs the quick measurement only: the deep lifecycle pass
+and the soak stay plugin-qualify's until the probe protocol says which plugins get them and for how long.</p>
+<p>The runner kills the whole process tree of the child at its wall clock, and again when the child is done, so a process a
+plugin started in a session of its own does not outlive the run. It applies these limits on every Linux: the wall clock,
+the CPU time, the memory, the open files, the file size, no core dump, the real-time priority it was granted and the
+wall budget as its real-time CPU time, the memory it may lock, no new privileges, the child dying with the runner, and the
+cpus the child may use (<code>--cpus</code>). <code>--list-limits</code> prints them as a run on this machine would apply them.</p>
+<p>The measured child runs as the host runs the plugin: SCHED_FIFO at the highest priority the runner may give it (all of it
+with <code>CAP_SYS_NICE</code>, else the <code>RLIMIT_RTPRIO</code> hard limit the runner was started with, else none), with its memory locked
+by the runner's lock preload (<code>&lt;libexecdir&gt;/plugin-hostd/probe-lock.so</code>, <code>/usr/libexec</code> in the packages, beside the interposer) when its <code>RLIMIT_MEMLOCK</code>
+covers the memory limit. The runner itself and an LV2 plugin's pin pass stay SCHED_OTHER. <code>run.realtime</code> says what the
+kernel reported for the child after the exec (class, priority, the priority requested, who granted it, and why none),
+<code>capabilityBound</code> (whether the child, as the kernel reports it, holds no capability in its permitted or effective set, so it cannot raise <code>RLIMIT_RTPRIO</code>, <code>RLIMIT_RTTIME</code> or <code>RLIMIT_MEMLOCK</code> again: the probe drops every capability and the bounding set, which a runner without <code>CAP_SETPCAP</code> cannot, and then it says <code>false</code>),
+<code>offer.realtime</code> is that class, and <code>run.memoryLock</code> says whether the lock held. A service that runs the probe passes the
+grant with <code>LimitRTPRIO=</code> and <code>LimitMEMLOCK=</code> (<a href="/projects/plugin-hostd/own-host#measuring-plugins-at-real-time-priority">docs/own-host.md</a>). A limit the set asks for and this version does not
+apply (the number of tasks, namespaces, Landlock, seccomp) is listed in the document under <code>limits.unavailable</code> with its
+code, and <code>--require tasks</code> makes the run refuse instead.</p>
+<p>The memory limit (<code>--data-bytes</code>) is <code>memory.max</code> of a cgroup the measured child runs in, so the kernel counts what the
+plugin really holds and kills its whole tree at the limit; that run ends <code>probe.memory-limit</code>, with the limit in the step's
+detail and the document written as for any other outcome. The cgroup goes under the runner's own cgroup when that hands the
+memory controller down, else beside it, else, when the runner is alone in a delegated cgroup, under it once the runner has
+stepped into a leaf; it is removed after the run. A machine that gives none of these bounds the child with <code>RLIMIT_DATA</code>, and
+<code>limits.unavailable</code> says so: <code>memory</code> with <code>probe.limit.cgroup-absent</code> (no cgroup v2 hierarchy) or
+<code>probe.limit.controller-not-delegated</code>. Children other than the measured one always run under <code>RLIMIT_DATA</code>.</p>
+<p>A plugin's footprint, when the child took one, is the point's <code>memory</code>: how far the resident set grew from before the plugin
+loaded, in KB, after instantiate, after activate, at rest after processing, with notes held, and what a second instance
+added. A figure the child could not take is absent, and <code>unmeasuredReason</code> says why when none could be.</p>
+<p>A crash, a hang and a timeout are outcomes in the document, never a missing document: the steps the child finished before
+dying stay in it. The exit status says whether there is one: 0 a complete run, 1 a document with some step that ended
+otherwise, 2 no document, 3 no such plugin. The document is described by <code>probe-output.schema.json</code>, generated from the
+codes in <code>protocol.h</code>, and installed with the protocol.</p>
+<h2 id="pins">Pins</h2>
+<p>Why: a plugin is checked before the console trusts it. We measure one build of it for crashes, real-time safety and
+its parameters. The pin makes sure the bytes that load are the bytes that were checked, so an update or a swapped
+file cannot slip in unchecked. The layout pin also protects the controls: presets, surfaces and the REST rows are
+mapped to the plugin's parameters, and a changed layout would send values to the wrong ones. It also leaves a record
+you can audit: the exact plugin build that processed the audio.</p>
+<p>With <code>require_pins</code> on, the default, <code>add</code> admits only a plugin that has a pin: the SHA-256 of
+every file the host loads for it, and its parameter layout fingerprint. Before any worker is spawned or sees the
+<code>add</code>, the daemon hashes each pinned file over one open descriptor: for a CLAP the files beside the <code>.clap</code> that
+<code>clap:&lt;path&gt;#&lt;id&gt;</code> names, the <code>.clap</code> itself among them; for an LV2 the files of the bundle whose <code>manifest.ttl</code> names
+the URI, the manifest among them, and every file the manifest names with <code>lv2:binary</code> or <code>rdfs:seeAlso</code> for the plugin
+must be held by the pin. No pin, or a layout pin in a scheme this version does not know, answers <code>PHD_ERR_PIN_ABSENT</code>;
+a file missing, changed or not held answers <code>PHD_ERR_PIN_BINARY_MISMATCH</code>. For a CLAP the daemon then sends the worker
+<code>pin_expect &lt;instance&gt; &lt;layout pin&gt;</code> and the <code>add</code> unchanged, and the worker answers <code>PHD_ERR_PIN_LAYOUT_MISMATCH</code>
+when the layout after <code>init</code> is not the pinned one; a worker that refuses <code>pin_expect</code> gets no <code>add</code>, and its refusal
+is the reply, and one that dies on it or does not answer it is dropped with <code>PHD_ERR_VERB_DROPPED</code>, the
+<code>instance_verb_dropped</code> event naming the <code>pin_expect</code>. An LV2 worker gets no pin verb: its layout is its bundle's TTL,
+which the hash covers, in a world of that one bundle; so a pinned LV2 plugin gets a worker of its own, a <code>default</code> that
+resolves to a pool is placed <code>own</code> and an explicit <code>pool:&lt;name&gt;</code> answers <code>PHD_ERR_PLACEMENT_INVALID</code>.</p>
+<p>Where the pin comes from is <code>pin_mode</code>. <code>strict</code> takes it from <code>pin_set</code> or from a <code>pin_file</code> loaded at start, and a
+plugin with no pin is refused. <code>first-use</code>, the default, records it: the first <code>add</code> of a plugin with no pin hashes its
+files, keeps the pin in the pin store (<code>$XDG_STATE_HOME/plugin-hostd/pins</code>) and places the instance <code>own</code>; the layout is
+asked of the worker after the add (<code>pin_layout</code>) and recorded too. A host that pins by itself sets <code>pin_mode strict</code>.
+The store, a <code>pin_file</code> and <code>pin_set</code> carry one line format, <code>pin_set &lt;uri&gt; &lt;files&gt; &lt;layout&gt; [verdict=&lt;word&gt;]</code> with the
+verb optional in a file. In <code>first-use</code> only a pin with <code>verdict=in-process</code>, which plugin-qualify writes, lets a plugin
+share a worker. A pin with <code>verdict=refused</code> names files that failed qualification. Their <code>add</code> answers <code>-516</code>
+(<code>PIN_REFUSED</code>), no worker sees it, and a replay is refused with the same code. A pin that changes to <code>refused</code> while
+the instance runs takes effect at its next replay. Files that differ from the pin answer <code>-509</code> first, because the
+verdict was given for the pinned files only.</p>
+<p>The pins are read again while the daemon runs, so a plugin upgrade never needs a restart (#255). The daemon stats the
+<code>pin_file</code> and the <code>pins_dir</code> files at every idle tick and before every <code>add</code>, and reads them again when one changed
+(a rewrite in place or a rename over it); <code>pin_reload</code>, and the sync's <code>pin_changed</code> notice, do the same at once. The
+new tables are put in whole or not at all: a <code>pin_file</code> with a line outside the grammar answers <code>-902</code> and the earlier
+pins hold. A <code>pin_set</code> of a controller is not in any file and is kept. Running instances keep running: one whose files
+the new pins refuse is logged on stderr, and its id in <code>worker_list</code> is followed by <code>!</code> until a pin holds it again. A plugin that changed since it was pinned is refused (-509, or -510 from the worker), the
+<code>pin_changed &lt;uri&gt; files|layout</code> event names what changed, and <code>pin_accept &lt;uri&gt;</code> takes the new pin.</p>
+<p>Pins that ship with packages live in a read-only layer of their own, under the host's. At start the daemon reads
+every <code>*.pins</code> file of <code>pins_dir</code> (<code>/usr/share/plugin-hostd/pins.d</code> by default; empty is none), in byte order of
+their names, in the same line format. A package drops its own file there, so its plugins and their pins are replaced
+in one transaction and removed together; plugin-hostd owns the directory and another package may co-own it. The
+daemon never writes it. A pin from this layer is trusted as it is, in both pin modes. The rules:</p>
+<ul>
+<li>A pins.d pin with <code>verdict=refused</code> always holds. The pin store, a <code>pin_file</code> and <code>pin_set</code> never override it:
+<code>pin_set</code> and <code>pin_accept</code> of its uri answer <code>-516</code> (<code>PIN_REFUSED</code>), and a line of the store or of the <code>pin_file</code>
+for it is kept but has no effect, which stderr says at start.</li>
+<li>Any other pins.d pin is under the host's layer. A pin of the same uri in the store, the <code>pin_file</code> or from
+<code>pin_set</code> holds over it, and <code>pin_accept</code> of a plugin whose files differ from its package pin records the new files
+in the store, which then hold. <code>pin_clear</code> forgets the host's pin only: the package pin holds again.</li>
+<li>When two pins.d files hold the same uri, a refusal wins; otherwise the file last in name order wins. Two lines of
+one file follow the same rule, the later line in place of the later file.</li>
+<li>A line outside the grammar, or longer than a pin line can be, is skipped and named on stderr; the rest of the file
+is read. A file that cannot be read is named on stderr and skipped. A directory that is missing or empty holds no
+pins and is no error.</li>
+</ul>
+<p>What cannot be pinned:</p>
+<p>&lt;!-- BEGIN GENERATED protocol:pin-limits --&gt;</p>
+<ul>
+<li>a path holding ',', '=' or whitespace cannot be pinned: they are the separators of pin_set's words, and pin_set refuses it as a token outside its grammar.</li>
+<li>a pin_set line is at most line_max, 4096 bytes, the protocol socket's buffer; a longer one is refused as outside the grammar.</li>
+<li>a manifest that uses @base makes add answer OMX_REPLY_PLUGIN_HOSTD_PIN_BINARY_MISMATCH_RESP (-509): the daemon does not resolve it, so it cannot know the file the host would load. A file the manifest names by a percent-encoded IRI is pinned as written, one word, and opened decoded; a name with a stray % is refused the same way.
+&lt;!-- END GENERATED protocol:pin-limits --&gt;</li>
+</ul>
+<p>Pins are the controller's policy, like <code>policy_set</code>: not in the ledger, gone with the daemon, set again by a controller
+that reconnects. A replayed <code>add</code> is checked again, so a file swapped while a worker was down is refused on respawn:
+the daemon emits <code>instance_replay_refused &lt;instance&gt; &lt;code&gt;</code> with the refusal's own code (the pin's, or the worker's
+when it refuses the replayed <code>pin_expect</code> or <code>add</code>), writes <code>PHD_ERR_REPLAY</code>, the step and that code to stderr, and
+the worker does not hold that instance until a later replay passes. The hashing and the layout serialisation are <code>include/plugin-hostd/pin.h</code>, installed beside the
+protocol header for the hosts that check a layout.</p>
+<h2 id="the-running-history">The running history</h2>
+<p>The daemon keeps what each plugin did on this machine, per plugin, per binary and per host class: the file named by
+<code>history_file</code>, else <code>$XDG_STATE_HOME/plugin-hostd/history</code>, else <code>$HOME/.local/state/plugin-hostd/history</code>. It is
+local: it holds URIs, digests and counters, no audio, no path, no user, session or preset name, the daemon sends it
+nowhere and no verb writes it from outside; <code>history_clear &lt;uri | all&gt;</code> deletes it. Only the daemon writes it, mode
+0600 in a directory of mode 0700, to a temporary file that is renamed over it, at most once per <code>history_save_s</code> and
+at quit. <code>history_window_s</code> 0 keeps none.</p>
+<p>The first line is <code># plugin-hostd history/1</code>, then one line per key, <code>history &lt;uri&gt; &lt;binary digest&gt; &lt;host class&gt; key=value ...</code>. The binary digest is the SHA-256 of the first file the plugin's pin holds, so a plugin with no pin has
+no history and a changed plugin starts a record of its own, the old one kept and not read. The host class is
+<code>arch/cores/clock</code> as the probe writes it (<code>x86_64/5-8/2.5-3.5GHz</code>), or the <code>host_class</code> setting. The keys are the
+words of <code>PLUGIN_HOSTD_HISTORY_KEYS</code> in <a href="https://github.com/FreeMixer/plugin-hostd/blob/b4ea6a9/data/history.json">data/history.json</a>: <code>first</code>, <code>last</code>, <code>windows_solo</code>,
+<code>windows_grouped</code>, <code>cpu_p95_solo</code>, <code>cpu_max_solo</code>, <code>pss_mb_solo</code>, <code>xrun_windows_solo</code>, <code>xrun_windows_grouped</code>,
+<code>crashes_solo</code>, <code>crashes_grouped</code>, <code>restarts_grouped</code>, <code>quarantines</code>, <code>last_crash</code>, <code>last_crash_grouped</code>.</p>
+<p>A window is <code>history_window_s</code> seconds of one worker: its utime plus stime from <code>/proc/&lt;pid&gt;/stat</code> as percent of one
+core, and the <code>Pss</code> of its <code>smaps_rollup</code>. A worker of its own gives a window to the plugin it holds; a worker of two
+or more gives one to each member, counted in <code>windows_grouped</code> and nowhere else, because a group's CPU cannot be split
+among its members. <code>cpu_p95_solo</code> is an estimate that needs no list of windows: each window above it moves it up
+by 0.95 of 2 percent of itself and each one not above moves it down by 0.05 of that. A window in which the members of
+the worker changed is dropped, and a worker that died is counted if it had been up for half the window. A crash is
+counted when the daemon names a culprit (<code>crashes_solo</code> in a worker of its own, <code>crashes_grouped</code> in a group), the
+members that went down with it and were not the culprit get <code>restarts_grouped</code>, and a quarantine counts in
+<code>quarantines</code>. A worker writes <code>xruns &lt;count&gt;</code> on its feedback port, the JACK xruns it has counted since it started,
+when the count changes. The daemon takes the first count of a process as its baseline, never as xruns of the window it
+arrives in, and at the close of a window adds one to <code>xrun_windows_solo</code> or <code>xrun_windows_grouped</code> of every member of
+the worker when the count rose in it, however many xruns it rose by. A worker that wrote no count counted none; a
+restarted worker counts from zero and its first count is a baseline again; a line that is not the word and one whole
+number is not a count.</p>
+<p>A line this version cannot read, or with a key it does not know, is kept as it is by every save and is not read. A file
+that cannot be read, or whose first line is another version, is neither read nor overwritten: stderr says why, and
+<code>history_get</code> answers <code>unavailable</code> until the file is repaired or removed.</p>
+<p><code>history_get &lt;uri&gt;</code> answers the record of the binary the pin holds now, on this host class, as one word: <code>digest=</code>,
+<code>class=</code>, <code>crashed=1</code> when a crash is within 30 days, <code>raises_xruns=1</code> when the share of xrun windows in a group
+exceeds the share alone by 5 points (from 30 windows in a group), and then every key. <code>-</code> is no record.</p>
+<p>The planner reads that summary. A plugin the history marks <code>crashed</code>, or the daemon has quarantined, is left alone by
+the next plan with the reason <code>history-crashed</code>; one marked <code>raises_xruns</code> with <code>history-xruns</code>. Both are judged after
+the pin's rules (a history makes a plan more careful than the pin, never less) and before the cost. A plugin's cost is
+the larger of its qualification record's and its <code>cpu_p95_solo</code> (percent of one core, from the windows it ran alone). A
+plugin with no history is judged by its pin and its cost alone. With the history blocked or <code>history_window_s</code> 0 the plan
+is the pins' and the costs', and every member with nothing harder to say says <code>history-unavailable</code>.</p>
+<p>A plan is made again by the daemon, never in the middle of a cycle of a worker, when a member of it is quarantined or
+its quarantine is cleared, and <code>history_regroup_s</code> seconds after a death that named no culprit and split a group, if no
+member of the plan has died since: the segments that did not change keep their workers, a group that was split is
+gathered, and the member the history marks goes alone. The new reasons come as a <code>plan_reason</code> event and in <code>plan_get</code>.</p>
+<p><code>estimate &lt;rate&gt; &lt;quantum&gt; &lt;uri&gt; [&lt;uri&gt; ...]</code> answers what a chain of those plugins would cost before any of them is
+added: a chain editor asks it before an insert. It loads nothing and moves nothing. The figures come from the
+qualification records of <code>qualification_dir</code>, the grid point at that rate and quantum: the latency is the measured
+frames, else the declared ones, added up; the CPU is the cost median in nanoseconds per sample times the rate, added up,
+as percent of one core's cycle. No per-worker overhead is added: none is measured. The RAM is the history's
+<code>pss_mb_solo</code> of each member, in bytes, and <code>-</code> unless every member has one. The workers are the segments <code>plan</code> would make of the members, so an isolated plugin counts a worker of
+its own. A member with no figure at that rate and quantum is counted and named by its position in the line, from 0,
+with <code>-533</code> (no record names it), <code>-534</code> (no point of the grid at that rate and quantum with a cost and a latency) or
+<code>-535</code> (the uri names no plugin installed here, which <code>plan</code> would place nowhere); the latency and the CPU add up only
+the others, so a client says &quot;not measured&quot; for those members and never reads their figure as 0.</p>
+<p>Four more words answer whether the chain fits in memory. <code>ram_used_bytes</code> is what the plugins running now hold, the Pss of
+every worker, <code>-</code> when one cannot be read. <code>ram_added_bytes</code> is what the members would add, from the memory of the
+qualification records at that rate and quantum: what instances of one plugin share is counted once in a segment, since a
+segment is one process, and again in another segment, which loads it again. <code>ram_budget_bytes</code> is the host's <code>ram_budget_mb</code>,
+<code>-</code> when none is set. <code>ram_unknown_count</code> is how many members have no figure: they add nothing to the sum and are not 0, and
+when no member has one <code>ram_added_bytes</code> is <code>-</code>:</p>
+<pre><code>estimate 48000 128 clap:/usr/lib64/clap/a.clap#org.example.a clap:/usr/lib64/clap/a.clap#org.example.b
+resp 0 64 9.60 - 1 1 1:-534 0 104857600 2147483648 1
+</code></pre>
+<h2 id="what-a-worker-must-do">What a worker must do</h2>
+<ul>
+<li>answer mod-host's protocol on <code>-n -p &lt;port&gt; -f &lt;port&gt;</code>, the feedback port opened by the daemon right after the
+command port;
+&lt;!-- BEGIN GENERATED protocol:worker-ready --&gt;</li>
+<li>print a line ending <code>ready!</code> on stdout once its socket accepts;
+&lt;!-- END GENERATED protocol:worker-ready --&gt;</li>
+<li>write, for <code>state_save &lt;dir&gt;</code>, files whose names begin <code>effect_&lt;instance&gt;</code> and read them back on
+<code>state_load &lt;dir&gt;</code>, skipping an instance with no file.</li>
+</ul>
+<p><code>mod-host</code> and <code>omx-clap-host</code> do.</p>
+<h2 id="formats">Formats</h2>
+<p>The daemon holds its plugin formats in one table, <code>src/formats.c</code>, and nothing else in the daemon, the protocol or the
+pins names a format. A row says how a uri reaches the format (<code>prefix</code>, <code>strip_prefix</code>, <code>fallback</code>), which program serves
+it (<code>worker</code>), where its plugins are searched and how a worker's world is narrowed to one plugin (<code>search</code>, <code>world_env</code>,
+<code>narrow_world</code>), which files a pin holds (<code>pin_collect</code>), whether the worker checks the layout (<code>layout_check</code>), whether
+a pinned plugin must run in a worker of its own (<code>pinned_own_only</code>) and who answers the instance verbs
+(<code>native_instance_verbs</code>, else <code>param_info</code>). Adding a format is a row and its worker; <code>formats_register</code> refuses a row
+with a capability missing and says which. a test registers a third format in the test and takes it through
+<code>add</code>, <code>param_set</code>, <code>pin_set</code> and <code>remove</code>.</p>
+<h2 id="who-runs-an-lv2-plugin">Who runs an LV2 plugin</h2>
+<p><code>lv2_worker</code> chooses the program that runs LV2 plugins: <code>auto</code> (the default: the adapter first, mod-host for a plugin the
+adapter refuses, and for every add while omx-clap-host is not installed), <code>omx-clap-host</code> (the <code>clap_host</code> program, through
+its LV2 adapter, a plugin it cannot run refused with a code) or <code>mod-host</code> (the <code>mod_host</code> program). <code>lv2_worker_set &lt;uri&gt; &lt;mod-host|omx-clap-host|auto|-&gt;</code> overrides it for one plugin from then on, and <code>-</code> takes
+the override back. The two programs are two rows of the table, <code>lv2</code> and <code>lv2-clap</code>, so <code>policy_set</code>, <code>worker_env</code> and
+<code>worker_list</code> name them like any format. The adapter row differs from the mod-host row in these ways, each held by a test:</p>
+<table>
+<thead>
+<tr>
+<th>capability</th>
+<th><code>lv2</code> (mod-host)</th>
+<th><code>lv2-clap</code> (omx-clap-host)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>worker</code></td>
+<td><code>mod_host</code></td>
+<td><code>clap_host</code>, given the uri with its <code>lv2:</code> prefix</td>
+</tr>
+<tr>
+<td><code>native_instance_verbs</code></td>
+<td>no: the daemon answers <code>track_info</code>, <code>remote_pages</code>, <code>remote_page_get</code> and <code>param_info</code></td>
+<td>yes: the worker answers them from the plugin, and <code>track_info</code> is replayed to it after a respawn</td>
+</tr>
+<tr>
+<td><code>layout_check</code></td>
+<td>no</td>
+<td>no: an LV2 pin holds the layout of the plugin's ports, not of the CLAP parameters the adapter presents, so <code>pin_expect</code> would refuse every pin <code>plugin-qualify</code> wrote</td>
+</tr>
+<tr>
+<td><code>world_scope</code></td>
+<td>one bundle, narrowed: <code>LV2_PATH</code> holds a link to the plugin's bundle</td>
+<td>the same: the adapter opens bundles through the LV2 world</td>
+</tr>
+<tr>
+<td><code>pin_pool</code></td>
+<td>no: a pinned plugin is placed <code>own</code></td>
+<td>the same, for the same reason</td>
+</tr>
+</tbody>
+</table>
+<p>An adapter handles a subset of LV2. When it refuses a plugin, the worker answers the add <code>resp -102 &lt;hosting code&gt;</code>
+(for instance <code>hosting.features.midi-in-fed-empty</code>, <code>hosting.features.missing</code>, <code>hosting.topology.wider-than-strip</code> or
+<code>hosting.no-realisation</code>). The add under <code>omx-clap-host</code> then answers <code>-512</code> (<code>LV2_ADAPTER_REFUSED</code>) and the
+<code>lv2_adapter_refused</code> event carries that code, read from the reply to that add and never from the worker's log, which a
+pool worker shares with other plugins (<code>-</code> when the reply named none). Under <code>auto</code> the add is made again on the <code>lv2</code>
+row, the plugin stays there, the event is sent once, and the controller never sees <code>-512</code>. The daemon remembers the refusal until
+the adapter has a reason to take the plugin again: <code>lv2_worker_set</code> of that uri (to any word, <code>-</code> included) forgets it, and
+so does a change of pins (<code>pin_set</code>, <code>pin_accept</code>, <code>pin_clear</code>) for every plugin; the next add under <code>auto</code> asks the
+adapter once more.</p>
+<p>A plugin the adapter refused under <code>auto</code> runs on the <code>lv2</code> row in a worker of its own, whatever the policy says, unless
+its add names a placement. The adapter never ran it, so nothing says it is safe in a shared worker. Some plugins abort
+in instantiate: drumkv1, samplv1 and synthv1 do, through Qt, when no display is set. Such a plugin takes down only
+its own worker. The add answers <code>-102</code>, and an <code>instance_verb_dropped</code> event names the add with its uri.</p>
+<p>A plugin that no bundle of the worker's world holds is not a refusal: the worker answers <code>resp -101</code> with no code. Under
+<code>omx-clap-host</code> the add answers that <code>-101</code>, with no event. Under <code>auto</code> the same add is made on the <code>lv2</code> row, so mod-host
+looks for the plugin; nothing is remembered, and the adapter is asked again on the next add. Under <code>auto</code> an
+<code>omx-clap-host</code> that is not installed is not an error either: the add goes to the <code>lv2</code> row.</p>
+</article><nav class="hidden lg:block" aria-label="Contingut"><!--[--><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#install" class="text-ink-dim hover:text-accent">Install</a></li><li><a href="#status" class="text-ink-dim hover:text-accent">Status</a></li><li><a href="#try-it" class="text-ink-dim hover:text-accent">Try it</a></li><li><a href="#protocol" class="text-ink-dim hover:text-accent">Protocol</a></li><li><a href="#running" class="text-ink-dim hover:text-accent">Running</a></li><li><a href="#placement" class="text-ink-dim hover:text-accent">Placement</a></li><li><a href="#grouped-workers-against-one-process-per-plugin" class="text-ink-dim hover:text-accent">Grouped workers against one process per plugin</a></li><li><a href="#verbs-the-daemon-adds" class="text-ink-dim hover:text-accent">Verbs the daemon adds</a></li><li><a href="#verbs-a-worker-answers-by-instance" class="text-ink-dim hover:text-accent">Verbs a worker answers, by instance</a></li><li><a href="#the-workers-own-feedback" class="text-ink-dim hover:text-accent">The workers&#39; own feedback</a></li><li><a href="#probing-a-plugin" class="text-ink-dim hover:text-accent">Probing a plugin</a></li><li><a href="#pins" class="text-ink-dim hover:text-accent">Pins</a></li><li><a href="#the-running-history" class="text-ink-dim hover:text-accent">The running history</a></li><li><a href="#what-a-worker-must-do" class="text-ink-dim hover:text-accent">What a worker must do</a></li><li><a href="#formats" class="text-ink-dim hover:text-accent">Formats</a></li><li><a href="#who-runs-an-lv2-plugin" class="text-ink-dim hover:text-accent">Who runs an LV2 plugin</a></li><!--]--></ul><!--]--><!--[--><p class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-accent">Més de plugin-hostd</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="/ca/projects/plugin-hostd/formats" class="text-ink-dim hover:text-accent">docs/formats.md</a></li><li><a href="/ca/projects/plugin-hostd/own-host" class="text-ink-dim hover:text-accent">the highest SCHED_FIFO priority, which the probe asks for, and a lock as large as the probe&#39;s memory limit</a></li><li><a href="/ca/projects/plugin-hostd/panel" class="text-ink-dim hover:text-accent">docs/panel.md</a></li><li><a href="/ca/projects/plugin-hostd/placement" class="text-ink-dim hover:text-accent">docs/placement.md</a></li><li><a href="/ca/projects/plugin-hostd/presets" class="text-ink-dim hover:text-accent">Presets in the host</a></li><!--]--></ul><!--]--><p class="mt-8 text-sm"><a href="/ca/projects" class="text-accent hover:underline">Tots els projectes</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/projects/plugin-hostd/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"project-plugin-hostd-":-1},"\u002Fca\u002Fprojects\u002Fplugin-hostd",1793751247053]</script></body></html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html><html  lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>the highest SCHED_FIFO priority, which the probe asks for, and a lock as large as the probe&#x27;s memory limit | plugin-hostd | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/projects/plugin-hostd/own-host/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DLv1zT_v.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/B0w9kckf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CF5KCtY-.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/e63HFAnf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CD3ALZ0F.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BnH_th5I.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CoQTvKFp.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dexg_6ZX.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CqEFv2MT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/d05kRPiJ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BVB5ZYNh.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Cj5AVrYJ.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/projects/plugin-hostd/own-host" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/projects/plugin-hostd/own-host" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/projects/plugin-hostd/own-host" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/projects/plugin-hostd/own-host"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/projects/plugin-hostd/own-host"><meta id="i18n-og" property="og:locale" content="en"><meta id="i18n-og-alt-ca" property="og:locale:alternate" content="ca"><meta name="description" content="The documentation of plugin-hostd, as the project writes it."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/" class="group flex items-center gap-3" aria-label="OpenMixer home"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main"><!--[--><a href="/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Architecture</a><a href="/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Features</a><a href="/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Benchmarks</a><a href="/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Docs</a><a href="/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">FAQ</a><a href="/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Get it</a><a href="/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Links</a><!--]--></nav><!--[--><a href="/ca/projects/plugin-hostd/own-host" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="ca" lang="ca" aria-label="Català" title="Català">ca</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menu" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">plugin-hostd</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">the highest SCHED_FIFO priority, which the probe asks for, and a lock as large as the probe&#39;s memory limit</h1><!----><!--[--><p class="mt-4 text-sm text-ink-dim">The project&#39;s own text, in English. <a href="https://github.com/FreeMixer/plugin-hostd/blob/b4ea6a9/docs/own-host.md" class="text-accent hover:underline" rel="noopener">The source of this page</a></p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body" lang="en"><h1 id="use-plugin-hostd-in-your-own-host">Use plugin-hostd in your own host</h1>
+<p>This page takes a Debian machine (Raspberry Pi OS, Zynthian, any Debian 12 or 13, arm64 or amd64) from nothing to a
+plugin running under plugin-hostd, driven over its socket, in nine commands, and then runs an LV2 plugin the same way in eight more. CI runs every command below, as written, in
+a clean Debian container on Debian 12 and 13, on both architectures; a step that stops working fails that job.</p>
+<p>The plugin is a CLAP effect from the <code>omx-plugins-clap</code> package, so nothing else has to be installed to try it. Any
+host that already speaks mod-host's socket protocol can send the same lines.</p>
+<p>The first line of the block is a helper, not counted: one protocol message in, the reply out (a message ends in a NUL
+byte, which <code>printf</code> adds). A trailing <code># resp ...</code> or <code># has ...</code> is the reply or output CI expects; to you it is a
+comment.</p>
+<p>The commands, in order. Run them as a normal user with <code>sudo</code>, or as root:</p>
+<pre><code class="language-sh">send() { printf '%s\0' &quot;$1&quot; | nc -w3 127.0.0.1 5555 | tr '\0' '\n'; }
+curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb
+sudo apt-get install -y ./openmixer-release.deb
+sudo apt-get update &amp;&amp; sudo apt-get install -y plugin-hostd omx-clap-host omx-plugins-clap jackd2 netcat-openbsd
+jackd -r -d dummy &gt;/dev/null 2&gt;&amp;1 &amp; sleep 2
+plugin-hostd -n -p 5555 &gt;plugin-hostd.log 2&gt;&amp;1 &amp; sleep 2
+omx-clap-scan /usr/lib/clap/omx-comp.clap | grep 'param 1 '  # has Ratio [1 .. 20] default 4
+send &quot;add clap:/usr/lib/clap/omx-comp.clap#org.openmixer.comp 0&quot;   # resp 0
+send &quot;param_set 0 1 8&quot;   # resp 0
+send &quot;param_get 0 1&quot;   # resp 0 8.0000
+</code></pre>
+<p>What each step did:</p>
+<ol>
+<li><code>curl</code> fetches the repository key of the FreeMixer channel. It signs every package, for x86_64 and arm64.</li>
+<li>The <code>echo</code> adds the channel for your Debian release (<code>bookworm</code> and <code>trixie</code> are published).</li>
+<li><code>apt-get install</code> takes the daemon, the CLAP worker <code>omx-clap-host</code>, a set of CLAP plugins to try, and JACK. On a
+machine that already runs JACK (Zynthian does) leave <code>jackd2</code> out.</li>
+<li><code>jackd -r -d dummy</code> starts a JACK server that needs no sound card. On a real machine use the one you have.</li>
+<li><code>plugin-hostd -n -p 5555</code> starts the daemon on the command port, 5555. It prints <code>plugin-hostd ready!</code> once the port
+accepts. No worker exists until the first <code>add</code>. The ports listen on 127.0.0.1; a controller on another machine needs
+<code>--bind-address</code> (<code>man plugin-hostd</code>).</li>
+<li><code>omx-clap-scan</code> reads the plugin's layout: every parameter, its number, range and default. The number is the symbol
+the protocol takes, so the compressor's Ratio is <code>1</code>.</li>
+<li><code>add</code> loads the plugin as instance <code>0</code>. The daemon starts a worker of its own for it, a JACK client named
+<code>effect_0</code>, and puts it back if it dies.</li>
+<li><code>param_set</code> sets Ratio to 8.</li>
+<li><code>param_get</code> reads it back.</li>
+</ol>
+<h2 id="lv2-plugins">LV2 plugins</h2>
+<p>Zynthian's plugins are mostly LV2. <code>omx-clap-host</code>, which you already installed, also runs an LV2 plugin through its LV2
+adapter; the LV2 build of the same plugins is the package <code>omx-plugins-lv2</code>. Continue in the same shell, with the
+<code>send</code> helper of the first block and JACK still running. <code>lv2_worker</code> names the program that runs LV2 plugins, and
+<code>mod-host</code> is the default, so the daemon is restarted with <code>omx-clap-host</code> named in its configuration file. An LV2
+plugin is added by its URI with an <code>lv2:</code> prefix, and its parameters are named by their LV2 symbol (<code>ratio</code>), not by a
+number.</p>
+<pre><code class="language-sh">send &quot;quit&quot;; sleep 1   # resp 0
+sudo apt-get install -y omx-plugins-lv2
+echo &quot;lv2_worker omx-clap-host&quot; &gt; plugin-hostd.conf
+plugin-hostd -n -p 5555 -c plugin-hostd.conf &gt;plugin-hostd-lv2.log 2&gt;&amp;1 &amp; sleep 2
+send &quot;add lv2:urn:openmixer:comp 0&quot;   # resp 0
+send &quot;param_set 0 ratio 8&quot;   # resp 0
+send &quot;param_get 0 ratio&quot;   # resp 0 8.0000
+send &quot;worker_list&quot;   # has :lv2-clap:
+</code></pre>
+<ol>
+<li><code>quit</code> stops the daemon and the worker of the first block.</li>
+<li><code>apt-get install</code> adds the LV2 bundles under <code>/usr/lib/lv2</code>, where the daemon searches.</li>
+<li>The configuration file makes <code>omx-clap-host</code> the worker of LV2 plugins.</li>
+<li>The daemon starts again with it.</li>
+<li><code>add</code> loads the plugin by its URI as instance <code>0</code>, in a worker of its own.</li>
+<li>and 7. <code>param_set</code> and <code>param_get</code> set and read back the compressor's Ratio by its symbol.</li>
+<li><code>worker_list</code> names the worker of each instance; <code>lv2-clap</code> is <code>omx-clap-host</code> running an LV2 plugin.</li>
+</ol>
+<p>CI also sends a sine into the instance's JACK ports and measures what comes out, with the Makeup gain set to 6 dB and
+Ratio to 1: the output peak must be 1.995 times the input's.</p>
+<p>Pins need nothing from you. A plugin has to be pinned (its files' hashes and its parameter layout) before the daemon
+lets it run; in the default <code>first-use</code> mode the first <code>add</code> records the pin in <code>$XDG_STATE_HOME/plugin-hostd/pins</code>, and
+a later <code>add</code> of a changed file is refused with a <code>pin_changed</code> event. A host that pins by itself sets <code>pin_mode strict</code>.
+See Pins in the <a href="/projects/plugin-hostd">README</a>.</p>
+<p>What to read next: <code>man plugin-hostd</code>; the verbs and error codes in the README; <code>remote_pages</code> and <code>remote_page_get</code> for
+the plugin's own pages of controls; the machine-readable protocol at
+<code>/usr/share/plugin-hostd-protocol/plugin-hostd.json</code>; a C consumer can include <code>plugin-hostd/protocol.h</code>
+(<code>pkg-config --cflags plugin-hostd-protocol</code>, package <code>libplugin-hostd-protocol-dev</code>).</p>
+<h2 id="measuring-plugins-at-real-time-priority">Measuring plugins at real-time priority</h2>
+<p><code>plugin-hostd-probe</code> measures a plugin on a SCHED_FIFO thread at the highest priority it is granted, with its memory
+locked, as JACK or PipeWire runs it; without a grant the figures are taken at ordinary priority, and the record says so
+(<code>run.realtime.class: none</code> and the reason). On Zynthian and on the console, plugin-qualify's sync service
+(<code>plugin-qualify-sync.service</code>) runs the probe; it passes the grant with a drop-in,
+<code>/etc/systemd/system/plugin-qualify-sync.service.d/realtime.conf</code>:</p>
+<pre><code class="language-ini">[Service]
+# the highest SCHED_FIFO priority, which the probe asks for, and a lock as large as the probe's memory limit
+LimitRTPRIO=99
+LimitMEMLOCK=infinity
+# the unit forbids real time to everything it starts; the probe bounds it instead (RLIMIT_RTPRIO, RLIMIT_RTTIME)
+RestrictRealtime=no
+</code></pre>
+<p>then <code>sudo systemctl daemon-reload</code>. Where the distribution lets a service hold capabilities,
+<code>AmbientCapabilities=CAP_SYS_NICE</code> grants the same priority without the rlimit; a CI job whose container holds CAP_SYS_NICE
+and no CAP_SYS_RESOURCE runs the probe's real-time arm on that route, so the record's <code>grantedBy: cap</code> is measured on every
+push. A unit without <code>User=</code> runs the probe as root: the measured child then has every capability and the bounding set dropped, and <code>run.realtime.capabilityBound</code> says whether that held (<code>false</code> when the runner lacks <code>CAP_SETPCAP</code>, where only a <code>User=</code> with <code>AmbientCapabilities=</code> keeps the bound). <code>plugin-qualify --all</code>, run by hand,
+gets the grant of the user's login session: the <code>rtprio</code> and <code>memlock</code> of <code>/etc/security/limits.d/</code>, as for JACK (for
+example the <code>audio</code> group's). <code>plugin-hostd-probe run --list-limits</code> prints what a run would get: the <code>realtime</code> line
+names the grant and the priority, or why there is none.</p>
+<p>The probe's memory limit is <code>memory.max</code> of a cgroup it makes for the measured child. A service running as root needs nothing
+for that. A service under another user needs <code>Delegate=memory</code> in the same drop-in; without it the limit is <code>RLIMIT_DATA</code>, and
+the document says so under <code>limits.unavailable</code>.</p>
+<h2 id="what-a-zynthian-integration-still-needs-from-us">What a Zynthian integration still needs from us</h2>
+<p>Checked in a clean Debian container against published packages. The first item against 0.4.0 of the daemon and 0.10.0 of
+the worker and plugins (the page's CI); the others against 0.2.1 of the daemon and 0.8.0 of the worker and plugins, on
+trixie, and not re-checked since:</p>
+<ul>
+<li>An LV2 plugin that the LV2 adapter of <code>omx-clap-host</code> refuses needs mod-host, which neither Debian nor the FreeMixer
+channel packages. The add answers <code>-512</code>; <code>lv2_worker auto</code> runs such a plugin in mod-host when one is installed.</li>
+<li><code>param_info</code> answers <code>-511</code> (the worker holds no checked unit and scale) for every parameter of a CLAP instance with
+the released worker, 0.8.0; the daemon passes the answer through. A host reads ranges and defaults from
+<code>omx-clap-scan</code> (or <code>omx-clap-scan --json</code>) and not from the socket, until a worker answers <code>resp 0</code>.</li>
+<li>Parameters are named by their CLAP number (<code>0</code>, <code>1</code>, ...), not by a name; a host maps names to numbers from the scan.</li>
+<li>No Zynthian image was available to CI: the check is on plain Debian arm64, not on Zynthian's own userland (its jackd,
+its audio configuration, its realtime limits).</li>
+</ul>
+<p>Each of these is an issue of its own.</p>
+</article><nav class="hidden lg:block" aria-label="Contents"><!--[--><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contents</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#lv2-plugins" class="text-ink-dim hover:text-accent">LV2 plugins</a></li><li><a href="#measuring-plugins-at-real-time-priority" class="text-ink-dim hover:text-accent">Measuring plugins at real-time priority</a></li><li><a href="#what-a-zynthian-integration-still-needs-from-us" class="text-ink-dim hover:text-accent">What a Zynthian integration still needs from us</a></li><!--]--></ul><!--]--><!--[--><p class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-accent">More of plugin-hostd</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="/projects/plugin-hostd" class="router-link-active text-ink-dim hover:text-accent">README.md</a></li><li><a href="/projects/plugin-hostd/formats" class="text-ink-dim hover:text-accent">docs/formats.md</a></li><li><a href="/projects/plugin-hostd/panel" class="text-ink-dim hover:text-accent">docs/panel.md</a></li><li><a href="/projects/plugin-hostd/placement" class="text-ink-dim hover:text-accent">docs/placement.md</a></li><li><a href="/projects/plugin-hostd/presets" class="text-ink-dim hover:text-accent">Presets in the host</a></li><!--]--></ul><!--]--><p class="mt-8 text-sm"><a href="/projects" class="text-accent hover:underline">All the projects</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">A software mixing console for Linux. The desk is the software; the browser is the surface.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pages</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/architecture" class="text-ink-dim hover:text-accent">Architecture</a></li><li><a href="/features" class="text-ink-dim hover:text-accent">Features</a></li><li><a href="/docs" class="text-ink-dim hover:text-accent">Documentation</a></li><li><a href="/faq" class="text-ink-dim hover:text-accent">FAQ</a></li><li><a href="/get-it" class="text-ink-dim hover:text-accent">Get it</a></li><li><a href="/links" class="text-ink-dim hover:text-accent">Links</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Licence</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer is free software under the <span class="font-mono text-ink">GPL-3.0-or-later</span>. Every package in the workspace carries the same licence.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME and the product names used here belong to their respective owners. OpenMixer is an independent project and is not affiliated with any of them.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/projects/plugin-hostd/own-host/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"",[],["Set"],["ShallowReactive",16],{"project-plugin-hostd-own-host":-1},"\u002Fprojects\u002Fplugin-hostd\u002Fown-host",1793751246520]</script></body></html>

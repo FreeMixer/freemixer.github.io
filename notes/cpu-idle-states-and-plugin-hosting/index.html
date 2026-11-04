@@ -1,0 +1,528 @@
+<!DOCTYPE html><html  lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>&quot;CPU idle states and plugin hosting: what holding cpu_dma_latency buys&quot; | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/notes/cpu-idle-states-and-plugin-hosting/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dhyxm03C.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNs_Ozdc.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMWkIGvv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMx8XeKT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CH_6PZHZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C4LhWnh7.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/D2H52pKN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C_Vo6Cpv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkUevp-A.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BrLBbKql.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkceDeHA.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/DpO9t-n4.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/MpqZPowV.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BM38UV2E.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dga5QANZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dwv5_atN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BxJRRP96.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/495XL0kX.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/notes/cpu-idle-states-and-plugin-hosting" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/notes/cpu-idle-states-and-plugin-hosting" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/notes/cpu-idle-states-and-plugin-hosting" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/notes/cpu-idle-states-and-plugin-hosting"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/notes/cpu-idle-states-and-plugin-hosting"><meta id="i18n-og" property="og:locale" content="en"><meta id="i18n-og-alt-ca" property="og:locale:alternate" content="ca"><meta name="description" content="Holding /dev/cpu_dma_latency at 10 µs, so no core sleeps deeper than C1, cuts the audio graph's cycle three to five times on every host measured and removes the overruns, for one to four watts; holding it at 0 costs sixty watts for a little more. With the hold, mod-host's lead over the other hosts disappears."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/" class="group flex items-center gap-3" aria-label="OpenMixer home"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main"><!--[--><a href="/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Architecture</a><a href="/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Features</a><a href="/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Benchmarks</a><a href="/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Docs</a><a href="/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">FAQ</a><a href="/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Get it</a><a href="/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Links</a><!--]--></nav><!--[--><a href="/ca/notes/cpu-idle-states-and-plugin-hosting" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="ca" lang="ca" aria-label="Català" title="Català">ca</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menu" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Technical note</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">&quot;CPU idle states and plugin hosting: what holding cpu_dma_latency buys&quot;</h1><p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-dim">Holding /dev/cpu_dma_latency at 10 µs, so no core sleeps deeper than C1, cuts the audio graph&#39;s cycle three to five times on every host measured and removes the overruns, for one to four watts; holding it at 0 costs sixty watts for a little more. With the hold, mod-host&#39;s lead over the other hosts disappears.</p><!--[--><p class="mt-4 font-mono text-xs text-ink-faint">An Intel Core Ultra 9 275HX desktop (8 performance and 16 efficiency cores), Fedora 44, kernel 7.2, PipeWire 1.6.9, 96 and 48 kHz at 128 frames, October 2026.</p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body"><h2 id="the-question">The question</h2>
+<p>The host library can hold <code>/dev/cpu_dma_latency</code> while it runs, which tells the kernel not to put any core in an idle
+state whose exit takes longer than the value. The same plugins were run through mod-host, omx-clap-host (CLAP and the LV2
+adapter), the in-process tier, plugin-hostd and jalv, with the device held at nothing, at 10 µs (C1 only, the shipped
+default) and at 0 (no idle state).</p>
+<table>
+<thead>
+<tr>
+<th>path</th>
+<th>what holds the device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>omx-clap-host, CLAP and adapter</td>
+<td>its own `--idle-hold=&lt;off</td>
+</tr>
+<tr>
+<td>in-process CLAP and LV2</td>
+<td>the same library call the console's in-process tier makes</td>
+</tr>
+<tr>
+<td>plugin-hostd</td>
+<td>its worker, omx-clap-host, with the option passed through</td>
+</tr>
+<tr>
+<td>mod-host, jalv</td>
+<td>nothing of their own: the bench keeps the same request open for the run, as a setup script would</td>
+</tr>
+</tbody>
+</table>
+<p>&quot;Off&quot; is the machine at rest: its tuned profile held the device at 4000 µs, which refuses no state (C3 exits in 1048 µs).
+The three holds interleaved per repetition, so a drift of the machine over the hour does not line up with one hold. The
+CLAP rows carry seven plugins, the LV2 rows eight.</p>
+<h2 id="the-machine">The machine</h2>
+<p>Intel Core Ultra 9 275HX (8 performance and 16 efficiency cores, 24 threads), the performance governor, <code>intel_idle</code> with the
+menu governor, states POLL, C1 (1 µs), C2 (127 µs) and C3 (1048 µs), all enabled. Watts are the package's RAPL counter,
+integrated over each run's 30 s window. Another real-time audio graph ran on the same machine and is inside every watt
+figure: only the differences between holds mean anything, not the level.</p>
+<h2 id="the-whole-graph">The whole graph</h2>
+<p>Cycle end is the driver's time from wake-up to the last node finished; overruns are cycles that ended past their period.
+96 kHz, 128 frames (period 1333 µs), median of three repetitions:</p>
+<table>
+<thead>
+<tr>
+<th>path</th>
+<th>hold</th>
+<th>cycle end p50 µs</th>
+<th>cycle end p99 µs</th>
+<th>overruns / 30 s</th>
+<th>host CPU %</th>
+<th>RSS MiB</th>
+<th>package W</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mod-host</td>
+<td>off</td>
+<td>235</td>
+<td>675</td>
+<td>19</td>
+<td>20.7</td>
+<td>41.0</td>
+<td>19.4</td>
+</tr>
+<tr>
+<td>mod-host</td>
+<td>10</td>
+<td>74</td>
+<td>116</td>
+<td>0</td>
+<td>8.6</td>
+<td>41.0</td>
+<td>18.6</td>
+</tr>
+<tr>
+<td>mod-host</td>
+<td>0</td>
+<td>27</td>
+<td>47</td>
+<td>1</td>
+<td>3.7</td>
+<td>40.9</td>
+<td>79.3</td>
+</tr>
+<tr>
+<td>omx-clap-host CLAP</td>
+<td>off</td>
+<td>324</td>
+<td>720</td>
+<td>14</td>
+<td>16.5</td>
+<td>42.6</td>
+<td>17.9</td>
+</tr>
+<tr>
+<td>omx-clap-host CLAP</td>
+<td>10</td>
+<td>103</td>
+<td>183</td>
+<td>0</td>
+<td>10.4</td>
+<td>42.4</td>
+<td>20.1</td>
+</tr>
+<tr>
+<td>omx-clap-host CLAP</td>
+<td>0</td>
+<td>41</td>
+<td>103</td>
+<td>0</td>
+<td>4.4</td>
+<td>42.5</td>
+<td>79.6</td>
+</tr>
+<tr>
+<td>omx-clap-host adapter</td>
+<td>off</td>
+<td>355</td>
+<td>756</td>
+<td>26</td>
+<td>15.8</td>
+<td>28.8</td>
+<td>18.0</td>
+</tr>
+<tr>
+<td>omx-clap-host adapter</td>
+<td>10</td>
+<td>72</td>
+<td>120</td>
+<td>0</td>
+<td>8.6</td>
+<td>28.8</td>
+<td>19.2</td>
+</tr>
+<tr>
+<td>omx-clap-host adapter</td>
+<td>0</td>
+<td>26</td>
+<td>42</td>
+<td>0</td>
+<td>3.8</td>
+<td>28.7</td>
+<td>79.7</td>
+</tr>
+<tr>
+<td>in-process CLAP</td>
+<td>off</td>
+<td>369</td>
+<td>797</td>
+<td>39</td>
+<td>18.8</td>
+<td>40.5</td>
+<td>17.8</td>
+</tr>
+<tr>
+<td>in-process CLAP</td>
+<td>10</td>
+<td>101</td>
+<td>186</td>
+<td>0</td>
+<td>10.9</td>
+<td>40.9</td>
+<td>19.5</td>
+</tr>
+<tr>
+<td>in-process CLAP</td>
+<td>0</td>
+<td>43</td>
+<td>80</td>
+<td>1</td>
+<td>4.8</td>
+<td>40.6</td>
+<td>79.6</td>
+</tr>
+<tr>
+<td>in-process LV2</td>
+<td>off</td>
+<td>392</td>
+<td>768</td>
+<td>17</td>
+<td>18.2</td>
+<td>24.6</td>
+<td>17.6</td>
+</tr>
+<tr>
+<td>in-process LV2</td>
+<td>10</td>
+<td>72</td>
+<td>127</td>
+<td>1</td>
+<td>9.6</td>
+<td>24.6</td>
+<td>19.4</td>
+</tr>
+<tr>
+<td>in-process LV2</td>
+<td>0</td>
+<td>26</td>
+<td>44</td>
+<td>0</td>
+<td>3.8</td>
+<td>24.6</td>
+<td>79.6</td>
+</tr>
+<tr>
+<td>plugin-hostd</td>
+<td>off</td>
+<td>224</td>
+<td>644</td>
+<td>3</td>
+<td>26.1</td>
+<td>91.4</td>
+<td>18.1</td>
+</tr>
+<tr>
+<td>plugin-hostd</td>
+<td>10</td>
+<td>82</td>
+<td>139</td>
+<td>1</td>
+<td>16.5</td>
+<td>91.5</td>
+<td>19.5</td>
+</tr>
+<tr>
+<td>plugin-hostd</td>
+<td>0</td>
+<td>27</td>
+<td>140</td>
+<td>0</td>
+<td>7.2</td>
+<td>91.6</td>
+<td>79.8</td>
+</tr>
+<tr>
+<td>jalv</td>
+<td>off</td>
+<td>341</td>
+<td>816</td>
+<td>23</td>
+<td>16.6</td>
+<td>109.4</td>
+<td>21.1</td>
+</tr>
+<tr>
+<td>jalv</td>
+<td>10</td>
+<td>72</td>
+<td>121</td>
+<td>0</td>
+<td>8.2</td>
+<td>109.3</td>
+<td>20.7</td>
+</tr>
+<tr>
+<td>jalv</td>
+<td>0</td>
+<td>26</td>
+<td>50</td>
+<td>0</td>
+<td>3.4</td>
+<td>109.4</td>
+<td>78.9</td>
+</tr>
+</tbody>
+</table>
+<p>At 48 kHz and 128 frames the story is the same with higher numbers: 243 to 439 µs at rest, 80 to 118 at 10 and 26 to 49 at
+0, and no path overran in any hold.</p>
+<h2 id="what-it-says">What it says</h2>
+<ul>
+<li><strong>The hold at 10 µs cuts the cycle end three to five times on every path, and mod-host's lead is gone.</strong> With the hold
+off, mod-host and plugin-hostd end their cycles at 224 to 235 µs, where omx-clap-host and the in-process tier take 324 to
+392. At 10 every path sits between 72 and 103 µs; at 0 between 26 and 43. mod-host's advantage at rest was the cores its
+extra clients kept awake; once no core sleeps past C1 the hosts are equal for one plugin set. The two CLAP rows stay about
+30 µs above the LV2 rows at every hold: that is the CLAP paths' own cost, not an idle effect.</li>
+<li><strong>Overruns go with it</strong>: 14 to 39 per 30 s with the hold off at 96 kHz, 0 or 1 at 10.</li>
+<li><strong>10 µs costs one to four watts; 0 costs sixty.</strong> At 96 kHz the hold at 10 reads 1.2 to 2.2 W more than rest on most
+paths; at 48 kHz 1.6 to 3.7 W more, since the cores have twice as long to sleep between cycles there. The hold at 0 refuses
+even C1, so every thread polls between cycles: 58 to 64 W more, four times the package power, for a further 45 to 60 µs of
+cycle end. So 10 µs is the default, and 0 only an explicit choice.</li>
+<li><strong>Host CPU is clock time</strong>, so it falls as cycles shorten; it is not the host working less.</li>
+<li><strong>Memory does not move with the hold.</strong> Between paths: in-process LV2 25 MiB, the adapter 29, mod-host and the CLAP rows
+41 to 43, plugin-hostd 91 (the daemon and its worker), jalv 109 for eight processes.</li>
+</ul>
+<h2 id="per-plugin">Per plugin</h2>
+<p>The node's own time per cycle (the plugin plus what its host does inside the node's cycle), 96 kHz, 128 frames, median of
+three repetitions, µs, hold off / 10 / 0:</p>
+<table>
+<thead>
+<tr>
+<th>plugin</th>
+<th>mod-host</th>
+<th>omx-clap-host CLAP</th>
+<th>adapter</th>
+<th>in-process CLAP</th>
+<th>in-process LV2</th>
+<th>plugin-hostd</th>
+<th>jalv</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>omx-comp</td>
+<td>3.8 / 2.7 / 2.4</td>
+<td>4.6 / 5.4 / 2.7</td>
+<td>3.1 / 4.1 / 2.4</td>
+<td>3.9 / 3.5 / 3.5</td>
+<td>3.3 / 3.3 / 3.2</td>
+<td>5.5 / 5.6 / 2.6</td>
+<td>2.6 / 2.4 / 2.2</td>
+</tr>
+<tr>
+<td>omx-delay</td>
+<td>2.2 / 1.2 / 0.9</td>
+<td>2.8 / 1.3 / 0.8</td>
+<td>3.4 / 1.5 / 0.9</td>
+<td>5.0 / 3.7 / 1.6</td>
+<td>5.6 / 3.9 / 1.8</td>
+<td>3.1 / 2.3 / 1.0</td>
+<td>4.0 / 2.0 / 0.8</td>
+</tr>
+<tr>
+<td>omx-deesser</td>
+<td>4.6 / 5.7 / 3.3</td>
+<td>6.1 / 6.7 / 3.6</td>
+<td>5.5 / 5.8 / 3.4</td>
+<td>8.2 / 8.2 / 3.9</td>
+<td>7.6 / 7.6 / 3.4</td>
+<td>6.1 / 6.2 / 3.4</td>
+<td>5.5 / 5.7 / 3.2</td>
+</tr>
+<tr>
+<td>omx-eq8</td>
+<td>1.7 / 1.2 / 0.6</td>
+<td>1.9 / 1.1 / 0.5</td>
+<td>2.4 / 1.5 / 0.6</td>
+<td>4.6 / 2.7 / 1.5</td>
+<td>5.4 / 3.1 / 1.4</td>
+<td>2.5 / 2.0 / 0.7</td>
+<td>2.3 / 1.4 / 0.5</td>
+</tr>
+<tr>
+<td>omx-reverb</td>
+<td>5.8 / 7.7 / 3.7</td>
+<td>5.7 / 7.3 / 3.2</td>
+<td>6.3 / 7.7 / 3.5</td>
+<td>8.2 / 8.5 / 4.5</td>
+<td>8.5 / 8.8 / 4.0</td>
+<td>8.0 / 8.6 / 3.9</td>
+<td>6.5 / 7.0 / 3.2</td>
+</tr>
+<tr>
+<td>ZamCompX2</td>
+<td>3.8 / 4.6 / 2.4</td>
+<td></td>
+<td>4.4 / 5.0 / 2.5</td>
+<td></td>
+<td>6.7 / 6.6 / 3.1</td>
+<td>5.2 / 5.5 / 2.7</td>
+<td>4.1 / 4.6 / 2.4</td>
+</tr>
+<tr>
+<td>caps PlateX2</td>
+<td>5.7 / 9.4 / 4.4</td>
+<td></td>
+<td>6.2 / 9.7 / 4.3</td>
+<td></td>
+<td>8.8 / 11.2 / 5.2</td>
+<td>7.1 / 9.8 / 4.6</td>
+<td>6.0 / 8.8 / 4.3</td>
+</tr>
+<tr>
+<td>caps CompressX2</td>
+<td>9.8 / 16.8 / 8.5</td>
+<td></td>
+<td>10.2 / 16.8 / 8.6</td>
+<td></td>
+<td>12.8 / 19.0 / 9.7</td>
+<td>11.6 / 17.4 / 7.9</td>
+<td>10.0 / 16.7 / 8.4</td>
+</tr>
+<tr>
+<td>LSP compressor</td>
+<td></td>
+<td>5.7 / 4.8 / 2.0</td>
+<td></td>
+<td>8.3 / 6.0 / 2.8</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Dragonfly Room</td>
+<td></td>
+<td>28.0 / 49.6 / 25.0</td>
+<td></td>
+<td>31.5 / 51.1 / 26.7</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Across hosts, at one hold, a plugin costs the same within one or two microseconds.</strong> The in-process rows read one to
+three microseconds higher on the light plugins: the per-block guards the in-process tier runs (a clamp and a non-finite
+scan), which the socket hosts do not.</li>
+<li><strong>The hold's effect per node is not monotonic.</strong> From rest to 10 the light plugins get faster but the heavy ones slower, on
+every host alike: one compressor from about 10 to 17 µs, a reverb from 28 to 50. At 0 everything is fastest. The whole
+graph still gains at 10, because the idle-state exit it removes is hundreds of microseconds.</li>
+</ul>
+<p>Two checks were made for that slowdown, and neither explains it. Core placement: the host's real-time threads sat on
+performance cores 65 % of the time at rest, 77 % at 10 and 61 % at 0, so the slowest hold had the most performance-core
+time. Clocks: the uncore held its maximum under every hold, and the cores read 3.8 to 4.6 GHz at rest and at 10. So a
+reverb or a look-ahead compressor runs slower per cycle with every core halted in C1, on every host, and this run does not
+say why. The whole-graph gain stands over it by an order of magnitude.</p>
+<h2 id="jalv-as-zynthian-runs-a-layer">jalv, as Zynthian runs a layer</h2>
+<p>One <code>jalv -i</code> process per plugin, eight processes, the LV2 build of the same set:</p>
+<ul>
+<li><strong>Eight processes cost the same cycle as one.</strong> With the hold at 10, jalv ends the cycle at 72 µs against 72 to 74 for
+mod-host and the adapter in one process; at 0, 26 against 26 to 27.</li>
+<li><strong>They cost memory and a little power</strong>: 109 MiB for eight jalv processes against 29 to 41 for one process holding the
+same plugins.</li>
+<li><strong>jalv's probe cycles arrive late more often</strong> at every hold, though its node times per plugin are everyone's.</li>
+<li><strong>A plugin GUI shown on a virtual X server changes the cycle by nothing</strong> and costs 94 MiB and about a watt.</li>
+</ul>
+<h2 id="caveats">Caveats</h2>
+<p>One machine, one plugin set, 30 s windows, three repetitions. The in-process rows are the bench's own small host making
+the same library calls as the console's tier, not the console itself.</p>
+</article><nav class="hidden lg:block" aria-label="Contents"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contents</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#the-question" class="text-ink-dim hover:text-accent">The question</a></li><li><a href="#the-machine" class="text-ink-dim hover:text-accent">The machine</a></li><li><a href="#the-whole-graph" class="text-ink-dim hover:text-accent">The whole graph</a></li><li><a href="#what-it-says" class="text-ink-dim hover:text-accent">What it says</a></li><li><a href="#per-plugin" class="text-ink-dim hover:text-accent">Per plugin</a></li><li><a href="#jalv-as-zynthian-runs-a-layer" class="text-ink-dim hover:text-accent">jalv, as Zynthian runs a layer</a></li><li><a href="#caveats" class="text-ink-dim hover:text-accent">Caveats</a></li><!--]--></ul><p class="mt-8 text-sm"><a href="/notes" class="text-accent hover:underline">All the technical notes</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">A software mixing console for Linux. The desk is the software; the browser is the surface.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pages</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/architecture" class="text-ink-dim hover:text-accent">Architecture</a></li><li><a href="/features" class="text-ink-dim hover:text-accent">Features</a></li><li><a href="/docs" class="text-ink-dim hover:text-accent">Documentation</a></li><li><a href="/faq" class="text-ink-dim hover:text-accent">FAQ</a></li><li><a href="/get-it" class="text-ink-dim hover:text-accent">Get it</a></li><li><a href="/links" class="text-ink-dim hover:text-accent">Links</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Licence</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer is free software under the <span class="font-mono text-ink">GPL-3.0-or-later</span>. Every package in the workspace carries the same licence.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME and the product names used here belong to their respective owners. OpenMixer is an independent project and is not affiliated with any of them.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/notes/cpu-idle-states-and-plugin-hosting/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"",[],["Set"],["ShallowReactive",16],{"note-cpu-idle-states-and-plugin-hosting-en":-1},"\u002Fnotes\u002Fcpu-idle-states-and-plugin-hosting",1793751246314]</script></body></html>

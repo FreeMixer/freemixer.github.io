@@ -1,0 +1,223 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Building libdiginet | libdiginet | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/projects/libdiginet/building/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DLv1zT_v.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/B0w9kckf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CF5KCtY-.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/e63HFAnf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CD3ALZ0F.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BnH_th5I.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CoQTvKFp.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dexg_6ZX.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CqEFv2MT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/d05kRPiJ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BVB5ZYNh.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Cj5AVrYJ.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/projects/libdiginet/building" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/projects/libdiginet/building" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/projects/libdiginet/building" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/projects/libdiginet/building"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/projects/libdiginet/building"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="La documentació de libdiginet, tal com l'escriu el projecte."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/projects/libdiginet/building" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">libdiginet</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Building libdiginet</h1><!----><!--[--><p class="mt-4 text-sm text-ink-dim">El text del projecte, en anglès. <a href="https://github.com/FreeMixer/libdiginet/blob/084e09f8eaea72a275f583b8ae148b565aa6a548/BUILDING.md" class="text-accent hover:underline" rel="noopener">La font d&#39;aquesta pàgina</a></p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body" lang="en"><h1 id="building-libdiginet">Building libdiginet</h1>
+<p>A hand-kept Makefile, no build system to configure. You need a C11 compiler and <code>make</code>.
+Nothing else: no library outside libc.</p>
+<pre><code>make                          # libdiginet.a, libdiginet-transport.a and tools/diginet-probe
+make test                     # the unit suite, the same command CI runs
+make install PREFIX=/usr/local [DESTDIR=...]
+make clean
+</code></pre>
+<p>The code is plain C11 built with <code>-Wall -Wextra -Werror</code>, so a warning is a build failure.
+<code>CC</code> and <code>CFLAGS</code> can be overridden on the command line; the warning flags are kept even then.</p>
+<p>Three libraries come out of one tree:</p>
+<ul>
+<li><code>libdiginet</code>: the protocol. Frame grammar, codecs, personalities. No socket, no clock.</li>
+<li><code>libdiginet-transport</code>: the wire. The packet socket and the session (discovery, wake,
+ACKs, retransmit, keepalive, coalescing, pacing), and the desk mux (many desks over one
+socket that hears every interface). It links <code>libdiginet</code>.</li>
+<li><code>libdiginet-emu</code>: the desk emulator (see Tests below), installed so that a project testing
+against a Control|24 or ProControl links it instead of keeping its own copy.</li>
+</ul>
+<p><code>make install</code> copies the headers to <code>$(PREFIX)/include/diginet/</code>, the archives to
+<code>$(PREFIX)/lib</code> (<code>LIBDIR=</code> to change it) and three pkg-config files, so a consumer builds with:</p>
+<pre><code>cc app.c $(pkg-config --cflags --libs libdiginet-transport)
+cc test.c $(pkg-config --cflags --libs libdiginet-emu)
+</code></pre>
+<h2 id="tests">Tests</h2>
+<p>Every test runs through <code>tests/run-test.sh</code>, which gives it a timeout: a hang is a failure,
+never a stalled build. A test that exits 77 proved this machine cannot host it and is reported
+as SKIP, never as a pass.</p>
+<p>The golden frames are in <code>tests/golden/frames.txt</code>, one whole Ethernet frame per line in hex.
+The C suite reads that file and checks every frame against the values <code>docs/protocol.md</code>
+gives. The same file feeds the Kaitai check below, so the two readings of the grammar cannot
+drift apart.</p>
+<p>The transport suite needs no desk and no privileges. <code>testsupport/desk_emu.c</code>, installed as
+<code>libdiginet-emu</code>, is a desk emulator that speaks the protocol; <code>test_transport</code> drives a
+session against it on a virtual clock
+(minutes of desk time in milliseconds), <code>test_mux</code> drives the desk mux against two of them on
+two interfaces, and <code>test_fdio</code> does the same on the real clock over a socketpair. <code>test_packet</code> runs the real <code>AF_PACKET</code> path: it enters a user and network
+namespace of its own, where it may open packet sockets on a private loopback; where
+unprivileged namespaces are not allowed it exits 77 and reports SKIP. <code>test_anyif</code> does the
+same with two veth pairs: it gives up its capabilities, takes the any-interface socket from
+<code>tools/diginet-packet-helper</code>, and checks that each desk is heard on its own interface (one
+made after the socket was opened), that a frame goes out of the interface it is sent to, and
+that two desk emulators, one on each, come online through one mux over that one socket.</p>
+<p><code>test_probe</code> runs <code>tools/diginet-probe</code> as its own process against the emulator, with the
+wire on descriptor 3 and the operator's answers on stdin, and checks both the probe's output
+and what the desk received.</p>
+<h2 id="diginet-probe">diginet-probe</h2>
+<p><code>make install</code> puts <code>diginet-probe</code> in <code>$(PREFIX)/bin</code>. It opens a packet socket, which needs
+<code>cap_net_raw</code>:</p>
+<pre><code>sudo setcap cap_net_raw=ep ./tools/diginet-probe
+</code></pre>
+<p>Every rebuild or copy makes a binary without the capability, so run <code>setcap</code> again after it.
+How to run it on a desk is in <a href="/projects/libdiginet/probe">docs/probe.md</a>.</p>
+<h2 id="diginet-packet-helper">diginet-packet-helper</h2>
+<p><code>tools/diginet-packet-helper</code> opens the packet socket that hears every interface and hands it
+to the program that started it, over a Unix socket on its descriptor 3, so that program needs
+no capability (<a href="https://github.com/FreeMixer/libdiginet/blob/084e09f8eaea72a275f583b8ae148b565aa6a548/docs/diginet-packet-helper.1">docs/diginet-packet-helper.1</a>). The helper is
+the one binary that holds <code>cap_net_raw</code>:</p>
+<pre><code>sudo setcap cap_net_raw=ep ./tools/diginet-packet-helper
+</code></pre>
+<p>It links the static archives, even in the packages, so it loads no shared library of ours
+while it holds the capability.</p>
+<h2 id="the-kaitai-grammar">The Kaitai grammar</h2>
+<p><code>protocol/diginet.ksy</code> is the formal byte grammar. To check that it compiles and that the
+parser it generates reads the golden frames as the C library does:</p>
+<pre><code>make ksy-check
+</code></pre>
+<p>This needs <code>kaitai-struct-compiler</code> (0.11, from https://github.com/kaitai-io/kaitai_struct_compiler/releases)
+and the Python runtime (<code>pip install kaitaistruct==0.11</code>). CI runs it in a Debian container.</p>
+<h2 id="fuzzing">Fuzzing</h2>
+<p>Every reader of desk bytes has a libFuzzer harness in <code>fuzz/</code>, with a seed corpus, a coverage
+floor, a recorded breakage for every check and one sabotage patch per property;
+<a href="https://github.com/FreeMixer/libdiginet/blob/084e09f8eaea72a275f583b8ae148b565aa6a548/fuzz/README.md">fuzz/README.md</a> says what each checks. They need clang with libFuzzer,
+<code>llvm-cov</code> for the coverage witness and the static libc for the static build:</p>
+<pre><code>make fuzz fuzz-run FUZZ_TIME=60 fuzz-sabotage fuzz-records fuzz-coverage fuzz-static
+</code></pre>
+<h2 id="ci">CI</h2>
+<p><code>.github/workflows/ci.yml</code> runs <code>make</code>, <code>make test</code> and <code>make install</code> in fedora:44,
+debian:bookworm and debian:trixie containers, <code>make test</code> once more on the bare runner (where
+the namespace test can run), and <code>make ksy-check</code> in a Debian container with the compiler
+installed. <code>.github/workflows/fuzz.yml</code> builds the harnesses in fedora:44, fuzzes each for 60 s
+and runs <code>make fuzz-corpus-check</code>, <code>make fuzz-sabotage</code>, <code>make fuzz-records</code>,
+<code>make fuzz-coverage</code> and <code>make fuzz-static</code>.</p>
+<h2 id="packages">Packages</h2>
+<p>One source builds two shared libraries and a tool:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Fedora</th>
+<th>Debian</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>libdiginet, libdiginet-transport</td>
+<td><code>libdiginet</code></td>
+<td><code>libdiginet0</code>, <code>libdiginet-transport0</code></td>
+</tr>
+<tr>
+<td>headers, pkg-config, <code>diginet.ksy</code></td>
+<td><code>libdiginet-devel</code></td>
+<td><code>libdiginet-dev</code></td>
+</tr>
+<tr>
+<td><code>diginet-probe</code></td>
+<td><code>diginet-tools</code></td>
+<td><code>diginet-tools</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>packaging/libdiginet.spec</code> and <code>debian/</code> describe them; both run <code>make shared</code> and
+<code>make install-shared</code>, and <code>make test</code> against the result. The RPM gives <code>diginet-probe</code>
+<code>cap_net_raw</code> with <code>%caps</code>; the DEB sets it in <code>diginet-tools.postinst</code> with <code>setcap</code>.</p>
+<p>The version is the <code>VERSION</code> file; the sonames' majors are <code>DIGINET_ABI</code> and
+<code>DIGINET_TRANSPORT_ABI</code> in <code>include/diginet/diginet.h</code>. <code>tests/conformance-packaging.sh</code> (part of
+<code>make test</code>) refuses a header, spec or <code>debian/</code> that disagrees with them.</p>
+<h3 id="releasing">Releasing</h3>
+<p>Set the version in <code>VERSION</code>, <code>include/diginet/diginet.h</code>, <code>Version:</code> in the spec and the top
+entry of <code>debian/changelog</code>, then tag <code>vX.Y.Z</code>. The tag runs <code>.github/workflows/release.yml</code>,
+which calls the shared <code>build-rpm.yml</code> and <code>build-deb.yml</code> workflows of FreeMixer/.github: signed
+RPMs for Fedora 44 (x86_64, aarch64) and DEBs for Debian bookworm and trixie (amd64, arm64) are
+published to the FreeMixer channel and attached to the GitHub release. A pull request runs the
+same workflows as a dry run that builds, lints and publishes nothing, then installs the packages
+it built in clean containers and builds a consumer against the development package. Git history
+is the changelog; no changelog file is kept.</p>
+</article><nav class="hidden lg:block" aria-label="Contingut"><!--[--><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#tests" class="text-ink-dim hover:text-accent">Tests</a></li><li><a href="#diginet-probe" class="text-ink-dim hover:text-accent">diginet-probe</a></li><li><a href="#diginet-packet-helper" class="text-ink-dim hover:text-accent">diginet-packet-helper</a></li><li><a href="#the-kaitai-grammar" class="text-ink-dim hover:text-accent">The Kaitai grammar</a></li><li><a href="#fuzzing" class="text-ink-dim hover:text-accent">Fuzzing</a></li><li><a href="#ci" class="text-ink-dim hover:text-accent">CI</a></li><li><a href="#packages" class="text-ink-dim hover:text-accent">Packages</a></li><!--]--></ul><!--]--><!--[--><p class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-accent">Més de libdiginet</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="/ca/projects/libdiginet" class="router-link-active text-ink-dim hover:text-accent">libdiginet</a></li><li><a href="/ca/projects/libdiginet/protocol" class="text-ink-dim hover:text-accent">The DigiNet surface protocol (Control|24, ProControl)</a></li><li><a href="/ca/projects/libdiginet/probe" class="text-ink-dim hover:text-accent">diginet-probe: the first test on a real desk</a></li><!--]--></ul><!--]--><p class="mt-8 text-sm"><a href="/ca/projects" class="text-accent hover:underline">Tots els projectes</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/projects/libdiginet/building/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"project-libdiginet-building":-1},"\u002Fca\u002Fprojects\u002Flibdiginet\u002Fbuilding",1793751247178]</script></body></html>

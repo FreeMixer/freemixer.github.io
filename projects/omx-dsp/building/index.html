@@ -1,0 +1,517 @@
+<!DOCTYPE html><html  lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Building omx-dsp | omx-dsp | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/projects/omx-dsp/building/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DLv1zT_v.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/B0w9kckf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CF5KCtY-.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/e63HFAnf.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CD3ALZ0F.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BnH_th5I.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CoQTvKFp.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dexg_6ZX.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CqEFv2MT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/d05kRPiJ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BVB5ZYNh.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Cj5AVrYJ.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/projects/omx-dsp/building" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/projects/omx-dsp/building" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/projects/omx-dsp/building" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/projects/omx-dsp/building"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/projects/omx-dsp/building"><meta id="i18n-og" property="og:locale" content="en"><meta id="i18n-og-alt-ca" property="og:locale:alternate" content="ca"><meta name="description" content="The documentation of omx-dsp, as the project writes it."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/" class="group flex items-center gap-3" aria-label="OpenMixer home"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Main"><!--[--><a href="/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Architecture</a><a href="/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Features</a><a href="/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Benchmarks</a><a href="/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Docs</a><a href="/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">FAQ</a><a href="/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Get it</a><a href="/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Links</a><!--]--></nav><!--[--><a href="/ca/projects/omx-dsp/building" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="ca" lang="ca" aria-label="Català" title="Català">ca</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menu" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">omx-dsp</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Building omx-dsp</h1><!----><!--[--><p class="mt-4 text-sm text-ink-dim">The project&#39;s own text, in English. <a href="https://github.com/FreeMixer/omx-dsp/blob/f5c279a980a76a9b2ca53df5a9000f9416cb6cc3/BUILDING.md" class="text-accent hover:underline" rel="noopener">The source of this page</a></p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body" lang="en"><p>&lt;!-- SPDX-License-Identifier: GPL-3.0-or-later --&gt;
+&lt;!-- Copyright (C) 2026 Pau Aliagas <a href="mailto:linuxnow@gmail.com">linuxnow@gmail.com</a> --&gt;</p>
+<h1 id="building-omx-dsp">Building omx-dsp</h1>
+<p>Needs a C11 compiler, GNU make, binutils, awk, sed, grep and diffutils.</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make</code></td>
+<td><code>build/libomxdsp.a</code>, <code>build/libomxdsp-contracts.a</code> and <code>build/libomxdsp-tsan.a</code></td>
+</tr>
+<tr>
+<td><code>make test</code></td>
+<td>the whole suite: every primitive's and kernel's oracle at every declared rate with contracts on, the negative, perturbation and thread arms, the writable-data and doc checks, and the golden digests</td>
+</tr>
+<tr>
+<td><code>make check-package</code></td>
+<td>what the deb's and the RPM's check run: the suite, the negative, consumer and thread arms, every oracle and golden digest, the flavours and the libmvec oracles; the sabotage and perturbation arms and the source checks run in <code>make test</code> (<code>tools/check-package-check.sh</code>, part of <code>make checks</code>, holds the two lists together)</td>
+</tr>
+<tr>
+<td><code>make test-fx</code></td>
+<td>the effect kernels' oracles and golden digests alone</td>
+</tr>
+<tr>
+<td><code>make consumer</code></td>
+<td>the stateful stages built the way a consumer builds them (release flags, <code>-Werror</code>, states on the stack that only their init or settle writes) and run</td>
+</tr>
+<tr>
+<td><code>make test-analysis</code></td>
+<td>the feedback detector's, the RTA ring and spectrum's and HRP's oracles (the HRP render and live core among them) at the nine oracle rates (32 to 192 kHz), their no-allocation arm, golden digests and one sabotage per kernel; the room analysis, Farina sweep and alignment fit against closed forms at the nine rates and against core's TypeScript (the parity table), and one sabotage per kernel that both must catch; alone</td>
+</tr>
+<tr>
+<td><code>make test-engine-kernels</code></td>
+<td>the golden digests of the sample-rate converter, the generators and the analyser's readings at the nine oracle rates, which the engine's own copies wrote, and a break in each that must move its own digests and no other's</td>
+</tr>
+<tr>
+<td><code>make install PREFIX=/usr LIBDIR=/usr/lib64 DESTDIR=…</code></td>
+<td>headers, the three archives and <code>omxdsp.pc</code>, <code>omxdsp-contracts.pc</code>, <code>omxdsp-tsan.pc</code></td>
+</tr>
+<tr>
+<td><code>make flavours</code></td>
+<td>each archive carries its flavour, and a contracts consumer reads a violation raised inside the compiled code only through the contracts archive</td>
+</tr>
+<tr>
+<td><code>make docs</code></td>
+<td>the API reference with doxygen</td>
+</tr>
+<tr>
+<td><code>make exports</code></td>
+<td><code>build/omx-dsp-exports.json</code>: every public function and macro with its signature, its body as normalised tokens, its distinctive literals, maths calls, inline kernels and <code>@twin</code> names; <code>make install</code> puts it in <code>$(DATADIR)/omxdsp/</code> beside <code>omx-dsp-copy-check</code> in <code>$(BINDIR)</code></td>
+</tr>
+<tr>
+<td><code>make copy-check</code></td>
+<td><code>tools/omx-dsp-copy-check.sh --self-test</code>: planted copies in a scratch consumer (an exact copy, a renamed one, a TypeScript twin, a literal copy, inline kernels) must be found, a legitimate caller, boilerplate, tests and fakes must pass, and a stale or reasonless allowlist entry must fail; then each rule is broken in turn and the self-test must go red (part of <code>make test</code>, which runs it alone before everything else, so no parallel job runs beside it)</td>
+</tr>
+<tr>
+<td><code>make lint</code></td>
+<td>the doc check, the source scan, the log10f guard, tools/contract-single-source.sh (no name omx-contract defines is defined again here), tools/face-conformance.sh (every instance face's resolve takes its kernel's contract controls by name, order and kind), tools/travel-grid-check.sh (a travel's step reaches its maximum and default, a choice names its ids) and tools/clone-check.sh (a second copy of a body inside the library goes red); each checks its own sabotage</td>
+</tr>
+<tr>
+<td><code>make test-tsan</code></td>
+<td>the thread arm under ThreadSanitizer, where the toolchain has it</td>
+</tr>
+<tr>
+<td><code>make engine-kernels-identity OPENMIXER=&lt;checkout&gt;</code></td>
+<td>renders those digests again through the copies OpenMixer's engine still carries (<code>mix_src.h</code>, <code>mix_dsp.h</code>), and checks that each of its sabotages goes red; a desk check, not run in CI</td>
+</tr>
+<tr>
+<td><code>make test-mix</code></td>
+<td>the mix module's golden digests at the nine oracle rates (<code>test/golden/mix.sha256</code>, written by the engine's own copies), and a break in each kernel and in each of the bus stages' contract checks that must turn its arm red; alone</td>
+</tr>
+<tr>
+<td><code>make mix-engine-identity OPENMIXER=&lt;checkout&gt;</code></td>
+<td>renders the mix digests again through each set of copies OpenMixer's engine still carries (the bus stages' <code>omx_mix_strip</code>, <code>omx_bus_out_gain</code> and <code>omx_bus_out_stage</code> in <code>mix_dsp.h</code>, under the same names as <code>mix/omx_bus_stage.h</code>), and checks that each of its sabotages goes red; a desk check, not run in CI</td>
+</tr>
+<tr>
+<td><code>make strip-input-identity OMX_PLUGINS=&lt;checkout&gt;</code></td>
+<td>renders omx-plugins' channel strip's own input stage (<code>plugins/omx-strip/omx_strip.h</code>) and requires the trim face's golden digests, then its sabotage; a desk check, not run in CI</td>
+</tr>
+<tr>
+<td><code>make analysis-engine-identity OPENMIXER=&lt;checkout&gt;</code></td>
+<td>builds the analysis golden against the engine's own <code>mix_dsp.h</code>, <code>hrp_render.h</code> and <code>hrp_lv2.h</code> and requires the committed digests, then its sabotage; a desk check, not run in CI</td>
+</tr>
+<tr>
+<td><code>make room-ts-golden OPENMIXER=&lt;checkout&gt;</code></td>
+<td>runs core's room analysis and alignment fit from an OpenMixer checkout under node (22.6 or later) and requires the committed parity table <code>test/analysis/fixtures/room_ts.h</code>; a desk check, not run in CI</td>
+</tr>
+<tr>
+<td><code>make eq-sabotage</code></td>
+<td>the EQ bank, head-filter and drawn-curve arms (<code>eq-curve</code>, <code>eq-design-ts</code>) against nine sabotaged copies of the headers; each must fail both arms (part of <code>make test</code>)</td>
+</tr>
+<tr>
+<td><code>make bench-mixmatrix</code></td>
+<td>the mix matrix's cost, then a 64 x 32 matrix held to MIXMATRIX_PERIOD_SHARE of the period at the nine rates, and a budget nothing can meet must go red; a desk check, not run in CI, whose shared runners time a core the console does not run on</td>
+</tr>
+<tr>
+<td><code>make golden-write</code></td>
+<td>rewrites every kernel's <code>test/golden/&lt;kernel&gt;.sha256</code>; only in a commit that bumps the minor version or adds a kernel</td>
+</tr>
+</tbody>
+</table>
+<p><code>make -jN test</code> is supported. <code>tools/kernels-gen.sh</code> runs once, as the Make rule that produces
+<code>build/kernels-suite.inc.c</code> and <code>build/kernels-perturb.inc.c</code>; every target that reads them lists
+them as a prerequisite and no recipe or script calls the generator into <code>build/</code>. <code>make test-fx</code>
+is one target per kernel, instance, oracle, golden and perturbation script (<code>fx-run-*</code>), so <code>-j</code>
+runs them side by side; the set run and each assertion are the same as serially.
+<code>make gen-once</code> (<code>test/gen-once.sh</code>, part of <code>make test</code>) counts the generations under <code>-j8</code> and
+must see exactly one; it then re-adds the generator call to a recipe in a scratch copy of the
+Makefile, which must turn it red.</p>
+<p>Consumers compile the kernels through <code>pkg-config --cflags omxdsp</code>, which carries
+<code>-ffp-contract=off</code>: the kernels are inline, and without it an architecture with fused
+multiply-add would round differently from one without.</p>
+<h2 id="flavours">Flavours</h2>
+<p>The compiled part of the library (the oversampler, the FBS detector, the room analysis, the Farina
+sweep and the alignment fit; everything else is inline in the headers) is built once per flavour
+into <code>build/</code>:</p>
+<ul>
+<li><code>libomxdsp.a</code>: <code>CFLAGS</code> only, contracts compiled out.</li>
+<li><code>libomxdsp-contracts.a</code>: objects in <code>build/contracts/</code>, with <code>-DOMX_CONTRACTS</code>.</li>
+<li><code>libomxdsp-tsan.a</code>: objects in <code>build/tsan-lib/</code>, with <code>-DOMX_CONTRACTS -fsanitize=thread</code>.</li>
+</ul>
+<p>Each has a pkg-config file of the same name (<code>omxdsp</code>, <code>omxdsp-contracts</code>, <code>omxdsp-tsan</code>) whose
+cflags carry the flavour's flags, so the inline headers and the archive are always built the same
+way. The suite, the thread arm and the contract-checked kernel tests link <code>libomxdsp-contracts.a</code>,
+<code>make test-tsan</code> links <code>libomxdsp-tsan.a</code>, and the release-flag kernel tests link <code>libomxdsp.a</code>.
+<code>make flavours</code> (<code>tools/flavour-check.sh</code>, part of <code>make test</code>) checks each archive's symbols and
+builds <code>test/omxdsp_flavour.c</code>, a contracts consumer that feeds a NaN to the compiled oversampler:
+against <code>libomxdsp-contracts.a</code> it must find the violation in its own ledger, and against
+<code>libomxdsp.a</code> it must fail.</p>
+<h2 id="gcc-12-2-on-arm64">GCC 12.2 on arm64</h2>
+<p>Debian bookworm's GCC 12.2 on arm64 (Raspberry Pi OS, Zynthian) crashes with an internal compiler
+error in <code>vect_transform_reduction</code> on a loop that keeps a <code>double</code> running maximum or minimum with
+<code>fmax</code>/<code>fmin</code> over values widened from <code>float</code>. Write such a reduction as a comparison instead,
+<code>if (!(e &lt;= worst)) worst = e;</code>, which also carries a NaN into the result. <code>make lint</code> refuses the
+shape on any host (<code>tools/reduction-check.sh</code>), and CI builds the suite on bookworm arm64.</p>
+<h2 id="golden-digests-and-libm">Golden digests and libm</h2>
+<p>A golden digest covers the kernel's output bit for bit, so it also covers every libm call the
+kernel makes per sample. A libm's <code>log10f</code> is not one function: glibc 2.36 (debian:bookworm)
+misrounds 1.39% of the non-negative floats, 62 225 of them by 2 ulp, where glibc 2.41 (debian:trixie)
+and 2.43 (Fedora 44) round every one correctly, since 2.41 took <code>log10f</code> from CORE-MATH. The limiter's
+48 kHz digest (the render of FreeMixer/omx-dsp#21) read <code>5fe47250…</code> on bookworm against <code>69a449ce…</code>
+on 2.41 and 2.43. The compiler played no part: the same binary flips with the glibc it runs on.</p>
+<p>Production calls the libm: <code>omx_lin_to_db()</code> is <code>20·log10f(max(lin, 1e-9))</code>, about 2 ns per call
+against 10 ns for a libm-free <code>log10f</code> on glibc 2.43. The goldens do not: <code>omx_log10f()</code> lives in
+<code>test/support/log10f_cr.h</code>, a correctly rounded <code>log10</code> in IEEE double arithmetic (it needs
+<code>FLT_EVAL_METHOD == 0</code> and <code>-ffp-contract=off</code>, which the Makefile's <code>FPFLAGS</code> carry), and every
+effect-kernel golden TU is compiled with <code>-include test/support/log10f_subst.h</code>, which defines <code>log10f</code> as
+<code>omx_log10f</code>. The kernels are static inline, so the substitution reaches them, and every kernel's
+golden is an exact digest on every toolchain. Two guards hold it: <code>golden.h</code> refuses to compile a
+golden without the substitution and the golden driver exits 2 when <code>log10f</code> there is not
+<code>omx_log10f</code>, and <code>tools/log10f-guard.sh</code> (part of <code>make lint</code>) fails when <code>omx_log10f</code> appears
+under <code>include/</code> or <code>src/</code>. <code>make check-log10f</code> compares <code>omx_log10f</code> with the host libm's <code>log10f</code>
+on all 2³¹ non-negative floats; against glibc 2.43 none differ. <code>test/kernels/units.c</code> tests it
+against fixed bit patterns, including <code>0x0efeee7a</code>, 7.8e-10 ulp from a float midpoint, which is
+answered from its exact value. The analysis golden (<code>test/analysis/golden.test.c</code>), whose HRP
+code calls <code>log10f</code> through the compiled headers, links with <code>-Wl,--wrap=log10f</code> and answers each
+call with <code>omx_log10f</code>; it exits 2 if the wrap was never reached.</p>
+<p>On glibc older than 2.41 a production build may therefore differ from the golden by up to 2 ulp of
+a dB value in the units that call <code>log10f</code>. That is accepted.</p>
+<p>The limiter's other per-sample call, <code>powf</code> in <code>omx_db_to_lin()</code>, is the same implementation in
+every glibc since 2.28 and returned the same bits for equal arguments on 2.36, 2.41 and 2.43. A
+kernel that adds a per-sample libm call adds it to the RT-safe allowlist named in its <code>@note</code>, and
+checks that the goldens agree across glibc versions, or uses a libm-free word.</p>
+<h2 id="libmvec">libmvec</h2>
+<p>The drive's shaper (<code>omx_drive_shape_block</code>) and the dynamics gain curves (the loops of
+<code>omx_dynamics_keyed</code> and <code>omx_dyn_flat_gain_block</code>) are stateless per sample, so their <code>tanhf</code>,
+<code>log10f</code> and <code>powf</code> run four samples at a time through glibc's libmvec. Measured on a Pi 5 (glibc
+2.41, gcc 14, 256-sample blocks), libm against libmvec in ns per sample: tanhf 9.34 to 2.52,
+log10f 8.08 to 1.87, expf 6.22 to 1.80, powf 11.74 to 7.22. <code>include/omxdsp/omx_fastmath.h</code> makes the
+<code>#pragma omp declare simd notinbranch</code> declarations, because glibc's own <code>&lt;math.h&gt;</code> makes them only under
+<code>__FAST_MATH__</code>, which this library never uses (<code>-ffast-math</code> sets flush-to-zero at load).</p>
+<p>The build decides, per function, by compiling and linking a probe (<code>tools/fastmath-probe.sh</code>): a function
+counts only when the compiler turns a loop over it into a call of its <code>_ZGV</code> symbol and the program links with
+<code>-lm -lmvec</code>. The Makefile then adds <code>-fopenmp-simd -fno-math-errno</code> and
+<code>-DOMX_FASTMATH_MVEC_&lt;F&gt;=1</code> for each function found, and <code>-lmvec</code> to the link; <code>omxdsp.pc</code> carries the same in its
+<code>Cflags</code> and <code>Libs</code>, so a consumer that links the static library takes libmvec on exactly the targets where the
+library was built with it (<code>pkg-config --cflags --libs omxdsp</code>). Where libmvec is absent (Debian 12 on arm64;
+glibc older than 2.35 on x86-64; glibc older than 2.40 for <code>tanhf</code> and <code>powf</code> on aarch64) the probe finds nothing, the
+flags are empty and every kernel calls the libm as before. <code>make FASTMATH=off</code> forces that path. <code>-fopenmp-simd</code>
+links no OpenMP runtime; <code>-fno-math-errno</code> lets the compiler treat the four functions as pure, and enables no
+exception. The trapping-math default is kept: the loops select with <code>omx_fm_select()</code> rather than <code>?:</code> on floats, so
+nothing has to be speculated for them to vectorise.</p>
+<p>The output through libmvec is not bit-identical to the libm's. Held by:</p>
+<ul>
+<li><code>make fastmath</code>: the oracle (<code>test/fx/fastmath.test.c</code>), each function against the double-precision libm over
+the range the library uses, with its specials, and a check (<code>tools/fastmath-vec-check.sh</code>) that every loop
+above really calls the vector symbols;</li>
+<li><code>make fastmath-diff</code>: every kernel that uses them rendered on the libm and on libmvec at every declared rate,
+the largest sample difference in dB re full scale, failing above <code>FM_DIFF_LIMIT_DBFS</code> (-96);</li>
+<li><code>make fastmath-sabotage</code>: the oracle red on a result moved by 5 ULP, the loop check red on a header without
+the pragma, the probe empty for a toolchain with no libmvec, no pragma or no vector symbol;</li>
+<li><code>make fastmath-plain</code>: the oracle, the drive and the dynamics again with <code>FASTMATH=off</code>.</li>
+</ul>
+<p>The golden digests stay on the libm: their translation units are built with the flags before the libmvec ones
+(<code>CFLAGS_PLAIN</code>), and the stage's contracts build (<code>-DOMX_CONTRACTS</code>) keeps its per-sample calls, so a digest or a
+contract ledger does not depend on the glibc's libmvec.</p>
+<h2 id="rates-outside-the-declaration">Rates outside the declaration</h2>
+<p>The console declares six rates (<code>OMX_DECLARED_RATES</code>), and the kernels' contracts refuse any other
+with a <code>rate-is-declared</code> precondition. The dynamics, balance, rotor and limiter oracles also run at
+32, 64 and 128 kHz, the other rates of the oracle set (<code>OMX_FX_ORACLE_RATES</code> in
+<code>test/fx/fx_rates.h</code>), with contracts still on: there the <code>rate-is-declared</code> precondition is
+expected, and every other law must hold. Their golden digest files carry all nine rates.</p>
+<h2 id="the-engine-s-copies">The engine's copies</h2>
+<p>The sample-rate converter (<code>omx_src.h</code>), the generators (<code>omx_gen.h</code>) and the analyser's spectrum
+readings and half-band decimator (<code>analysis/omx_rta.h</code>) moved here from OpenMixer's engine unchanged in
+behaviour. Their oracles are suite arms (<code>test/kernels/src.c</code>, <code>gen.c</code>,
+<code>rta.c</code>); <code>test/engine_kernels/golden.test.c</code> hashes their output per kernel at the nine oracle rates,
+and <code>test/golden/engine_kernels.sha256</code> holds the digests the engine's own copies gave, written by
+<code>tools/engine-kernels-identity.sh --write</code>. <code>make engine-kernels-identity OPENMIXER=&lt;checkout&gt;</code>
+compiles the program again with those copies in place of the three headers, against the
+omx-contract release the engine pins, and requires the same digests (set
+<code>ENGINE_IDENTITY_INCLUDE</code> to the include directory of the omx-dsp the engine pins, e.g. <code>git archive &lt;its commit&gt; include</code>, when this tree's other headers need a newer contract than the engine's); its self-test changes one line
+in each copy and requires a failure each time. It is a desk check and CI does not run it: the copies
+live in OpenMixer's private repository. It ends when the engine builds from these headers instead
+of its copies.</p>
+<p>The engine spells the converter's design rolloff <code>OMX_SRC_ROLLOFF</code>, a double; omx-contract renders
+it as the float <code>OMX_SRC_ROLLOFF</code> and the double <code>OMX_SRC_ROLLOFF_DOUBLE</code>. A caller that wants the
+engine's coefficients passes <code>OMX_SRC_ROLLOFF_DOUBLE</code> to <code>omx_src_design</code>.</p>
+<h2 id="the-channel-strip-s-input-stage">The channel strip's input stage</h2>
+<p>omx-plugins' channel strip ran its input trim and the trim's ramp as arithmetic of its own. That
+stage is now two faces: <code>fx/omx_trim_instance.h</code> (the trim kernel's one control, the console's
+de-zippered head gain) and <code>fx/omx_eq_instance.h</code> with every band off (the HPF and the LPF, which
+the console runs as sections of its channel EQ). <code>test/golden/trim_instance.sha256</code> was written by
+<code>make strip-input-identity OMX_PLUGINS=&lt;checkout&gt;</code> (<code>tools/strip-input-identity.sh</code>) from the
+plugin's own <code>omx_strip.h</code>, and <code>test/fx/trim_instance_golden.test.c</code> holds the two faces to it at
+every declared rate. Run it again whenever either face or the strip's input stage changes; it ends
+when the strip is generated from these faces and holds no arithmetic of its own.</p>
+<h2 id="room-analysis-and-the-alignment-fit">Room analysis and the alignment fit</h2>
+<p>OpenMixer's room analysis and Smart Alignment's fit moved here from TypeScript:
+<code>analysis/omx_align_fit.h</code> (the cross-spectrum accumulator, the
+delay and polarity fit, the correction), <code>analysis/omx_room.h</code> (the H1 transfer and coherence,
+the impulse response and its early reflections, RT60 per octave band, the mode finder and the
+mode-EQ proposal) and <code>analysis/omx_sweep.h</code> (the Farina sweep, its inverse and the
+deconvolution), compiled in <code>src/omx_align_fit.c</code>, <code>src/omx_room.c</code> and <code>src/omx_sweep.c</code>. They
+run on a control thread, never in the audio callback: every buffer and scratch array is the
+caller's, sized as each function states, and nothing is allocated, locked or kept between calls.
+A measurement that cannot conclude returns a refusal code (<code>enum omx_analysis_refusal</code>), one per
+word of core's refusal lists.</p>
+<p>The numbers core declares for these readers and omx-contract does not yet carry (the frame
+floor, the default and mode bands, the trust coherence, the analysis floor, the early-reflection
+horizon and floor, the T20 span, the octave centres, the mode margin and position floor, the
+sweep's fade fraction) are the caller's to pass; this tree types none of them. The proposal's
+bounds are omx-contract's (<code>OMX_FBS_MAX_NOTCH_DEPTH_DB</code>, <code>OMX_EQ_GAIN_RANGE_*</code>,
+<code>OMX_EQ_Q_RANGE_*</code>).</p>
+<p>Two kinds of oracle hold them. <code>test/analysis/align_fit.test.c</code>, <code>room.test.c</code> and
+<code>sweep.test.c</code> check closed forms at the nine oracle rates (a known delay, gain, reflection,
+decay, set of resonances, sweep law) and count allocations. <code>test/analysis/room_ts.test.c</code> holds
+every result to what core's TypeScript computes on fixed inputs, from the parity table
+<code>test/analysis/fixtures/room_ts.h</code>: integers exactly, reals within 1e-9 relative (measured gap
+about 1e-12; V8's libm against the host's). <code>tools/room-ts-golden.mjs</code> wrote the table from an
+OpenMixer checkout, with omx-contract's TypeScript render from the pinned release; every input
+is built from an integer PRNG and exact arithmetic, so the C test rebuilds the same bits.
+<code>make room-ts-golden OPENMIXER=&lt;checkout&gt;</code> writes it again and requires the committed file; run
+it whenever core's TypeScript or these kernels change, until the TypeScript is deleted. <code>test/analysis/room-sabotage.sh</code> breaks each kernel once in a
+scratch copy and requires its closed-form oracle and the parity test to fail.</p>
+<h2 id="the-eq-maths-openmixer-s-typescript-computes">The EQ maths openmixer's TypeScript computes</h2>
+<p>openmixer designs its console EQ and draws its curve in TypeScript today. The C
+here computes the same results, so the engine and the server can take them from one place:</p>
+<table>
+<thead>
+<tr>
+<th>TypeScript</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>core <code>rbjSection</code>, <code>rbjCoeffs</code> (core <code>eq.ts</code>)</td>
+<td><code>omx_eq_design</code>, <code>omx_eq_design_f</code></td>
+</tr>
+<tr>
+<td>core <code>bandwidthOctavesQ</code></td>
+<td><code>omx_eq_bandwidth_q</code></td>
+</tr>
+<tr>
+<td>core <code>butterworthSlopeQs</code>, web <code>butterworthSectionQs</code></td>
+<td><code>omx_eq_butterworth_qs</code></td>
+</tr>
+<tr>
+<td>core <code>passFilterMaxSections</code></td>
+<td><code>OMX_EQ_PASS_MAX_SECTIONS</code></td>
+</tr>
+<tr>
+<td>core <code>complementSection</code></td>
+<td><code>omx_eq_complement</code></td>
+</tr>
+<tr>
+<td>core <code>eqBandIsIdentity</code></td>
+<td><code>omx_eq_band_is_identity</code></td>
+</tr>
+<tr>
+<td>core <code>eqCoeffs</code></td>
+<td><code>omx_eq_bank_design</code></td>
+</tr>
+<tr>
+<td>core <code>passFilterCoeffs</code></td>
+<td><code>omx_eq_pass_design</code></td>
+</tr>
+<tr>
+<td>core <code>sectionMagnitudeDb</code></td>
+<td><code>omx_biquad_magnitude_db_d</code></td>
+</tr>
+<tr>
+<td>core <code>biquadMagnitudeDb</code></td>
+<td><code>omx_eq_band_magnitude_db</code></td>
+</tr>
+<tr>
+<td>core <code>eqCurveDb</code></td>
+<td><code>omx_eq_curve_db</code> (its frequencies: <code>omx_eq_curve_freqs</code>)</td>
+</tr>
+<tr>
+<td>web <code>magnitudeSumDb</code>, <code>seatY</code>'s value (web <code>eqCurveGeom.ts</code>)</td>
+<td><code>omx_eq_magnitude_sum_db</code></td>
+</tr>
+<tr>
+<td>web <code>eqStateBands</code>, <code>filterBands</code>, <code>passFilterBands</code></td>
+<td><code>omx_eq_curve_bands</code></td>
+</tr>
+<tr>
+<td>web <code>eqStateCurveDb</code>, <code>compositeCurveDb</code></td>
+<td><code>omx_eq_curve_bands</code>, then <code>omx_eq_curve_db</code></td>
+</tr>
+<tr>
+<td>catalog <code>octavesToQ</code> (catalog <code>eq.ts</code>)</td>
+<td><code>omx_eq_octaves_q</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>test/kernels/fixtures/eq_design_ts.h</code> is what that TypeScript computes on fixed inputs at the nine
+oracle rates, written by <code>tools/ts-golden.mjs design &lt;openmixer&gt; &lt;contract-ts&gt;</code> (Node 22.7 or later;
+<code>&lt;contract-ts&gt;</code> is omx-contract's TypeScript render, <code>omx-contract render --target ts --out &lt;dir&gt;</code>
+from a checkout of the installed release). The <code>eq-design-ts</code> arm holds the C to it: a coefficient, a Q or
+a frequency of the drawn grid within 4 ulp, a magnitude within 1e-9 dB, the bank's order, count and
+parked sections exactly. Two families of coefficient pass 4 ulp, both a cancellation that turns one
+ulp of V8's <code>exp</code> or <code>cos</code> into many (a matched bell or shelf at a low corner or a wide Q, and the
+fitted low-pass's b2 far below Nyquist); they are held to 1e-13 absolute, and the arm prints the
+largest gap of each kind. Regenerate the fixture when openmixer's TypeScript changes, until it is
+deleted. The <code>eq-curve</code> arm holds the same functions to closed forms.</p>
+<h2 id="loudness">Loudness</h2>
+<p><code>omx_loudness.h</code> measures EBU R 128 loudness the way ITU-R BS.1770-4 defines it
+(FreeMixer/omx-dsp#64). The engine measures and accumulates; it reads the figures and publishes
+them, and no other code computes them.</p>
+<ul>
+<li><strong>K-weighting.</strong> Two sections designed for the rate at init, in double, from the analogue
+prototype of BS.1770's 48 kHz table (a high shelf at 1681.97 Hz, +4.0 dB, and the RLB high-pass
+at 38.135 Hz), by the bilinear transform with <code>tan</code> prewarping. At 48 kHz they reproduce the
+standard's printed coefficients; at the other rates they are the same filter. Each leg runs
+through omx_biquad_d(), double history.</li>
+<li><strong>Blocks.</strong> The K-weighted squares, each leg weighted (1.0 for L, R, C; 1.41 for the surrounds;
+0 drops a leg, the LFE), are summed in 10 ms sub-blocks (<code>rate / 100</code> samples, a whole number at
+each of the nine oracle rates). Momentary loudness is the last 40 sub-blocks (400 ms), short-term
+the last 300 (3 s); a window that has not yet filled counts the missing time as silence.</li>
+<li><strong>Gating.</strong> Every 100 ms a full 400 ms block joins the integrated measurement and, once 3 s have
+passed, the short-term value joins the range. Neither keeps the blocks: each keeps a histogram of
+0.1 LU bins from −70 LUFS up, every bin holding its count and the exact sum of its energies. The
+absolute gate (−70 LUFS) is a bin edge; the relative gate (−10 LU for the integrated loudness,
+−20 LU for the range) is placed in energy, and the bin it falls in is kept when its own mean is
+above the gate. So a programme of any length takes the same state, and the integrated value is
+exact except for blocks within 0.1 LU of the relative gate.</li>
+<li><strong>Loudness range.</strong> EBU Tech 3342: the 10th to the 95th percentile of the gated short-term
+values, each percentile read as the energy mean of the bin that holds it.</li>
+<li><strong>True peak.</strong> The largest reading of omx_truepeak_block() over every leg: the shared ×4
+half-band interpolator, BS.1770-4's four, not a second one.</li>
+</ul>
+<p>Nothing on the process path allocates, locks or calls libm: the bin edges and coefficients are
+computed at init, and a reading calls <code>pow</code> and <code>log10</code> at most twice. The state is one caller-owned struct
+without pointers, exported with OMXDSP_STATE_LAYOUT.</p>
+<p>The oracle (<code>test/fx/loudness.test.c</code>) generates EBU Tech 3341's and 3342's test signals from
+their closed forms at each of the nine oracle rates and holds the readings to the tolerances the
+documents give: momentary, short-term and integrated ±0.1 LU, true peak +0.2/−0.4 dB, loudness
+range ±1 LU. Generated: 3341 signals 1 to 6, 9, 12 and 15 to 19, and 3342 signals 1 to 4. In
+place of the burst signals 10 and 13, a burst of exactly one window (3 s, 400 ms) at −23 dBFS is
+placed off the 10 ms grid and the largest reading must be −23.0 LUFS ±0.1. Not generated: the
+programme recordings (3341 signals 7 and 8, 3342 signals 5 and 6) and the signals published only
+as files (3341 signals 11, 14 and 20 to 23). The true-peak tones are faded in over 20 ms: a sine
+switched on at full level is a step, and its reconstruction overshoots. The golden digests
+(<code>test/golden/loudness.sha256</code>) hold the readings in energy, so no libm <code>log10</code> enters them;
+<code>test/fx/loudness-perturb.sh</code> breaks the shelf, the relative gate, the range percentile, the true
+peak and the momentary window one at a time, and each must turn the oracle red and move every
+digest.</p>
+<h2 id="the-definitions-and-the-limits">The definitions and the limits</h2>
+<p>The kernels and DSP constants this library implements are defined in <code>data/</code>: one file per kernel
+under <code>data/kernels/</code>, one per constant under <code>data/primitives/</code>, in omx-contract's schema. The C
+code reads them through <code>&lt;omxdsp/omxdsp_definitions.h&gt;</code>, rendered from <code>data/</code> by omx-contract's tool
+(<code>make definitions OMX_CONTRACT=&lt;checkout&gt;</code>, which runs <code>omx-contract render --target c --package omx-dsp</code>) and committed, so a build needs no node. Never edit the header: change the definition and
+render again; <code>make definitions-check</code> fails while the two differ, and <code>tools/contract-single-source.sh</code>
+fails on a second definition of any of its names. <code>make install</code> installs <code>data/</code> into omx-contract's
+contract directory as the package <code>omx-dsp</code>, with a <code>MANIFEST.json</code>, where the other packages read
+it.</p>
+<p>The facts no single package implements (the declared sample rates, the parameter scales) stay in
+FreeMixer/omx-contract, read through <code>&lt;omxcontract/omx_contract_limits.h&gt;</code>, which the definitions
+header includes. That dependency is declared once, in the packaging: <code>packaging/omx-dsp.spec</code>
+(<code>BuildRequires</code>, <code>Requires</code>) and <code>debian/control</code> (<code>Build-Depends</code>, <code>Depends</code>) carry the same floor
+and no upper bound (<code>&gt;= 3.1.0</code>), and <code>omxdsp.pc</code> requires the same floor. Install
+it from the FreeMixer channel with the rest of the build dependencies:</p>
+<pre><code>dnf builddep packaging/omx-dsp.spec     # Fedora, with the FreeMixer repository added
+apt-get build-dep ./                    # Debian, with the FreeMixer source list added
+</code></pre>
+<p><code>tools/contract-include.sh</code> finds the installed <code>omx-contract</code> with <code>pkg-config</code>: at or above the
+floor the spec declares, it prints the package's include directory; otherwise the build stops, naming
+the package, the floor and the version installed. The dependency is a floor only, never a ceiling.
+Nothing is downloaded and no version is pinned anywhere else. <code>tools/contract-include-selftest.sh</code>
+(<code>make checks</code>) holds the script to that floor, <code>debian/control</code> and <code>omxdsp.pc.in</code> to the spec's, and
+refuses an upper bound in any of them.</p>
+<p><code>OMX_CONTRACT_INC=&lt;dir&gt;</code> names another include directory (one that holds <code>omxcontract/</code>) and skips the
+version check. The perturbation arms use it, and so can you: render a contract with one value moved
+into a scratch directory, <code>make test</code>, and the kernel test that reads that value must go red.
+Moving the range is one commit of its own, in the spec and <code>debian/control</code> together. A value the
+kernels need is added to its definition in <code>data/</code> and the header rendered again; it is never typed
+in the code.</p>
+<h2 id="packages">Packages</h2>
+<p><code>packaging/omx-dsp.spec</code> (RPM, <code>omx-dsp-devel</code>) and <code>debian/</code> (<code>libomxdsp-dev</code>). A <code>v&lt;version&gt;</code>
+tag releases both through the FreeMixer release workflows; the version is
+<code>OMXDSP_VERSION_*</code> in <code>include/omxdsp/omxdsp.h</code>, the spec's <code>Version:</code> and the top of
+<code>debian/changelog</code>, and CI refuses them disagreeing.</p>
+</article><nav class="hidden lg:block" aria-label="Contents"><!--[--><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contents</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#flavours" class="text-ink-dim hover:text-accent">Flavours</a></li><li><a href="#gcc-12-2-on-arm64" class="text-ink-dim hover:text-accent">GCC 12.2 on arm64</a></li><li><a href="#golden-digests-and-libm" class="text-ink-dim hover:text-accent">Golden digests and libm</a></li><li><a href="#libmvec" class="text-ink-dim hover:text-accent">libmvec</a></li><li><a href="#rates-outside-the-declaration" class="text-ink-dim hover:text-accent">Rates outside the declaration</a></li><li><a href="#the-engine-s-copies" class="text-ink-dim hover:text-accent">The engine&#39;s copies</a></li><li><a href="#the-channel-strip-s-input-stage" class="text-ink-dim hover:text-accent">The channel strip&#39;s input stage</a></li><li><a href="#room-analysis-and-the-alignment-fit" class="text-ink-dim hover:text-accent">Room analysis and the alignment fit</a></li><li><a href="#the-eq-maths-openmixer-s-typescript-computes" class="text-ink-dim hover:text-accent">The EQ maths openmixer&#39;s TypeScript computes</a></li><li><a href="#loudness" class="text-ink-dim hover:text-accent">Loudness</a></li><li><a href="#the-definitions-and-the-limits" class="text-ink-dim hover:text-accent">The definitions and the limits</a></li><li><a href="#packages" class="text-ink-dim hover:text-accent">Packages</a></li><!--]--></ul><!--]--><!--[--><p class="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-accent">More of omx-dsp</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="/projects/omx-dsp" class="router-link-active text-ink-dim hover:text-accent">omx-dsp</a></li><!--]--></ul><!--]--><p class="mt-8 text-sm"><a href="/projects" class="text-accent hover:underline">All the projects</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">A software mixing console for Linux. The desk is the software; the browser is the surface.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pages</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/architecture" class="text-ink-dim hover:text-accent">Architecture</a></li><li><a href="/features" class="text-ink-dim hover:text-accent">Features</a></li><li><a href="/docs" class="text-ink-dim hover:text-accent">Documentation</a></li><li><a href="/faq" class="text-ink-dim hover:text-accent">FAQ</a></li><li><a href="/get-it" class="text-ink-dim hover:text-accent">Get it</a></li><li><a href="/links" class="text-ink-dim hover:text-accent">Links</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Licence</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer is free software under the <span class="font-mono text-ink">GPL-3.0-or-later</span>. Every package in the workspace carries the same licence.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME and the product names used here belong to their respective owners. OpenMixer is an independent project and is not affiliated with any of them.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/projects/omx-dsp/building/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"",[],["Set"],["ShallowReactive",16],{"project-omx-dsp-building":-1},"\u002Fprojects\u002Fomx-dsp\u002Fbuilding",1793751246366]</script></body></html>

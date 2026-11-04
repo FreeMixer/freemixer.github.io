@@ -1,0 +1,446 @@
+<!DOCTYPE html><html  lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>&quot;Podria l&#x27;amfitrió acceptar VST3? La costura de l&#x27;adaptador i el seu cost&quot; | OpenMixer</title><script type="importmap">{"imports":{"#entry":"/_nuxt/uZ80qBNG.js"}}</script><style id="nuxt-ui-colors">@layer theme {
+  :root, :host {
+  --ui-color-primary-50: var(--color-omx-50, );
+  --ui-color-primary-100: var(--color-omx-100, );
+  --ui-color-primary-200: var(--color-omx-200, );
+  --ui-color-primary-300: var(--color-omx-300, );
+  --ui-color-primary-400: var(--color-omx-400, );
+  --ui-color-primary-500: var(--color-omx-500, );
+  --ui-color-primary-600: var(--color-omx-600, );
+  --ui-color-primary-700: var(--color-omx-700, );
+  --ui-color-primary-800: var(--color-omx-800, );
+  --ui-color-primary-900: var(--color-omx-900, );
+  --ui-color-primary-950: var(--color-omx-950, );
+  --ui-color-secondary-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-secondary-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-secondary-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-secondary-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-secondary-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-secondary-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-secondary-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-secondary-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-secondary-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-secondary-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-secondary-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-success-50: var(--color-green-50, oklch(98.2% 0.018 155.826));
+  --ui-color-success-100: var(--color-green-100, oklch(96.2% 0.044 156.743));
+  --ui-color-success-200: var(--color-green-200, oklch(92.5% 0.084 155.995));
+  --ui-color-success-300: var(--color-green-300, oklch(87.1% 0.15 154.449));
+  --ui-color-success-400: var(--color-green-400, oklch(79.2% 0.209 151.711));
+  --ui-color-success-500: var(--color-green-500, oklch(72.3% 0.219 149.579));
+  --ui-color-success-600: var(--color-green-600, oklch(62.7% 0.194 149.214));
+  --ui-color-success-700: var(--color-green-700, oklch(52.7% 0.154 150.069));
+  --ui-color-success-800: var(--color-green-800, oklch(44.8% 0.119 151.328));
+  --ui-color-success-900: var(--color-green-900, oklch(39.3% 0.095 152.535));
+  --ui-color-success-950: var(--color-green-950, oklch(26.6% 0.065 152.934));
+  --ui-color-info-50: var(--color-blue-50, oklch(97% 0.014 254.604));
+  --ui-color-info-100: var(--color-blue-100, oklch(93.2% 0.032 255.585));
+  --ui-color-info-200: var(--color-blue-200, oklch(88.2% 0.059 254.128));
+  --ui-color-info-300: var(--color-blue-300, oklch(80.9% 0.105 251.813));
+  --ui-color-info-400: var(--color-blue-400, oklch(70.7% 0.165 254.624));
+  --ui-color-info-500: var(--color-blue-500, oklch(62.3% 0.214 259.815));
+  --ui-color-info-600: var(--color-blue-600, oklch(54.6% 0.245 262.881));
+  --ui-color-info-700: var(--color-blue-700, oklch(48.8% 0.243 264.376));
+  --ui-color-info-800: var(--color-blue-800, oklch(42.4% 0.199 265.638));
+  --ui-color-info-900: var(--color-blue-900, oklch(37.9% 0.146 265.522));
+  --ui-color-info-950: var(--color-blue-950, oklch(28.2% 0.091 267.935));
+  --ui-color-warning-50: var(--color-yellow-50, oklch(98.7% 0.026 102.212));
+  --ui-color-warning-100: var(--color-yellow-100, oklch(97.3% 0.071 103.193));
+  --ui-color-warning-200: var(--color-yellow-200, oklch(94.5% 0.129 101.54));
+  --ui-color-warning-300: var(--color-yellow-300, oklch(90.5% 0.182 98.111));
+  --ui-color-warning-400: var(--color-yellow-400, oklch(85.2% 0.199 91.936));
+  --ui-color-warning-500: var(--color-yellow-500, oklch(79.5% 0.184 86.047));
+  --ui-color-warning-600: var(--color-yellow-600, oklch(68.1% 0.162 75.834));
+  --ui-color-warning-700: var(--color-yellow-700, oklch(55.4% 0.135 66.442));
+  --ui-color-warning-800: var(--color-yellow-800, oklch(47.6% 0.114 61.907));
+  --ui-color-warning-900: var(--color-yellow-900, oklch(42.1% 0.095 57.708));
+  --ui-color-warning-950: var(--color-yellow-950, oklch(28.6% 0.066 53.813));
+  --ui-color-error-50: var(--color-red-50, oklch(97.1% 0.013 17.38));
+  --ui-color-error-100: var(--color-red-100, oklch(93.6% 0.032 17.717));
+  --ui-color-error-200: var(--color-red-200, oklch(88.5% 0.062 18.334));
+  --ui-color-error-300: var(--color-red-300, oklch(80.8% 0.114 19.571));
+  --ui-color-error-400: var(--color-red-400, oklch(70.4% 0.191 22.216));
+  --ui-color-error-500: var(--color-red-500, oklch(63.7% 0.237 25.331));
+  --ui-color-error-600: var(--color-red-600, oklch(57.7% 0.245 27.325));
+  --ui-color-error-700: var(--color-red-700, oklch(50.5% 0.213 27.518));
+  --ui-color-error-800: var(--color-red-800, oklch(44.4% 0.177 26.899));
+  --ui-color-error-900: var(--color-red-900, oklch(39.6% 0.141 25.723));
+  --ui-color-error-950: var(--color-red-950, oklch(25.8% 0.092 26.042));
+  --ui-color-neutral-50: var(--color-slate-50, oklch(98.4% 0.003 247.858));
+  --ui-color-neutral-100: var(--color-slate-100, oklch(96.8% 0.007 247.896));
+  --ui-color-neutral-200: var(--color-slate-200, oklch(92.9% 0.013 255.508));
+  --ui-color-neutral-300: var(--color-slate-300, oklch(86.9% 0.022 252.894));
+  --ui-color-neutral-400: var(--color-slate-400, oklch(70.4% 0.04 256.788));
+  --ui-color-neutral-500: var(--color-slate-500, oklch(55.4% 0.046 257.417));
+  --ui-color-neutral-600: var(--color-slate-600, oklch(44.6% 0.043 257.281));
+  --ui-color-neutral-700: var(--color-slate-700, oklch(37.2% 0.044 257.287));
+  --ui-color-neutral-800: var(--color-slate-800, oklch(27.9% 0.041 260.031));
+  --ui-color-neutral-900: var(--color-slate-900, oklch(20.8% 0.042 265.755));
+  --ui-color-neutral-950: var(--color-slate-950, oklch(12.9% 0.042 264.695));
+  }
+  :root, :host, .light {
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-secondary: var(--ui-color-secondary-500);
+  --ui-success: var(--ui-color-success-500);
+  --ui-info: var(--ui-color-info-500);
+  --ui-warning: var(--ui-color-warning-500);
+  --ui-error: var(--ui-color-error-500);
+  }
+  .dark {
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-secondary: var(--ui-color-secondary-400);
+  --ui-success: var(--ui-color-success-400);
+  --ui-info: var(--ui-color-info-400);
+  --ui-warning: var(--ui-color-warning-400);
+  --ui-error: var(--ui-color-error-400);
+  }
+}</style><link rel="stylesheet" href="/_nuxt/entry.DSQ76p3O.css" crossorigin><style>@layer base {:where(.i-lucide\:menu){display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask-image:var(--svg);mask-image:var(--svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;--svg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 5h16M4 12h16M4 19h16'/%3E%3C/svg%3E")}}</style><link rel="preload" as="fetch" crossorigin="anonymous" href="/ca/notes/could-the-host-take-vst3/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/uZ80qBNG.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D2Zj6ZUv.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DFgqGmOc.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dv0ruBhP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DSyqKEA_.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bW6NxFOP.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/bFKAhFce.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DK3Fl9T5.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiylCA0m.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BM-G5ILF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/DnOyns7I.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/r0ZUnOR6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/BfjlHlEM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/7aaTjKoF.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/B7f_ts-K.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/Dhyxm03C.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/D43rHncM.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNs_Ozdc.js"><script type="module" src="/_nuxt/uZ80qBNG.js" crossorigin></script><link rel="prefetch" as="script" crossorigin href="/_nuxt/B1eY2K89.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BDNMzG2s.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BfsGAnOS.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMWkIGvv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CMx8XeKT.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CH_6PZHZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C4LhWnh7.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/D2H52pKN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/C_Vo6Cpv.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkUevp-A.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BrLBbKql.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/CkceDeHA.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/DpO9t-n4.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/MpqZPowV.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BM38UV2E.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dga5QANZ.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/Dwv5_atN.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/BxJRRP96.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/495XL0kX.js"><meta name="theme-color" content="#0b0e11" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/img/openmixer-mark.svg"><link id="i18n-xd" rel="alternate" href="https://openmixer.org/notes/could-the-host-take-vst3" hreflang="x-default"><link id="i18n-alt-en" rel="alternate" href="https://openmixer.org/notes/could-the-host-take-vst3" hreflang="en"><link id="i18n-alt-ca" rel="alternate" href="https://openmixer.org/ca/notes/could-the-host-take-vst3" hreflang="ca"><link id="i18n-can" rel="canonical" href="https://openmixer.org/ca/notes/could-the-host-take-vst3"><meta id="i18n-og-url" property="og:url" content="https://openmixer.org/ca/notes/could-the-host-take-vst3"><meta id="i18n-og" property="og:locale" content="ca"><meta id="i18n-og-alt-en" property="og:locale:alternate" content="en"><meta name="description" content="Un adaptador VST3 és possible en C pla contra l'API C de Steinberg, amb llicències que un amfitrió GPL pot fer servir i una prova va allotjar un efecte VST3 real de cap a cap. Costaria unes 6200 línies i tres setmanes, per a una demanda escassa i per això no es fa; el que ho faria canviar queda escrit."><script>"use strict";(()=>{const o=window,e=document.documentElement,c=["dark","light"],s=getStorageValue("localStorage","nuxt-color-mode")||"system";let r=s==="system"?f():s;const l=e.getAttribute("data-color-mode-forced");l&&(r=l),i(r),o["__NUXT_COLOR_MODE__"]={preference:s,value:r,getColorScheme:f,addColorScheme:i,removeColorScheme:d};function i(t){const a=""+t+"",n="theme";e.classList?e.classList.add(a):e.className+=" "+a,n&&e.setAttribute("data-"+n,t)}function d(t){const a=""+t+"",n="theme";e.classList?e.classList.remove(a):e.className=e.className.replace(new RegExp(a,"g"),""),n&&e.removeAttribute("data-"+n)}function u(t){return o.matchMedia("(prefers-color-scheme"+t+")")}function f(){if(o.matchMedia&&u("").media!=="not all"){for(const t of c)if(u(":"+t).matches)return t}return"dark"}})();function getStorageValue(o,e){switch(o){case"localStorage":try{return window.localStorage.getItem(e)}catch{return null}case"sessionStorage":try{return window.sessionStorage.getItem(e)}catch{return null}case"cookie":try{return getCookie(e)}catch{return null}default:return null}}function getCookie(o){const c=("; "+window.document.cookie).split("; "+o+"=");if(c.length===2){const s=c.pop();return s?s.split(";").shift():null}}</script></head><body><div id="__nuxt" class="isolate"><!--[--><!--[--><!--[--><!--[--><!--[--><div class="min-h-screen bg-field text-ink font-sans antialiased flex flex-col"><header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md"><div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4"><a href="/ca" class="group flex items-center gap-3" aria-label="Inici d&#39;OpenMixer"><img src="/img/openmixer-mark.svg" alt class="h-8 w-8" width="32" height="32"><span class="font-display text-xl font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></span></a><nav class="ml-auto hidden items-center gap-1 md:flex" aria-label="Principal"><!--[--><a href="/ca/architecture" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Arquitectura</a><a href="/ca/features" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Funcions</a><a href="/ca/plugins" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Plugins</a><a href="/ca/benchmarks" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Mesuraments</a><a href="/ca/docs" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Documentació</a><a href="/ca/notes" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Notes</a><a href="/ca/docs/zynthian" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Zynthian</a><a href="/ca/faq" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Preguntes</a><a href="/ca/get-it" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Instal·lar</a><a href="/ca/links" class="rounded px-3 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink">Enllaços</a><!--]--></nav><!--[--><a href="/notes/could-the-host-take-vst3" class="hidden rounded px-2 py-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-dim transition-colors hover:text-ink md:block" hreflang="en" lang="en" aria-label="English" title="English">en</a><!--]--><!--[--><span class="ml-auto size-8 md:ml-0"></span><!--]--><button type="button" data-slot="base" aria-expanded="false" aria-label="Menú" class="rounded-md font-medium inline-flex items-center disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:opacity-75 transition-colors text-sm gap-1.5 text-default hover:bg-elevated active:bg-elevated outline-inverted/25 focus-visible:outline-3 hover:disabled:bg-transparent dark:hover:disabled:bg-transparent hover:aria-disabled:bg-transparent dark:hover:aria-disabled:bg-transparent p-1.5 md:hidden"><!--[--><!--[--><span class="iconify i-lucide:menu shrink-0 size-5" aria-hidden="true" style="" data-slot="leadingIcon"></span><!--]--><!--[--><!----><!--]--><!--[--><!----><!--]--><!--]--></button></div><!----></header><main class="flex-1"><!--[--><div><section class="border-b border-edge"><div class="mx-auto max-w-6xl px-6 py-16 sm:py-20"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Nota tècnica</p><h1 class="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">&quot;Podria l&#39;amfitrió acceptar VST3? La costura de l&#39;adaptador i el seu cost&quot;</h1><p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-dim">Un adaptador VST3 és possible en C pla contra l&#39;API C de Steinberg, amb llicències que un amfitrió GPL pot fer servir i una prova va allotjar un efecte VST3 real de cap a cap. Costaria unes 6200 línies i tres setmanes, per a una demanda escassa i per això no es fa; el que ho faria canviar queda escrit.</p><!--[--><p class="mt-4 font-mono text-xs text-ink-faint">L&#39;adaptador LV2 d&#39;omx-clap-core, el VST 3 SDK 3.8.1 i la seva API C a Fedora 44 i una revisió de les pàgines dels fabricants de plugins, octubre del 2026.</p><!--]--></div></section><section><div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]"><article class="doc-body"><h2 id="la-resposta-en-xifres">La resposta en xifres</h2>
+<ul>
+<li>L'adaptador LV2 i la seva infraestructura tenen 5754 línies de codi en 336 funcions: 1594 línies (139 funcions) neutrals
+quant al format, 1699 (73) mixtes, és a dir lògica neutral al voltant d'unes quantes crides al format i 2461 (124)
+pròpies d'LV2.</li>
+<li>La infraestructura ja es comparteix: les sis capçaleres de la biblioteca que inclou l'adaptador són neutrals i quatre ja
+es fan servir fora de l'adaptador.</li>
+<li>La costura que falta tallar és la capa que presenta un plugin LV2 com un plugin CLAP: 1314 de les seves 1319 línies són
+neutrals o mixtes i 1161 servirien per a una capa VST3. El nucli LV2 és pròpia d'LV2 en dos terços; el seu codi neutral (el
+bucle del worker, el confinament de camins, les funcions d'àtoms, un dipòsit de memòria de temps real) serveix idees d'LV2
+que VST3 no té.</li>
+<li>Al fil d'àudio, la capa afegeix una crida indirecta per cicle i una per esdeveniment MIDI de sortida; totes les altres
+crides indirectes d'allà són de l'amfitrió CLAP o del mateix plugin. Una capa compartida no n'ha d'afegir cap.</li>
+<li>Un adaptador VST3 no necessita C++: l'API C generada per Steinberg funciona i una prova de 477 línies de C11 va allotjar un
+efecte VST3 de cap a cap. L'SDK té llicència MIT i l'API C BSD-3-Clause, totes dues utilitzables en un amfitrió
+GPL-3.0-or-later.</li>
+<li>El cost: unes 2200 línies a la part del format, unes 6200 amb proves i peces de prova; unes tres setmanes de feina tallant
+primer la costura, dues i mitja sense.</li>
+<li>La demanda és escassa: 64 paquets de plugins de codi obert dels repositoris de la distribució són només VST3 a Linux, cap
+dels quals és un que OpenMixer necessiti i 6 fabricants de codi tancat distribueixen VST3 per a Linux sense CLAP ni LV2.</li>
+</ul>
+<p>Per tant: ara no. Els resultats es conserven perquè un adaptador futur en pugui partir.</p>
+<h2 id="la-costura">La costura</h2>
+<p>Cada funció de l'adaptador es va llegir i classificar: <strong>neutral</strong> (un adaptador VST3 la faria servir sense canvis: només
+depèn de CLAP, del contracte, de l'anell, dels límits o de C pla), <strong>mixta</strong> (lògica neutral al voltant d'unes quantes crides
+al format, cadascuna un ganxo que aportaria la part del format) o <strong>pròpia</strong> (només LV2, també el codi on només es comparteix
+la idea). Una eina d'omx-clap-core uneix la classificació amb la llista de lizard, falla si hi ha una funció que la taula no
+classifica i n'imprimeix les sumes.</p>
+<table>
+<thead>
+<tr>
+<th>part</th>
+<th style="text-align:right">neutral</th>
+<th style="text-align:right">mixta</th>
+<th style="text-align:right">pròpia</th>
+<th style="text-align:right">total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>la capa (LV2 com a CLAP)</td>
+<td style="text-align:right">347 (46)</td>
+<td style="text-align:right">967 (44)</td>
+<td style="text-align:right">5 (1)</td>
+<td style="text-align:right">1319 (91)</td>
+</tr>
+<tr>
+<td>funcions LV2</td>
+<td style="text-align:right">30 (3)</td>
+<td style="text-align:right">30 (1)</td>
+<td style="text-align:right">449 (31)</td>
+<td style="text-align:right">509 (35)</td>
+</tr>
+<tr>
+<td>instància LV2</td>
+<td style="text-align:right">275 (29)</td>
+<td style="text-align:right">501 (22)</td>
+<td style="text-align:right">923 (44)</td>
+<td style="text-align:right">1699 (95)</td>
+</tr>
+<tr>
+<td>dipòsit de memòria de temps real</td>
+<td style="text-align:right">169 (12)</td>
+<td style="text-align:right">0 (0)</td>
+<td style="text-align:right">12 (3)</td>
+<td style="text-align:right">181 (15)</td>
+</tr>
+<tr>
+<td>món LV2 (descripcions a través de lilv)</td>
+<td style="text-align:right">48 (6)</td>
+<td style="text-align:right">201 (6)</td>
+<td style="text-align:right">1072 (45)</td>
+<td style="text-align:right">1321 (57)</td>
+</tr>
+<tr>
+<td>les capçaleres compartides de la biblioteca</td>
+<td style="text-align:right">725 (43)</td>
+<td style="text-align:right">0 (0)</td>
+<td style="text-align:right">0 (0)</td>
+<td style="text-align:right">725 (43)</td>
+</tr>
+<tr>
+<td><strong>total</strong></td>
+<td style="text-align:right"><strong>1594 (139)</strong></td>
+<td style="text-align:right"><strong>1699 (73)</strong></td>
+<td style="text-align:right"><strong>2461 (124)</strong></td>
+<td style="text-align:right"><strong>5754 (336)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Cada cel·la són línies de codi (funcions).</p>
+<p>Quan s'aprovi un segon adaptador, la capa es dividirà en dues: les 1161 línies reutilitzables aniran a una capa compartida
+dins d'omx-clap-core (la meitat del fil d'àudio <code>static inline</code> en una capçalera, la del fil principal en una biblioteca
+estàtica interna, sense ABI pública) i la resta LV2 es quedarà darrere d'uns 25 ganxos:</p>
+<table>
+<thead>
+<tr>
+<th>grup</th>
+<th>ganxos</th>
+<th>equivalent VST3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cicle de vida</td>
+<td>carregar, alliberar, activar o conservar a una freqüència i un rang de blocs, desactivar, reiniciar, latència</td>
+<td><code>createInstance</code> i <code>initialize</code>, <code>terminate</code>, <code>setupProcessing</code> i <code>setActive</code>, <code>setProcessing</code>, <code>getLatencySamples</code></td>
+</tr>
+<tr>
+<td>paràmetres</td>
+<td>nombre, informació (rang, indicadors, passos, unitat), llegir i escriure, valor a text i a l'inrevés, símbol</td>
+<td><code>getParameterCount/Info</code>, valors normalitzats i reals, <code>getParamStringByValue/ValueByString</code></td>
+</tr>
+<tr>
+<td>ports</td>
+<td>una taula de ports (tipus, amplada, mapa de canals CLAP, principal o auxiliar), búfer d'entrada i de sortida per branca i canal</td>
+<td><code>getBusInfo</code>, <code>SpeakerArrangement</code>, <code>AudioBusBuffers</code></td>
+</tr>
+<tr>
+<td>procés</td>
+<td>executar, entrada MIDI, sortida MIDI, transport, comptatges</td>
+<td><code>process(ProcessData)</code>, <code>IEventList</code>, <code>ProcessContext</code></td>
+</tr>
+<tr>
+<td>estat i presets</td>
+<td>desar en un bloc, carregar-ne un, llistar presets, carregar-ne un</td>
+<td><code>getState/setState</code> (component i controlador), <code>.vstpreset</code></td>
+</tr>
+<tr>
+<td>descobriment</td>
+<td>obrir i tancar un paquet, llistar-ne els plugins, refusar abans d'obrir</td>
+<td>l'exploració de paquets, <code>IPluginFactory</code>, <code>moduleinfo.json</code></td>
+</tr>
+</tbody>
+</table>
+<p>VST3 necessita quatre coses que LV2 no va demanar mai: el controlador i el processador estan separats, amb missatges entre
+tots dos; els canvis de paràmetres tornen del processador al controlador; els indicadors de <code>restartComponent</code> s'han de
+convertir en peticions CLAP; i l'estat són dos blocs, no un. És feina de la part del format i no eixampla la interfície.</p>
+<p>La regla de la capa compartida: la seva meitat del fil d'àudio es compila dins de la capa de cada format i els ganxos del
+format són crides directes lligades en compilar, sense taula virtual. La prova és un recompte amb objdump: cap crida indirecta
+al camí d'àudio més enllà de les de l'amfitrió CLAP i del mateix plugin.</p>
+<p>Cap altra biblioteca d'OpenMixer no té codi que pugui substituir la capa compartida: la biblioteca de DSP té un encreuament
+que l'amfitrió ja fa servir i cap anell, worker ni taula de paràmetres; plugin-hostd distribueix els formats amb una taula de
+prefixos; la biblioteca dels plugins reflecteix el vocabulari del contracte de paràmetres.</p>
+<h2 id="l-sdk">L'SDK</h2>
+<p><strong>Llicència.</strong> El VST 3 SDK 3.8.1 té llicència MIT; el seu README diu que ja no s'ofereix la llicència GPLv3 ni la llicència
+propietària de Steinberg i que &quot;VST&quot; no es pot fer servir en noms d'empresa ni de producte. El codi MIT es combina en una
+obra GPL-3.0-or-later; l'única obligació és conservar l'avís amb qualsevol fitxer de l'SDK que es distribueixi.</p>
+<p><strong>Llenguatge.</strong> L'SDK és C++ amb interfícies a l'estil COM i les seves funcions d'allotjament enllacen libstdc++. Steinberg
+també publica una API C generada a partir d'aquestes interfícies, amb la llicència BSD de tres clàusules: cada interfície és
+una estructura amb una taula virtual, cada identificador una constant. Un adaptador VST3 pot ser, doncs, en C com la resta de
+la biblioteca. El preu és escriure a mà els objectes COM de l'amfitrió: 257 línies a la prova.</p>
+<p><strong>Què implementa un amfitrió</strong>, estimat a partir de la prova i del codi LV2 que fa la mateixa feina:</p>
+<table>
+<thead>
+<tr>
+<th>tasca</th>
+<th>què necessita VST3 de l'amfitrió</th>
+<th style="text-align:right">línies (estimació)</th>
+<th>reutilitzat de la costura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>instanciar i connectar un efecte estèreo</td>
+<td>explorar els paquets <code>.vst3</code>; l'entrada del mòdul i la fàbrica de plugins; inicialitzar el component amb un objecte d'aplicació amfitriona que també reserva missatges i llistes d'atributs; el controlador; un punt de connexió en tots dos sentits; els busos; la seqüència de preparació i activació; <code>process</code> amb búfers de bus</td>
+<td style="text-align:right">650</td>
+<td>la cara CLAP, la taula de ports, les còpies de branques, el registre de refusos</td>
+</tr>
+<tr>
+<td>un instrument MIDI</td>
+<td>cap entrada MIDI directa: les notes arriben com a esdeveniments en una llista que l'amfitrió implementa i reserva per endavant; els controladors, la inflexió de to i la pressió esdevenen canvis de paràmetre a través d'una assignació MIDI</td>
+<td style="text-align:right">300</td>
+<td>els ports de notes i les funcions MIDI</td>
+</tr>
+<tr>
+<td>fils</td>
+<td>cap worker: cada crida té el seu fil; les edicions del controlador arriben al fil principal i han d'arribar al <code>process</code> següent com a cues de paràmetres; els canvis de sortida tornen enrere</td>
+<td style="text-align:right">400</td>
+<td>l'anell de missatges, el buidatge de paràmetres, la vigilància de latència</td>
+</tr>
+<tr>
+<td>estat</td>
+<td>un objecte de flux de bytes; un estat CLAP té dos blocs, component i controlador; restaurar només després de <code>setupProcessing</code></td>
+<td style="text-align:right">200</td>
+<td>el lector d'estat i la restauració diferida</td>
+</tr>
+<tr>
+<td>un canvi de freqüència</td>
+<td>desactivar, preparar amb la nova freqüència i el nou bloc, activar: sense tornar a instanciar</td>
+<td style="text-align:right">60</td>
+<td>la regla d'activar i conservar</td>
+</tr>
+<tr>
+<td>busos auxiliars i de cadena lateral</td>
+<td>busos auxiliars després dels principals; les disposicions d'altaveus es corresponen amb tipus de port i mapes de canals CLAP</td>
+<td style="text-align:right">200</td>
+<td>la taula de ports, les extensions envolupant i ambisònica</td>
+</tr>
+<tr>
+<td>paràmetres</td>
+<td>nombre i informació amb indicadors de bypass i de només lectura, valors normalitzats, conversió a text, cues precises a la mostra</td>
+<td style="text-align:right">250</td>
+<td>la cara de paràmetres i el contracte</td>
+</tr>
+<tr>
+<td>descobriment i refusos</td>
+<td>un codi per refús i una exploració que no cal que obri el binari quan hi ha <code>moduleinfo.json</code></td>
+<td style="text-align:right">150</td>
+<td>el vocabulari de refusos, la comptabilitat de la fàbrica</td>
+</tr>
+<tr>
+<td><strong>part del format, total</strong></td>
+<td></td>
+<td style="text-align:right"><strong>unes 2200</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="la-prova">La prova</h2>
+<p>Una sonda en C11 va obrir la versió VST3 per a Linux d'un compressor LSP del paquet de la distribució, en va llegir la
+fàbrica, va crear el plugin, en va llistar els busos i els paràmetres, en va fer anar i tornar l'estat i va processar un bloc
+de silenci i vuit de soroll.</p>
+<table>
+<thead>
+<tr>
+<th>pas</th>
+<th>resultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mòdul</td>
+<td>entrada correcta; 388 classes (194 mòduls d'àudio, 194 controladors)</td>
+</tr>
+<tr>
+<td>component i controlador</td>
+<td>un controlador separat; tots dos inicialitzats; connectats en tots dos sentits</td>
+</tr>
+<tr>
+<td>busos</td>
+<td>una entrada i una sortida principals estèreo; la variant amb cadena lateral hi afegeix una entrada auxiliar i processa passant-li només el bus principal</td>
+</tr>
+<tr>
+<td>paràmetres</td>
+<td>48, amb el bypass marcat com a tal; noms, unitats i text per defecte a través de la conversió a text</td>
+</tr>
+<tr>
+<td>estat</td>
+<td>517 bytes; escriure i després llegir, idèntic byte a byte</td>
+</tr>
+<tr>
+<td>procés</td>
+<td>silenci d'entrada, silenci de sortida; soroll d'entrada a -6,04 dBFS de pic, sortida a -6,57</td>
+</tr>
+<tr>
+<td>C++ necessari</td>
+<td>cap: C11 i l'API C</td>
+</tr>
+<tr>
+<td>mida</td>
+<td>477 línies de codi, 257 de les quals són els objectes COM de l'amfitrió</td>
+</tr>
+</tbody>
+</table>
+<p>En van sortir tres regles, que l'adaptador hauria de portar:</p>
+<ol>
+<li><strong>L'amfitrió ha de reservar els objectes de missatge.</strong> El plugin va demanar un missatge a l'aplicació amfitriona durant
+<code>setState</code> i fallava si se li refusava; la biblioteca d'allotjament en C++ de l'SDK ho amaga i en C són 147 línies.</li>
+<li><strong>Restaurar l'estat només després de <code>setupProcessing</code>.</strong> L'especificació permet <code>setState</code> abans, però el plugin hi feia
+servir la freqüència de mostratge, que encara valia zero.</li>
+<li><strong>Una instància que ha fallat pot enverinar la següent.</strong> El plugin guarda un catàleg a la memòria compartida; una fallada
+va deixar aquell fitxer buit i totes les instàncies posteriors morien en llegir-lo, fins que es va esborrar el fitxer. Fer
+córrer cada plugin en un procés worker propi, com fa plugin-hostd, conté una fallada així.</li>
+</ol>
+<h2 id="el-pla-de-proves-si-es-fa">El pla de proves, si es fa</h2>
+<ul>
+<li>Una petita peça de prova VST3 per a cada comportament, escrita en C contra l'API C, com fan les proves LV2, perquè la CI
+continuï hermètica i cada refús es provi expressament.</li>
+<li>Les versions VST3 dels repositoris de la distribució com a plugins reals.</li>
+<li>Paritat: el mateix plugin com a VST3, LV2 i CLAP a través de l'amfitrió, alimentat amb el mateix soroll llavorat i el
+mateix escombratge, comparat mostra a mostra; passa si el residu és almenys 100 dB per sota o si la diferència té nom. La
+correspondència de paràmetres es compara de la mateixa manera.</li>
+<li>El testimoni de reserves al voltant del camí <code>process</code> de VST3.</li>
+<li>El catàleg enverinat com a prova de regressió: un refús amb un codi del worker, mai un motor mort.</li>
+</ul>
+<h2 id="es-podria-allotjar">Es podria allotjar</h2>
+<table>
+<thead>
+<tr>
+<th>àrea</th>
+<th>es pot?</th>
+<th>per què</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>llicència</td>
+<td>sí</td>
+<td>MIT i BSD-3-Clause es combinen en GPL-3.0-or-later; &quot;VST&quot; no pot aparèixer en un nom de producte</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>sí, en C</td>
+<td>l'API C; la prova és C11 sense libstdc++</td>
+</tr>
+<tr>
+<td>regles de temps real</td>
+<td>sí</td>
+<td><code>process</code> corre al fil de procés; l'amfitrió reserva per endavant les llistes de paràmetres i d'esdeveniments</td>
+</tr>
+<tr>
+<td>fils</td>
+<td>sí</td>
+<td>les crides del &quot;fil d'interfície&quot; corresponen al fil principal de l'amfitrió; no hi ha worker</td>
+</tr>
+<tr>
+<td>sense pantalla</td>
+<td>sí per al plugin provat, no per a tots</td>
+<td>la prova va córrer sense pantalla; el validador de Steinberg va fallar en el mateix contenidor sense pantalla</td>
+</tr>
+<tr>
+<td>activació de codi tancat</td>
+<td>depèn del fabricant</td>
+<td>l'activació per número de sèrie o fitxer de clau funciona sense pantalla; l'activació dins de l'editor del plugin necessita una sessió gràfica una vegada; iLok no té client per a Linux</td>
+</tr>
+<tr>
+<td>contenció de fallades</td>
+<td>sí</td>
+<td>plugin-hostd fa córrer cada plugin en un procés worker propi</td>
+</tr>
+</tbody>
+</table>
+<p>Dels 14 fabricants de codi tancat que distribueixen versions VST3 per a Linux (una revisió de les pàgines dels fabricants
+l'octubre del 2026), 8 també distribueixen CLAP o LV2, que l'amfitrió ja accepta. Els 6 que són només VST3 a Linux són
+ToneBoosters, Loomer, Renoise (Redux), Tracktion (BioTek 3, F'em), Bertom Audio i DDMF.</p>
+<h2 id="per-que-ara-no-i-que-ho-faria-canviar">Per què ara no i què ho faria canviar</h2>
+<p>La demanda és escassa, el cost és d'unes 6200 línies i escriure l'adaptador confirmaria la costura dibuixada abans més que
+no pas en descobriria una de nova: cada tasca VST3 correspon a un grup de funcions de la capa que ja existeix. Mentrestant, el
+codi nou de la capa manté les funcions neutrals lliures de crides LV2, perquè tallar la costura continuï sent barat.</p>
+<p>Qualsevol d'aquestes coses torna a obrir la decisió:</p>
+<ol>
+<li>Un plugin concret només VST3 que valgui la pena allotjar: una versió per a Linux x86-64, cap versió LV2 ni CLAP, una
+activació que funcioni sense el seu editor i unes condicions que permetin un amfitrió de tercers. Tres peticions així
+n'argumenten la necessitat; una n'hi ha prou si cobreix un paper que no cobreix res del que s'allotja.</li>
+<li>Un segon adaptador que no sigui CLAP aprovat per un altre motiu: aleshores primer es talla la costura, sigui quin sigui el
+format.</li>
+<li>Un fabricant que avui distribueix tots dos formats deixa CLAP i LV2 a Linux per a un plugin que s'allotja.</li>
+</ol>
+</article><nav class="hidden lg:block" aria-label="Contingut"><p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Contingut</p><ul class="mt-4 space-y-2 text-sm"><!--[--><li><a href="#la-resposta-en-xifres" class="text-ink-dim hover:text-accent">La resposta en xifres</a></li><li><a href="#la-costura" class="text-ink-dim hover:text-accent">La costura</a></li><li><a href="#l-sdk" class="text-ink-dim hover:text-accent">L&#39;SDK</a></li><li><a href="#la-prova" class="text-ink-dim hover:text-accent">La prova</a></li><li><a href="#el-pla-de-proves-si-es-fa" class="text-ink-dim hover:text-accent">El pla de proves, si es fa</a></li><li><a href="#es-podria-allotjar" class="text-ink-dim hover:text-accent">Es podria allotjar</a></li><li><a href="#per-que-ara-no-i-que-ho-faria-canviar" class="text-ink-dim hover:text-accent">Per què ara no i què ho faria canviar</a></li><!--]--></ul><p class="mt-8 text-sm"><a href="/ca/notes" class="text-accent hover:underline">Totes les notes tècniques</a></p></nav></div></section></div><!--]--></main><footer class="mt-24 border-t border-edge bg-surface/40"><div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3"><div><p class="font-display text-lg font-semibold tracking-tight"><span class="text-ink">open</span><span class="text-accent">mixer</span></p><p class="mt-2 max-w-xs text-sm leading-relaxed text-ink-dim">Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n&#39;és la superfície.</p></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Pàgines</p><ul class="mt-3 space-y-2 text-sm"><!--[--><li><a href="/ca/architecture" class="text-ink-dim hover:text-accent">Arquitectura</a></li><li><a href="/ca/features" class="text-ink-dim hover:text-accent">Funcions</a></li><li><a href="/ca/docs" class="text-ink-dim hover:text-accent">Documentació</a></li><li><a href="/ca/faq" class="text-ink-dim hover:text-accent">Preguntes freqüents</a></li><li><a href="/ca/get-it" class="text-ink-dim hover:text-accent">Instal·lar</a></li><li><a href="/ca/links" class="text-ink-dim hover:text-accent">Enllaços</a></li><!--]--></ul></div><div><p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">Llicència</p><p class="mt-3 text-sm leading-relaxed text-ink-dim">OpenMixer és programari lliure sota la llicència <span class="font-mono text-ink">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.</p></div></div><div class="border-t border-edge"><p class="mx-auto max-w-6xl px-6 py-5 font-mono text-xs text-ink-faint">Roland, Midas, Behringer, RME i els noms de producte que s&#39;hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d&#39;ells.</p></div></footer></div><!--]--><!--]--><!--[--><!--]--><!--v-if--><!--]--><!--[--><!--]--><!--]--><!--]--></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{i18n:{baseUrl:"https://openmixer.org",defaultLocale:"en",rootRedirect:"",redirectStatusCode:302,skipSettingLocaleOnNavigate:false,locales:[{code:"en",language:"en",name:"English",domains:[],defaultForDomains:[]},{code:"ca",language:"ca",name:"Català",domains:[],defaultForDomains:[]}],detectBrowserLanguage:false,experimental:{localeDetector:"",typedPages:true,typedOptionsAndMessages:false,alternateLinkCanonicalQueries:true,devCache:false,cacheLifetime:"",stripMessagesPayload:false,preload:false,strictSeo:false,nitroContextDetection:true,httpCacheDuration:10,compactRoutes:false,prerenderMessages:false,optimizeMessageBundling:true},domainLocales:{en:{domain:""},ca:{domain:""}}}},app:{baseURL:"/",buildId:"f5de0844-9e4e-4d55-b64d-c5df404e1602",buildAssetsDir:"/_nuxt/",cdnURL:""}}</script><script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__" data-src="/ca/notes/could-the-host-take-vst3/_payload.json?_b=f5de0844-9e4e-4d55-b64d-c5df404e1602">[{"state":1,"once":14,"_errors":15,"serverRendered":5,"path":17,"prerenderedAt":18},["Reactive",2],{"$scolor-mode":3,"$si18n:cached-locale-configs":7,"$si18n:resolved-locale":12,"$stoasts":13},{"preference":4,"value":4,"unknown":5,"forced":6},"system",true,false,{"en":8,"ca":10},{"fallbacks":9,"cacheable":5},[],{"fallbacks":11,"cacheable":5},[],"ca",[],["Set"],["ShallowReactive",16],{"note-could-the-host-take-vst3-ca":-1},"\u002Fca\u002Fnotes\u002Fcould-the-host-take-vst3",1793751246858]</script></body></html>

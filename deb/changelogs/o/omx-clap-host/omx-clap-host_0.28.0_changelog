@@ -1,0 +1,25 @@
+omx-clap-host (0.28.0) unstable; urgency=medium
+
+  * version 0.28.0
+  * The preset scanner runs under a deadline, and a failed one is a refusal
+  * Presets: CLAP discovery out of process, every LV2 preset of a plugin,
+    integer values
+  * omx-clap-host answers preset_show and keeps its preset verbs against
+    plugin-hostd 0.16.0
+  * chain e2e: a line is sent through protocol_send, its reply waited a
+    second at a time
+  * ci: the chain-host sabotage arms side by side, the job bounded at 20 min
+  * chain e2e: a host that can answer nothing more ends every wait at once
+  * tests: the sabotage of the host-ready wait's two causes, wired into make
+    test and CI (#191)
+  * tests: jack_params_e2e.sh waits 20s for a host and names why it gave up
+    (#191)
+  * tests: a shared host-ready wait, the port probed before a host starts
+    (#191)
+  * test-chain-host-stall: a host that cannot answer ends the run at once
+  * chain-host sabotage: arms side by side in copies of the built tree, two
+    controls
+  * chain e2e: a host that stops answering ends its lines at once
+  * test-chain-host-stall: the chain e2e against a host that stops answering
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Wed, 04 Nov 2026 09:23:31 +0000

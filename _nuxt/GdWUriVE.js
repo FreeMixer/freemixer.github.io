@@ -5,8 +5,7 @@ measure the daemon directly on a private JACK graph, not through Zynthian's engi
 <h2 id="what-grouping-buys">What grouping buys</h2>
 <ul>
 <li><strong>Memory.</strong> 24 plugins in one chain take 64.1 MB of proportional memory, against 183.1 MB with one worker per plugin and
-109.4 MB under mod-host (plugin-hostd 0.15.9, 2 November 2026). Under jalv, 24 plugins took 993.6 MB (31 October,
-plugin-hostd 0.15.4). On a 4 GB Pi this is the difference that grows with the chain.</li>
+109.4 MB under mod-host (plugin-hostd 0.15.9). Under jalv, 24 plugins took 993.6 MB (plugin-hostd 0.15.4). On a 4 GB Pi this is the difference that grows with the chain.</li>
 <li><strong>CPU.</strong> The grouped chain has the lowest DSP load of the hosts measured: 12.51 % for the 24, against 17.76 % with one
 worker per plugin and 15.02 % under mod-host.</li>
 <li><strong>Fewer wake-ups.</strong> One JACK client runs the whole chain. With 16 plugins, the grouped chain made 6023 context switches in
@@ -80,8 +79,7 @@ proves</a>; mesuren el dimoni directament en un graf JACK privat, no a través d
 <h2 id="que-hi-guanyes-agrupant">Què hi guanyes agrupant</h2>
 <ul>
 <li><strong>Memòria.</strong> 24 plugins en una sola cadena ocupen 64,1 MB de memòria proporcional, contra 183,1 MB amb un worker per
-plugin i 109,4 MB amb mod-host (plugin-hostd 0.15.9, 2 de novembre del 2026). Amb jalv, 24 plugins van ocupar 993,6 MB (31
-d'octubre, plugin-hostd 0.15.4). En una Pi de 4 GB, aquesta és la diferència que creix amb la cadena.</li>
+plugin i 109,4 MB amb mod-host (plugin-hostd 0.15.9). Amb jalv, 24 plugins van ocupar 993,6 MB (plugin-hostd 0.15.4). En una Pi de 4 GB, aquesta és la diferència que creix amb la cadena.</li>
 <li><strong>CPU.</strong> La cadena agrupada té la càrrega DSP més baixa dels amfitrions mesurats: un 12,51 % per als 24, contra un 17,76 %
 amb un worker per plugin i un 15,02 % amb mod-host.</li>
 <li><strong>Menys despertars.</strong> Un sol client JACK fa córrer tota la cadena. Amb 16 plugins, la cadena agrupada va fer 6023 canvis de

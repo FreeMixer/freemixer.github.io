@@ -1847,6 +1847,29 @@ Description: device behaviour of motorised control surfaces, development files
  .
  Its documentation is on openmixer.org.
 
+Package: libsurface-dev
+Architecture: amd64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 37
+Depends: libsurface0 (= 0.2.3)
+Filename: ./amd64/libsurface-dev_0.2.3_amd64.deb
+Size: 9660
+MD5sum: 32e227055c9f7d44cc44e8058b7b3819
+SHA1: 7c31b3a260c25dadc255dba027180cc236aae73b
+SHA256: dd0277be4f9b9f6d60b8289dbe2ebf0e80be2b5c8d469443d60327d850d90124
+SHA512: f96d90425b28b72f931e9cbe94aa6b08de1b7d47eabf3410f6f12c2ec6065039d2d68b58fdd30aa76cb016dc5ced005524b2002c9f8fdfb1996b49cd98b99d20
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces, development files
+ The header and the pkg-config file libsurface, for building a control-surface
+ host or backend on libsurface.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libsurface-diginet-dev
 Architecture: amd64
 Version: 0.2.1
@@ -1884,6 +1907,29 @@ MD5sum: 85bedde14a00acfc419967d6deb24bef
 SHA1: 2b0969f413ce717776043ffa9ac5f5f657b2a043
 SHA256: 8f1ee60e967adb73ec6bc316a6e389da9eadd4103219d5ca451c09cb87073f3d
 SHA512: 02bb058910cbef1a6bc7bc82b427434b11743b989833ef8ad9606511e7e32b7c2c3679197dcd605a9ac35eecd4a6897061dd72eb11fe4b9ab6dac3e5ec44414d
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, development files
+ The header and the pkg-config file libsurface-diginet, for building a host
+ that drives a Control|24 through libsurface.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libsurface-diginet-dev
+Architecture: amd64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 44
+Depends: libsurface-diginet0 (= 0.2.3), libsurface-dev (= 0.2.3), libdiginet-dev (>= 0.1.4~), libdiginet-dev (<< 0.2~)
+Filename: ./amd64/libsurface-diginet-dev_0.2.3_amd64.deb
+Size: 8244
+MD5sum: e7cc9670ab2e6c6c5b050acffd4c66c9
+SHA1: 66bab00529cb0178b68515729a79e289ff20220a
+SHA256: 797d4b93961715a4943bf5db4b2ccc67e9f74ba36ad8e2f06d786b602a608e51
+SHA512: ccf0bf2d55da4adc5bf7fee7d59aad17c998d042f4f831e0e0e0b3c9170859e8600a9adbcdcad9689f5bd07bc97c1a6ffc7e238eb181d407f60b7322a2fe6475
 Homepage: https://github.com/FreeMixer/libsurface
 Description: Digidesign Control|24 under libsurface, development files
  The header and the pkg-config file libsurface-diginet, for building a host
@@ -1941,6 +1987,32 @@ Description: Digidesign Control|24 under libsurface, over DigiNet
  .
  Its documentation is on openmixer.org.
 
+Package: libsurface-diginet0
+Architecture: amd64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 54
+Depends: libc6 (>= 2.4), libdiginet-transport0 (>= 0.1.8), libdiginet0 (>= 0.1.8), libsurface0 (>= 0.2.3), libdiginet-transport0 (<< 0.2~)
+Filename: ./amd64/libsurface-diginet0_0.2.3_amd64.deb
+Size: 11688
+MD5sum: fb1aa690f73e6e78f44f96e6ed6acb14
+SHA1: e482dd9e58c1dd1416f3cd48caf1a4f2a3a5e85b
+SHA256: 43576b8880bcc370defcd1991407a9fb22d01a938aa67e2b096feaeb48dfa69a
+SHA512: 299542ac16c246b92a48382e25984d66f91304104f88d90892e397efe3a43fccf0e8150c5fdc69ace3a544ed2c346e79e3175bd8dfd464626b20770c70b05a35
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, over DigiNet
+ libsurface-diginet is libsurface's DigiNet module: a Control|24 driven by
+ libsurface's device behaviour over libdiginet's desk mux. One listener hears
+ every interface and every desk; each attached desk is a libsurface surface
+ whose board is replayed on every new session, and a deaf desk or one owned by
+ another host is raised as a warning.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libsurface-mackie-dev
 Architecture: amd64
 Version: 0.2.1
@@ -1978,6 +2050,29 @@ MD5sum: b18c3df59a2ee35e3e172666238233c6
 SHA1: b2e89ea0bd1a955a97bb1e56cf4edafb0bb8819b
 SHA256: 7a4f654bff69e629f53348127e6295ce147fa756cce0e776a85940a282ecad76
 SHA512: 34ae0596e356b20459ce34f8113e3137522e5229d6e3b579a62c0b27db90aef30352018c6c91365756950cdcdfa187f79b35e09227d709eb3e85fa2ed83d946f
+Homepage: https://github.com/FreeMixer/libsurface
+Description: MCU surface under libsurface, development files
+ The header and the pkg-config file libsurface-mackie, for building a host that
+ drives an MCU surface through libsurface.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libsurface-mackie-dev
+Architecture: amd64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 22
+Depends: libsurface-mackie0 (= 0.2.3), libsurface-dev (= 0.2.3), libmackie-dev (>= 0.1.0~), libmackie-dev (<< 0.2~)
+Filename: ./amd64/libsurface-mackie-dev_0.2.3_amd64.deb
+Size: 4760
+MD5sum: 0130279129fe257b5a2bf6e3b4151e30
+SHA1: be41e0909ee2608d0160878264c69aafd78434d1
+SHA256: f2bd6239731946bbf0aa262f741ed62b0defa48f8c94e9c67114ecc3fda501a9
+SHA512: b66f732722e8ae6ee3aef84936794ee45280712ce3670047f805bc63c94ec0d53331b071175049b94721d3906f06c5054b5f7125582ca8613d4889249b43d4f1
 Homepage: https://github.com/FreeMixer/libsurface
 Description: MCU surface under libsurface, development files
  The header and the pkg-config file libsurface-mackie, for building a host that
@@ -2033,6 +2128,31 @@ Description: MCU surface such as the Behringer X-Touch under libsurface
  .
  Its documentation is on openmixer.org.
 
+Package: libsurface-mackie0
+Architecture: amd64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 38
+Depends: libc6 (>= 2.4), libmackie0 (>= 0.1.1), libsurface0 (>= 0.2.3)
+Filename: ./amd64/libsurface-mackie0_0.2.3_amd64.deb
+Size: 7752
+MD5sum: 6c58eb0d946a957bded17843f88e594c
+SHA1: a7d6c825f997d9bc1d9eba640cc3f8facfd541fa
+SHA256: d307e7657362131c7c5be9490de68cb2f54785bc12a26757edf53af89b186435
+SHA512: b2ddcf4ea582a79bc3149049b6e2def045ecc6db4a72303a401876b113cdc66e9b277859cc2ea36c3dddda30986a224f5ba6050c4831c9f1d6a2df3f8eb6150a
+Homepage: https://github.com/FreeMixer/libsurface
+Description: MCU surface such as the Behringer X-Touch under libsurface
+ libsurface-mackie is libsurface's Mackie module: one surface per MCU device,
+ the X-Touch's geometry, touch from the touch notes and the host-connection
+ handshake, driven by libsurface's device behaviour with libmackie as its codec.
+ The MIDI transport stays the host's.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libsurface0
 Architecture: amd64
 Version: 0.2.1
@@ -2074,6 +2194,33 @@ MD5sum: fe338b754ec28fc782e2d065fcfc9bb5
 SHA1: 5feb7b73bc848891af0d310ed0d55360fbd57fe4
 SHA256: 2846e2589e734d7e3edb9f01e00647f299383f89f81bb5add34f15734c6e692e
 SHA512: cf0d2d23890b6beb1c3f5003675ca4baee8bf12fc08eae70d2fcf43da19f7bd1b536808387074aef557f163c1dce3806e6e894c2fe55f0e121fc8ec41a32ed9a
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces
+ libsurface is the device behaviour of a motorised control surface, written
+ once for every surface and every host: a motor-fader policy that never fights
+ the hand, touch with a self-heal and a release debounce, the bank window, a
+ shadow of the whole board replayed when a device comes back blank, meter steps
+ with hysteresis and LED ring rendering. It speaks no wire and knows no mixing
+ semantics.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libsurface0
+Architecture: amd64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 46
+Depends: libc6 (>= 2.14)
+Filename: ./amd64/libsurface0_0.2.3_amd64.deb
+Size: 13100
+MD5sum: 1e171a4af472bfb8e10e9d93f9bd1ba1
+SHA1: d21bff1a938e1ebab60ae13b546959e165c63771
+SHA256: 48ab8c0728b5323091e307e2a3fe4e0ac1e9b61adfd75973444b625943291a76
+SHA512: 7bf4cd76dd6c8bfe23e67b8e953cf85fd95ff39a7ae08ba2d81507ac3bce00bdf43b8e705209b5f7c17687f08778f6fece05413f371fd331033045250efd09a4
 Homepage: https://github.com/FreeMixer/libsurface
 Description: device behaviour of motorised control surfaces
  libsurface is the device behaviour of a motorised control surface, written
@@ -2803,6 +2950,29 @@ MD5sum: 534f24b2e3a7254a99b186db4047f534
 SHA1: d1bdfd1facaa5765002774b3fa8a971f98149494
 SHA256: 1a44dd641d873d995f6367a0b84706e21efd60feb2608ad88f095ebdbeac840e
 SHA512: 2c7dc7363eb8aaa07e7f3f576cc15dc2ccfebee635c93b843c4a7dc75cfcdba66a592b14a2bde25cc09fe0fafd1feec34637c186228dff9306a69f327870abbe
+Homepage: https://github.com/FreeMixer/libsurface
+Description: drive a Control|24 through libsurface, with no privilege of its own
+ surface-c24 takes its packet socket from diginet-packet-helper, attaches the
+ first Control|24 that announces on any interface, labels its strips, mirrors
+ each fader on its meter, prints every event, and takes writes from a FIFO.
+ .
+ Its documentation is on openmixer.org.
+
+Package: surface-c24
+Architecture: amd64
+Version: 0.2.3
+Priority: optional
+Section: sound
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 39
+Depends: libc6 (>= 2.34), libdiginet-transport0 (>= 0.1.8), libsurface-diginet0 (>= 0.2.3), libsurface0 (>= 0.2.3), diginet-tools (>= 0.1.4~), diginet-tools (<< 0.2~)
+Filename: ./amd64/surface-c24_0.2.3_amd64.deb
+Size: 10516
+MD5sum: 918abf66619b3079d401d2c9a233cc8d
+SHA1: 939c9e00a2eadc95bd651ed07bbc7a3816171a25
+SHA256: 0bbf358e69d00c899f9afd9098ee31039a7d9e8b77dd2b9f41e37d7536370755
+SHA512: 801d845e1c3ca0e88ea51683df4b24c3f34783c9b38de75b0ee1e903e700b9a28ba7326f2bab43fedae2896fcc51834087b5f2aef1766b9f5c44a5bb1fe202ee
 Homepage: https://github.com/FreeMixer/libsurface
 Description: drive a Control|24 through libsurface, with no privilege of its own
  surface-c24 takes its packet socket from diginet-packet-helper, attaches the
@@ -3795,6 +3965,29 @@ Description: device behaviour of motorised control surfaces, development files
  .
  Its documentation is on openmixer.org.
 
+Package: libsurface-dev
+Architecture: arm64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 37
+Depends: libsurface0 (= 0.2.3)
+Filename: ./arm64/libsurface-dev_0.2.3_arm64.deb
+Size: 9664
+MD5sum: c7bad3bdf86c682dda7f23bc283c591b
+SHA1: e97d10102d5cd3219a203ea94ee9b367c3d8419c
+SHA256: cde3baa2db61039484a052639c87f684360807d055cd53fbb95dedf351b611f1
+SHA512: 845e5f474b933d7a66a23e9a0e41d7db7847a0d1e6269ed76babf30ae29fbc6ccfb0b13915ce2cb8dc3c3459f0fe8cc5782fcb2cf817920c72acf17d7becc79e
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces, development files
+ The header and the pkg-config file libsurface, for building a control-surface
+ host or backend on libsurface.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libsurface-diginet-dev
 Architecture: arm64
 Version: 0.2.1
@@ -3832,6 +4025,29 @@ MD5sum: 8b11dbc18abfa15bec9e2cb7d2aab865
 SHA1: 0dca2a99ffd44fea8da36bff3373f2a9bc4db357
 SHA256: 9cd19d552cd373d2dfbeca3ac7045d9ced2773b6735f8175016535a2c9560a88
 SHA512: 1666cf2faeb9314cae9099123fe996e3bc750046cbcd386f646be24568661666d7b4aa1f366912055c6ff00e5b814b86b3d1f5392c1d563ba638badb61ff59b4
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, development files
+ The header and the pkg-config file libsurface-diginet, for building a host
+ that drives a Control|24 through libsurface.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libsurface-diginet-dev
+Architecture: arm64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 44
+Depends: libsurface-diginet0 (= 0.2.3), libsurface-dev (= 0.2.3), libdiginet-dev (>= 0.1.4~), libdiginet-dev (<< 0.2~)
+Filename: ./arm64/libsurface-diginet-dev_0.2.3_arm64.deb
+Size: 8232
+MD5sum: 8cd04f7e72cc331ffcb3bc7f32b4a139
+SHA1: b680142f3ccc401d4d0317c2ceb54c7470a1e5f5
+SHA256: 5203f09b29bf78a12615b93f8704c183b693d2c856961bddbc6b1cf66bda99d3
+SHA512: 181eaf990088ff6747899cdd9014c2e9e16900118cc0e9686c56669e2630add9cffb0fc62cf255ae97142fc82b4740eff76cc10c0eb2fbfa6c40783dc5782629
 Homepage: https://github.com/FreeMixer/libsurface
 Description: Digidesign Control|24 under libsurface, development files
  The header and the pkg-config file libsurface-diginet, for building a host
@@ -3889,6 +4105,32 @@ Description: Digidesign Control|24 under libsurface, over DigiNet
  .
  Its documentation is on openmixer.org.
 
+Package: libsurface-diginet0
+Architecture: arm64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 82
+Depends: libc6 (>= 2.17), libdiginet-transport0 (>= 0.1.8), libdiginet0 (>= 0.1.8), libsurface0 (>= 0.2.3), libdiginet-transport0 (<< 0.2~)
+Filename: ./arm64/libsurface-diginet0_0.2.3_arm64.deb
+Size: 11840
+MD5sum: e989e2151f5456e0cef4b12cb709e576
+SHA1: 039719e2fcc2d7542feba8b58d084d99e2662b27
+SHA256: dadcc35975dd95e99b5a6d1136ed039c21455e9dc011fe30f5a9fa02735647bb
+SHA512: 0caaad8cfcce86d5032c4fe3c30402f5d100b94e110cc5e6dddd86a98bc9cd8fcf34a0b19554d8cbdc5ac6edfe7f902a74a58199bd3d78a057256ae8478c4e80
+Homepage: https://github.com/FreeMixer/libsurface
+Description: Digidesign Control|24 under libsurface, over DigiNet
+ libsurface-diginet is libsurface's DigiNet module: a Control|24 driven by
+ libsurface's device behaviour over libdiginet's desk mux. One listener hears
+ every interface and every desk; each attached desk is a libsurface surface
+ whose board is replayed on every new session, and a deaf desk or one owned by
+ another host is raised as a warning.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libsurface-mackie-dev
 Architecture: arm64
 Version: 0.2.1
@@ -3926,6 +4168,29 @@ MD5sum: a5f8746e47b45132824929bda2dab4f5
 SHA1: ae381e3d3f4d50c4f99ceb8b4107cbde19929ac9
 SHA256: cebb961f44242fd7cfa3a29f366268e4854abfc37cfb7d63a35321566d498634
 SHA512: 900f13c5ced82f0fd3553c2acb2aeba2e892ed602565469d7dd22fd0971139f5eaf8cbd5846f9f6ccac99ee814258d89d1fc18304538dd244cfcf28d366ef936
+Homepage: https://github.com/FreeMixer/libsurface
+Description: MCU surface under libsurface, development files
+ The header and the pkg-config file libsurface-mackie, for building a host that
+ drives an MCU surface through libsurface.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libsurface-mackie-dev
+Architecture: arm64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 22
+Depends: libsurface-mackie0 (= 0.2.3), libsurface-dev (= 0.2.3), libmackie-dev (>= 0.1.0~), libmackie-dev (<< 0.2~)
+Filename: ./arm64/libsurface-mackie-dev_0.2.3_arm64.deb
+Size: 4756
+MD5sum: 64699e6e263944cedc890348b7e8813a
+SHA1: fec975cad7808194ff29e533d2368c7e5bac1ee1
+SHA256: 83a621f5f7b811312c784c780baad02d87347893e7dd662abfe633179c171f56
+SHA512: f12bf6de0ef45b91f2ae6221bdf1fe1afc30fa798d125b3957b6a39269f35e288b32aba0212ef22d754a315fb910b948d644394715807f8d9fd8c875bffe01ef
 Homepage: https://github.com/FreeMixer/libsurface
 Description: MCU surface under libsurface, development files
  The header and the pkg-config file libsurface-mackie, for building a host that
@@ -3981,6 +4246,31 @@ Description: MCU surface such as the Behringer X-Touch under libsurface
  .
  Its documentation is on openmixer.org.
 
+Package: libsurface-mackie0
+Architecture: arm64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 82
+Depends: libc6 (>= 2.17), libmackie0 (>= 0.1.1), libsurface0 (>= 0.2.3)
+Filename: ./arm64/libsurface-mackie0_0.2.3_arm64.deb
+Size: 7796
+MD5sum: fac2c409646c8e40b965924e56dd077d
+SHA1: e0c490cfc4a90814190583ccfc63520fe828ebb3
+SHA256: 04bb775b9be196c434d51d4c3e30eda005b9b8aa6980ab17db53a31cd0017e40
+SHA512: 80286cf30f14d8ee7ae07f567a1f2a32f5225903a2f9650abdb28e3880b4c2b647f36ad0959ee76f61d8aece244a0095cb4148ea7a6f2052c297c2ef839e8bfe
+Homepage: https://github.com/FreeMixer/libsurface
+Description: MCU surface such as the Behringer X-Touch under libsurface
+ libsurface-mackie is libsurface's Mackie module: one surface per MCU device,
+ the X-Touch's geometry, touch from the touch notes and the host-connection
+ handshake, driven by libsurface's device behaviour with libmackie as its codec.
+ The MIDI transport stays the host's.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libsurface0
 Architecture: arm64
 Version: 0.2.1
@@ -4022,6 +4312,33 @@ MD5sum: 91174772b0e837eff891a50110a7c962
 SHA1: 2e4c672310bb198977e3fcaeb53fbb350439f4aa
 SHA256: 56509391355327e6dfae1f5cc946843f123eb3e6abcbca14b23a73331a11583b
 SHA512: ca6d0938e1e5c84019b3ded937238be9c50f2f49c08007b363f350d4ff38bd1ce328a34199417c20b27e1c68f7e0231fd0bcb1e0b6c9558414c2a21eb8356842
+Homepage: https://github.com/FreeMixer/libsurface
+Description: device behaviour of motorised control surfaces
+ libsurface is the device behaviour of a motorised control surface, written
+ once for every surface and every host: a motor-fader policy that never fights
+ the hand, touch with a self-heal and a release debounce, the bank window, a
+ shadow of the whole board replayed when a device comes back blank, meter steps
+ with hysteresis and LED ring rendering. It speaks no wire and knows no mixing
+ semantics.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libsurface0
+Architecture: arm64
+Version: 0.2.3
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 82
+Depends: libc6 (>= 2.17)
+Filename: ./arm64/libsurface0_0.2.3_arm64.deb
+Size: 12704
+MD5sum: d722ad4fcf4ceeda2446b7b3005d4cb6
+SHA1: 1f7a957e1ded789d3f73431111f2296049234c08
+SHA256: 8b9a15c663616ec0edc9073047da09a66c944abc5d8d545e75f84b993a5dc52f
+SHA512: 96e9fe85f8d51b755333052ed1460b0efe9cba0940f5f6fbb77a92f0c8a847050687c92fd256626f077b1e1082fbec67015c8539041ae24d198d22b0a2c753f7
 Homepage: https://github.com/FreeMixer/libsurface
 Description: device behaviour of motorised control surfaces
  libsurface is the device behaviour of a motorised control surface, written
@@ -4751,6 +5068,29 @@ MD5sum: 503c8c9cbd9df4da5154a7e7539a397b
 SHA1: fe8bda5b94bff84f16af8b5cf3b5c36e66a81912
 SHA256: b8d8efc4108407f452a32a2c60aab5cb8597bcafd962fbadd6511e1d04035f97
 SHA512: ae1f541c28e4e28d0be5d5c64cafdda40ed93912670bb5ac45532eeaf6467f514cf8bbf937eae74263a50799f3c6fede397ef0e104141fb5ad380030d87e9216
+Homepage: https://github.com/FreeMixer/libsurface
+Description: drive a Control|24 through libsurface, with no privilege of its own
+ surface-c24 takes its packet socket from diginet-packet-helper, attaches the
+ first Control|24 that announces on any interface, labels its strips, mirrors
+ each fader on its meter, prints every event, and takes writes from a FIFO.
+ .
+ Its documentation is on openmixer.org.
+
+Package: surface-c24
+Architecture: arm64
+Version: 0.2.3
+Priority: optional
+Section: sound
+Source: libsurface
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 83
+Depends: libc6 (>= 2.34), libdiginet-transport0 (>= 0.1.8), libsurface-diginet0 (>= 0.2.3), libsurface0 (>= 0.2.3), diginet-tools (>= 0.1.4~), diginet-tools (<< 0.2~)
+Filename: ./arm64/surface-c24_0.2.3_arm64.deb
+Size: 10432
+MD5sum: 5e6638ac801457941ec3512e81ee02d0
+SHA1: e830b4e4b38474159e51ae634a0d6cd26d7f8306
+SHA256: a584dafc517fafc80769917574cce10abb935d71750452a31742a57bde71503f
+SHA512: 5d5852073408387a82f94b4ef2c352f33944b74f2e10187c3abe61c9183c51520b6be539a83fe0f2713ae710a75e87cdc8e54ec250580663348762f86b1fc4f0
 Homepage: https://github.com/FreeMixer/libsurface
 Description: drive a Control|24 through libsurface, with no privilege of its own
  surface-c24 takes its packet socket from diginet-packet-helper, attaches the

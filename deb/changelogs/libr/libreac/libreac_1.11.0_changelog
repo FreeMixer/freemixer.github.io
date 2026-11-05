@@ -1,0 +1,15 @@
+libreac (1.11.0) unstable; urgency=medium
+
+  * release: 1.11.0
+  * packaging: the test suite runs python3, so the build needs it
+  * python: load libreac's ABI 7 soname
+  * pcap_source: count the oversized records it skips, and let the tools
+    print the total (#35)
+  * tools: replay the capture corpus through the base and the peer-binding
+    build
+  * master, hunt, rx: the box that is bound decides, one frame decides no
+    role, a frame behind the count is not decoded
+  * fuzz/README.md: the check example names the lines fuzz_ctrl.c has today
+  * fuzz_ctrl: the round trip requires each block the row has
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 05 Nov 2026 15:16:19 +0000

@@ -1169,6 +1169,31 @@ Description: mod-host protocol library, development files
  Headers, the pkg-config file and the backend scenarios of libmod-host-protocol,
  for hosts that answer mod-host's protocol with their own plugin backend.
 
+Package: libmod-host-protocol-dev
+Architecture: amd64
+Version: 0.10.9-1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: mod-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 61
+Provides: mod-host-protocol-dev (= 0.10.9-1)
+Depends: libmod-host-protocol0 (= 0.10.9-1)
+Conflicts: mod-host-protocol-dev (<< 0.10.9~)
+Replaces: mod-host-protocol-dev (<< 0.10.9~)
+Filename: ./amd64/libmod-host-protocol-dev_0.10.9-1_amd64.deb
+Size: 10608
+MD5sum: 4fac841ecf7b69f857c1b90c4c56de58
+SHA1: 7443524a69dbc08cc50b127f661310f0247bf542
+SHA256: 5d60fbf726c20270043faab58e0bf65e3db28da52f52591831edb8be014fc71b
+SHA512: ce2c6ac8bf2eabbd42a74ebd11593645d4c4adb0aff3503a02f15dba70f8037bd123ba419447627a528ff1ce451b3ddece33eb94f2c3cdef01e8bdfdf21c8dee
+Homepage: https://github.com/FreeMixer/mod-host
+Description: mod-host protocol library, development files
+ Headers, the pkg-config file and the backend scenarios of
+ libmod-host-protocol, for hosts that answer the mod-host protocol with a
+ plugin backend of their own.
+
 Package: libmod-host-protocol0
 Architecture: amd64
 Version: 0.1.0-8~omx
@@ -1191,6 +1216,28 @@ Description: mod-host socket server, line protocol and command dispatch
  without any plugin format behind them, as a shared library. Hosts that answer
  mod-host's protocol with a plugin backend of their own, such as omx-clap-host
  and plugin-hostd, link it.
+
+Package: libmod-host-protocol0
+Architecture: amd64
+Version: 0.10.9-1
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: mod-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 51
+Depends: libc6 (>= 2.14)
+Filename: ./amd64/libmod-host-protocol0_0.10.9-1_amd64.deb
+Size: 16044
+MD5sum: d5d05355226605a88ad65210895f9003
+SHA1: 8b88f66af25058454a63a8fc4c04bcc57d576b1a
+SHA256: 92aaadbf7452c8e6751ac9de7461b1becda24825cbb480f54e383b56d32c337f
+SHA512: 066ff5c83b12532045c9e7e7dd32e643ad6b2df7267828582568c2353ef40596677d06fbda239b77bf871e46d296b9b884a36a814556061ed6b585670d554d45
+Homepage: https://github.com/FreeMixer/mod-host
+Description: mod-host socket server, line protocol and command dispatch
+ The socket server, the line protocol and the command dispatch of mod-host,
+ without any plugin format behind them, as a shared library, for hosts that
+ answer the mod-host protocol with a plugin backend of their own.
 
 Package: libomx-clap-core-dev
 Architecture: amd64
@@ -2014,6 +2061,28 @@ Description: device behaviour of motorised control surfaces
  semantics.
  .
  Its documentation is on openmixer.org.
+
+Package: mod-host
+Architecture: amd64
+Version: 0.10.9-1
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 417
+Depends: libc6 (>= 2.34), libfftw3-double3 (>= 3.3.10), libfftw3-single3 (>= 3.3.10), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125, liblilv-0-0 (>= 0.22.0~dfsg0), libreadline8 (>= 6.0)
+Recommends: jackd2 | pipewire-jack
+Filename: ./amd64/mod-host_0.10.9-1_amd64.deb
+Size: 93972
+MD5sum: ee9898fafe31b48ec69f4a56692a8744
+SHA1: aec832ec0431c338bc5759a5671274f8dfb20a79
+SHA256: 1aed0efa6aaaeab49444d1dd7331785beb1ffa7f87fe6e9db7860a62b41f0ab4
+SHA512: 60b0d1201439f02b3bb7f1da2ae0e99631817b84eaa46ac753a3b72063cbe22480b2e770f520931b66814238f1c5ff842123c41d17c973149745b8aec842c34a
+Homepage: https://github.com/FreeMixer/mod-host
+Description: LV2 host for JACK, controllable over a socket
+ mod-host loads LV2 plugins as JACK clients and is driven over a TCP socket
+ or an interactive command line. This build carries the patches listed in
+ the README of the FreeMixer fork, each one a pull request to
+ mod-audio/mod-host.
 
 Package: omx-clap-host-tests
 Architecture: amd64
@@ -3024,6 +3093,31 @@ Description: mod-host protocol library, development files
  Headers, the pkg-config file and the backend scenarios of libmod-host-protocol,
  for hosts that answer mod-host's protocol with their own plugin backend.
 
+Package: libmod-host-protocol-dev
+Architecture: arm64
+Version: 0.10.9-1
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: mod-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 61
+Provides: mod-host-protocol-dev (= 0.10.9-1)
+Depends: libmod-host-protocol0 (= 0.10.9-1)
+Conflicts: mod-host-protocol-dev (<< 0.10.9~)
+Replaces: mod-host-protocol-dev (<< 0.10.9~)
+Filename: ./arm64/libmod-host-protocol-dev_0.10.9-1_arm64.deb
+Size: 10600
+MD5sum: 5a3ffb086be2dcf93cc183c77ff361a3
+SHA1: 63636ff5fa2faa5f942047e118deddbf89c61fd8
+SHA256: 4c3ab3176169d6a581d0ebf2f01e67f2bf0c7b05efec10aaaf5b4881eb5712ae
+SHA512: 7691a2eb43cd2211c513dcd100bc440d10ba1f76fbf1e42c7880552b97ece32b464306e735079032793a1cf388b71efd238bcdf9965caa0002b72eaa3e145443
+Homepage: https://github.com/FreeMixer/mod-host
+Description: mod-host protocol library, development files
+ Headers, the pkg-config file and the backend scenarios of
+ libmod-host-protocol, for hosts that answer the mod-host protocol with a
+ plugin backend of their own.
+
 Package: libmod-host-protocol0
 Architecture: arm64
 Version: 0.1.0-8~omx
@@ -3046,6 +3140,28 @@ Description: mod-host socket server, line protocol and command dispatch
  without any plugin format behind them, as a shared library. Hosts that answer
  mod-host's protocol with a plugin backend of their own, such as omx-clap-host
  and plugin-hostd, link it.
+
+Package: libmod-host-protocol0
+Architecture: arm64
+Version: 0.10.9-1
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: mod-host
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 83
+Depends: libc6 (>= 2.17)
+Filename: ./arm64/libmod-host-protocol0_0.10.9-1_arm64.deb
+Size: 15900
+MD5sum: 56a5f271759d3180403aff297e8bd800
+SHA1: 43be10287ee62c5bc6ef8e98e27c3e01a75a1715
+SHA256: 31d55c9452f9dd3dea3f65407e7e5e8acf5937502a3b0f68030ad1b4094c1d71
+SHA512: b8c78a19378391c73322e1aee33670fd377016dae28bc93169510852c794212a22533980def15519ffe9cb62d9787b79dc53337a712670210c7625b5481f91b7
+Homepage: https://github.com/FreeMixer/mod-host
+Description: mod-host socket server, line protocol and command dispatch
+ The socket server, the line protocol and the command dispatch of mod-host,
+ without any plugin format behind them, as a shared library, for hosts that
+ answer the mod-host protocol with a plugin backend of their own.
 
 Package: libomx-clap-core-dev
 Architecture: arm64
@@ -3869,6 +3985,28 @@ Description: device behaviour of motorised control surfaces
  semantics.
  .
  Its documentation is on openmixer.org.
+
+Package: mod-host
+Architecture: arm64
+Version: 0.10.9-1
+Priority: optional
+Section: sound
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 545
+Depends: libc6 (>= 2.34), libfftw3-double3 (>= 3.3.10), libfftw3-single3 (>= 3.3.10), libjack-jackd2-0 (>= 1.9.10+20150825) | libjack-0.125, liblilv-0-0 (>= 0.22.0~dfsg0), libreadline8 (>= 6.0)
+Recommends: jackd2 | pipewire-jack
+Filename: ./arm64/mod-host_0.10.9-1_arm64.deb
+Size: 84568
+MD5sum: eb134c7f9844d0c3d819767b2f1a121e
+SHA1: 1097647844f4f7189404c2e8a8b6897e7284b55d
+SHA256: 701ec729c36ca170b3c0d9742a867a60ef5aa912fbb52be297828d81a6a04963
+SHA512: 3539b046af45754f5566d3c6013ead27ff988a4edb89b80ec10671bf0e24b0609e13c8365586c661dd91f77151da6893bd40a70357108379bf148ba937fcd3ff
+Homepage: https://github.com/FreeMixer/mod-host
+Description: LV2 host for JACK, controllable over a socket
+ mod-host loads LV2 plugins as JACK clients and is driven over a TCP socket
+ or an interactive command line. This build carries the patches listed in
+ the README of the FreeMixer fork, each one a pull request to
+ mod-audio/mod-host.
 
 Package: omx-clap-host-tests
 Architecture: arm64

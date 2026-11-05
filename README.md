@@ -30,3 +30,5 @@ deb/freemixer.asc                        the signing keys, armored, for signed-b
 deb/debian/<suite>/                      bookworm, trixie: Packages, Release, InRelease, Release.gpg
 deb/debian/<suite>/<arch>/               amd64, arm64: the .deb files
 ```
+
+The code in this repository (the prune and publish tooling) is GPL-3.0-or-later, see `LICENSE`. The packages under `rpm/` and `deb/` keep the licences of their own sources.

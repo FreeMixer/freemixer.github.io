@@ -1,0 +1,45 @@
+plugin-hostd-protocol (0.3.0) unstable; urgency=medium
+
+  * release 0.3.0: floors and ceilings for omx-contract, changelog lines for
+    the plugin-db words
+  * ci: each version bound is its own command, so a failed one stops the step
+  * ci: the debian job checks the contract headers' floor and ceiling after
+    the install
+  * ci: build on the released omx-contract and plugin-db, with floor and
+    ceiling; no wave-deps
+  * The pin's repository is plugin-db: every name follows
+  * protocol.h: the words of a pin are plugin-pin's
+  * release: plugin-hostd-protocol 0.3.0
+  * ci: a pull request into dedupe/all builds on omx-contract's dedupe/all
+  * worker_list and plan: the core field is always -, placement pins to the
+    audio set
+  * ci: fetch-depth belongs to the checkout step, not to a run step
+  * protocol: the default lv2_worker is omx-clap-host
+  * fuzz_session: the model of param_set_many reads values as the backend does
+  * fuzz: records follow host-dispatch.c, the scenario file fits an input
+  * param_set_many: several values of an instance in one line, all or nothing
+  * fuzz_session: param_get_many's answer is held without its error word
+  * Event sequence numbers, param_get_many, and seeds generated from the
+    grammar
+  * protocol_parse: a word "..." at a pattern's "..." is not a fixed word
+    (#12)
+  * track_info: a name refuses the C1 control characters (#11)
+  * packaging: every package installs its licence and the short README
+  * hello refused with -902 leaves a client in mod-host mode, as not found
+    does
+  * Error words, and the scenario runner reads "not found" by what the host
+    owes the verb
+  * protocol_add_hello(): the library answers hello and reads request tags
+  * Declare hello and request tags: the table, the grammar and the protocol
+    page
+  * doc: mod-ui-verbs.tsv beside the page it feeds, out of an evidence folder
+  * packaging: no markdown in the packages; their descriptions name
+    openmixer.org
+  * tests: the golden transcript carries the quoted and UTF-8 seeds
+  * track_info: a name of UTF-8 is held to RFC 3629
+  * fuzz: count words by the quoting rule, and read names as RFC 3629 UTF-8
+  * fuzz: CI runs the records, the sabotage and the coverage floor
+  * fuzz: make fuzz-records, fuzz-sabotage and fuzz-coverage
+  * fuzz: each property is an abort() in a noinline check_<property>
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 05 Nov 2026 02:25:43 +0000

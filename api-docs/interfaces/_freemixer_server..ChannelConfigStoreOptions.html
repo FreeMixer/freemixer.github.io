@@ -64,7 +64,7 @@ channel was carrying (<a href="_freemixer_core..ChannelConfig.html#savedfrom" cl
 ChannelPatchStore, narrowed to its READ: a save asks what the ledger names and
 never writes it. <code>capturePatch()</code> is not a read — it records every channel's live sources
 into this ledger on its way out, and a capture that lands inside <code>rePatchForStage</code>'s sweep
-erases a waiting leg (settle #144, openmixer#182). Handing the store <code>get</code> alone makes that
+erases a waiting leg (settle #144). Handing the store <code>get</code> alone makes that
 second writer unrepresentable here (<code>2026-09-16-show-setup-assistant.md</code> §7).</p>
 <p>Optional: a console with no structural surface has no routing graph, and every config it
 saves honestly carries no leg.</p>

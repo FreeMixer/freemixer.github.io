@@ -1,0 +1,125 @@
+plugin-hostd (0.18.0) unstable; urgency=medium
+
+  * ci: drop the second commit message job; public-sources already runs the
+    shared check
+  * ci: the commits of a pull request pass the shared commit message check
+  * bench: the DSP load comes from the server, and a window's xruns from both
+    sources
+  * sabotage: the omx-clap-core checkout arm breaks the step order with
+    wave-deps in it
+  * bench: a JACK that stops answering fails its row, not the run
+  * ci: a pull request into dedupe/all builds on its siblings' dedupe/all
+  * placement spread reserves the cpu of least capacity, not cpu 0
+  * placement spread pins every worker to all the audio cores, not to one each
+  * sabotage: every tree builds the generated error words, and the arms name
+    the lines as they are
+  * ci: the clean-container install takes plugin-db-dev from the channel, the
+    recommends check reads the rich form, and the fuzz job installs
+    plugin-db-devel
+  * release: the changelogs name --periods
+  * bench: --periods sets the alsa driver's periods; IRQ threads above the
+    priority are a warning in the document
+  * bench: --periods sets the alsa driver's periods; IRQ threads above the
+    priority are a warning in the document
+  * A word in quotes is one word: commands, pin lines and history lines are
+    read with the protocol's reader
+  * fuzz: the record of PHD_LINE_MAX names its line in plugin-hostd-protocol
+    0.3.0
+  * fuzz: the hello check reads the verb from the declaration
+  * fuzz: the record of PHD_LINE_MAX names its line in plugin-hostd-protocol
+    0.3.0
+  * fuzz: the hello check reads the verb from the declaration
+  * fuzz: the record of PHD_LINE_MAX names its line in plugin-hostd-protocol
+    0.3.0
+  * release: the changelogs say the pin header is plugin-db's and the JSON
+    writer is omx-contract's
+  * fuzz-records builds the harness with plugin-db's include path
+  * fuzz-records builds the harness with plugin-db's include path
+  * debian/control: both entries of the protocol-contract check dependency
+    carry <!nocheck>
+  * fuzz: the command harness knows hello, and its records follow the lines
+    they name
+  * fuzz: the command harness knows hello, and its records follow the lines
+    they name
+  * The no-pins sabotage arms break the floors and ceilings as they are
+    written now
+  * The no-pins guard takes the ceiling: the omx-clap-core packages are below
+    0.30, each entry of the check stage carries <!nocheck>
+  * The generated error words are a prerequisite of every build that compiles
+    the daemon's sources, and the perturbation test leaves them to the
+    protocol
+  * debian/control: both entries of the omx-contract check dependency carry
+    <!nocheck>
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * wave-deps: omx-contract and plugin-db are released; only the protocol is
+    built from dedupe/all
+  * release: plugin-hostd 0.18.0 carries hello, the bench's card driver and
+    the ceilings
+  * The daemon answers hello: tags, error words and sequence numbers, per
+    controller connection
+  * The omx-clap-core packages have a ceiling: below 0.30 beside every floor,
+    in the spec and debian/control
+  * The plugin-db dependency has a ceiling: >= 0.1.0 and < 0.2 in the spec,
+    debian/control and plugin-hostd.pc
+  * The omx-contract dependency has a ceiling: < 4 beside every floor, in the
+    spec and debian/control
+  * bench: --alsa runs the private JACK server on a card; the priority claims
+    say only what is read
+  * The protocol dependency has a ceiling: the floor 0.3.0 and the next
+    minor, in the spec, debian/control and plugin-hostd.pc
+  * wave-deps: plugin-db, the repository plugin-pin became
+  * The pin's repository is plugin-db: every name follows
+  * wave-deps: plugin-pin, inside out
+  * The pin is plugin-pin's
+  * fixtures: the probe output names no machine
+  * The plugin-hostd-protocol floor is 0.3.0, and one number
+  * fuzz: the command harness holds a line that starts with "@" to the
+    protocol
+  * The JSON string literals are omx-contract's one writer's, and the schema
+    major is its pkg-config file's
+  * bench: the DSP load comes from the server, and a window's xruns from both
+    sources
+  * bench: run the private JACK server above the IRQ threads and any live one
+  * sabotage: the omx-clap-core checkout arm breaks the step order with
+    wave-deps in it
+  * sabotage: the omx-clap-core checkout arm breaks the step order with
+    wave-deps in it
+  * release: plugin-hostd 0.18.0, on plugin-hostd-protocol 0.3.0
+  * ci: a pull request into dedupe/all builds on its siblings' dedupe/all
+  * ci: a pull request into dedupe/all builds on its siblings' dedupe/all
+  * placement spread reserves the cpu of least capacity, not cpu 0
+  * bench: a JACK that stops answering fails its row, not the run
+  * docs: make gen against plugin-hostd-protocol dedupe/all (b7defed)
+  * placement spread pins every worker to all the audio cores, not to one each
+  * sabotage arms break the probe runner's point code as cJSON reads it
+  * test-contract builds the runner with the Makefile's cJSON flags
+  * Read JSON with the system cJSON
+  * tests: the consumer sabotage links libcrypto; the SHA-256 constant arm
+    goes with the constants
+  * ci: link libcrypto in the pin sabotage, install openssl headers, list the
+    README each package ships
+  * packaging: mod-host is suggested, not recommended
+  * pin: the SHA-256 is libcrypto's
+  * param_set_many reaches the worker that holds the instance, and is replayed
+  * param_get_many goes to the worker that holds the instance
+  * packaging: every package installs its licence and the short README
+  * The daemon answers hello and a tagged line itself, and never relays them
+  * packaging: no markdown in the packages; their descriptions name
+    openmixer.org
+  * docs: the Zynthian use case and the design notes move to openmixer.org;
+    the doc site is retired
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 05 Nov 2026 16:03:12 +0000

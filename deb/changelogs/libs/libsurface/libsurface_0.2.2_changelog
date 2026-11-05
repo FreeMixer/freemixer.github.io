@@ -1,0 +1,31 @@
+libsurface (0.2.2) unstable; urgency=medium
+
+  * packaging: floors and ceilings on libdiginet and libmackie, 0.2.2
+    changelog
+  * tests: netns.h copied from libdiginet 0.1.8
+  * emu-sync-check: accept libdiginet's testsupport/ layout
+  * tests: leave the public-sources check to the shared one
+  * tests: a check that reads no file is red
+  * ci: test_c24_tool runs on the runner, and a skip there fails the job
+  * tests/diginet: the probe and the floors follow emu_child.h
+  * tests/diginet: test_c24_tool runs on libdiginet-emu's child harness
+  * release: libsurface 0.2.2
+  * ci: the modules build on libdiginet's and libmackie's dedupe/all in a
+    dedupe/all run
+  * packaging: every package installs its licence and the short README
+  * packaging: no markdown in the packages; their descriptions name
+    openmixer.org
+  * tests: the local public-sources check gives way to the shared one
+  * ci: the shared checks run from FreeMixer/.github's public-sources-check
+  * test: no-emu-copy-sabotage.sh lists an unpacked tarball without git
+  * test: no-emu-copy-sabotage.sh in an unpacked tarball against an installed
+    emulator
+  * diginet tests: build against libdiginet-emu, the desk emulator libdiginet
+    installs
+  * test: no file defines libdiginet's desk emulator again (no-emu-copy.sh,
+    with its sabotage)
+  * tests: libdiginet's desk emulator copied again from its main (fc831ee,
+    after #56)
+  * README: the Mackie module exists, only the Python binding is later
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 05 Nov 2026 02:25:43 +0000

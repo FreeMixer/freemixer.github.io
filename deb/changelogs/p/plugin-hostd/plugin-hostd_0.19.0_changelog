@@ -1,0 +1,14 @@
+plugin-hostd (0.19.0) unstable; urgency=medium
+
+  * ci: the own-host page runs this run's plugin-hostd debs
+  * Take omx-clap-core 0.30: its packages below 0.31
+  * Build on plugin-hostd-protocol 0.4.0 and take plugin-db 0.2
+  * sabotage: the arms of pin_accept and of a refused pin follow the new code
+  * pin_accept also holds over a refusal in the pin_file
+  * Never hand a refused plugin to another host; let the user load a refused
+    one
+  * tests: a refused plugin stays ours, and the user may load a refused one
+  * bench: each process's memory beside the totals, and the stress load under
+    a guard
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 06 Nov 2026 06:49:37 +0000

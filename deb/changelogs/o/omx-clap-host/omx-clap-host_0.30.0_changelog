@@ -1,0 +1,23 @@
+omx-clap-host (0.30.0) unstable; urgency=medium
+
+  * ci: the plugin-hostd build gets plugin-db 0.2 and cjson before it builds
+  * ci: plugin-hostd's 0.19 release PR at its new head
+  * ci: build against plugin-hostd's 0.19 release PR and the 0.4.0 protocol
+  * plugin-hostd-protocol is taken at 0.4: >= 0.4.0, < 0.5
+  * Release 0.30.0
+  * githooks: commit-msg is the shared v1 stub
+  * githooks: commit-msg is the shared v1 stub
+  * githooks: the commit-msg stub v1 ships
+  * ci: take spdx-check and deps-render from v1
+  * ci: the rpm file list holds the scan schema
+  * docs/scan.md carries its licence lines
+  * The scan schema lives in schema/, not in the contract data directory
+  * omx-clap-scan --json: a schema, a test that it holds the data the text
+    lists, and docs/scan.md
+  * ci: the clean-container install gets omx-contract-data from the channel
+  * debian: omx-clap-core-contract depends on omx-contract-data with floor
+    and ceiling, as the rpm does
+  * tools: the adapter seam table names the rewritten commit
+  * ci: re-pin the shared actions after the history rewrite
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Fri, 06 Nov 2026 05:27:06 +0000

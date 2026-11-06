@@ -1247,6 +1247,33 @@ Description: plugin-hostd protocol, its verbs in omx-contract's contract directo
  .
  Its documentation is on openmixer.org.
 
+Package: plugin-hostd-protocol-contract
+Architecture: all
+Version: 0.4.2
+Multi-Arch: foreign
+Priority: optional
+Section: libs
+Source: plugin-hostd-protocol
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 47
+Depends: omx-contract (>= 3.2.0~), omx-contract (<< 4~)
+Breaks: plugin-hostd-contract (<< 0.16.0~)
+Filename: ./all/plugin-hostd-protocol-contract_0.4.2_all.deb
+Size: 8648
+MD5sum: 1eeae92ac0dc5fbc6b2fd47c227866e8
+SHA1: 38e052152fb18154f84820d8d91538d4b3ed5e7b
+SHA256: 8d600f2889e84694454f71559337d6b6a46dc644059235e7695f3fa56509599e
+SHA512: 0118db7185bbe3553cc4c68a4e5d955a02dbad55290de223556e228d63746152a37773e5655e02c46c02ad9024d420f54cfcc8d74d8979a61c4d5dba0c1e6387
+Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
+Description: plugin-hostd protocol, its verbs in omx-contract's contract directory
+ data/verbs.json of plugin-hostd-protocol, the verbs and reply codes
+ plugin-hostd adds to mod-host's protocol, as the package plugin-hostd-protocol
+ of omx-contract's contract directory, under
+ /usr/share/omx-contract/contract.d/3/plugin-hostd-protocol. plugin-hostd
+ before 0.16.0 carried the same items in its own package.
+ .
+ Its documentation is on openmixer.org.
+
 Package: diginet-tools
 Architecture: amd64
 Version: 0.1.7
@@ -2437,6 +2464,35 @@ Description: plugin-hostd protocol library, development files
  .
  Its documentation is on openmixer.org.
 
+Package: libplugin-hostd-protocol-dev
+Architecture: amd64
+Version: 0.4.2
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: plugin-hostd-protocol
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 344
+Depends: libplugin-hostd-protocol0 (= 0.4.2)
+Filename: ./amd64/libplugin-hostd-protocol-dev_0.4.2_amd64.deb
+Size: 63160
+MD5sum: 0933b7df95332ec03d6ff3e1521f65ee
+SHA1: ecfb809a507d5eb079ab167b62d9d30cca455b98
+SHA256: b67d557a424df3adf23c1d6bee7833195af6ca644f71532f5ca7098929e86beb
+SHA512: dbb252cb3f95cb2631fdaed56691cfd4112dbe3ad4a86f46a26a59cbfc620170abd2c42f638e7b5414889ac95ac2ff4e7b9890f77cb55adc580dd3ab94fbdd97
+Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
+Description: plugin-hostd protocol library, development files
+ Headers, the pkg-config file, the scenario corpus and its runner of
+ libplugin-hostd-protocol. The headers have the names and the API of
+ libmod-host-protocol's, so a host built against mod-host-protocol changes only
+ the package name it asks pkg-config for.
+ .
+ It also carries the declared protocol: plugin-hostd/protocol.h and the
+ headers it includes, the one verb table, the grammar of a line in ABNF, and
+ the protocol as JSON, each named by a pkg-config variable.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libplugin-hostd-protocol0
 Architecture: amd64
 Version: 0.2.0
@@ -2523,6 +2579,30 @@ MD5sum: 8232a402bf6151f47e9bf57e4ed19676
 SHA1: acf842cbaa927eeb906ed8f88d00b52df36e82e9
 SHA256: 20f78ff3254acfc2582ffb16f099d11ce9ba983fa10fbfe56bf0211e61bc2051
 SHA512: 4a181d1299a1f872a4b992757239aa277ce8c2f2f95447259234e4d38a09548c701d9216d31e23dc5abd5da64521fa8bafe178afa19a11f276baf57198a887b5
+Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
+Description: plugin-hostd protocol library, a superset of mod-host's text protocol
+ The socket server, line protocol and command dispatch that plugin-hostd and
+ omx-clap-host answer their controllers with: mod-host's text protocol, so any
+ mod-host client works unchanged.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libplugin-hostd-protocol0
+Architecture: amd64
+Version: 0.4.2
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: plugin-hostd-protocol
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 197
+Depends: libc6 (>= 2.14)
+Filename: ./amd64/libplugin-hostd-protocol0_0.4.2_amd64.deb
+Size: 39612
+MD5sum: 0393e27be1303f3f4fdee30aea7c57de
+SHA1: 12739700145629d404438a07c0b4ed9511c61a40
+SHA256: 032fd69f157953b448cabc9ff7bc7eeb5143802f51d3c5be40748c0af6436dda
+SHA512: 1ae4cbc42f65833c0bc68a7163abd3f99b872f502cf5aa5e0c1032ea07903be471983df8910cb7977668f384ca44cab025c86ff593cbb66bedcfb15b78872bfd
 Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
 Description: plugin-hostd protocol library, a superset of mod-host's text protocol
  The socket server, line protocol and command dispatch that plugin-hostd and
@@ -5591,6 +5671,35 @@ Description: plugin-hostd protocol library, development files
  .
  Its documentation is on openmixer.org.
 
+Package: libplugin-hostd-protocol-dev
+Architecture: arm64
+Version: 0.4.2
+Multi-Arch: same
+Priority: optional
+Section: libdevel
+Source: plugin-hostd-protocol
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 344
+Depends: libplugin-hostd-protocol0 (= 0.4.2)
+Filename: ./arm64/libplugin-hostd-protocol-dev_0.4.2_arm64.deb
+Size: 63164
+MD5sum: 04e71e0af023773dde4a70329f3acc34
+SHA1: 00a4deba2de60defadb291e2438f86784c964501
+SHA256: c8eff6179032a62147924961372b27c0c2d765c67332ab278b2bed07a4ae3364
+SHA512: ad452015e52f58e03fd575be1b8cbdd796286a4f25fb1c51ed6197203720f470fa10e624404243dcd77b8d0277e8f171b0c76d67bc6ddde783f630becbad869b
+Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
+Description: plugin-hostd protocol library, development files
+ Headers, the pkg-config file, the scenario corpus and its runner of
+ libplugin-hostd-protocol. The headers have the names and the API of
+ libmod-host-protocol's, so a host built against mod-host-protocol changes only
+ the package name it asks pkg-config for.
+ .
+ It also carries the declared protocol: plugin-hostd/protocol.h and the
+ headers it includes, the one verb table, the grammar of a line in ABNF, and
+ the protocol as JSON, each named by a pkg-config variable.
+ .
+ Its documentation is on openmixer.org.
+
 Package: libplugin-hostd-protocol0
 Architecture: arm64
 Version: 0.2.0
@@ -5677,6 +5786,30 @@ MD5sum: bfee96293ef4bfef5824a7995a73356c
 SHA1: 00cba4327e5fe45713f5a89f8bcac4c909fc339e
 SHA256: 320382ebfb76b1ca9e0e8bb17adc36c7552aa622a709e000eff4ef0729e6ce8a
 SHA512: f0f6416f29d11ea0cab5c57db9a8a867ec3c47254e20d402805d424c06d23dbf003d4315370dfd7e13c34ada3ae17f82b882520cd7b1c401025e719e8b52df09
+Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
+Description: plugin-hostd protocol library, a superset of mod-host's text protocol
+ The socket server, line protocol and command dispatch that plugin-hostd and
+ omx-clap-host answer their controllers with: mod-host's text protocol, so any
+ mod-host client works unchanged.
+ .
+ Its documentation is on openmixer.org.
+
+Package: libplugin-hostd-protocol0
+Architecture: arm64
+Version: 0.4.2
+Multi-Arch: same
+Priority: optional
+Section: libs
+Source: plugin-hostd-protocol
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 213
+Depends: libc6 (>= 2.17)
+Filename: ./arm64/libplugin-hostd-protocol0_0.4.2_arm64.deb
+Size: 39572
+MD5sum: 476de2aa57df8250086d29b40725733f
+SHA1: deb1bfd7db1da50c0dcd7907beff08066a7bdbdc
+SHA256: 86381462fe9aab59da60ae23579eae67427aaaa0b580e9ce37163f87a1249bf9
+SHA512: c5a968bafc435194297a74c11bc57e6cd58ecd9ac36f0f247ffbe140d46d5471ef4af593aebf3939850c7108b8fd1982cd3b7c36f5f5541ae6198cb52b8c60fb
 Homepage: https://github.com/FreeMixer/plugin-hostd-protocol
 Description: plugin-hostd protocol library, a superset of mod-host's text protocol
  The socket server, line protocol and command dispatch that plugin-hostd and

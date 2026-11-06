@@ -695,6 +695,32 @@ Description: words of a plugin pin in omx-contract's contract directory
  .
  Its documentation is on openmixer.org.
 
+Package: plugin-db-contract
+Architecture: all
+Version: 0.2.0
+Multi-Arch: foreign
+Priority: optional
+Section: libs
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 32
+Depends: omx-contract (>= 3.2.0~), omx-contract (<< 4~)
+Filename: ./all/plugin-db-contract_0.2.0_all.deb
+Size: 6832
+MD5sum: 2162192496e6ad93af93e3d8df4e4a7f
+SHA1: ef4da6c59b1449735ad459869906be406bca9956
+SHA256: 763896342720f5794f9a69518fe98c3cf0915b982b9957d0903373c0bb127f9b
+SHA512: f1206d54817d0a5cb4ae6e14dc20974a5dbf5787e6070138893e356e286042784b4aa2841de301a33b122431fdfb57846bd87dc65ed446e5868de5791a4a0c41
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: words of the plugin database in omx-contract's contract directory
+ data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
+ formats, the bundle rule, the layers, the attributes, the record changes and
+ their actions, the states and the reasons, as the package plugin-db of
+ omx-contract's contract directory, under
+ /usr/share/omx-contract/contract.d/3/plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
 Package: plugin-db-dev
 Architecture: all
 Version: 0.1.0
@@ -3105,6 +3131,54 @@ Description: OpenMixer delay, drive, EQ, strip, gate and effects (CLAP, LV2)
  This package installs both formats; omx-plugins-clap and omx-plugins-lv2
  install one each. It also carries the factory presets of every plugin, as
  files in /usr/share/omx/presets.
+
+Package: plugin-db-dev
+Architecture: amd64
+Version: 0.2.0
+Priority: optional
+Section: libdevel
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 129
+Depends: libssl-dev
+Filename: ./amd64/plugin-db-dev_0.2.0_amd64.deb
+Size: 34072
+MD5sum: 4c807c2a92e89f6b1ef290d976232ac1
+SHA1: 57e56710383a997190dc78dd90663d80b212ffbf
+SHA256: b95205e389301e89d9ecf024a97a33f74c295cde0b5600c854118a5577944f89
+SHA512: 0cfe08d5d9a9f76be1529ef6af3fccd5d1b003f33d1351cb1316a3925f1547b4668bf52314d755eb3217c6dfb991d91af37bf0ace763904ba23c408bb5f87ccf
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: headers, static library and pkg-config file
+ <plugin-db/pin.h>, header-only, on libc and libcrypto: the SHA-256 of a file,
+ the omx-layout/1 fingerprint of a parameter layout, the words a pin is written
+ with and the rules of what is a pin's. <plugin-db/db.h> and libplugin-db.a:
+ the address form, the file collection with the LV2 bundle rule, the store of
+ layers and the state function. With the pkg-config file plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
+Package: plugin-db
+Architecture: amd64
+Version: 0.2.0
+Priority: optional
+Section: utils
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 76
+Depends: libc6 (>= 2.34), libssl3 (>= 3.0.0)
+Filename: ./amd64/plugin-db_0.2.0_amd64.deb
+Size: 27720
+MD5sum: a04dd645f52346a80d13eb2f162d2451
+SHA1: 3a86723cabbb1584541193bb9ba9fbf70ae1adae
+SHA256: 94d8aecd69b35f7d63f1927fc2c506679c4dc41ce49a1223d1ef4101f08c4c74
+SHA512: 63ef1902ccf21a0971be71b13a876c31532bcfa21e3f650dfd5a4662d385e1e292ade5c0c44cc5ee78dcbf0d47ca08fe827d67cd89592b439966ef6b831b54fc
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: pin, show and verify plugins
+ The command plugin-db pins an entry of the plugin database from the plugin's
+ files, shows one entry's attributes, state and reason, and verifies every
+ entry as rpm -V does, with the JSON Schema of the store's layer files. It
+ loads no plugin.
+ .
+ Its documentation is on openmixer.org.
 
 Package: plugin-hostd-tests
 Architecture: amd64
@@ -5632,6 +5706,54 @@ Description: OpenMixer delay, drive, EQ, strip, gate and effects (CLAP, LV2)
  This package installs both formats; omx-plugins-clap and omx-plugins-lv2
  install one each. It also carries the factory presets of every plugin, as
  files in /usr/share/omx/presets.
+
+Package: plugin-db-dev
+Architecture: arm64
+Version: 0.2.0
+Priority: optional
+Section: libdevel
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 133
+Depends: libssl-dev
+Filename: ./arm64/plugin-db-dev_0.2.0_arm64.deb
+Size: 34124
+MD5sum: 32b971aca46f4fa06836eb23d54f8130
+SHA1: 6ab72a1332d053fc2837e28a27f53c6d994266e4
+SHA256: 25ec08d0de5d0121a0153291a05efbad6edef34635c4be79072ef48a70032493
+SHA512: 7c6d97b62662788251bf8b5b40251a11b98cb771244769e04295509e7d944b1d9fdd15d443744a239c086b7d5c84878e2b2f011f1469a7f225c5473f6cf332f5
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: headers, static library and pkg-config file
+ <plugin-db/pin.h>, header-only, on libc and libcrypto: the SHA-256 of a file,
+ the omx-layout/1 fingerprint of a parameter layout, the words a pin is written
+ with and the rules of what is a pin's. <plugin-db/db.h> and libplugin-db.a:
+ the address form, the file collection with the LV2 bundle rule, the store of
+ layers and the state function. With the pkg-config file plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
+Package: plugin-db
+Architecture: arm64
+Version: 0.2.0
+Priority: optional
+Section: utils
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 88
+Depends: libc6 (>= 2.34), libssl3 (>= 3.0.0)
+Filename: ./arm64/plugin-db_0.2.0_arm64.deb
+Size: 27096
+MD5sum: 02c40344490577c8956f2ed6f91536ea
+SHA1: b3f3c70d9255be59d5514a5ce36dea568893ce88
+SHA256: d8feb3ce218eb0e894acc13dcf2495143a47befd8a5f722318d7bb4cf39653f5
+SHA512: 92db065b757393a0640a4dc6589d4de50ddbb5745b6f85108566737193a947587280422d5a8350143637f0ef3c6c0728a21692deeca6574871303b256b13f7fb
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: pin, show and verify plugins
+ The command plugin-db pins an entry of the plugin database from the plugin's
+ files, shows one entry's attributes, state and reason, and verifies every
+ entry as rpm -V does, with the JSON Schema of the store's layer files. It
+ loads no plugin.
+ .
+ Its documentation is on openmixer.org.
 
 Package: plugin-hostd-tests
 Architecture: arm64

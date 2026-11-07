@@ -5,6 +5,8 @@
 // Print what the prune keeps and deletes in the package repository, and write the plan as JSON.
 //
 //   select.mjs --keep keep.yml [--pins pins.json] --tree <channel checkout> [--json plan.json] [--expect-clean]
+//   --keeplist channel/keep-list.txt   the generated pins of FreeMixer/.github; --newest N keeps the N newest builds of
+//                                      every package per architecture (default 1); a keep-list line the channel does not serve exits 1
 //   select.mjs --keep keep.yml [--pins pins.json] --url https://www.openmixer.org [--rpm fedora/44/x86_64,...] [--deb bookworm,...]
 //
 // --pins adds the entries pins.mjs derived from openmixer's branches to keep.yml's. A plan that would still
@@ -18,6 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
+import { parseKeepList, keepEntries, missing } from './keeplist.mjs';
 import { parseKeep, parsePrimary, parsePackages, selectRepo, unusedPins, pinsLost, report } from './prune.mjs';
 
 const args = process.argv.slice(2);
@@ -51,6 +54,10 @@ const primaryHref = (repomd) => {
 async function main() {
   const keep = parseKeep(fs.readFileSync(opt('--keep', 'keep.yml'), 'utf8'));
   if (opt('--pins')) keep.push(...JSON.parse(fs.readFileSync(opt('--pins'), 'utf8')));
+  const keepLines = opt('--keeplist') ? parseKeepList(fs.readFileSync(opt('--keeplist'), 'utf8')) : [];
+  keep.push(...keepEntries(keepLines));
+  const newest = Number(opt('--newest', '1'));
+  if (!Number.isInteger(newest) || newest < 1) throw new Error('--newest takes a whole number of at least 1');
   const tree = opt('--tree');
   const url = opt('--url');
   if (!tree === !url) throw new Error('give exactly one of --tree and --url');
@@ -96,7 +103,7 @@ async function main() {
   for (const [format, repos] of [['rpm', rpmRepos], ['deb', debRepos]]) {
     for (const [repo, pkgs] of repos) {
       all.push(...pkgs);
-      const r = selectRepo(pkgs, keep);
+      const r = selectRepo(pkgs, keep, { newest });
       for (const row of [...r.keep, ...r.delete]) { row.path = `${format}/${repo}/${row.file}`; listed.add(row.path); }
       results.push(r);
     }
@@ -123,6 +130,7 @@ async function main() {
     orphans: orphans.sort(),
     notes: results.flatMap((r) => r.notes),
     warnings: only ? [] : unusedPins(keep, all),
+    missingPins: only ? [] : missing(keepLines, all),
     lost: pinsLost(keep, all, new Set(results.flatMap((r) => r.keep).map((r) => r.path))),
   };
   console.log(report(results));
@@ -131,13 +139,21 @@ async function main() {
   if (plan.warnings.length) console.log(`\nkeep.yml pins that match nothing:\n${plan.warnings.map((n) => '  ' + n).join('\n')}`);
   const count = (rows, f) => rows.filter((r) => r.format === f).length;
   console.log('\nsummary:');
-  for (const f of ['rpm', 'deb'].filter(want)) console.log(`  ${f}: keep ${count(plan.keep, f)}, delete ${count(plan.delete, f)}`);
+  const mib = (rows, f) => (rows.filter((r) => r.format === f).reduce((n, r) => n + (r.size || 0), 0) / 1048576).toFixed(1);
+  for (const f of ['rpm', 'deb'].filter(want)) {
+    console.log(`  ${f}: keep ${count(plan.keep, f)} (${mib(plan.keep, f)} MiB), delete ${count(plan.delete, f)} (${mib(plan.delete, f)} MiB)`);
+  }
   if (tree) console.log(`  files no index lists: ${plan.orphans.length}`);
   if (opt('--json')) fs.writeFileSync(opt('--json'), JSON.stringify(plan, null, 2) + '\n');
+  if (plan.missingPins.length) {
+    console.error(`the keep-list names versions the channel does not serve:\n${plan.missingPins.map((n) => '  ' + n).join('\n')}`);
+    process.exit(1);
+  }
   if (plan.lost.length) {
     console.error(`the plan deletes every build of a pinned version:\n${plan.lost.map((n) => '  ' + n).join('\n')}`);
     process.exit(1);
   }
+  if (flag('--delete-list')) for (const r of plan.delete) console.log(`delete\t${r.size}\t${r.path}`);
   if (flag('--expect-clean') && (plan.delete.length || plan.orphans.length)) {
     console.error(`not clean: ${plan.delete.length} indexed and ${plan.orphans.length} unindexed package(s) would still be deleted`);
     process.exit(1);

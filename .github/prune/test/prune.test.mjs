@@ -416,7 +416,7 @@ test('cli: a tree is planned, unindexed files go, and the pruned tree checks cle
   assert.deepEqual(plan.orphans, ['rpm/fedora/44/x86_64/stray-1.0-1.x86_64.rpm']);
   assert.ok(plan.keep.some((k) => k.path === 'rpm/fedora/44/x86_64/foo-2.10.1-2.x86_64.rpm'));
   assert.ok(plan.delete.some((k) => k.path === 'deb/debian/bookworm/amd64/libproto0_0.1.0-3_amd64.deb'));
-  assert.match(r.stdout, /summary:\n {2}rpm: keep \d+, delete \d+\n {2}deb: keep \d+, delete \d+\n {2}files no index lists: 1/);
+  assert.match(r.stdout, /summary:\n {2}rpm: keep \d+ \([\d.]+ MiB\), delete \d+ \([\d.]+ MiB\)\n {2}deb: keep \d+ \([\d.]+ MiB\), delete \d+ \([\d.]+ MiB\)\n {2}files no index lists: 1/);
   assert.deepEqual(plan.warnings, ['rpm nothing-has-this 9.9.9: no such package in any repository']);
 
   // the pruned tree: only what the plan keeps, with indexes that list only that
@@ -430,7 +430,7 @@ test('cli: a tree is planned, unindexed files go, and the pruned tree checks cle
   writeTree(after, rpmAfter, debAfter);
   const clean = run(after, '--expect-clean');
   assert.equal(clean.status, 0, clean.stdout + clean.stderr);
-  assert.match(clean.stdout, /rpm: keep \d+, delete 0/);
+  assert.match(clean.stdout, /rpm: keep \d+ \([\d.]+ MiB\), delete 0/);
 });
 
 test('expect: a deb installs with the kept packages of its source at its version', () => {
@@ -614,7 +614,7 @@ test('cli: a plan that would delete a pinned version fails the run and names it'
   fs.cpSync(path.join(here, '..'), copy, { recursive: true });
   const lib = path.join(copy, 'prune.mjs');
   const src = fs.readFileSync(lib, 'utf8');
-  const broken = src.replace('for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0])))', 'for (const pin of [])');
+  const broken = src.replace('for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0]), pkgs[0].repo))', 'for (const pin of [])');
   assert.notEqual(broken, src, 'the sabotage applies');
   fs.writeFileSync(lib, broken);
   const tree = path.join(tmp, 'tree');

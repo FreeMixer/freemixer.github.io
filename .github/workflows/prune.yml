@@ -1,15 +1,18 @@
 name: Prune the package repository
 
-# Keeps the newest version of every RPM and DEB package plus the pinned versions, and removes everything
-# else: older versions and every duplicate build of one version. Run by hand, from main. The pinned versions are
-# keep.yml's and the ones openmixer's main and integration/* branches pin (.github/pins.txt, the @openmixer
+# Keeps the newest 3 builds of every RPM and DEB package per distro and architecture (input newest, owner's
+# ruling of 2026-11-08) plus the pinned versions, and removes everything else. Run by hand, from main. The pinned
+# versions are keep.yml's, the generated channel/keep-list.txt of FreeMixer/.github (the pins of the worker
+# image, the Zynthian omx-track install sets, plugin-qualify and .github/pins.txt, one line each naming its pin;
+# a line the channel does not serve fails the plan) and the ones openmixer's main and integration/* branches pin (.github/pins.txt, the @openmixer
 # specifiers of packages/*/package.json and pnpm-lock.yaml), read by .github/prune/pins.mjs; a plan that would
 # delete a pinned version fails.
 #
 # apply=false (the default) is a dry run: it prints, per package and format, what would be kept and what
 # deleted, writes that plan to the job summary and as an artifact, and changes nothing.
 # apply=true deletes the plan's files from rpm/ and deb/, regenerates and re-signs the dnf metadata and the
-# apt index with the release workflows' own scripts (FreeMixer/.github publish-rpms and publish-debs), pushes,
+# apt index with the release workflows' own scripts (FreeMixer/.github publish-rpms and publish-debs), pushes ONE
+# signed commit (the rpm job hands its result to the deb job, which pushes both: one Pages deployment),
 # and then checks that every kept version installs (dnf in fedora:44, apt in debian:bookworm) and that the
 # newest of each is what resolves. npm is not pruned: old @openmixer versions stay published (ruled 2026-11-02, #2).
 # Git tags and GitHub releases are not touched.
@@ -27,6 +30,10 @@ on:
         description: 'Delete for real. false only prints what would be deleted.'
         type: boolean
         default: false
+      newest:
+        description: 'How many of the newest builds of every package to keep per distro and architecture.'
+        type: string
+        default: '3'
 
 permissions:
   contents: read
@@ -63,11 +70,18 @@ jobs:
             '+refs/heads/main:refs/remotes/origin/main' '+refs/heads/integration/*:refs/remotes/origin/integration/*'
           node .github/prune/pins.mjs --repo openmixer --json pins.json | tee pins.txt
           rm -rf openmixer
+      - name: The generated keep-list
+        run: |
+          set -euo pipefail
+          # the pins of our own work, one line each naming the pin (FreeMixer/.github channel/gen-keep-list.mjs)
+          curl -fsSL --retry 5 -o keep-list.txt https://raw.githubusercontent.com/FreeMixer/.github/main/channel/keep-list.txt
       - name: What would be kept and deleted
         id: plan
+        env:
+          NEWEST: ${{ inputs.newest }}
         run: |
           set -o pipefail
-          node .github/prune/select.mjs --keep keep.yml --pins pins.json --tree . --json plan.json | tee plan.txt
+          node .github/prune/select.mjs --keep keep.yml --pins pins.json --keeplist keep-list.txt --newest "$NEWEST" --tree . --json plan.json --delete-list | tee plan.txt
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           git rev-parse HEAD > plan.sha
           { echo '### What openmixer pins'; echo '```'; cat pins.txt; echo '```';
@@ -81,6 +95,7 @@ jobs:
             plan.sha
             pins.json
             pins.txt
+            keep-list.txt
           retention-days: 30
 
   rpm:
@@ -91,6 +106,8 @@ jobs:
     timeout-minutes: 30
     container:
       image: fedora:44
+    env:
+      NEWEST: ${{ inputs.newest }}
     steps:
       - name: Install the packaging tools
         run: dnf install -y --setopt=install_weak_deps=False createrepo_c rpm-sign gnupg2 pinentry findutils diffutils git curl python3-rpm zstd
@@ -164,15 +181,22 @@ jobs:
           done
 
       - name: The pruned tree has nothing left to delete
-        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --tree build/channel --only rpm --expect-clean
+        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --keeplist plan/keep-list.txt --newest "$NEWEST" --tree build/channel --only rpm --expect-clean
 
-      - uses: FreeMixer/.github/.github/actions/channel-push@v1
+      # nothing is pushed here: the deb job pushes rpm and deb in ONE signed commit, so Pages deploys once (three
+      # deploys timed out at the 10-minute limit on 2026-11-07). What this job changed is the deletions and the
+      # regenerated, re-signed repodata of every directory.
+      - name: Hand the pruned rpm tree to the deb job
+        run: |
+          set -euo pipefail
+          cp rpm-delete.txt build/channel/.rpm-delete.txt
+          tar -C build/channel -czf rpm-handover.tgz .rpm-delete.txt $(cd build/channel && find rpm -type d -name repodata)
+          ls -l rpm-handover.tgz
+      - uses: actions/upload-artifact@v4
         with:
-          publish-token: ${{ secrets.PAGES_TOKEN }}
-          site-gpg-key: ${{ secrets.SITE_GPG_KEY }}
-          channel: ${{ github.repository }}
-          tag: prune-${{ github.run_id }}
-          what: rpm
+          name: rpm-handover
+          path: rpm-handover.tgz
+          retention-days: 7
 
   deb:
     name: Prune deb/
@@ -189,6 +213,7 @@ jobs:
         shell: bash
     env:
       HAS_COSIGN: ${{ secrets.RPM_GPG_KEY != '' }}
+      NEWEST: ${{ inputs.newest }}
     steps:
       - name: Install the packaging tools
         run: apt-get update -qq && apt-get install -y --no-install-recommends apt-utils gnupg git curl ca-certificates findutils dpkg-dev
@@ -233,11 +258,27 @@ jobs:
           publish-token: ${{ secrets.PAGES_TOKEN }}
           channel: ${{ github.repository }}
 
-      # main moved by the rpm prune; the apt half is planned again on the pulled tree and must match
+      # the rpm half, pruned and re-signed by the rpm job: applied to this pull, committed with the deb half
+      - uses: actions/download-artifact@v4
+        with:
+          name: rpm-handover
+          path: handover
+
+      - name: Apply the rpm half
+        run: |
+          set -euo pipefail
+          tar -C build/channel -xzf handover/rpm-handover.tgz
+          while IFS= read -r f; do rm -v "build/channel/$f"; done < build/channel/.rpm-delete.txt
+          rm build/channel/.rpm-delete.txt
+          # staged now; channel-push commits the staged rpm tree together with the deb tree
+          git -C build/channel add -A rpm
+          test -n "$(find build/channel/rpm -name repomd.xml | head -1)" || { echo "::error::the handover carried no repodata"; exit 1; }
+
+      # the apt half is planned again on the pulled tree and must match
       - name: The tree is the one the plan was made from
         run: |
           set -euo pipefail
-          node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --tree build/channel --only deb --json now.json > /dev/null
+          node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --keeplist plan/keep-list.txt --newest "$NEWEST" --tree build/channel --only deb --json now.json > /dev/null
           node -e '
             const a = require("./plan/plan.json"), b = require("./now.json");
             const pick = (p) => JSON.stringify({ keep: p.keep.filter((r) => r.format === "deb").map((r) => r.path).sort(),
@@ -279,7 +320,7 @@ jobs:
           done
 
       - name: The pruned tree has nothing left to delete
-        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --tree build/channel --only deb --expect-clean
+        run: node .self/.github/prune/select.mjs --keep .self/keep.yml --pins plan/pins.json --keeplist plan/keep-list.txt --newest "$NEWEST" --tree build/channel --only deb --expect-clean
 
       - uses: FreeMixer/.github/.github/actions/channel-push@v1
         with:

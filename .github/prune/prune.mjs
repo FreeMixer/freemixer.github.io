@@ -191,13 +191,19 @@ export function parseKeep(text) {
   return entries;
 }
 
+// a keep entry from channel/keep-list.txt carries where: "fedora/44" (or "fedora", or "*"); keep.yml's do not
+export function whereMatches(where, repo) {
+  if (!where || !repo || where === '*') return true;
+  return repo === where || repo.startsWith(where + '/');
+}
+
 const globRe = (g) => new RegExp('^' + g.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$');
 
 // the pins of keep.yml that apply to one package name of one format
 // source: the name of the source package a binary was built from; an entry's `source` list pins every binary
 // built from those sources, in rpm and deb alike
-export function pinsFor(keep, format, name, source) {
-  return keep.filter((e) => (e[format] || []).some((g) => globRe(g).test(name))
+export function pinsFor(keep, format, name, source, repo) {
+  return keep.filter((e) => whereMatches(e.where, repo)).filter((e) => (e[format] || []).some((g) => globRe(g).test(name))
     || (format !== 'npm' && source && (e.source || []).includes(source)));
 }
 
@@ -240,6 +246,7 @@ export function parsePrimary(xml, repo, dir) {
     return {
       format: 'rpm', repo, dir, name, arch, evr,
       file: `${dir}/${unxml(b.match(/<location [^>]*href="([^"]*)"/)[1])}`,
+      size: Number(attr((b.match(/<size [^>]*\/>/) || [''])[0], 'package') || 0),
       source: (b.match(/<rpm:sourcerpm>([^<]*)<\/rpm:sourcerpm>/) || [])[1] || null,
       provides,
       // rich dependencies ("(a or b)") and file paths are left to dnf: neither names a package of ours
@@ -273,6 +280,7 @@ export function parsePackages(text, repo) {
     return {
       format: 'deb', repo, dir: f.Architecture, name: f.Package, arch: f.Architecture, evr,
       file: f.Filename.replace(/^\.\//, ''),
+      size: Number(f.Size || 0),
       source: f.Source ? f.Source.split(' ')[0] : f.Package,
       provides,
       requires: [...debRelations(f['Pre-Depends']), ...debRelations(f.Depends)],
@@ -333,7 +341,11 @@ function cmpOk(c, op, pop = '=') {
 }
 
 // one repository: all the packages of one rpm/fedora/<release> (every dir) or one deb/debian/<suite>
-export function selectRepo(pkgs, keep) {
+//
+// opts.newest: how many of the newest builds of every package are kept per architecture (default 1: the
+// newest version, as before). The owner's ruling of 2026-11-08 is 3, besides every pinned version.
+export function selectRepo(pkgs, keep, opts = {}) {
+  const newestN = opts.newest || 1;
   if (!pkgs.length) return { keep: [], delete: [], notes: [] };
   const F = fmt[pkgs[0].format];
   const kept = new Map(); // file -> reason
@@ -357,7 +369,20 @@ export function selectRepo(pkgs, keep) {
   for (const [name, builds] of byName) {
     const newest = builds.reduce((x, y) => (F.vcmp(x.evr, y.evr) >= 0 ? x : y));
     const targets = [{ evr: newest.evr, why: 'newest', isNewest: true }];
-    for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0]))) {
+    // the N newest builds of the package, per architecture (a build is one version-release)
+    if (newestN > 1) {
+      for (const a of archList) {
+        const own = builds.filter((b) => forArch(b, a)).sort((x, y) => F.cmp(y.evr, x.evr) || (x.file < y.file ? -1 : 1));
+        const seen = [];
+        for (const b of own) {
+          if (seen.some((e) => F.cmp(e, b.evr) === 0)) continue;
+          seen.push(b.evr);
+          if (seen.length > newestN) break;
+          mark(b, `one of the newest ${newestN} builds`);
+        }
+      }
+    }
+    for (const pin of pinsFor(keep, F.id, name, sourceName(builds[0]), pkgs[0].repo)) {
       const hit = builds.find((b) => pinned(F, b.evr, pin));
       if (hit && (pin.release || F.vcmp(hit.evr, newest.evr) !== 0)) targets.push({ evr: hit.evr, exact: !!pin.release, why: `pinned: ${pin.reason}` });
     }
@@ -418,7 +443,7 @@ export function selectRepo(pkgs, keep) {
 
   const out = { keep: [], delete: [], notes };
   for (const p of pkgs) {
-    const row = { format: p.format, repo: p.repo, dir: p.dir, file: p.file, name: p.name, arch: p.arch, version: F.show(p.evr), source: p.source };
+    const row = { format: p.format, repo: p.repo, dir: p.dir, file: p.file, name: p.name, arch: p.arch, version: F.show(p.evr), source: p.source, size: p.size || 0 };
     if (kept.has(p.file)) out.keep.push({ ...row, reason: kept.get(p.file) });
     else out.delete.push(row);
   }
@@ -453,7 +478,7 @@ export function pinsLost(keep, allPkgs, keptPaths) {
   const groups = new Map();
   for (const p of allPkgs) {
     if (p.arch === 'src') continue;
-    for (const e of pinsFor(keep, p.format, p.name, sourceName(p))) {
+    for (const e of pinsFor(keep, p.format, p.name, sourceName(p), p.repo)) {
       if (!pinned(fmt[p.format], p.evr, e)) continue;
       const k = `${p.format} ${p.repo} ${p.name}.${p.arch} ${e.version}${e.release ? '-' + e.release : ''}`;
       (groups.get(k) || groups.set(k, { reason: e.reason, paths: [] }).get(k)).paths.push(`${p.format}/${p.repo}/${p.file}`);

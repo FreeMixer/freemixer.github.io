@@ -938,6 +938,32 @@ Description: words of the plugin database in omx-contract's contract directory
  .
  Its documentation is on openmixer.org.
 
+Package: plugin-db-contract
+Architecture: all
+Version: 0.2.1
+Multi-Arch: foreign
+Priority: optional
+Section: libs
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 32
+Depends: omx-contract (>= 3.2.0~), omx-contract (<< 4~)
+Filename: ./all/plugin-db-contract_0.2.1_all.deb
+Size: 6588
+MD5sum: f6a92664fc4e5b2b58651c14ae75fb85
+SHA1: 5536dae06dca2ae80cd2ffcfe81724becaa1ecd1
+SHA256: c3fa398f13396bb7d73505464389545812fdbe13d3032b221eddded8bda7a8cc
+SHA512: e20981a30d44b57014c37c8ef652d12a6be6cfa64780642e71759349ad41acca433cfa62bf088c8509f0b7c059d93868efbeaac441671ede8ec245d8bb79d29b
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: words of the plugin database in omx-contract's contract directory
+ data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
+ formats, the bundle rule, the layers, the attributes, the record changes and
+ their actions, the states and the reasons, as the package plugin-db of
+ omx-contract's contract directory, under
+ /usr/share/omx-contract/contract.d/3/plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
 Package: plugin-db-dev
 Architecture: all
 Version: 0.1.0
@@ -4189,6 +4215,31 @@ Description: plugin database: headers, static library and pkg-config file
  .
  Its documentation is on openmixer.org.
 
+Package: plugin-db-dev
+Architecture: amd64
+Version: 0.2.1
+Priority: optional
+Section: libdevel
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 131
+Depends: libssl-dev
+Filename: ./amd64/plugin-db-dev_0.2.1_amd64.deb
+Size: 34424
+MD5sum: f9851bd9148a9a2971e63a358f3058c3
+SHA1: f43a33c5300c338ac6b3308c35243a544267b39e
+SHA256: 7d97ea0e60aba05a0a2a70dc217c1bc13db95946d87e7f2e7096e53519acc6b2
+SHA512: 8cdb235776344c1746d15a75e2853dfc1fe4a5abd0e4150882591edf76e6ddad03409f23e8748ff246ac9d2a0b90faf690469ea4116180b175a81bd891048979
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: headers, static library and pkg-config file
+ <plugin-db/pin.h>, header-only, on libc and libcrypto: the SHA-256 of a file,
+ the omx-layout/1 fingerprint of a parameter layout, the words a pin is written
+ with and the rules of what is a pin's. <plugin-db/db.h> and libplugin-db.a:
+ the address form, the file collection with the LV2 bundle rule, the store of
+ layers and the state function. With the pkg-config file plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
 Package: plugin-db
 Architecture: amd64
 Version: 0.2.0
@@ -4203,6 +4254,29 @@ MD5sum: ad09c8b0de191d7ce8fcf0e84a17a914
 SHA1: 2e57a0e6dc2fe94a98244f7aec098a76be96d0bf
 SHA256: b22d100e7554cc1fa5eb5be3957a35cadd4d50dacfccadd2f4f8a16e1f7511f9
 SHA512: 4cb49d1267e90a87e9cc7598bba9ca586a2469391b5880091042c54b542e9d8b34262417d164c04c6d0e6bd3106e0f6a884940b7bad137bbbee5272358737900
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: pin, show and verify plugins
+ The command plugin-db pins an entry of the plugin database from the plugin's
+ files, shows one entry's attributes, state and reason, and verifies every
+ entry as rpm -V does, with the JSON Schema of the store's layer files. It
+ loads no plugin.
+ .
+ Its documentation is on openmixer.org.
+
+Package: plugin-db
+Architecture: amd64
+Version: 0.2.1
+Priority: optional
+Section: utils
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 80
+Depends: libc6 (>= 2.38), libssl3t64 (>= 3.0.0)
+Filename: ./amd64/plugin-db_0.2.1_amd64.deb
+Size: 28140
+MD5sum: e74ff70b3aacbf21ce04e23b101c901b
+SHA1: fefd74e75c8ddeaf2991bb742a492d0f7241597a
+SHA256: 2215512363574f353d3584a2a6c8fed8620eb88d38f616ac5525687cc4ab9a7c
+SHA512: 22388d96a38b1ce7c1353b2e31e67b64fc797ee3ccd56d2de8c342aae1c3aa8dab756a4b9358255c7dc1bc592bf64b31d3c346f104fb3cbe37a86c24d39a7309
 Homepage: https://github.com/FreeMixer/plugin-db
 Description: plugin database: pin, show and verify plugins
  The command plugin-db pins an entry of the plugin database from the plugin's
@@ -7560,6 +7634,31 @@ Description: plugin database: headers, static library and pkg-config file
  .
  Its documentation is on openmixer.org.
 
+Package: plugin-db-dev
+Architecture: arm64
+Version: 0.2.1
+Priority: optional
+Section: libdevel
+Source: plugin-db
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 136
+Depends: libssl-dev
+Filename: ./arm64/plugin-db-dev_0.2.1_arm64.deb
+Size: 34436
+MD5sum: ccbb5992f1f8ab004cc6028f1386dd30
+SHA1: 4ff765636c4f45e70c148281195104c67452bb75
+SHA256: f281755865e8d6c7c6b36354355069b724a880c9348fc1e6d4ced1a297ce4ded
+SHA512: fed8ecbedbe8c4fe11c912efa56fbe06d33278a3081e2c6d4d44de6d8d79f7c886f68f422d5da6653a6e3824bbbf1b524e0391f66c8b3185d4c27a4b9ba63f69
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: headers, static library and pkg-config file
+ <plugin-db/pin.h>, header-only, on libc and libcrypto: the SHA-256 of a file,
+ the omx-layout/1 fingerprint of a parameter layout, the words a pin is written
+ with and the rules of what is a pin's. <plugin-db/db.h> and libplugin-db.a:
+ the address form, the file collection with the LV2 bundle rule, the store of
+ layers and the state function. With the pkg-config file plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
 Package: plugin-db
 Architecture: arm64
 Version: 0.2.0
@@ -7574,6 +7673,29 @@ MD5sum: 115b050fd09f241ccd67b2e8ad797afb
 SHA1: a006f0658072bc2b766de510cd0da9a2173840bc
 SHA256: aab0c2792ba72b5b846ab4fbb4137558481f89dace7232c5ca6c210c2c006bf5
 SHA512: 0d17c9b1d17fac8395adda3022b9a11bc7e0699b53cdaa933df5c780ba5e1b948a86338ef7210a1e23528431d5fdc55601064a28b33e5682e9450e4cf833cb51
+Homepage: https://github.com/FreeMixer/plugin-db
+Description: plugin database: pin, show and verify plugins
+ The command plugin-db pins an entry of the plugin database from the plugin's
+ files, shows one entry's attributes, state and reason, and verifies every
+ entry as rpm -V does, with the JSON Schema of the store's layer files. It
+ loads no plugin.
+ .
+ Its documentation is on openmixer.org.
+
+Package: plugin-db
+Architecture: arm64
+Version: 0.2.1
+Priority: optional
+Section: utils
+Maintainer: Pau Aliagas <linuxnow@gmail.com>
+Installed-Size: 88
+Depends: libc6 (>= 2.38), libssl3t64 (>= 3.0.0)
+Filename: ./arm64/plugin-db_0.2.1_arm64.deb
+Size: 27164
+MD5sum: c760f6d2672f4ebbe0757302e56c84d7
+SHA1: 24db9f38d98727969f5a0e7b1926899d66a98cf5
+SHA256: 99fecc6b31d5eaae822781d4fc490e97787987a57c6e6ee82e31b2bfa2025181
+SHA512: f6ed57d5cf030abe88affab8fffe49b0fc267fd72217ac0464490fd7f0b075c3bd1706bde7da06a43fae38d566cb2c48c3f17b3ee868f3e504e4e0e56d9d7fc9
 Homepage: https://github.com/FreeMixer/plugin-db
 Description: plugin database: pin, show and verify plugins
  The command plugin-db pins an entry of the plugin database from the plugin's

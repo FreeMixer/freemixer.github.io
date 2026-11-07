@@ -26,10 +26,22 @@ const cmp = format === 'rpm' ? (a, b) => rpmEvrCmp(evr(a), evr(b)) : debVersionC
 // together with the kept packages of its source at the same version (omx-plugins=0.5.1 with its -clap and
 // -lv2 0.5.1), comma separated
 const spec = (r) => (format === 'rpm' ? `${r.name}-${r.version.replace(/^\d+:/, '')}.${r.arch}` : `${r.name}=${r.version}`);
+// a deb row also names `needs` (the plan's note of the older dependency builds apt must be told about, see
+// prune.mjs): they join the install, and their own companions and needs with them
+const byNameVersion = new Map();
+for (const r of rows) byNameVersion.set(`${r.name}=${r.version}`, [...(byNameVersion.get(`${r.name}=${r.version}`) || []), r]);
+const bundle = (r) => {
+  const seen = new Set([r]);
+  for (const x of seen) {
+    if (format !== 'deb') break;
+    for (const o of rows) if (o.source === x.source && o.version === x.version) seen.add(o);
+    for (const n of x.needs || []) for (const o of byNameVersion.get(n) || []) seen.add(o);
+  }
+  return [r, ...[...seen].filter((o) => o !== r)];
+};
 const newest = new Map();
 for (const r of rows) {
-  const with_ = format === 'deb' ? rows.filter((o) => o !== r && o.source === r.source && o.version === r.version) : [];
-  console.log(`install ${[r, ...with_].map(spec).join(',')}`);
+  console.log(`install ${bundle(r).map(spec).join(',')}`);
   if (!newest.has(r.name) || cmp(r.version, newest.get(r.name)) > 0) newest.set(r.name, r.version);
 }
 for (const [name, version] of [...newest].sort()) console.log(`newest ${name} ${version}`);

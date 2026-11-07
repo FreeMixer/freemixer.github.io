@@ -6,7 +6,8 @@ name: Prune the package repository
 # image, the Zynthian omx-track install sets, plugin-qualify and .github/pins.txt, one line each naming its pin;
 # a line the channel does not serve fails the plan) and the ones openmixer's main and integration/* branches pin (.github/pins.txt, the @openmixer
 # specifiers of packages/*/package.json and pnpm-lock.yaml), read by .github/prune/pins.mjs; a plan that would
-# delete a pinned version fails.
+# delete a pinned version fails, and so does one that leaves a kept package uninstallable (a dependency, a rich
+# range like (a >= 1 with a < 2) included, whose only satisfier it deletes).
 #
 # apply=false (the default) is a dry run: it prints, per package and format, what would be kept and what
 # deleted, writes that plan to the job summary and as an artifact, and changes nothing.

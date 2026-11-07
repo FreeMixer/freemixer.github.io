@@ -7,11 +7,15 @@
 //   select.mjs --keep keep.yml [--pins pins.json] --tree <channel checkout> [--json plan.json] [--expect-clean]
 //   --keeplist channel/keep-list.txt   the generated pins of FreeMixer/.github; --newest N keeps the N newest builds of
 //                                      every package per architecture (default 1); a keep-list line the channel does not serve exits 1
+//   select.mjs --keep keep.yml --tree <channel checkout> --check plan.json
 //   select.mjs --keep keep.yml [--pins pins.json] --url https://www.openmixer.org [--rpm fedora/44/x86_64,...] [--deb bookworm,...]
 //
 // --pins adds the entries pins.mjs derived from openmixer's branches to keep.yml's. A plan that would still
 // delete every build of a pinned version that exists exits 1, after printing and writing it.
 // --only rpm|deb reads that half alone.
+// --skip-closure plans without the dependency closure, to see the plan invariant fail (a test uses it).
+// --check plan.json judges a plan already written: every kept package of it must still install from the kept
+// ones (exit 1 and the failures if not), and nothing is selected.
 // --tree reads every rpm/fedora/<release>/<dir>/repodata and deb/debian/<suite>/Packages of a checkout, and
 // also deletes package files that no index lists. --url reads the served indexes of the named directories.
 // --expect-clean exits 1 when anything would be deleted: the check that a pruned tree is what the plan said.
@@ -21,7 +25,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 import { parseKeepList, keepEntries, missing } from './keeplist.mjs';
-import { parseKeep, parsePrimary, parsePackages, selectRepo, unusedPins, pinsLost, report } from './prune.mjs';
+import { parseKeep, parsePrimary, parsePackages, selectRepo, unusedPins, pinsLost, uninstallable, report } from './prune.mjs';
 
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
@@ -98,13 +102,24 @@ async function main() {
     }
   }
 
+  if (opt('--check')) {
+    const kept = new Set(JSON.parse(fs.readFileSync(opt('--check'), 'utf8')).keep.map((r) => r.path));
+    const bad = [];
+    for (const [format, repos] of [['rpm', rpmRepos], ['deb', debRepos]]) {
+      for (const [repo, pkgs] of repos) bad.push(...uninstallable(pkgs, new Set(pkgs.filter((p) => kept.has(`${format}/${repo}/${p.file}`)).map((p) => p.file))));
+    }
+    console.log(bad.length ? bad.join('\n') : 'every kept package installs from the kept ones');
+    process.exit(bad.length ? 1 : 0);
+  }
+
   const results = [];
   const all = [];
   for (const [format, repos] of [['rpm', rpmRepos], ['deb', debRepos]]) {
     for (const [repo, pkgs] of repos) {
       all.push(...pkgs);
-      const r = selectRepo(pkgs, keep, { newest });
+      const r = selectRepo(pkgs, keep, { newest, closure: !flag('--skip-closure') });
       for (const row of [...r.keep, ...r.delete]) { row.path = `${format}/${repo}/${row.file}`; listed.add(row.path); }
+      r.uninstallable = uninstallable(pkgs, new Set(r.keep.map((x) => x.file)));
       results.push(r);
     }
   }
@@ -131,6 +146,7 @@ async function main() {
     notes: results.flatMap((r) => r.notes),
     warnings: only ? [] : unusedPins(keep, all),
     missingPins: only ? [] : missing(keepLines, all),
+    uninstallable: results.flatMap((r) => r.uninstallable),
     lost: pinsLost(keep, all, new Set(results.flatMap((r) => r.keep).map((r) => r.path))),
   };
   console.log(report(results));
@@ -151,6 +167,10 @@ async function main() {
   }
   if (plan.lost.length) {
     console.error(`the plan deletes every build of a pinned version:\n${plan.lost.map((n) => '  ' + n).join('\n')}`);
+    process.exit(1);
+  }
+  if (plan.uninstallable.length) {
+    console.error(`the plan leaves a kept package uninstallable:\n${plan.uninstallable.map((n) => '  ' + n).join('\n')}`);
     process.exit(1);
   }
   if (flag('--delete-list')) for (const r of plan.delete) console.log(`delete\t${r.size}\t${r.path}`);

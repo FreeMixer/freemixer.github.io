@@ -234,6 +234,79 @@ function rpmEntries(block, section) {
   }));
 }
 
+// A rich dependency as dnf writes it: "(A >= 1 with A < 2)" is one provider that satisfies every term; "(A or B)"
+// is alternatives; "(X and Y)" is two requirements. The result is a list of groups (each a list of alternatives,
+// an alternative being {name, op, evr, and?: [more terms]}). Anything else (if, unless, else, without, a file
+// path, nesting we do not read) returns null and stays with dnf.
+function splitTop(s, word) {
+  const parts = [];
+  let depth = 0, from = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') depth++;
+    else if (s[i] === ')') depth--;
+    else if (depth === 0 && s.startsWith(word, i) && s[i - 1] === ' ' && s[i + word.length] === ' ') {
+      parts.push(s.slice(from, i - 1));
+      from = i + word.length + 1;
+    }
+  }
+  parts.push(s.slice(from));
+  return parts;
+}
+// a name may carry its own parentheses, pkgconfig(x): only a "(" at the start of a term is grouping
+const unwrap = (s) => {
+  s = s.trim();
+  while (s.startsWith('(') && s.endsWith(')')) {
+    let depth = 0, closes = -1;
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] === '(') depth++;
+      else if (s[i] === ')' && --depth === 0) { closes = i; break; }
+    }
+    if (closes !== s.length - 1) break;
+    s = s.slice(1, -1).trim();
+  }
+  return s;
+};
+function richTerm(t) {
+  const m = t.trim().match(/^([^\s()/]\S*)(?:\s+(>=|<=|=|<|>)\s+(\S+))?$/);
+  if (!m) return null;
+  if (!m[2]) return { name: m[1] };
+  const e = m[3].match(/^(?:(\d+):)?([^-]*)(?:-(.*))?$/);
+  return { name: m[1], op: m[2], evr: { epoch: e[1], ver: e[2], rel: e[3] } };
+}
+export function parseRich(text) {
+  const s = unwrap(text);
+  if (/\s(?:if|unless|else|without)\s/.test(s)) return null;
+  const groups = [];
+  for (const part of splitTop(s, 'and')) {
+    const alts = [];
+    for (const a of splitTop(unwrap(part), 'or')) {
+      const inner = unwrap(a);
+      if (/\s(?:and|or)\s/.test(inner)) return null;
+      const terms = splitTop(inner, 'with').map(richTerm);
+      if (terms.some((t) => !t)) return null;
+      alts.push(terms.length > 1 ? { ...terms[0], and: terms.slice(1) } : terms[0]);
+    }
+    groups.push(alts);
+  }
+  return groups;
+}
+
+// "A (>= 1), A (<< 2)" says one A satisfies both: single-alternative groups naming the same package become one
+// alternative that carries every term
+export function mergeSameName(groups) {
+  const out = [];
+  const byName = new Map();
+  for (const g of groups) {
+    if (g.length !== 1) { out.push(g); continue; }
+    const [alt] = g;
+    const prev = byName.get(alt.name);
+    if (!prev) { const copy = { ...alt, and: [...(alt.and || [])] }; byName.set(alt.name, copy); out.push([copy]); continue; }
+    if (alt.op) prev.and.push({ name: alt.name, op: alt.op, evr: alt.evr });
+    for (const t of alt.and || []) prev.and.push(t);
+  }
+  return out;
+}
+
 // one dnf repository directory: rpm/fedora/<release>/<dir>/repodata/primary.xml
 export function parsePrimary(xml, repo, dir) {
   return [...xml.matchAll(/<package type="rpm">([\s\S]*?)<\/package>/g)].map(([, b]) => {
@@ -249,8 +322,12 @@ export function parsePrimary(xml, repo, dir) {
       size: Number(attr((b.match(/<size [^>]*\/>/) || [''])[0], 'package') || 0),
       source: (b.match(/<rpm:sourcerpm>([^<]*)<\/rpm:sourcerpm>/) || [])[1] || null,
       provides,
-      // rich dependencies ("(a or b)") and file paths are left to dnf: neither names a package of ours
-      requires: rpmEntries(b, 'requires').filter((r) => !r.name.startsWith('(') && !r.name.startsWith('/')).map((r) => [r]),
+      // a rich dependency is read by parseRich; if/unless/else and file paths are left to dnf
+      requires: mergeSameName(rpmEntries(b, 'requires').flatMap((r) => {
+        if (r.name.startsWith('/')) return [];
+        if (r.name.startsWith('(')) return parseRich(r.name) || [];
+        return [[r]];
+      })),
     };
   });
 }
@@ -283,7 +360,7 @@ export function parsePackages(text, repo) {
       size: Number(f.Size || 0),
       source: f.Source ? f.Source.split(' ')[0] : f.Package,
       provides,
-      requires: [...debRelations(f['Pre-Depends']), ...debRelations(f.Depends)],
+      requires: mergeSameName([...debRelations(f['Pre-Depends']), ...debRelations(f.Depends)]),
     };
   });
 }
@@ -340,10 +417,58 @@ function cmpOk(c, op, pop = '=') {
   }
 }
 
+// the packages that satisfy one requirement group of p on architecture a: any alternative, and an alternative
+// with several terms (A >= 1 with A < 2) only by a package whose provides meet every one of them
+function groupCandidates(F, providers, p, group, a) {
+  const cands = new Set();
+  for (const alt of group) {
+    const terms = [alt, ...(alt.and || [])];
+    for (const { pkg } of providers.get(alt.name) || []) {
+      if (pkg === p || !(pkg.arch === a || pkg.arch === F.indep)) continue;
+      if (terms.every((t) => pkg.provides.some((pr) => pr.name === t.name && F.satisfies(pr, t)))) cands.add(pkg);
+    }
+  }
+  return [...cands];
+}
+
+const providerIndex = (binaries) => {
+  const providers = new Map();
+  for (const p of binaries) for (const pr of p.provides) {
+    (providers.get(pr.name) || providers.set(pr.name, []).get(pr.name)).push({ pkg: p, pr });
+  }
+  return providers;
+};
+
+// The plan invariant: a kept binary installs. For every requirement of a kept binary that some package of the
+// repository satisfies on that architecture, a kept package must satisfy it too. Returns one line per failure,
+// naming the package, the requirement and the deleted satisfiers. keptFiles: the files the plan keeps.
+export function uninstallable(pkgs, keptFiles) {
+  if (!pkgs.length) return [];
+  const F = fmt[pkgs[0].format];
+  const binaries = pkgs.filter((p) => p.arch !== 'src');
+  const arches = [...new Set(binaries.map((p) => p.arch).filter((x) => x !== F.indep))].sort();
+  const archList = arches.length ? arches : [F.indep];
+  const providers = providerIndex(binaries);
+  const show = (alt) => [alt, ...(alt.and || [])].map((t) => t.op ? `${t.name} ${t.op} ${t.evr.ver ?? t.evr}` : t.name).join(' with ');
+  const out = [];
+  for (const p of binaries) {
+    if (!keptFiles.has(p.file)) continue;
+    for (const group of p.requires) {
+      for (const a of p.arch === F.indep ? archList : [p.arch]) {
+        const cands = groupCandidates(F, providers, p, group, a);
+        if (!cands.length || cands.some((c) => keptFiles.has(c.file))) continue;
+        out.push(`${p.format} ${p.repo} ${p.name} ${F.show(p.evr)} (${a}) requires ${group.map(show).join(' or ')}; its only satisfiers are deleted: ${cands.map((c) => `${c.name} ${F.show(c.evr)}`).join(', ')}`);
+      }
+    }
+  }
+  return [...new Set(out)];
+}
+
 // one repository: all the packages of one rpm/fedora/<release> (every dir) or one deb/debian/<suite>
 //
 // opts.newest: how many of the newest builds of every package are kept per architecture (default 1: the
-// newest version, as before). The owner's ruling of 2026-11-08 is 3, besides every pinned version.
+// newest version, as before). opts.closure false skips the dependency closure (select.mjs --skip-closure, to
+// watch the plan invariant fail). The owner's ruling of 2026-11-08 is 3, besides every pinned version.
 export function selectRepo(pkgs, keep, opts = {}) {
   const newestN = opts.newest || 1;
   if (!pkgs.length) return { keep: [], delete: [], notes: [] };
@@ -402,24 +527,16 @@ export function selectRepo(pkgs, keep, opts = {}) {
   }
 
   // what a kept package needs and only a deleted package would provide stays as well
-  const providers = new Map();
-  for (const p of binaries) for (const pr of p.provides) {
-    (providers.get(pr.name) || providers.set(pr.name, []).get(pr.name)).push({ pkg: p, pr });
-  }
+  const providers = providerIndex(binaries);
   const byFile = new Map(pkgs.map((p) => [p.file, p]));
-  for (let changed = true; changed;) {
+  for (let changed = opts.closure !== false; changed;) {
     changed = false;
     for (const file of [...kept.keys()]) {
       const p = byFile.get(file);
       if (p.arch === 'src') continue;
       for (const group of p.requires) {
         for (const a of p.arch === F.indep ? archList : [p.arch]) {
-          const cands = [];
-          for (const alt of group) {
-            for (const { pkg, pr } of providers.get(alt.name) || []) {
-              if (pkg !== p && forArch(pkg, a) && F.satisfies(pr, alt)) cands.push(pkg);
-            }
-          }
+          const cands = groupCandidates(F, providers, p, group, a);
           if (!cands.length || cands.some((c) => kept.has(c.file))) continue;
           const need = best(cands);
           mark(need, `needed by ${p.name} ${F.show(p.evr)} (${p.arch})`);
@@ -441,9 +558,29 @@ export function selectRepo(pkgs, keep, opts = {}) {
     }
   }
 
+  // apt takes the highest version of a dependency it can see and does not step back when an upper bound
+  // (libplugin-hostd-protocol0 (<< 0.4~)) rules it out: installing omx-clap-host 0.29.0 fails on a channel that
+  // still serves protocol 0.4.4, pruned or not. A kept deb therefore carries `needs`: the exact older builds
+  // apt has to be told to install beside it, for the check that every kept version installs (expect.mjs).
+  const needsOf = (p) => {
+    const needs = new Set();
+    for (const group of p.requires) {
+      for (const a of p.arch === F.indep ? archList : [p.arch]) {
+        const ok = groupCandidates(F, providers, p, group, a).filter((c) => kept.has(c.file));
+        if (!ok.length) continue;
+        const top = (name) => (providers.get(name) || []).map((x) => x.pkg).filter((c) => c.name === name && kept.has(c.file) && forArch(c, a))
+          .reduce((x, y) => (!x || F.cmp(y.evr, x.evr) > 0 ? y : x), null);
+        if (group.some((alt) => ok.includes(top(alt.name)))) continue;
+        const pin = best(ok);
+        needs.add(`${pin.name}=${F.show(pin.evr)}`);
+      }
+    }
+    return [...needs].sort();
+  };
   const out = { keep: [], delete: [], notes };
   for (const p of pkgs) {
     const row = { format: p.format, repo: p.repo, dir: p.dir, file: p.file, name: p.name, arch: p.arch, version: F.show(p.evr), source: p.source, size: p.size || 0 };
+    if (F.id === 'deb' && kept.has(p.file) && p.arch !== 'src') { const needs = needsOf(p); if (needs.length) row.needs = needs; }
     if (kept.has(p.file)) out.keep.push({ ...row, reason: kept.get(p.file) });
     else out.delete.push(row);
   }
